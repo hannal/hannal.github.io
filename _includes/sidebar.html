@@ -1,0 +1,52 @@
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>{{ site.description }}</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" href="/">Home</a>
+
+    {% comment %}
+      The code below dynamically generates a sidebar nav of pages with
+      `layout: page` in the front-matter. See readme for usage.
+    {% endcomment %}
+
+    <a class="sidebar-nav-item{% if page.url == "/category/essay/" %} active{% endif %}" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item{% if page.url == "/category/kay-on-the-team/" %} active{% endif %}" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item{% if page.url == "/category/start-with-django-lectures/" %} active{% endif %}" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item{% if page.url == "/category/start-with-django-webframework/" %} active{% endif %}" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item{% if page.url == "/category/flaskon-startup-diary/" %} active{% endif %}" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item{% if page.url == "/category/game/" %} active{% endif %}" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item{% if page.url == "/profile/" %} active{% endif %}" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item{% if page.url == "/fingers/" %} active{% endif %}" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item{% if page.url == "/copyright/" %} active{% endif %}" href="/copyright/">저작권</a>
+
+    {% comment %}
+    {% assign pages_list = site.pages %}
+    {% for node in pages_list %}
+      {% if node.title != null %}
+        {% if node.layout == "page" %}
+          <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    <a class="sidebar-nav-item" href="{{ site.github.repo }}/issues">Comment</a>
+    {% endcomment %}
+    <span class="sidebar-nav-item">Alpha v{{ site.version }}</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; {{ site.time | date: '%Y' }}. All rights reserved.
+    </p>
+  </div>
+</div>
