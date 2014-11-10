@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      mysql 서버 실행할 때 Starting MySQL.Manager of pid-file quit without updating 오류 &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">mysql 서버 실행할 때 Starting MySQL.Manager of pid-file quit without updating 오류</h1>
+  <span class="post-date">05 May 2010</span>
+  <p>운영하던 mysql 서버의 root 비밀번호를 잃어버려서 root 비밀번호를 초기화 한 적이 있다. 구글링해서 찾은 초기화 방법은 다음과 같다</p>
+
+<blockquote><p>safe_mysqld <strong>--user=root</strong> --skip-grant-tables &amp;</p></blockquote>
+
+<p>문제는 굵게 표시한 “--user=root” 부분. 최근에는 mysql을 root 권한으로 구동하지 않고 mysql 이라는 계정으로 구동하는데, 저렇게 --user=root 옵션을 쓰면 안 된다. 이렇게 하면 mysql 의 데이터 디렉토리(data)에 생기는 로그 파일인 mysql-bin.000001 (숫자)파일이 평소에 mysql을 구동하는 계정이 아닌 root 계정 것으로 생긴다. 그래서 mysql 을 구동할 때</p>
+
+<blockquote><p>Starting MySQL.Manager of pid-file quit without updat[실패]</p></blockquote>
+
+<p>이런 오류가 나면서 가동이 안 된다. 이런 일을 예방하려면 --user=root 가 아니라 mysql 서버를 구동하는 계정 이름(가령, --user=mysql 등)으로 위 절차를 실행해야 한다. 이미 그런 일을 벌였다면 문제를 일으키고 있는 로그 파일의 소유자를 mysql 을 구동하는 계정으로 만들어 줘야 한다.</p>
+
+<p>만약 mysql 의 데이터 디렉토리가 /usr/local/mysql/data 라면 다음과 같이 해보자.</p>
+
+<blockquote><p>ls -al /usr/local/mysql/data</p></blockquote>
+
+<p>만약 권한이 없다고 한다면</p>
+
+<blockquote><p>sudo ls -al /usr/local/mysql/data</p></blockquote>
+
+<p>라고 하면 된다(root 권한으로 ls -al 하는 것).</p>
+
+<pre>-rw-rw----  1 mysql mysql    86537  3월 15 23:34 mysql-bin.000001
+-rw-rw----  1 mysql mysql 67354804  5월  4 21:36 mysql-bin.000002
+-rw-rw----  1 mysql mysql      254  5월  4 21:42 mysql-bin.000003
+-rw-rw----  1 <strong>root root</strong> 16786292  5월  5 22:31 mysql-bin.000004
+-rw-rw----  1 mysql mysql       76  5월  4 21:50 mysql-bin.index
+drwx------  2 mysql mysql     4096  3월 15 16:26 test</pre>
+
+<p>잘 보면 다른 파일과는 달리 혼자 다른 파일이 보인다. 저 녀석을 mysql 을 구동하는 계정(나는 mysql)의 것으로 만들어주면 된다.</p>
+
+<blockquote><p>sudo <strong>chown mysql.mysql</strong> data/mysql-bin.000004</p></blockquote>
+
+<p>이러면</p>
+
+<pre>-rw-rw----  1 mysql mysql    86537  3월 15 23:34 mysql-bin.000001
+-rw-rw----  1 mysql mysql 67354804  5월  4 21:36 mysql-bin.000002
+-rw-rw----  1 mysql mysql      254  5월  4 21:42 mysql-bin.000003
+-rw-rw----  1 <strong>mysql mysql</strong> 16786292  5월  5 22:31 mysql-bin.000004
+-rw-rw----  1 mysql mysql       76  5월  4 21:50 mysql-bin.index
+drwx------  2 mysql mysql     4096  3월 15 16:26 test</pre>
+
+<p>이렇게 된다. 이젠 mysql 서버가 잘 가동될 것이다.</p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2010/5/mysql_starting_error_about_permission_problem';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

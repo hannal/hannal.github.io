@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      워드프레스에 조회수 기능 넣기 &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">워드프레스에 조회수 기능 넣기</h1>
+  <span class="post-date">24 Apr 2005</span>
+  <p>본 플러그인은 2005년 4월 29일자로 배포를 중단합니다. 본 플러그인은 '<a href="http://blog.hannal.com/hannal_counter/">한날 카운터</a>'와 통합됩니다. 본 플러그인을 내려받는 건 여러분 마음이나, 저는 이 플러그인에 대한 도움을 드리거나 유지 보수를 하지 않습니다.</p>
+
+<p><del datetime="2005-04-29T00:43:05-09:00"><br />
+<h3>개요</h3>
+<p>워드프레스에 글의 조회수 기능을 추가하는 <strong>워드프레스 플러그인</strong>입니다.</p>
+
+<ul>
+<li>Plugin 이름 : Record hits</li>
+<li>Plugin 제작자 : 한날 (http://www.hannal.net)</li>
+<li>가장 최신 버전 : 1.0 (20050424)</li>
+<li>Plugin 내려받기</li>
+<p><a href=" http://blog.hannal.com/wp-content/old_uploads/Record_hits-20050424-1.0.php.txt"> http://blog.hannal.com/wp-content/old_uploads/Record_hits-20050424-1.0.php.txt</a></p>
+<li>설치 방법</li>
+<p>파일을 내려 받으신 뒤, 워드프레스의 wp-content/plugins 에 <strong>Record_hits.php</strong> 라는 파일 이름으로 위치시키면 됩니다. 조회수 기능 작동에 필요한 Database 테이블은 자동으로 생성됩니다.
+</ul>
+
+<h3>사용법</h3>
+
+<p>워드프레스 관리자 영역에 가신 뒤 '플러그인' 영역에 가시면 Record_Hits 라는 단어가 보이실 겁니다. '쓸 수 있게'를 누르면 해당 플로그인이 작동하기 시작합니다.<br />
+이후에는 테마(스킨) 파일에 적용하시면 됩니다. 예를 들어 single.php 에서 <strong>&lt;?php view_hits_article(); ?></strong>를 써넣으시면 해당 위치에 조회수가 출력됩니다. 단, 이용자 등급이 10인 admin만 볼 수 있으니, admin으로 접속한 뒤에 확인해야 합니다.</p>
+
+<h3>저작권</h3>
+
+<p>본 플러그인에는 아무런 저작권이 없습니다. 상업 용도로 사용할 일은 없을 거 같지만 그러고 싶으면 그러십시오. 또한, 수정해서 마음껏 재배포해도 되고 자신이 만든 거라고 주장하셔도 무방합니다.</p>
+
+<h3>건의 및 문제 보고</h3>
+
+<p>문의는 본 글에 '댓글'로 하시면 확인 후 답변을 드리며, 공식적으로 문제를 제기하시거나 알릴 시 가급적이면 엮인 글(Trackback)을 부탁드립니다.</del></p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2005/4/record_hits';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

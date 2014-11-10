@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      변하는 불변 주소 &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">변하는 불변 주소</h1>
+  <span class="post-date">09 Sep 2006</span>
+  <p>Permalink 라는 낱말이 있다. 블로그쪽에서 흔히 볼 수 있는 낱말이다. 이 낱말을 우리말로 고쳐 부르는 이름이 참 다양하다. 불변주소, 영구주소, 고유주소 등. Permanent link의 줄임말이 Permalink인 걸 감안하면 고유주소보다는 불변주소, 영구주소가 좀 더 원래 뜻에 가깝다. 하지만, 각 정보물에 직접 접근할 수 있는 고유한 주소 역할도 하므로 고유주소도 틀린 표현은 아니다.</p>
+
+<p>이곳 저곳을 돌아다니다 우연히 Permalink를 <strong>낱장주소</strong>라고 표현한 모습을 봤다. 히야~! 하는 감탄과 함께 손벽 한 번. 불변주소, 영구주소, 고유주소, 퍼머링크 등 Permalink를 나타내는 말 중 가장 예쁘고 그 성격을 아주 현실감 나게 잘 나타내서 감탄한 것이다.</p>
+
+<p>가끔 내 블로그에서 저 위의 길라잡이에 있는 '아무 글이나 읽기' 기능을 이용해 예전에 썼던 글을 읽곤 한다. 아까, 그러니까 30분 전에는 내가 마음에 들어하는 글을 만났다. 2005년 1월 7일에 쓴 <a href="http://blog.hannal.com/597/">걸핏하면 집단 포격(다구리)이래</a>라는 글인데, 글 내용을 떠나서 호흡이나 말장난, 비아냥, 비유가 시원 시원하게 뻗쳐나와 있어서 좋아한다.</p>
+
+<p>이 글을 다시 읽으며 연결(link)한 다른 곳이나 누군가 글걸기(trackback)로 걸어놓은 글 주소를 눌러봤다. 그런데 주소 상당 수에 제대로 도착하지 못했다. 그 누리집이 없어지거나 주소가 바꼈기 때문이다. 아직 2년도 채 안됐는데 Permanent Link라는 이름이 무색하게 많은 글의 주소가 바뀌었다.</p>
+
+<p>이런 현실 때문에 <strong>낱장주소</strong>라는 표현에 감탄했다. Permalink가 가진 역할인 불변, 영구성(영속성), 고유함 중 그 어느 것도 제대로 보장하지 못하고 있다. 그냥 각 정보물(글)에 직접 접근해서 낱개로 볼 수 있는 역할 뿐이다.</p>
+
+<p>블로그 도구를 바꾸다보니 주소 체계가 바뀌어서 예전에 쓰던 Permalink로 접근할 수 없는 경우가 있다. 이런 경우엔 <a href="http://hyeonseok.com/soojung/web/2006/04/04/237.html">약간의 수고를 들여서 재연결</a>을 하도록 이끌 수 있다. 안타까운 경우는 도메인 없어질만큼 주인장이 누리집을 폐쇄하는 경우이다. 이때는 이러지도 저러지도 못하는 상황에 처하게 된다.</p>
+
+<p><a href="http://ilovja.com/dokuwiki/">ilovja님은 아예 대문에다가 누리집이 없어질지도 모를 날을 예고</a>하시는데 참 공감이 간다.</p>
+
+<blockquote><p>이 사이트는 2008년 6월 17일까지 호스팅 계약이 되어 있으므로 그때까지 존속될 것입니다. 그 이후에도 자료가 필요하다면 미리 로컬에 백업해 놓으실 것을 권합니다. 모든 글은 크레이티브 커먼스 라이센스(저작자표시-비영리-동일조건변경허락)를 채택하고 있습니다.</p></blockquote>
+
+<p>Permalink를 보장할 자신이 없다면 차라리 드러내는 것이 낫다고 생각한다. 불행히도 나는 웹호스팅이나 도메인 계약 기간을 길게 할 만큼 돈이 넉넉치 않아 늘 짧게 짧게 연장하며 쓰는데 여유가 되는대로 여유만큼 길게 계약을 해서 어느 날 내가 갑자기 죽어 더이상 이곳을 관리할 수 없게 되어도 내 글을 연결(link)하고 찾아올 단 한 사람을 위해서 이곳이 없어질 날을 예고 해야겠다.</p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2006/9/is_it_really_permalink';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

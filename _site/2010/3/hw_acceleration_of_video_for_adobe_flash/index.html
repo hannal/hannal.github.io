@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      유튜브에서 고화질 동영상 버퍼링이 심할 때. &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">유튜브에서 고화질 동영상 버퍼링이 심할 때.</h1>
+  <span class="post-date">20 Mar 2010</span>
+  <h3>유튜브에서 고화질 동영상 보기 너무 힘들다</h3>
+
+<p>유튜브에서 고화질 동영상, 가령 480p 이상인 영상을 볼 때 재생 막대에 빨간색이 아주 느리게 차오르는 버퍼링 지연 현상이 종종 생긴다. 처음엔 워낙 고화질 영상이라 동영상 용량이 크고, 유튜브 서버가 국외에 있어서 네트워크에서 지연이 걸리나보다 생각했다. 그런데 가만히 지켜보니 네트워크 문제라고 하기엔 지나치게 버퍼링이 오래 걸렸다.</p>
+
+<p>그래서 네트워크 송수신 상황을 따로 들여다보니(monitoring) 네트워크 문제가 아니었다. 왜냐하면 동영상 파일(flv)은 몇 초 안에 다 내려 받았는데, 여전히 동영상 재생기에서 빨간색 막대는 느릿느릿 차올랐기 때문이다.</p>
+
+<h3>버퍼링이 심한 원인 분석</h3>
+
+<p>동영상을 볼 때 지연이 일어나는 요소는 대체로 두 가지를 들 수 있다. 하나는 전송 속도이고, 다른 하나는 화면 출력 속도이다. 가령 HD 1080p 급 동영상을 보려는데 하드디스크 자체가 지나치게 느리거나 파일 복사를 하고 있어서 하드디스크에 과부하가 걸릴 경우 영상이 뚝뚝 끊기게 된다. 온라인 동영상이라면 네트워크 전송 속도가 더 큰 영향을 미칠 것이다.</p>
+
+<p>두 번째는 화면 출력 속도인데, CPU나 그래픽(비디오) 카드가 고화질 동영상을 빠르게 재생하지 못하는 것이다. 요즘엔 CPU 성능이 워낙 좋아서 어지간한 고화질 영상이야 CPU 성능으로도 감당이 가능하긴 하다. 하지만, 대체로 그래픽 처리를 전문으로 하는 그래픽 카드, 정확히는 GPU가 CPU보다는 더 효율 있게 처리할 수 있다.</p>
+
+<p>원인에 대해 결론부터 말하자면, 내가 유튜브 동영상 볼 때 버퍼링 심한 것은 화면 출력쪽이 원인이었다. 하지만, 내가 쓰는 그래픽 카드는 HD 1080p도 별 무리없이 재생하는 성능을 갖고 있는데, 고작(?) 480p 급을 재생하는 데 이렇게 버벅대다니? 그렇다면 그래픽 카드 문제라기 보다는 동영상을 재생하는 재생기를 의심해야 한다. 바로 Adobe Flash Player이다.</p>
+
+<h3>해결 방법 : 하드웨어 가속 기능은 Adobe Flash Player 10.1부터...</h3>
+
+<p>현재(2010년 3월 기준) 사용되는 Adobe Flash Player는 10.0이 정식판이다. 그런데 이 판은 동영상을 재생할 때 하드웨어 가속을 이용하는 기능이 신통치 않다. 제대로 된 하드웨어 가속 기능은 아직 시험판인 10.1에 들어갔다.</p>
+
+<p>자신의 운영체제에 깔린 Adobe Flash Player의 판번호는 <a href="http://www.adobe.com/software/flash/about/">http://www.adobe.com/software/flash/about/</a> 에서 확인할 수 있다. 화면 가운데쯤에 Version information이라는 상자에 판번호가 나오는데 아마도 10.0.42 나 10.0.45 일 것이다. 이 판이라면 아마도 고화질 동영상이 버벅댈 것이다. 버벅대는 걸 확인하려면 유튜브에 가서 <a href="http://www.youtube.com/results?search_type=videos&amp;search_query=kara&amp;high_definition=1&amp;suggested_categories=10,24,22&amp;uni=3">Kara</a> 나 <a href="http://www.youtube.com/results?search_type=videos&amp;search_query=snsd&amp;high_definition=1&amp;suggested_categories=10,24,22&amp;uni=3">SNSD</a> 로 검색해보면 카라나 소녀시대의 고화질 동영상을 보면 된다. 480p 정도인데도 버퍼링이 느리다면 아래 단계를 진행해본다.</p>
+
+<p>먼저 <strong>10.0판을 지워야</strong> 한다. 자신의 운영체제에서 기존에 설치된 Adobe Flash Player 를 지워야 한다. 윈도우 운영체제 사용자라면 제어판에서 “프로그램 및 기능”이나 그 비슷한 이름을 가진 아이콘을 실행하면 된다. 거기에서 Adobe Flash Player 10(혹은 9) Plugin 과 Active-X 를 지운다.</p>
+
+<p>이번엔 <strong>10.1판을 설치</strong>한다. 정식판이 아닌 시험판이므로 별도 웹페이지에서 받아야 하는데, <a href="http://labs.adobe.com/technologies/flashplayer10/">http://labs.adobe.com/technologies/flashplayer10/</a> 여기에서 받으면 된다. 열려있는 모든 웹 브라우저를 종료한 뒤에 설치하면 끝난다. 2010년 3월 중순 기준으로 10.1.51.95판이 가장 최신판이다.</p>
+
+<p>설치가 끝났다면 앞서 버벅댔던 동영상을 다시 봐보자. 아마도 빨간색 재생 막대가 이전보다 더 긴박하게 움직일 것이다. ^^</p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2010/3/hw_acceleration_of_video_for_adobe_flash';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

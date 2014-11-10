@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      스킨 차원에서 카테고리 아이콘 넣기 &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">스킨 차원에서 카테고리 아이콘 넣기</h1>
+  <span class="post-date">23 Mar 2004</span>
+  <p>php 상에서의 수정을 하지 않고 java script 만으로 카테고리 아이콘 넣는 방법입니다. 현재 제 블로그에 해당 방법이 적용되어 있습니다.</p>
+
+<p>본 방법의 장점은 index.php 를 수정하실 필요가 없고(이미 최신 버전에는 수정이 되어있나요?), 카테고리가 한글이건 영문이건 상관 없습니다. 카테고리에 파일명을 직접 지정하니까요. 단점은 반수동 반자동이기에 조.금. 귀찮습니다. 카테고리 추가시마다 손을 조.금. 써야하거든요.</p>
+
+<h3>1. java script 만들기</h3>
+
+<p>category.js 라는 파일을 생성하여 아래의 내용을 넣습니다.</p>
+
+<pre>
+&lt;!--
+function category_str2img(strcode)
+{
+  switch(strcode) {
+    case "조용한 몽상가 - 문화 생활":
+      imgurl = "./skin/hannal_simple/images/category/think-culture.gif";
+      break;
+    default:
+      imgurl = "./skin/hannal_simple/images/category/dev-etc.gif";
+      break;
+  }
+  document.write("&lt;img src=""+imgurl+"" width="32" height"32" alt=""+strcode+"" />");
+}
+//-->
+</pre>
+
+<p>여러분이 각자의 환경에 맞게 수정해야 하는 부분은 <b>조용한 몽상가 - 문화 생활</b> 이라는 부분과 imgurl = ""; 안쪽에 있는 이미지 위치입니다. case " 에 있는 <b>조용한 몽상가 - 문화 생활</b>이라는 글자는 카테고리의 이름입니다. <b>조용한 몽상가 - 문화 생활</b> 라는 카테고리이면 이 부분이 작동된다는 거지요. imgurl 은 출력할 이미지의 위치(url)입니다. 즉 <b>조용한 몽상가 - 문화 생활</b> 라는 카테고리이면 ./skin/hannal_simple/images/category/think-culture.gif 라는 이미지 파일을 출력하겠다는 거지요.</p>
+
+<p>default: 부분은 지정하지 않은 카테고리입니다. 만일 메뉴에 "한날 - 나른한 오후의 단상" 이 있지만 위 javascript 에는 미처 넣지 못했을 경우 바로 이 default: 쪽이 작동되는 겁니다.</p>
+
+<p>카테고리를 추가하려면</p>
+
+<pre>
+    case "카테고리명":
+      imgurl = "이미지경로";
+      break;
+</pre>
+
+<p>위 코드를 default: 앞에다가 추가해가면 됩니다.</p>
+
+<h3>2. 스킨에 적용하기</h3>
+
+<p>스킨에 적용하는 부분은 크게 두 부분입니다. 우선 1번 과정에서 생성한 java script 파일을 읽어들이는 부분과 실제 카테고리 이미지를 출력할 부분이지요.</p>
+
+<p>javascript 파일을 읽어들이는 방법은</p>
+
+<pre>
+&lt;script type="text/javascript" src="./category.js">&lt;/script>
+</pre>
+
+<p>이렇게 해주면 됩니다. 이때 category.js 파일은 skin.html 과 같은 위치에 있어야하지요. 위 태그는 &lt;body> 전에 넣어주세요. 이제 실제 출력을 해야합니다. 간단합니다.</p>
+
+<div class="code">
+&lt;script language = "javascript"> category_str2img( "[&#35;&#35;_article_rep_category_&#35;&#35;]" ); &lt;/script>
+</div>
+
+<p>라고 써주면 됩니다. 태터툴즈 스킨 태그인 &lt;s_article_rep> 과 &lt;/s_article_rep> 안이라면 어디에 쓰건 상관 없습니다. 저렇게 써주면 카테고리 이름이 javascript 에서 category_str2img 함수로 전달되고, category_str2img 함수는 이를 받아서 해당하는 이미지 위치를 알아내어 출력하는 것입니다.</p>
+
+<p>제 설명이 좋지 않아 말이 혼란스러우시면 제 블로그의 html 소스를 보시면 이해가 가실 겁니다. &lt;!-- 제목 시작 //--> 부분에 있습니다.</p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2004/3/66';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

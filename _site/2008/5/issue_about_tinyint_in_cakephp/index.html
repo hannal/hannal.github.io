@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      cakephp에서 테이블 필드를 tinyint 로 할 때 주의할 점. &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">cakephp에서 테이블 필드를 tinyint 로 할 때 주의할 점.</h1>
+  <span class="post-date">09 May 2008</span>
+  <h3>1. 문제 발생</h3>
+
+<p>Cakephp 1.2 시험판(beta)에서 작업을 하다가 특정 필드에 값이 0 아니면 1로만 들어가는 현상이 발생했습니다. 문제가 된 테이블의 필드는 다음과 같습니다.</p>
+
+<blockquote><p>field_1 tinyint(1) unsigned default 0,<br />
+field_2 tinyint(1) unsigned default 0,</p></blockquote>
+<p>위 두 필드엔 1자리 숫자(0~9)를 넣을 것이고, 기본값(default)은 0으로 한 것이지요.</p>
+<p>그런데 cakephp에 있는 Model 클래스의 save 메소드로 데이터를 저장하면 field_1 과 field_2 에 넣을 값이 자동으로 1로 바뀌었습니다. 어떤 값을 넣어도 1로 바뀌는 기이한 현상이지요.</p>
+<h3>2. 문제 원인</h3>
+<p><strong>/cake/libs/model/datasource/dbo_source.php</strong> 에 보면 create 메소드 정의 부분 (function create)에 다음과 같은 부분이 있습니다.</p>
+<blockquote><pre>for ($i = 0; $i < $count; $i++) {
+    $valueInsert[] = $this->value($values[$i], $model->getColumnType($fields[$i]));
+}
+</pre>
+</blockquote>
+
+<p>이 부분은 데이터를 저장할 테이블의 스키마 정보를 가져 온 뒤, 각 스키마 자료형에 맞춰서 값을 검증하고 만드는 부분입니다. 바로 이 부분이 문제(?)입니다. 이 녀석은 필드 자료형이 tinyint이고 길이가 1 인 경우 (즉, <strong>tinyint(1)</strong>) 이 필드를 Boolean 쓰임새로(true/false) 판정합니다. -_-; 그래서 <strong>1 이상인 값이 들어오면 참으로 간주하여 테이블에 1을 넣은 겁</strong>니다.</p>
+
+<h3>3. 문제 해결</h3>
+
+<p>간단합니다. <strong>테이블 생성할 때 boolean 필드로 쓸 것이 아니라면 tinyint(1)을 쓰지 않으면 됩니다</strong>. tinyint(2) 나 tinyint 라고 쓰면 되지요.</p>
+
+<p>이건 오류(bug)라고 하기도 애매한 것이, <a href="http://dev.mysql.com/doc/refman/5.0/en/numeric-type-overview.html">mysql 에서 테이블 필드를 bool 이나 boolean 으로 지정하면 tinyint(1) 로 바꿔서</a> 이렇게 처리한 듯 합니다. 역시 관련 문서를 정독하지 않고 "hello world"부터 찍고 보는 사파 개발 성향이 이번에도 제대로 드러났네요. 히히.</p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2008/5/issue_about_tinyint_in_cakephp';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

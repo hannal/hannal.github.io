@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      서비스 업데이트를 팔다 &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">서비스 업데이트를 팔다</h1>
+  <span class="post-date">14 Sep 2010</span>
+  <h3>1. 들어가며</h3>
+
+<p>오늘 아이폰용 미투데이 앱에 <a href="http://me2day.net/sumanpark/2010/09/14#17:51:02">전화번호로 친구를 찾는 기능이 들어갔다가 하루도 안 되어 철회</a>됐다. <a href="http://bigenius.tistory.com/71">사생활 침해 및 개인정보 유출을 과하게 유발하는 문제점</a>이 발견됐기 때문인데, 이번 일에 대해 거부감이나 실망감을 강하게 드러내는 사람이 많은 점을 주목한다.</p>
+
+<h3>2. 내 공간, 우리의 공간</h3>
+
+<p>온라인 게임과 S.N.S(Social Networking Service)의 공통점 중 하나는 사람과 사람이 연결돼(linked-users) 사회(social) 속에서 개개인은 자신의 정체성을 확인하고(recognition, detection) 투영한다는 점이다. 정체성이라고 해서 거창한 건 아니고, 정리정돈을 좋아하는 성향이나 말버릇과 같이 지문처럼 뭍어나는 흔적이다.</p>
+
+<p>그런 흔적이 뭍는 곳곳을 “나만의 공간”으로 인식하게 된다. 또, 다른 게임 이용자와 만나 교류도 하다보면 나만의 공간을 넘어서 “우리의 공간”을 형성하게 된다. 여기서 말하는 “나만의 공간”이란 권리 영역이 아니라 인식 영역이다. 평소 앉는 강의실 자리가 될 수도 있고, 여럿이 모였을 때 자신에게 편안한 위치일 수도 있다.</p>
+
+<h3>3. 덤과 간섭</h3>
+
+<p><strong>“서비스”</strong>를 운영하다보면 컨텐츠를 업데이트(갱신 : 추가, 변경, 삭제 등)하곤 한다. 이 업데이트를 대하는 서비스 제공사와 고객/이용자 마음이 사뭇 다르다. 서비스 제공사는 이용자에게 덤으로 뭔가를 베푼다고 생각하고, 고객은 서비스 제공사가 간섭한다고 생각하기 일쑤이다.</p>
+
+<p>좋은 것이 꼭 필요한 것은 아니다. 고객은 서비스나 제품을 이용하며 자기 나름의 영역을 쌓았고, 업데이트 내용이 좋고 나쁘고를 떠나서 고객이 1차로 받아들이는 느낌은 자신의 영역에 변화를 가하는 간섭이다.</p>
+
+<p>온라인 게임이나 S.N.S처럼 정체성을 반영하여 “공간”을 만드는 서비스에서는 간섭보다 더 강한 느낌을 받는데, 바로 침범이다. 산만한 책상을 어머니께서 깔끔하게 청소를 해주시면, 기쁨보다는 왠지 모를 울컥하는 마음이나 당혹감이 먼저 드는 이유는 바로 자신의 흔적(정리 정돈 규칙 등)이 녹아있는 공간이 침범 당했기 때문이다. 나중엔 깔끔해진 책상이 자신에게 더 이득일지라도 말이다.</p>
+
+<h3>4. 몰래 업데이트와 선 적용 후 공지</h3>
+
+<p><strong>퇴근하고 집에 왔더니 집안 공간 개조 공사가 일어나있거나, 자고 일어났는데 발톱이 단정하게 깎여있다고 상상해보자</strong>. 내 출근길 중 한 구역이 공사 중이라면 불편하고 말 문제이지만, 집주인이 내 허락도 없이 예고없이 내 집에 변화를 가한다면 불쾌감이나 당혹감을 먼저 느낄 것이다.</p>
+
+<p>업데이트를 먼저 적용하고 나서 이를 소개하는 공지사항을 올리는 것과 이용자 몰래 업데이트를 적용하고선 입다물고 있는 것은 이용자 입장에서 사실상 별 차이가 없다. 형태야 어떠하든 이용자가 동의하지 않은 상태에서 자신의 공간에 변화가 가해지는 것이기 때문이다.</p>
+
+<h3>5. 운영 태도</h3>
+
+<p>이번 미투데이 업데이트에 불만을 강하게 나타내는 사람 중 상당 수는 기능 자체에 불만을 갖는 것 뿐만 아니라 업데이트를 진행하는 태도, 즉 운영 태도에도 반응하고 있다. 그동안 미투데이는 제법 큼직한 업데이트를 “선 적용 후 공지”로 강행했고, 이용자는 한두 번이 아니고 몇 차례 “몰래 업데이트”를 당하다보니 더 화를 낸다.</p>
+
+<p>모든 업데이트 때마다 일일이 이용자에게 의견을 묻고 여러 번 공지를 하는 건 힘들고 어렵다. 이용자도 귀찮고 시끄러워서 그런 집착(?)을 달가워하진 않을 것이다.</p>
+
+<p>요는 고객이 받아들이는 운영 태도이다. 좋은 것 베푸니까(업데이트) 처음엔 반작용이 일어나더라도 결국 받아들일 것이라 생각하고 있다고 고객이 오해하여 받아들이면 실패한 업데이트이다. 그런 의도가 전혀 없더라도 고객 다수가 그렇게 느끼면 그런 것이나 마찬가지이다.</p>
+
+<h3>6. 마치며</h3>
+
+<p>크든 작든 업데이트가 일어나면 고객은 자신의 공간이 침해/침범 당했다고 느끼며 스트레스 받기 일쑤이다. 업데이트가 백해무익이라는 것이 아니라, 업데이트를 받아들이게 하는 운영 자세에 따른다.</p>
+
+<p>쉽지 않은 일이고 최고의 방법이 뭔지도 모르겠다. 하지만, 운영에 있어서 최선이 무엇인지는 희미하게 느낀다. 서비스 중 <strong>업데이트는 기존에 고객이 이용하던 자사의 제품이나 서비스를 기반으로 부가상품을 파는 것</strong>이라 여기는 것이다. 판매에 대해 <strong>고객이 우리에게 지불하는 대가는 바로 시간과 관심이며, 후불제</strong>이다. 업데이트라는 부가상품을 고객에게 파는 데 성공한다면 업데이트 이후에도(후불) 고객은 자신의 시간과 관심을 들일 것이고, 실패한다면 시간과 관심을 주지 않을 것이다.</p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2010/9/service_update_for_operation';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

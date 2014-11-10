@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Mac OS X에서 파일 및 폴더 숨기기 &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Mac OS X에서 파일 및 폴더 숨기기</h1>
+  <span class="post-date">09 Sep 2006</span>
+  <p>Windows를 쓰는 사람이건 Mac OS X를 쓰는 사람이건 잘 안쓰는 기능 중 하나가 파일이나 폴더를 숨기는 기능인 것 같다. Windows에선 파일 속성에 숨김(Hidden) 속성을 추가하면 숨길 수 있다. 이렇게 숨긴 파일이나 폴더를 다시 드러내려면 숨김 속성을 빼거나 탐색기 등에서 보기 부가 기능에 숨김 파일도 볼 수 있게 하면 된다.</p>
+
+<p>Mac OS X는 Windows와는 달리 파일 이름을 바꿔주는 걸로 간단히 파일을 숨길 수 있다. Mac OS X 이전 판(Mac OS 9라던가)은 어찌하는지 모르겠지만, Mac OS X는 Unix 운영 체계이기 때문에 Unix나 Linux에서 파일을 숨기는 방법을 그대로 하면 된다. <strong>파일 이름 앞에 점을 하나 찍는 것</strong>이다. 그런데 '파인더'에서는 파일 이름 앞에 점을 찍을 수 없다.</p>
+
+<p class="centerphoto"><img src="http://blog.hannal.com/wp-content/old_uploads/cannot_input_dot.png" alt="파인더에서 파일 이름 앞에 점을 찍자 거부하는 경고창을 띄운다" style="border: 1px solid #000;" /><br />
+이런 경고창을 띄우며 거절한다</p>
+
+<p>그럼 어떻게 파일이나 폴더 이름 앞에 점 하나를 찍어 비밀스러움을 만끽할 수 있을까? 터미널을 사용하면 된다. Mac OS X의 '응용 프로그램' 폴더에 보면 '유틸리티'라는 폴더가 있는데 그 안에 보면 '터미널'이라는 아이콘이 있다. 그걸 실행하면 Linux나 Unix 환경에서 흔히 볼 수 있는 터미널 화면이 뜬다. 나는 Mac OS X에 내장된 것을 쓰지 않고 ITerm이라는 걸 쓴다.</p>
+
+<p class="centerphoto"><img src="http://blog.hannal.com/wp-content/old_uploads/hide_01.png" alt="hide_me라는 폴더를 숨길 준비한 그림" style="border: 1px solid #000;" /></p>
+
+<p>자, 보다시피 hide_me 라는 폴더가 있다. 편의상 이용자의 최상위 위치에 만들었다. 터미널에선 <strong>cd ~/</strong> 이라고 치면 된다. 이제 터미널에서 hide_me 폴더 이름 앞에 점 하나를 찍어 숨겨보자.</p>
+
+<p class="centerphoto"><img src="http://blog.hannal.com/wp-content/old_uploads/hide_02.png" alt="hide_me라는 폴더를 숨겨서 파인더에 안보이는 그림" style="border: 1px solid #000;" /></p>
+
+<p>짠! 터미널에서 <strong>mv hide_me .hide_me</strong>라고 치자 폴더가 숨겨져 파인더에서 사라졌다. 단지 보이지 않을 뿐 분명 존재한다. <strong>mv .hide_me hide_me</strong> 이렇게 점을 없애주면 다시 나타난다.</p>
+
+<p>위 명령에서 mv 라는 놈은 파일이나 폴더를 다른 곳으로 옮겨주는 일을 하는 파일이다. Mac OS X 위에선 찾을 수 없는데 터미널에서 <strong>ls -al /bin/mv</strong> 라고 쳐보면 이 mv 파일이 /bin 라는 폴더(Directory)에 있는 걸 볼 수 있다.</p>
+
+<p>사용법은 아주 간단하다. <strong>mv 옮길대상체 옮길곳</strong>이다. <strong>mv hannal.pages /tmp</strong>라고 하면 hannal.pages라는 파일을 /tmp 라는 곳에 옮기겠다는 뜻이다. 옮길대상체는 꼭 파일이 아니어도 돼서 폴더도 옮길 수 있다. 옮길곳 이름을 쓸 때 옮길대상체의 이름을 바꾸고 싶다면 그 이름까지 같이 쓰면 된다. <strong>mv hannal.pages /tmp/hannal2.pages</strong> 이렇게 하면 hannal.pages 파일이 /tmp 에 옮겨질 때 hannal2.pages 라는 이름으로 간다. 당연히 옮길 곳을 지정하지 않고 그 이름만 쓴다면 제자리에서 대상체를 옮기며 이름을 바꾸게 된다. 즉, 파일이나 폴더 이름을 바꾸는 것이다. 그래서 <strong>mv hannal hannal2</strong>라고 하면 hannal이라는 것이 hannal2라는 이름으로 바뀌는 것이고, 이 방법을 이용해서 파일 이름 앞에 점을 덧붙이는 것이다. mv에 대한 자세한 설명을 보고 싶다면 터미날 안에서 <strong>man mv</strong> 라고 치면 설명서가 나온다(아마 영문일 것이다). 참고로 man은 manual의 줄임말이다.</p>
+
+<p>3줄 요약을 하자면,</p>
+
+<ul>
+<li>Mac OS X에서 파일이나 폴더를 숨기려면 그것의 이름 앞에 점을 써주면 된다.</li>
+<li>이름 앞에 점을 쓰려면 터미널 안에서 해야 한다.</li>
+<li>터미널 안에서 파일이나 폴더 이름을 바꾸려면 mv 라는 실행 파일을 이용해야 하며, 사용법은 'mv 옮길대상체 옮길곳'이다.</li>
+</ul>
+
+<p>이다.</p>
+
+<p>만일, 숨긴 파일이나 폴더가 어딨는지 까먹어서 못찾겠다면 파인더에서 쉽게 찾아도 되고 터미널에서 찾을 수도 있다. 터미널에서 파일이나 폴더 목록을 보는 실행 파일이 <strong>ls</strong>인데 이 것을 실행할 때 <strong>-a</strong>라는 꼬리표를 붙이면 <strong>모든</strong> 파일이나 폴더를 보여준다. 나는 습관처럼 <strong>ls -al</strong>이라고 친다. (ls -al 은 ls -a -l 과 같은 뜻이다. -a 꼬리표와 -l 꼬리표를 쓴 것이다)</p>
+
+<p>터미널의 무뚝뚝하고 불친절한 화면이 싫다면 파인더에서 파일 찾기 기능을 이용해도 된다. 이것에 대한 설명은 Mac OS X 안에 이미 있으니 그것을 참조하자. 바탕화면에 마우스를 누른 뒤 <strong>Command 글쇠(사과그림 있는 글쇠) + Shift 글쇠 + / 글쇠</strong>를 누르면 도움말이 뜰 것이다. 안뜨면 파인더를 열고 '도움말'을 직접 열자. 도움말 창이 뜨면 검색란에 <strong>'가려진 파일 찾기'</strong>라고 치면 파인더에서 숨긴 파일이나 폴더를 찾는 방법이 나와있다.</p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2006/9/hide_somethings_on_mac-os-x';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

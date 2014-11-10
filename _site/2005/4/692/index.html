@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      태터툴즈에서 워드프레스 컨버터 &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">태터툴즈에서 워드프레스 컨버터</h1>
+  <span class="post-date">23 Apr 2005</span>
+  <p>안녕하세요.</p>
+
+<p>2009년 3월 2일 추가 : <a href="http://ani2life.egloos.com/4201068">-A2-님께서 텍스트큐브에 있는 자료를 워드프레스로 옮기는 변환기를 만드셨습니다</a>. 기존 태터툴즈 클래식을 쓰시던 분들은 텍스트큐브로 판올림(migration)하신 뒤, 그 자료를 워드프레스로 옮기시길 적극 권장합니다.</p>
+
+<p><strong>아래 변환기는 워드프레스 옛날 판에서 작동하므로 현 2.0 이상인 워드프레스에 맞게 돌아가지 않습니다.</strong></p>
+
+<hr />
+
+<p>곰님께서 만드신 "<strong><a href="http://heygom.com/blog/?p=244">태터툴즈(클래식) 게시물을 워드프레스로 옮기는 도구</a></strong>" 중 UTF-8로 게시물을 변환하며 워드프레스로 게시물을 옮기는 도구에 몇 가지 문제가 있어 수정했습니다.</p>
+
+<ul><strong>발견된 문제점 (파일명 : import_tt_utf8.php)</strong></p>
+<li>UTF-8로 변환해주는 카테고리 이름을 UTF-8로 변경하지 않는 문제</li>
+<li>부모 카테고리 값이 0일 때 처리 문제</li>
+<li>댓글 작성자 이름에 ' 들어갈 시 변환 오류나는 것 처리</li>
+</ul>
+
+<p>위의 문제는 곰님의 실수같고, 두번째 문제는 흔히 일어나기 어려운 문제이지만 제 블로그에는 해당 경우가 있어서 예외 처리를 해놨습니다. INSERT INTO $wpdb-&gt;post2cat (post_id,category_id) VALUES (숫자, ) 이렇게 되어 category_id 쪽에 빈공백이 들어가서 SQL error가 나는 문제는 이제 생기지 않습니다.</p>
+
+<p>또한 게시물을 워드프레스에 저장할 때 게시물 이름(postname)을 게시물 제목이 아닌 태터툴즈의 게시물 번호로 했습니다. 만일 태터툴즈에서의 게시물 번호가 566이었다면, 워드프레스에 저장된 해당 게시물의 게시물 이름은 566이 됩니다. 워드프레스에서 변하지 않는 링크(Permalink) 형태를 /%postname% 이런 식으로 하면 아주 손쉽게 태터툴즈 때 사용하던 Permalink를 변환할 수 있습니다.</p>
+
+<p>- <a href="http://www.hannal.net/import_tt_utf8-20050423.php.txt">import_tt_utf8-20050423.php.txt 파일 받기</a> &lt;- 클릭. (받은 뒤 파일 확장자인 .txt 를 없애서 import_tt_utf8-20050423.php 로 파일명을 바꾼 뒤 사용하십시오)</p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2005/4/692';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

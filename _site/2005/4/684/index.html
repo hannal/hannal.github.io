@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      공짜 업무 관리 도구, ToDoList &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">공짜 업무 관리 도구, ToDoList</h1>
+  <span class="post-date">19 Apr 2005</span>
+  <p>MS Project를 이용하여 할 일을 관리하면 상당히 편하다. 같이 일하는 동료들이 MS Project를 이용하면 더 편하고, 이 도구의 기능과 성능 모두 증가한다. 아니, 이미 있는 기능과 성능이 증가하는 것처럼 효용성을 갖는게 맞는 말이다. 하지만 MS Project는 다소 무거운 덩치를 가지고 있어서 사용해야 할 때만 실행하게 된다. 늘 실행해놓고 재빨리 일정을 확인하기는 좀 부담스럽다. 게다가 유료라서 일정 관리를 주로 하게 될 회사에서는 구입하기 전에 사용할 수 없다. 결정적으로 MS Project의 자료 파일 기본 형태(format)는 MS Project 전용이다.</p>
+
+<p>이런 문제들에 대안을 제시할 일정 관리 도구는 없을까 싶어 이리 저리 찾아보았다. 나름 훌륭한 도구들이 나왔지만 누리 상에서 실행되거나 사용 하기 불편한 경우가 많았다. 좀 괜찮다 싶으면 여지 없이 Shareware. 그러다 우연히 지인을 통해 발견한 것이 <a href="http://www.abstractspoon.com/">ToDoList</a>이다.</p>
+
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0419/050419150609384024/770448.gif" width="395" height="268"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> ToDoList</td>
+</tr>
+</table>
+<p></center></p>
+
+<p><a href="http://www.abstractspoon.com/">ToDoList</a>는
+<ul>
+<li />가볍고</p>
+
+<p><li />자료 저장 형태가 xml이라 다른 양식으로 표현하기에 용이하고
+<li />소스 코드가 공개되어 약간의 노력을 발휘하면 필요 기능을 추가할 수 있으며
+<li />무엇보다 자유로운 저작권(Freeware)</ul>
+<p>을 가지고 있다.</p>
+<p><a href="http://www.abstractspoon.com/">ToDoList</a>의 가벼움은 실행 파일 크기에서 알 수 있다. 이 도구는 ToDoList.exe라는 파일 <b>하나</b>로만 구성되어 있는데, 용량이 고작 560kb(가장 최신 판)이다. 작은 용량만큼 메모리도 적게 점유하며 각 각의 동작은 가볍고 빠르다.</p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0419/050419150609384024/006586.gif" width="623" height="687"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> 실제 화면은 저렇게 모자이크 처리되어 출력되지 않는다. </td>
+</tr>
+</table>
+<p></center></p>
+<p><a href="http://www.abstractspoon.com/">ToDoList</a> 또 다른 장점은 이용자 취향에 따라 작동 정책을 변경할 수 있다는 데 있다. 화면 출력 내용을 변경하는 건 기본이고, 환경 설정 정보 저장 형태도 Windows 레지스트리와 파일(.ini) 기록 중 하나를 선택하여 관리할 수 있다. 레지스트리에 정보가 많아지면 Windows가 느려지거나 오작동 할 가능성이 커짐을 감안하면 파일(.ini) 단위로 저장하기를 권장한다.</p>
+<p><a href="http://www.abstractspoon.com/">ToDoList</a>는 자신의 업무를 관리하거나 작은 프로젝트를 관리하는데 있어서 MS Project 못지 않다. 기능은 MS Project가 많고 강력하지만, <a href="http://www.abstractspoon.com/">ToDoList</a>는 일정/업무 관리에 꼭 필요한 기본/최소 기능은 모두 갖고 있다. 각 업무별로 분류(Category)를 지정할 수 있으며, 해당 업무에 관련된 파일을 연결하고(Symbolic Attachment) 간편하게 열람할 수 있다. MS Project처럼 각 업무를 다른 이에게 배정하고 지시하는 기능은 없어 집단(Team) 업무 관리를 하기에는 부족하지만 개인이 자신의 업무를 관리하는데는 충분하다.</p>
+<p>이런 좋은 도구가 Freeware로 제공되며 지금도 꾸준히 판올림(Version up) 되고 있다. 도구에 돈 한 푼 들이지 않고 업무 효율성을 높여 능력을 강화하고 업무 실수를 최소화하고 싶다면 <a href="http://www.abstractspoon.com/">ToDoList</a> 사용을 적극 추천한다.</p></p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2005/4/684';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

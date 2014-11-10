@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      태터툴즈-&gt;워드프레스 시, Permalink 유지하기 &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">태터툴즈-&gt;워드프레스 시, Permalink 유지하기</h1>
+  <span class="post-date">23 Apr 2005</span>
+  <p>태터툴즈의 게시물을 워드프레스로 옮기고, 블로그 도구의 위치를 동일하게 할 경우, Permalink가 문제가 됩니다. 예를 들어 태터툴즈로 운영하던 블로그 주소는 http://도메인/tt 이고 워드프레스로 운영할 블로그 주소는 http://도메인/wp 로 한다면 아무 문제가 없지만, 곧 죽어도 블로그 주소는 http://도메인/blog 로 해야할 경우 태터툴즈가 사용하던 고유 주소와 워드프레스의 고유 주소가 달라지는 문제가 발생합니다. 이 문제는 태터툴즈의 게시물을 워드프레스로 옮기는 과정에서 약간의 손을 써주고, 워드프레스의 index.php 파일을 고침으로써 아주 쉽게 해결할 수 있습니다.</p>
+
+<p><u><b>1. 태터툴즈의 게시물을 워드프레스로 옮기기</b></u><br />
+워드프레스에는 게시물 이름(postname)이 존재합니다. 이걸 고유 주소(Permalink)로 사용할 수도 있지요. 이런 정책을 활용합시다.<br />
+태터툴즈의 게시물을 워드프레스로 옮길 때 게시물 이름(postname)을 태터툴즈의 글 번호(no)로 지정하면 됩니다.<br />
+<a href="http://heygom.com/blog/?p=244">곰</a>님께서 만든 걸 <a href="http://blog.hannal.com/index.php?pl=692">제가 수정한 태터툴즈에서 워드프레스로 게시물 옮기는 도구</a>에는 이런 지정이 되어 있습니다.</p>
+
+<p><u><b>2. 변하지 않는 링크(Permalink) 형태 변경</b></u><br />
+이제 워드프레스의 관리자 영역으로 가서 "변하지 않는 링크" 형태를 수정합니다. [설정]-[변하지 않는 링크]로 가면 됩니다.<br />
+이곳에 가서 변하지 않는 링크 모양을 <b>/%postname%/</b>라고 입력하십시오.</p>
+
+<p><u><b>3. index.php 수정</b></u><br />
+마지막 단계입니다. 워드프레스의 index.php 파일 내용 맨 위에 다음 내용을 넣습니다.</p>
+
+<p><textarea language="php" name="code"><br />
+if ( $_GET["pl"] )<br />
+    Header("Location: {$_GET["pl"]}/");<br />
+</textarea></p>
+
+<p>위 내용을 추가하면 워드프레스의 index.php 파일 내용은 다음과 같이 됩니다.</p>
+
+<p><textarea language="php" name="code"><br />
+< ?php<br />
+if ( $_GET["pl"] )<br />
+    Header("Location: {$_GET["pl"]}/");</p>
+
+<p>/* Short and sweet */<br />
+define("WP_USE_THEMES", true);<br />
+require("./wp-blog-header.php");<br />
+?><br />
+</textarea></p>
+
+<p><u><b>4. 완료</b></u><br />
+모든 과정이 완료됐습니다. 이제 워드프레스이지만 태터툴즈 때의 고유 주소는 계속 유지됩니다. 만일 위 과정을 아무 문제 없이 완료했다면 태터툴즈 때의 고유 주소로 접근해보세요. 글이 잘 나옵니다.</p>
+
+</div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  //var disqus_url = 'http://www.3till7.net/2005/4/693';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/start_with_django_webframework_04">
+            4. Photo 모델로 Admin 영역에서 데이터 다루기
+            <small>05 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>
