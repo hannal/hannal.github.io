@@ -228,7 +228,7 @@
     <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^photo/8$&#39;</span><span class="p">,</span> <span class="s">&#39;single_photo8&#39;</span><span class="p">),</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>다른 <code>prefix</code>를 지정한 <code>patterns</code> 함수를 실행하고, 그 결과값을 <code>urlpatterns</code>에 덧이으면 됩니다. <code>urlpatterns</code>가 <code>list</code> 자료형이니 <code>urlpatterns.append( ... )</code> 이렇게 추가해도 됩니다.</p>
+<p>다른 <code>prefix</code>를 지정한 <code>patterns</code> 함수를 실행하고, 그 결과값을 <code>urlpatterns</code>에 덧이으면 됩니다. <code>urlpatterns</code>가 <code>list</code> 자료형이니 <code>urlpatterns.extend( ... )</code> 이렇게 추가해도 됩니다.</p>
 
 <p>기왕 기계가 할 일을 사람이 하지 않고 기계가 하도록 한 김에 좀 더 간결히 줄여보겠습니다. </p>
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;photo.views&#39;</span><span class="p">,</span>

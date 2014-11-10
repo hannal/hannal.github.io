@@ -6,8 +6,8 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 11 Nov 2014 04:14:27 +0900</pubDate>
-    <lastBuildDate>Tue, 11 Nov 2014 04:14:27 +0900</lastBuildDate>
+    <pubDate>Tue, 11 Nov 2014 04:31:31 +0900</pubDate>
+    <lastBuildDate>Tue, 11 Nov 2014 04:31:31 +0900</lastBuildDate>
     <generator>Jekyll v2.3.0</generator>
     
       <item>
@@ -142,7 +142,7 @@
     &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&amp;#39;^photo/8$&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;single_photo8&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;다른 &lt;code&gt;prefix&lt;/code&gt;를 지정한 &lt;code&gt;patterns&lt;/code&gt; 함수를 실행하고, 그 결과값을 &lt;code&gt;urlpatterns&lt;/code&gt;에 덧이으면 됩니다. &lt;code&gt;urlpatterns&lt;/code&gt;가 &lt;code&gt;list&lt;/code&gt; 자료형이니 &lt;code&gt;urlpatterns.append( ... )&lt;/code&gt; 이렇게 추가해도 됩니다.&lt;/p&gt;
+&lt;p&gt;다른 &lt;code&gt;prefix&lt;/code&gt;를 지정한 &lt;code&gt;patterns&lt;/code&gt; 함수를 실행하고, 그 결과값을 &lt;code&gt;urlpatterns&lt;/code&gt;에 덧이으면 됩니다. &lt;code&gt;urlpatterns&lt;/code&gt;가 &lt;code&gt;list&lt;/code&gt; 자료형이니 &lt;code&gt;urlpatterns.extend( ... )&lt;/code&gt; 이렇게 추가해도 됩니다.&lt;/p&gt;
 
 &lt;p&gt;기왕 기계가 할 일을 사람이 하지 않고 기계가 하도록 한 김에 좀 더 간결히 줄여보겠습니다. &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;urlpatterns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patterns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;photo.views&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
