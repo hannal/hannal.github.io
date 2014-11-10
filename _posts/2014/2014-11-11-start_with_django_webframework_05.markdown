@@ -75,7 +75,7 @@ urlpatterns = patterns('',
 
 끝났습니다. 웹브라우저에서 `http://127.0.0.1:8000/photo/`로 접속하면 `HttpResponse`로 넘긴 문장이 출력되는 걸 보실 겁니다.
 
-![](05-hello_world_by_views.png)
+![](/assets/uploads/2014/11/05-hello_world_by_views.png)
 
 #### (3) urls.py
 

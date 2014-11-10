@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2014-11-11T03:36:24+09:00</updated>
+  <updated>2014-11-11T04:14:27+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -70,7 +70,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;끝났습니다. 웹브라우저에서 &lt;code&gt;http://127.0.0.1:8000/photo/&lt;/code&gt;로 접속하면 &lt;code&gt;HttpResponse&lt;/code&gt;로 넘긴 문장이 출력되는 걸 보실 겁니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;05-hello_world_by_views.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2014/11/05-hello_world_by_views.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;h4&gt;(3) urls.py&lt;/h4&gt;
 
