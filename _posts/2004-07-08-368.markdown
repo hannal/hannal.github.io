@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "이번 주 새 글 작성은 여기까지."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 306
+wordpress_url: http://blog.hannal.com/wp/?p=306
+date: '2004-07-08 11:30:40 +0900'
+date_gmt: '2004-07-08 02:30:40 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/7/368"
+---
+<p>:( 아아, 너무 바쁩니다. 시간도 부족하고 생각할 것도 많아서 도저히 새 글 작성할 시간이 없군요. 심지어 책 볼 시간도 내기 쉽지 않네요. 출퇴근할 때 외에는 읽지를 못하니 원.</p>
+<p>국민 연금 찬성, 수도 이전 찬성, 인터넷 종량제 찬성에 대한 글을 준비하고 있는데 현재는 자료 조사 중입니다. 때문에 요즘처럼 바쁘고 정신 없을 때는 작성할 짬을 도저히 못내는군요. >_<</p>
+<p>너무 오랫동안 잡담만 하며 살았다 싶었네요. 다음 주중에 재미 없는 글 몇 개 올리며 슬슬 글도 올리고, 몇 몇 작업도 시작합니다. 헥헥.</p>
+<p>그럼 다음 주에 뵙겠습니다.</p>

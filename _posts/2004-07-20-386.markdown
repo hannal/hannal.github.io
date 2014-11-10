@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "군살이 많았다는 증거"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 320
+wordpress_url: http://blog.hannal.com/wp/?p=320
+date: '2004-07-20 10:29:10 +0900'
+date_gmt: '2004-07-20 01:29:10 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/7/386"
+---
+<p>나는 말랐다는 말을 많이 듣는다. 실제로 마른 체형이기도 하고, 실제보다 말라보이기도 한다. 그런 내가 운동을 시작한지 어느새 2달이 넘었다. 팔이 단단해지고 두꺼워졌으며 배와 가슴 근육 역시 조금 커졌다. 단단해지기도 했고. 그런데 몸무게는 2달 전과 차이가 거의 없다.</p>
+<p>물론 아랫배의 군살이 좀 줄긴 했다. 그러나 큰 차이를 못느끼겠다. 근육은 커졌는데 몸무게는 변함이 없다면 분명 군살이 빠졌다는건데 어디 군살이 빠진걸까. 배? 약간 줄긴 했다. 다리? 애기때외에는 다리에 군살 있어본 적이 없다. 그렇다면.. 혹시 엉덩이? 안돼!</p>
+<p>어쨌건 어딘지는 모르지만 몸에 있던 군살이 빠지긴 빠졌나보다. 지금도 계속 근육은 커지고 있지만(비대한 형태가 아닌) 몸무게는 여전하다.</p>

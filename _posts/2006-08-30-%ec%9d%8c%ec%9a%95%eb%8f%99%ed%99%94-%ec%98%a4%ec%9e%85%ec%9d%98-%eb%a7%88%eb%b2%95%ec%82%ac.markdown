@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "음욕동화 - 오입의 마법사"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 889
+wordpress_url: http://blog.hannal.com/blog/?p=889
+date: '2006-08-30 13:41:11 +0900'
+date_gmt: '2006-08-30 04:41:11 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/8/%ec%9d%8c%ec%9a%95%eb%8f%99%ed%99%94-%ec%98%a4%ec%9e%85%ec%9d%98-%eb%a7%88%eb%b2%95%ec%82%ac"
+---
+<p>* <a href="http://game.paran.com/webtoon/main.asp?xCode=http%3A//cartoon.ntamin.paran.com/cartoon_view.php%3Fid%3D53%26ord%3D1">음욕동화 - 오입의 마법사</a></p>
+<p>우연히(?) 파란 웹툰 서비스에서 저 실사 만화를 발견했다. 어찌된 일인지 외부에 공개된 것 같진 않다. 하긴, 내용을 보면 공개하지 않은 것이 이해된다. (주소에서 어찌 저찌 찾다보면 외부에 드러나지 않은 몇 개가 있다)</p>
+<p>이름에서 알 수 있듯이 성(性)을 소재로 한 만화이다. 근데 무척 유치하고 재미 없다. 누들누드와 비교 불가! 다만 등장하는 여자의 가슴이 큰 편인데(실제인지 그래픽 편집을 한 것인지 @_@) 가슴 큰 여자를 좋아한다면 잠깐 볼만 하긴 하겠다. -_-</p>
+<p>* 덧쓰기 (2006년 8월 31일) : 여자의 몸매나 얼굴이 훌륭하고 여자도 한 명이 아니길래 이상하다 싶었는데 역시나 일반인이 만든 만화가 아니라 관련 업계(?)에서 팔기 위한 목적으로 만든 만화였다. <a href="http://www.stardocu.com/ent/ent_main_sub.php?cate=EX">Star docu</a>라는 곳에 보면 있다. orz</p>

@@ -1,0 +1,57 @@
+---
+layout: post
+status: publish
+published: true
+title: iTunes
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 34
+wordpress_url: http://blog.hannal.com/wp/?p=34
+date: '2003-12-11 22:18:34 +0900'
+date_gmt: '2003-12-11 13:18:34 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2003/12/46"
+---
+<p>애플에서 내놓은 디지털 미디어 플레이어(이하 player). 쉽게 말해서 mp3 player. 거의 5년 가까이 winamp 를 써온 내가 최근 프로그램 덩치도 더 크고, 단축키도 익숙치 않은 iTunes 로 기본 player 로 변경한 이유는 편해서이다. 나를 더 게으르게 만들어준다면 난 기꺼이 변화를 환영한다.</p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0322/040322192134840279/259154.jpg" width="272" height="240"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p></center><br />
+< 출처 : Apple 사의 iTunes & iPod 홈페이지 ></p>
+<p>나는 MP3 와 같은 디지털 음원이 대략 18,000여곡 된다. 한 시도 쉬지 않고 계속 들어도 56일 가까이 들어야 다 들을 수 있는 양이다. 많다면 많다고 할 수도 있는 분량인데다 정리하는 습관이 좋지 않은 나로서는 18,000여곡을 정리하는 것이 상당히 고역이다. 현재까지는 언어별로(한국어, 영어, 클래식, 재즈, 국악, 일본어 등) 나누고, Artist 의 이니셜(두문자)로 구분한 후 다시 Artist 단위로 나누었다. 물론 Artist 들은 대게 여러 앨범을 출시 했기 때문에 앨범 단위로 분류 하는 일도 빼놓지 않고 해야할 일이다. 즉</p>
+<p>언어별/장르별 > Artist 이니셜 > Artist > 앨범</p>
+<p>이렇게 총 4단계로 구분을 하는데 상당히 손이 많이 가는 것에 비해 관리 효율성은 좋지 않다. 그러나 iTunes 를 쓰면 데이터 관리의 효율성은 한 여름에 1주일간 콩나물을 재배하는 수준으로 올라간다. 음원 데이터들을 앨범 단위로 관리함은 물론 Artist 단위, 장르 단위로 관리할 수 있다. 관리라 함은 앨범에 이미지도 지정할 수 있고, 곡이나 앨범마다 이퀄라이저를 제각각 지정할 수 있으며, 검색도 된다는 것이다.</p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0322/040322192134840279/955570.gif" width="200" height="200"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p></center><br />
+< 음원 데이터 정보 넣기 (출처 : Apple.com) ></p>
+<p>또한 자주 듣는 곡들은 별도로 관리되어, 평소 자주 듣는 음악들을 쉽게 볼 수 있다. 이러한 관리들은 iTunes 가 별도로 저장한 데이터 목록 파일(xml 파일이다)을 통하기 때문에 하드 디스크를 부가적으로 건드리지 않기에 빠르고 안정적이다.</p>
+<p>음질도 winamp 의 기본 출력(output) 플러그인보다 더 좋다. 아니, 음질이 좋은지는 논란의 여지가 있지만, 음장감이나 음감이 더 좋은 것은 협상의(??) 여지가 없다고 할만큼 더 좋다.</p>
+<p>이외 CD 나 DVD 로 바로 레코딩 하는 기능이나 휴대용 mp3/aac player 인 iPod 와의 연계 기능은 해당 기능이 필요한 사람에게 있어 유용할 것이다...만, 난 해당 사항이 없다. 또한 Music Store 라고 해서 곡 하나당 0.99 달러로 구매할 수 있는 온라인 서비스도 볼 만하다. AAC 미디어이기 때문에 복제도 불가능하다.</p>
+<p>
+물론 단점도 존재한다. 크게 두 가지로 볼 수 있는데, 하나는 OGG 확장자를 가진 OGG 미디어를 지원하지 않는 점이고(별도 개발된 Plugin 을 통해 들을 수는 있지만 앨범 관리가 안되며 iTunes 가 대단히 느려진다), 두 번째는 프로그램 성능과 기능에 부합하는 둔한(뚱뚱한, 느린) 운용이다. Windows 2000 이나 XP 이상을 아주 부담 없이 운영할 수 있는 펜티엄 4 1기가 이상에 램 512는 되어야 불편함이 없다.</p>
+<p>
+하지만 PC 사양이 받쳐주며 많은 디지털 음원을 관리해야하는 이라면 기꺼이 설치하여 사용할 가치가 충분하다. 그만큼 iTunes 는 퍽 긍정적이다.</p>
+<p>
+자료 위치 :<br />
+한글판 =  <a href="http://www.applecomputer.co.kr/itunes/download/" target=_blank>http://www.applecomputer.co.kr/itunes/download/</a></p>

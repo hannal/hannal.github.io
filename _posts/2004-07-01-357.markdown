@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "블로그밈용 태터툴즈 DB 변환기 50% 완성"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 298
+wordpress_url: http://blog.hannal.com/wp/?p=298
+date: '2004-07-01 21:55:37 +0900'
+date_gmt: '2004-07-01 12:55:37 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2004/7/357"
+---
+<p>곧 있으면 블로그밈의 공식 배포군요. 이에 맞춰 블로그밈용 태터툴즈 DB 변환 Script 를 작성하고 있습니다. 현재 구조를 파악했고 방법도 결정했으니 코딩만 하면 되겠군요.<br />
+약간 귀찮은 처리가 예상되는 부분이 있긴 하지만 블로그밈 공식 배포와 발맞추어 배포할 수 있을 듯 싶습니다.</p>
+<p>정상 작동되면 블로그밈용 전(before) 태터툴즈 이용자를 위한 Permalink 유지 Add-on을 만들고(사실 거의 만들었지만), MT DB 변환기도 만들어야 겠습니다.</p>
+<p>그나저나 MT 의 Permalink 는 어떻게 블로그밈에서 제공해야할지. 방법 하나 생각하긴 했지만 꽤나 비효율적이라 망설여지고. 고민입니다.</p>

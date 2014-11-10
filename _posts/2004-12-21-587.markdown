@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "야설 블로그"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 487
+wordpress_url: http://blog.hannal.com/wp/?p=487
+date: '2004-12-21 17:09:33 +0900'
+date_gmt: '2004-12-21 08:09:33 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/12/587"
+---
+<p>http://kr.search.yahoo.com/search?fr=kr-search_top&p=%BE%DF%BC%B3%BA%ED%B7%CE%B1%D7</p>
+<p>풀썩. 저런 검색어로 내 블로그에 오게 되다니.</p>
+<p>http://www.google.co.kr/search?hl=ko&inlang=ko&ie=EUC-KR&oe=EUC-KR&newwindow=1&q=severina+vuckovic&btnG=%B1%B8%B1%DB+%B0%CB%BB%F6&lr=lang_ko</p>
+<p>이 검색을 통해 내 블로그에 방문한 것보다 좌절.</p>

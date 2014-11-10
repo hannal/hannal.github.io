@@ -1,0 +1,23 @@
+---
+layout: post
+status: publish
+published: true
+title: "자작 블로그 진행 중단 ^^"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 240
+wordpress_url: http://blog.hannal.com/wp/?p=240
+date: '2004-06-01 22:07:25 +0900'
+date_gmt: '2004-06-01 13:07:25 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/6/289"
+---
+<p>자작하고 있던 Project S.G 에서 블로그 부문의 개발을 중단합니다. 대신 Blogmeme(블로그밈)의 서드개발자? 뭐 그런 형태로서 블로그밈 프로젝트에 합류하여 모듈 개발을 할 생각입니다. :D</p>
+<p>이유? 제가 하려던 것과 상당 부분 일치해서요. ~ 그럼~</p>

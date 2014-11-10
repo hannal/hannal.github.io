@@ -1,0 +1,35 @@
+---
+layout: post
+status: publish
+published: true
+title: "지삼이 아빠라 불러주세요."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 442
+wordpress_url: http://blog.hannal.com/wp/?p=442
+date: '2004-10-26 14:24:02 +0900'
+date_gmt: '2004-10-26 05:24:02 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/10/534"
+---
+<p>제 마눌님께서 저의 생일 선물로 iAudio <b>G3 1기가</b>짜리를 사주셨습니다. ㅜOㅜ</p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/1026/041026142114790067/737455.jpg" width="450" height="336"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> 출처 : www.iaudio.com<br />
+iaudio.com의 메인 페이지에 소개되어 있는 제품이다. 으쓱. </td>
+</tr>
+</table>
+<p></center></p>
+<p>저도 mp3p 이용자가 되었군요! 저나 마눌님 모두 가난한 나날이라 생일 선물은 커녕 생일 함께 지내기도 기대 못했고 또 그렇게 지나갔는데. ㅜ.ㅜ</p>
+<p>자자, 마음껏 축하해주세요. :D</p>

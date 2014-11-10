@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "쪼잔함과 대범함"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 432
+wordpress_url: http://blog.hannal.com/wp/?p=432
+date: '2004-10-18 17:56:36 +0900'
+date_gmt: '2004-10-18 08:56:36 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/10/524"
+---
+<p>쪼잔함과 대범함. 한끗 차이이다.</p>
+<p>나는 사랑에 대해 쪼잔한 남자이고 싶다. 독점욕과 소유욕을 감추지 않고, 생각하는 대로 표현하고 싶다.</p>
+<p>하지만, 종종 내 쪼잔함에 내가 상처를 입는다. 그 상처 입고선 그걸 내색한 뒤 묘한 굴욕감에 다시 한 번 상처를 입는다. 굴욕감을 느끼는 내 모습이 비참해서 화가 난다. 화가 나는 내 모습이 웃겨서 다시 한 번 더 상처를 입는다.</p>
+<p>가끔은 사랑에 대해 대범해지면 상처를 받지 않을까 상상을 해본다. 하지만 나는 사랑에 대해 대범한 남자이고 싶지 않다. 사랑에 대해 쪼잔한 남자이고 싶다. 하지만 그 쪼잔함이 나를 아프게 해서 힘들다. 오늘도 대범함을 살짝 생각해본다.</p>

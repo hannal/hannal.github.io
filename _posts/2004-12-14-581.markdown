@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "한날을 대체할 단어를 만들어주세요."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 482
+wordpress_url: http://blog.hannal.com/wp/?p=482
+date: '2004-12-14 18:07:48 +0900'
+date_gmt: '2004-12-14 09:07:48 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/12/581"
+---
+<p>나는 비교적 외래어 사용을 피하려고 노력한다. 예를 들면 버전 업(Version up)은 판올림, 마인드(Mind)는 마음 가짐으로 표기하려 노력하는 것처럼 말이다. 물론 나의 어휘력은 얕아서 많은 어려움과 문제를 야기하지만, 적절한 대체어를 찾아내고 타인에게 의미를 제대로 전달했을 때는 기분이 매우 흡족하다.</p>
+<p>그러나 나는 <a href="http://www.google.co.kr/search?q=%EC%BD%98%EB%8F%94+%EC%95%A0%ED%95%84&hl=ko&lr=&oe=EUC-KR&inlang=ko&newwindow=1&start=0&sa=N">콘돔을 애필</a>로 바꾸려했었던 사건이나 <a href="http://www.malteo.net/board/s_list.php?choice_id=1102407757.1559&board_id=1102407757.1559">블로그를 대체할 용어를 만들려는 활동</a>(<a href="http://www.hof.pe.kr/b2/index.php?p=494">via</a> <a href="http://www.hof.pe.kr/b2/index.php?p=899">hof</a>)은 공감하지 못한다. 대체어가 이미 존재하지 않는 새로운 것에 굳이 대체어를 붙여서 혼란을 야기시킬 이유가 있을까? 조금 다른 경우이지만 학계에서는 새로 발견한 것에 이름을 붙이면 대체어를 만들지 않는다. 발견자 이름을 사용하는 묵시적인 규칙에 의해 발견자가 이름을 만들면 다른 언어권에서 그것의 발음이 어렵건 표기가 어렵건 정해진 이름을 따른다. 이는 표현의 통일을 통하여 혼란을 피하기 위함이다.</p>
+<p>외래어를 이미 존재하는 아름다운 우리의 말로 대체하는 것은 참 좋은 취지이지만, 왠지 <a href="http://no-smok.net/nsmk/_c4_c4_c7_bb_c5_cd_c3_a5_b9_f8_bf_aa_c6_c7">엉뚱한 번역으로 번역서를 통해 공부할 새내기들이 당황하게 되는 일</a>이 일어날 거 같다. 나는 아직도 <a  href="http://bbs.kldp.org/viewtopic.php?t=21596">Unix Network Programming</a> 번역서에서 껍데기와 보쌈이라는 단어를 접하였을 때의 당혹감을 잊지 못하고 있기 때문이다. (Shell을 껍데기로, Packet을 보쌈(맞나?)으로 번역한 것이다)</p>

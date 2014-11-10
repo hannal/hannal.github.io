@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "한국 유학생들이 호주에서 섹스 산업에 종사한다고 해서"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 488
+wordpress_url: http://blog.hannal.com/wp/?p=488
+date: '2004-12-27 18:39:05 +0900'
+date_gmt: '2004-12-27 09:39:05 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/12/588"
+---
+<p><a href="http://news.naver.com/hotissue/popular_read.php?date=2004-12-27&section_id=000&office_id=001&article_id=0000864248&seq=8">한국 유학생들이 호주에서 섹스 산업에 종사</a>한다고 해서 그들이 반드시 자신의 성을 사고 파는 것을 의미하는 것은 아니다. 포르노를 찍는 곳에서 조명을 담당해도 섹스 산업에 종사하는 것이고, 성매매 업소에서 호객 행위를 해도 섹스 산업 종사이다.</p>
+<p>보통 섹스 산업 종사라고 하면 성매매를 연상하고 성매매는 곧 여성을 연상하게 되는데, 호주에 유학간 여성들의 15%가 몸을 팔고 있다고 호들갑 역시 억지일 뿐이다.</p>
+<p>자극적인 기사 제목을 뽑아낸 기자나 그런 말 장난에 놀아나는 사람이나 ...</p>

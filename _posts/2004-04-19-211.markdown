@@ -1,0 +1,47 @@
+---
+layout: post
+status: publish
+published: true
+title: "봄, 봄비"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 171
+wordpress_url: http://blog.hannal.com/wp/?p=171
+date: '2004-04-19 10:42:41 +0900'
+date_gmt: '2004-04-19 01:42:41 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/211"
+---
+<p>봄비가 내린다.<br />
+하늘님께서 메마른 이 땅 위에 비를 내려 적신다.<br />
+추적 추적 봄비의 비린내가 건조한 내 콧 속을 적셔준다.</p>
+<blockquote><p>봄이 오면 산에 들에 진달래 피네<br />
+진달래 피는 곳에 내 마음도 피어<br />
+건너 마을 젊은 처자 꽃 따러 오거든<br />
+꽃만 말고 이 마음도 함께 따가주!</p>
+<p>봄이 오면 하늘 위에 종달새 우네!<br />
+종달새 우는 곳에 내 마음도 울어!<br />
+나물 캐는 아가씨야! 저 소리 듣거든,<br />
+새만 말고 이 소리도 함께 들어주!</p></blockquote>
+<p>.<br />
+.</p>
+<blockquote><p>봄 처녀! 제 오시네<br />
+새 풀 옷을 입으셨네<br />
+하얀 구름 너울쓰고<br />
+진주 이슬 신으셨네<br />
+꽃 다발 가슴에 안고<br />
+뉘를 찾아 오시는고</p></blockquote>
+<p>봄비 내리는 어느 봄날의 월요일.<br />
+나는 회색 빛 사무실 안에서 잠시 감상에 젖어본다.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+"에고 허리, 무릎 관절아....."</p>

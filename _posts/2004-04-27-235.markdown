@@ -1,0 +1,44 @@
+---
+layout: post
+status: publish
+published: true
+title: "외부 스크립트를 javascript 로 가져와 사용하기"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 194
+wordpress_url: http://blog.hannal.com/wp/?p=194
+date: '2004-04-27 16:21:29 +0900'
+date_gmt: '2004-04-27 07:21:29 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2004/4/235"
+---
+<p>자 우선 html 소스를 보자.</p>
+<blockquote><p>
+{div id="get_php_string">{/div>
+</p></blockquote>
+<p>이번엔 javascript 소스이다.</p>
+<blockquote><p>
+ele_script = document.createElement("script");<br />
+ele_script.src = "a.php";<br />
+document.body.appendChild(ele_script);
+</p></blockquote>
+<p>document 에 script라는 엘레먼트 하나를 생성하는 것이다. 이는 tag 이다. 만일 createElement("iframe") 이라고 하면 iframe 이 하나 생기는 것이다. createElement 에 대한 자료는 http://www.webreference.com/js/column44/createtag.html 이나 http://www.webreference.com/programming/javascript/domscripting/1/6.html 이다.</p>
+<p>이렇게 생성한 엘레먼트의 소스를 a.php 로 연결한다. 즉 a.php 가 웹상에서 실행되는 것이다. 이제 a.php 를 보자.</p>
+<blockquote><p>
+{?php<br />
+echo "document.getElementById("get_php_string").innerHTML = "<b>merong</b>";";<br />
+?>
+</p></blockquote>
+<p>document.getElementById("get_php_string").innerHTML = "merong"; 를 단지 출력하고 있다. 이 말은 php 가 출력한 내용이<br />
+위에서(javascript)에서 생성한 script element 에 들어간 것이다. 이제 document.body.appendChild(ele_script); 를 통해 적용(??? 적절한 표현을 못하겠다)을 한다. 저기 굵은 merong 이라는 글자가 html 에서 {div id="get_php_string">{/div> 에 출력이(들어가게) 될 것이다.</p>
+<p>예제는  http://www.webreference.com/programming/javascript/domscripting/1/iframecreate.htm 를 보면 눈으로 확인이 가능하다. 그 자리에서 iframe tag(element) 를 생성하여 외부 사이트를 출력하고 있다.</p>
+<p>좋은 자료를 알려준 <a href="http://bumsoo.joeunbook.net/" target="_blank">오</a>님에게 고맙다는 인사를 해본다.</p>
+<p>p.s : < 글자를 칠 수가 없어 { 로 대체했다.</p>
+<p>p.s : 이 참에 javascript 에 대해 좀 배웠다. ~ 룰루</p>

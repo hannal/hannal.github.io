@@ -1,0 +1,31 @@
+---
+layout: post
+status: publish
+published: true
+title: "내가 싫어하는 것"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 110
+wordpress_url: http://blog.hannal.com/wp/?p=110
+date: '2004-01-07 16:48:35 +0900'
+date_gmt: '2004-01-07 07:48:35 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2004/1/136"
+---
+<p><u>1. 혼잡한 길거리에서, 담배 피며 걷는 내 앞의 사람 (거의 대게 남자임)</u></p>
+<p>뒤통수 조심하쇼잉</p>
+<p><u>2. 진한 화장품, 혹은 향수 냄새</u></p>
+<p>코의 뼈와 살이 분리되는 듯한 고통. 난 사람 냄새가 좋다.</p>
+<p><u>3. 철분, 단백질 덩어리 음식</u></p>
+<p>철분이나 칼슘, 단백질을 많이 주고 싶은 마음은 알겠지만, 압정이나 옷핀, 바퀴벌레, 머리카락이 첨가된 음식은 사양하고 싶다. XX중국집, XX분식집~! 각성하시오.</p>
+<p><u>4. 너무 비비 꼬아놓은 글</u></p>
+<p>난 편한 글이 좋다. 너무 어렵게 꼬아놓은 글은 싫다. 그런 소설이나 글을 읽으면 나도 바로 반격한다. 더 비비 꼬아서. (엄한 사람들만 머리 아프지 뭐)</p>
+<p><u>5. 복장 가지고 뭐라 하는 사람</u></p>
+<p>나는 옷이 몇 벌 없다. 나보고 맨날 똑 같은 옷 입는다고 구박하는 사람. 밉다. 깨끗하게 입고 다니면 그만이지~ 옷이나 사주면서 그러면 몰라.</p>

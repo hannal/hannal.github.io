@@ -1,0 +1,23 @@
+---
+layout: post
+status: publish
+published: true
+title: "미용실 아이디어"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 291
+wordpress_url: http://blog.hannal.com/wp/?p=291
+date: '2004-06-28 16:56:09 +0900'
+date_gmt: '2004-06-28 07:56:09 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/6/349"
+---
+<p>미용실을 이용하다보면 어떤 머리카락 유형을 원하는지 말로 전달하기 참 힘들 때가 많다. 그래서 든 생각인데, 머리카락을 정리했으면 그 모습을 디지털 카메라 등으로 저장하고 나중에 손님이 다시 왔을 때 그 사진을 보여주는 건 어떨까? 저번에 그 머리카락 모양으로 해주세요, 라고 했을 때 스포츠형으로 자를 일은 없지 않겠는가.</p>
+<p>에휴. 며칠 뒤에 미용실 갈 건데 어떤 모양으로 머리카락을 다듬을지 벌써 고민된다. 관리하기 귀찮은데 기를까?</p>

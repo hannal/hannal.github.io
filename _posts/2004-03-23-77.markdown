@@ -1,0 +1,26 @@
+---
+layout: post
+status: publish
+published: true
+title: zeroboard blog 에 대한 궁금증
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 64
+wordpress_url: http://blog.hannal.com/wp/?p=64
+date: '2004-03-23 23:39:53 +0900'
+date_gmt: '2004-03-23 14:39:53 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/3/77"
+---
+<p>php 의 fsockopen 의 url 접근 하기나 socket 이 막힌 계정에서 zog 유저들은 트랙백 문제 없나? 문득 생각이 나서 뒤적여보니 잠잠하네.</p>
+<p>혹 zog 의 트랙백 보내기가 python 이나 perl 등으로 별도 개발된 건가 싶어서 소스를 살펴봤지만, zog 도 php 로 되어 있던데. zog 유저들은 cafe24 등 fsockopen 의 외부 접근이 막힌 계정을 안쓰는건가.</p>
+<p>태터툴즈야 내가 쓰는 거니까 패치를 만든 것이고, zog 는 내가 쓰는 게 아니라 신경쓸 바는 못된다만 그래도 괜히 신경쓰이네.</p>
+<p>zog 유저분들, 별 문제 없수이까?</p>
+<p>p.s : zog 유저라고 하니까 마치 저그(zerg) 유저라고 하는 거 같네.</p>

@@ -1,0 +1,59 @@
+---
+layout: post
+status: publish
+published: true
+title: '2009년 결산 '
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 1987
+wordpress_url: http://blog.hannal.com/?p=1987
+date: '2009-12-31 22:28:55 +0900'
+date_gmt: '2009-12-31 13:28:55 +0900'
+categories:
+- "essay"
+tags:
+- "결산"
+- "독서"
+- "블랙베리"
+- "창업"
+permalink: "/2009/12/closing_in_2009"
+---
+<p>시간 참 빠르다. 벌써 2010년 하루 전이라니. 혼란스럽고 유독 추웠던 2003년 11월에 블로그를 열어 우울한 마음을 남기고 벌써 만 6년을 보냈다. 매년 말마다 느끼는 것이긴 하지만, 올해는 정말 많은 일을 겪었다. 매 순간엔 참 힘들거나 기쁘거나 슬펐는데 2009년 마지막날에 지난 364일을 되돌아보니 “그런 일도 있었구나” 하고 만다. 그런 마음으로 담담히 2009년을 결산해본다.</p>
+<h3>창업</h3>
+<p>함께 일했던 회사 동료인 <a href="http://www.jungyunho.com">유노</a>님과 <a href="http://bklove.net">BKLove</a>님이 작년 여름에 <a href="http://www.userstorylab.com">유저스토리랩</a>을 창업했고, 리더(leader)는 자신의 시간 뿐 아니라 그가 이끄는 사람들의 시간도 책임지므로 몸값이 비싸다며 <a href="http://blog.hannal.com/they_have_started_their_company/">응원으로 가장한 압박을 글</a>로 남겼다(<small>압박을 느꼈는지 자신들을 응원하는 글인데도 그들은 저 글에 출석 확인을 하지 않았다 +_+</small>). 그리고 나도 <a href="http://startup.hannal.net/2">몸값 비싼 도시 남자가 되기로 결심</a>했다.</p>
+<p>2000년에 첫 창업을 했었으니 내년 초에 회사를 세우면 딱 10년 만에 두 번째 창업을 하는 것이다. 난 아직 부족하지만 예전보다 좋은 분들을 많이 만나 인연을 맺었기에 두 번째 창업에선 더 잘 해내리라 생각한다. 창업 준비 과정과 창업 이후 이야기는 “<a href="http://startup.hannal.net/">한날의 창업 이야기</a>” 블로그에 계속 써나아갈 예정이다.</p>
+<h3>스마트폰</h3>
+<p>기술 추세에는 예민하지만 제품 구매와 경험은 다소 느린 편인데, 드디어 <a href="http://na.blackberry.com/eng/devices/blackberrybold/">블랙베리 Bold 9000</a>이라는 기기를 마련했다. 비록 <a href="http://blog.hannal.com/bad_going_home/">잃어버리긴 했지만 아이팟 나노</a>에 이어 블랙베리도 <a href="http://www.moreover.co.kr">체스터</a>님께 중고로 샀다. 요즘 한창 잘 나가는 아이폰 3GS를 사느냐, 내년에 나올 안드로이드폰을 사느냐 고민을 많이 했지만, 요금제를 강요 받지 않아도 되고 전지(battery)도 오래 가며, 내게 필요한 기능만 딱 적절히 제공하는 기기를 중고로 싸게 살 수 있어서 두 번 고민 안 하고 블랙베리를 샀다.</p>
+<p>개통이 늦어져 며칠 밖에 못쓰긴 했는데 현재까지는 아주 만족스럽다. 좀 더 써본 뒤에 사용기를 글로 남겨야겠다.</p>
+<h3>책</h3>
+<p>2008년 말에 <a href="http://blog.hannal.com/absolutely_do_not_read_many_books_within_a_certain_period/">2009년 동안 책을 100권 읽겠다고 목표를 세웠고, 그 목표를 달성</a>했다. 자세한 내용은 “<a href="http://blog.hannal.com/absolutely_do_not_read_many_books_within_a_certain_period/">한 해에 책 100권 읽는 목표를 달성하고, 후회한다.</a>”는 글에 썼으니 여기서는 간단히 적자면, 난 앞으로 이런 목표를 세우지 않을 것이다.</p>
+<p>책은 약 170권 가량 샀는데 이미 갖고 있던 책도 읽어서 새로 산 책은 반 정도 읽은 것 같다.</p>
+<p>올해는 독자가 아닌 저자나 역자로 활동을 시작했다. 우선 집필 아닌 집필을 했는데, 작년 여름에 한참 연재했던 “<a href="http://blog.hannal.com/01-python_django_lecture/">날로 먹는 Django 웹 프로그래밍</a>” 강좌를 <a href="http://wikidocs.net">박응용</a>님께서 책으로 인쇄해서 보내주셨다.</p>
+<p style="text-align: center;"><img class="alignnone" title="책 사진" src="http://farm3.static.flickr.com/2471/3728771256_04a7059e64.jpg" alt="" width="500" height="375" /></p>
+<p style="text-align: left;">많이 부족한 강좌를 묶어주신 덕에 두고두고 기념할 수 있게 됐다.</p>
+<p style="text-align: left;">출판을 목적으로 하는 집필을 준비했으나 더 준비를 하지 않으면 독자들에게 사기치는 것이라는 생각을 하여 유보했다.</p>
+<p style="text-align: left;">대신 번역을 하나 하고 있다. 지금쯤이면 반 정도 번역을 해야 했는데 바쁘다는 핑계로 25% 정도 밖에 못했다. 정말 좋은 책이라서 얼른 번역을 마쳐서 소개하고 싶은데 아쉽다. 그래도 열심히 한다면 내년 2분기 중에는 내놓을 수 있지 않을까 생각한다.</p>
+<p style="text-align: left;">마지막으로 올해 읽은 책 중 좋았던 책 몇 권을 꼽아본다. 나열한 순서에 딱히 기준은 없다.</p>
+<ul>
+<li>스티븐 코비 - 원칙 중심 리더십</li>
+<li>Head First Software Development</li>
+<li>피터 드러커 - 미래 경영</li>
+<li>게리 해멀 - 경영의 미래</li>
+<li>제 3의 길</li>
+<li>프레드 R. 버거 - 논리학이란 무엇인가?</li>
+<li>로마인 이야기 (1~15권)</li>
+<li>스티븐 핑커 - 언어본능</li>
+<li>프로젝트가 서쪽으로 간 까닭은?</li>
+<li>가이 가와사키 - 당신의 기업을 시작하라</li>
+<li>에리히 프롬 - 소유냐 존재냐</li>
+<li>새로운 혁신의 시대</li>
+<li>가장 듣고 싶은 한마디 Yes!</li>
+</ul>
+<h3>마치며</h3>
+<p>실은 <a href="http://blog.hannal.com/my_feelings_present_hope/">올해에 안좋은 일이 무척 많았다</a>. 그래도 견뎌내고 희망을 찾으며, 어딘가 있을 희망을 보며 나아갔다. 그래서 <a href="http://blog.hannal.com/the_projects_i_have_been_workin_with/">더 많은 일을 벌였는지</a>도 모른다.</p>
+<p>내년엔 더 큰 일을 벌였으니 무척 정신없이 바쁠 것이다. 그래도 난 해낼 것이다. 이보다 더 큰 어려움과 위기도 견뎌내고 이겨내왔다. 절망하지 않고, 쓰러져도 다시 일어나서 뚜벅뚜벅 내가 가야할 길, 우리가 가야할 길을 걸을 것이다.</p>

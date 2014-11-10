@@ -1,0 +1,28 @@
+---
+layout: post
+status: publish
+published: true
+title: "도메인"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 804
+wordpress_url: http://blog.hannal.com/blog/?p=804
+date: '2006-06-12 11:39:47 +0900'
+date_gmt: '2006-06-12 02:39:47 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/6/my_domain_list_060612"
+---
+<ol>
+<li>hannal.net : 운영 중. 확장 준비 중.</li>
+<li>galmoori.com : 생각 정리 중</li>
+<li>nonage.co.kr : 생각 중</li>
+<li>ggomsoo.com : 생각 중</li>
+</ol>
+<p>나열은 구입 순서대로 한 것.</p>

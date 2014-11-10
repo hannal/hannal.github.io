@@ -1,0 +1,37 @@
+---
+layout: post
+status: publish
+published: true
+title: Winbar
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 35
+wordpress_url: http://blog.hannal.com/wp/?p=35
+date: '2003-12-09 22:52:42 +0900'
+date_gmt: '2003-12-09 13:52:42 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2003/12/47"
+---
+<p>Winbar.<br />
+공짜 유틸리티로서 윈도우즈 프로그래밍을 하는 프로그래머들에게 유용하다. 혹은 컴퓨터에 꼼꼼함을 여실히 발휘하는 이들에게도 유용하리라고 생각한다.</p>
+<p>CPU 점유율과 메모리 사용량, 볼륨 조절과 구글의 편리한 이용에 유용한 프로그램이다. 또한 하드 디스크 용량을 바로 바로 간편하게 확인할 수 있고, 일정 시간마다 컴퓨터의 시간을 자동으로 표준 시간에 맞춰주는 기능도 있다. 즉 윈도우즈를 이용하면서 봐야할 간단한 정보들이나 기능들을 Winbar 라는 프로그램을 통해 간편하게 이용하는 것이다.</p>
+<p>공짜이니 한 번씩 써봅세~</p>
+<p>자료 받기 :  <a href="http://www.winbar.nl" target=_blank>http://www.winbar.nl</a> <br />
+자료 참고 화면 :</p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0322/040322192942989069/891931.png" width="409" height="173"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p></center></p>

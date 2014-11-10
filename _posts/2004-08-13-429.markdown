@@ -1,0 +1,43 @@
+---
+layout: post
+status: publish
+published: true
+title: "네이버 블로그 유료 스킨에 딴지 하나."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 352
+wordpress_url: http://blog.hannal.com/wp/?p=352
+date: '2004-08-13 18:18:52 +0900'
+date_gmt: '2004-08-13 09:18:52 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/8/429"
+---
+<p>이건 싸이월드 스킨에 대한 불만이기도 한데.</p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0813/040813172823621320/593710.gif" width="466" height="159"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> 네이버의 '아이템 골짜기' </td>
+</tr>
+</table>
+<p></center></p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0813/040813172823621320/848278.gif" width="469" height="132"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> 싸이월드의 '선물 가게' </td>
+</tr>
+</table>
+<p></center></p>
+<p>이게 어째서 구입이냐! 이건 명백히 <b>대여</b>라고 대여! 용어를 바르게 사용해라! 벽지 사서 도배하고 벽지 사용 기간 연장 안하면 다시 벽지 뜯어가는 거 봤더냐! 버럭.</p>

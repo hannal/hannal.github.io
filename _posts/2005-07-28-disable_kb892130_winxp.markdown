@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: Windows 정품 인증 문제 해결
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 661
+wordpress_url: http://blog.hannal.com/blog/windows-%ec%a0%95%ed%92%88-%ec%9d%b8%ec%a6%9d-%eb%ac%b8%ec%a0%9c-%ed%95%b4%ea%b2%b0/
+date: '2005-07-28 10:53:06 +0900'
+date_gmt: '2005-07-28 01:53:06 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2005/7/disable_kb892130_winxp"
+---
+<p>어제부터 <a href="http://news.empas.com/show.tsp/cp_yn/20050727n06746">Microsoft Windows 강제 정품 인증</a>(via YTN)이 시작되었다. WindowsXP를 불법복제해서 사용했던 상당 수의 이용자는 정품이 아니라며 Windows Update를 할 수 없다. 문제는 정품 이용자인데도 정품 이용자가 아니라고 판정하는 경우에 있다. 하지만 최신 Volume License 제품 일련번호를 사용하는 불법복제 Windows XP 묶음(Package)은 위 검사에서 정품으로 인증되는 웃지 못할 일이 있다.</p>
+<p>이런 일이 발생한 이유는 Windows Update를 할 때 KB892130를 설치했기 때문이다. 이놈은 Windows Genuine Advantage Validation 도구로써 이름 그대로 정품 인증을 하여 정품이 아닐 경우 Advantage, 즉 Windows Update를 할 수 없게 하는 도구이다. 이 말은, KB892130를 설치하지 않거나, 설치한 후에 해당 기능이 작동되지 않게 하면 아무 문제 없이 Windows Update를 이용할 수 있음을 의미한다. 정품 확인을 하여 정품이 아니면 운영체제 자체를 사용하지 못하게 하는 기존 정품 인증과는 조금 다르다.</p>
+<p>이미 KB892130를 설치했으며 Windows Update를 현재 사용하지 못한다면 Internet Explorer를 실행한 후 주차림막대에서 [도구]-[추가기능관리]로 들어간 뒤, 'Windows Genuine Advantage 사용안함'을 하거나, [도구]-[인터넷 옵션]-[일반 탭]-[임시 인터넷파일]-[설정]-[개체보기]에서 Windows Genuine Advantage를 삭제하면 된다. 하지만 더 좋은 방법은 정품을 구매하여 Windows Update를 당당히 사용하거나, Microsoft에 조치를 요구하는 것이다.</p>

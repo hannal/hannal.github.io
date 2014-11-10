@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "오늘 블로그 코리아 환상이네!"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 244
+wordpress_url: http://blog.hannal.com/wp/?p=244
+date: '2004-06-03 21:06:42 +0900'
+date_gmt: '2004-06-03 12:06:42 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/6/293"
+---
+<p>오늘 블로그 코리아 top5 중 4개의 소재는 Sex(성)라니. 경기가 어려울수록 여자들의 치마 길이는 짧아지는 것이 바로 이런 현상과도 관계가 있는 것일까?</p>
+<p>한때는 블로그 이야기를 자극적인(?) 제목으로 쓰면 Top5에 든다는 은밀하지만 누구나 다 아는 그런 공식이 있었는데, 이제는 지친 사람들의 심리를 활용한 성(Sex) 이야기가 그런 공식이 될까.</p>
+<p>오늘자 블로그 코리아의 Top5를 바라보며 왜인지 모를 서글픔을 느껴본다.</p>

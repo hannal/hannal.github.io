@@ -1,0 +1,27 @@
+---
+layout: post
+status: publish
+published: true
+title: chester님, 만박님.
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 949
+wordpress_url: http://blog.hannal.com/?p=949
+date: '2006-12-08 12:30:40 +0900'
+date_gmt: '2006-12-08 03:30:40 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/12/chester_n_sumanpark"
+---
+<p>수줍은(?) 얘기지만, 친구가 아닌 사람 중 좋아하는 <strong>남자</strong> 두 명을 꼽으라면 <a href="http://www.moreover.co.kr">chester</a>님과 <a href="http://www.sumanpark.com">만박</a>님을 꼽는다. 이 두 분이 아닌 남자는 싫다기 보다는 요즘 깊게 생각하지 않고 바로 꼽을 수 있는 사람이 저 두 사람이라는 말이다.</p>
+<p>두 사람에겐 공통점이 있다. 이미 삶을 함께 할 동반자(아내)가 있고, 똑똑하며, 사람과 생각을 이끌어 가고 있다. 그리고, 내가 이 두 분을 좋아하는 이유인 공통점 또 하나는 바로 어깨에 힘이 들어가지 않았다는 점이다.</p>
+<p>아! 물론, 나는 이 두 분을 실제로 뵌 건 딱 한 번 뿐이다. 아니, 두 번인가. 이야기를 서로 나눈 적도 거의 없다. 나는 이 두 분을 잘 모르며 이 두 분 역시 날 잘 모르신다(고 생각한다). 단지 어깨와 턱과 뒷목에 힘을 빼고 사람을 대하는 모습을 사소한 상황에서 보여주는 점 때문에 좋아한다.</p>
+<p>겸손이나 친절. 이런 것과는 별개 얘기다. 그런 것과는 달리 그냥 자연스럽게 배어 나오는 모습에서 말랑 말랑함이 느껴지는 <strong>아저씨</strong>들이다. 이 두 분이라면 ~~ 황제, ~~ 거장, 식으로 사회에서 이름을 얻게 될 만큼 커져도 저 말랑 말랑함을 기대할 수 있을 것 같다.</p>
+<p>물론.<br />
+당연한 얘기지만, 두 분이 이 글에 긴장 하실 필요는 없다. 역시나 난 여자가 남자보다 훨씬 더 좋다.</p>

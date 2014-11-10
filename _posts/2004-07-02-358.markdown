@@ -1,0 +1,36 @@
+---
+layout: post
+status: publish
+published: true
+title: "버스 전용 차로의 치명적 단점"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 299
+wordpress_url: http://blog.hannal.com/wp/?p=299
+date: '2004-07-02 00:33:00 +0900'
+date_gmt: '2004-07-01 15:33:00 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/7/358"
+---
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0702/040702001057958461/930816.jpg" width="400" height="300"></center></td>
+</tr>
+<tr>
+<td class="centerphoto">
+<div class='attachcaption'>출처는 SLR 클럽(이라고 하는데 구체적으로 누구의 사진인지 모르겠다. 원작자님, 미안~) </td>
+</tr>
+</table>
+<p></center><br />
+어느 정도 예견된 일이다. 아차산(어린이 대공원 후문 지역)에서는 진작 운영되고 있던 버스 전용 차로에서도 간혹 볼 수 있는 광경인데, 오늘 강남 대로에서도 위와 유사한 광경을 봤다. 파란 버스와 빨간 버스가 길게 한줄로 줄을 서고 있었다. 대략 20m 정도.</p>
+<p>신호 문제 때문에(중앙 차로 버스들 때문에 일반 차들이 선뜻 좌회전을 못하고 머뭇거렸다) 교통 경찰들이 부산하게 차들을 인도하고 있었고, 중앙의 버스 중앙 차로에는 많은 버스들이 줄을 서고 있었다. 버스를 갈아타기 위해 중앙 차로에서 바로 옆 중앙 차로로 길을 건너려고 신호를 기다리는 사람들은 버스가 떠날 가능성이 적어서인지 여유가 있어보였다.</p>
+<p>위 사진은 어느 지역이며 누가 찍은 것인지는 모르겠다만, 내가 근무하는 회사에서만(뱅뱅사거리와 말죽거리 방면) 볼 수 있는 광경은 아닌가보다.</p>
+<p>도심 대로 한가운데에 <b>알록 달록한 열차</b>를 다니게 하는데 성공한 심시티 매니아, 이명박 시장 만세!</p>

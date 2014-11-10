@@ -1,0 +1,38 @@
+---
+layout: post
+status: publish
+published: true
+title: "블로그 코리아.. 정말일까?"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 414
+wordpress_url: http://blog.hannal.com/wp/?p=414
+date: '2004-10-08 14:58:38 +0900'
+date_gmt: '2004-10-08 05:58:38 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/10/503"
+---
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/1008/041008115030040220/447067.gif" width="256" height="144"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p></center><br />
+정말? 검색 많이 이용하면 느려질텐데? (r-_-)r 희희~<br />
+정말요, 언캐니님? 정말요, Yuni님? 헤헤헤헷~</p>
+<p>
+.<br />
+.<br />
+<b>교훈</b>.<br />
+<span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>은 졸리면 맛가는 건 순식간이다.</p>

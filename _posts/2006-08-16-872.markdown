@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "종속성, 그리고 Tistory 뻗음"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 872
+wordpress_url: http://blog.hannal.com/blog/?p=872
+date: '2006-08-16 11:42:33 +0900'
+date_gmt: '2006-08-16 02:42:33 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/8/872"
+---
+<p class="centerphoto"><img src="http://blog.hannal.com/wp-content/old_uploads/tistory_down.png" style="border: 1px solid #000;" alt=""/></p>
+<p>언제부터인지는 모르겠지만 <a href="http://www.tistory.com">Tistory</a>에 연결이 되지 않고 있다. Tistory 으뜸화면이야 먹잘 것도 없으니 접속이 안되건 내 알 바 아니지만, Tistory에 입주한 많은 곳에 접속을 할 수 없는 상황이라 매우 답답하다. 냉정하게 엄밀히 따지고 보면 이용수단 종속성과 서버(Server)가 뻗어 Tistory에 접속할 수 없는 것은 별개일 수 있지만, 어쨌건 입주자건 방문자건 종속된 상황이라는 사실은 어찌할 수 없다.</p>
+<p>흑흑, 얼른 문제 고쳐줘요! RSS를 전문 공개하지 않아 방문해야만 내용 전체를 읽을 수 있는데 지금 접속을 할 수 없어 읽지 못하고 있어요! 흑흑, 궁금해라.</p>

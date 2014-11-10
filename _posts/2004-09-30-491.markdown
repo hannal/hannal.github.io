@@ -1,0 +1,22 @@
+---
+layout: post
+status: publish
+published: true
+title: WindowsXP sp2에 대한 유감
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 403
+wordpress_url: http://blog.hannal.com/wp/?p=403
+date: '2004-09-30 20:10:29 +0900'
+date_gmt: '2004-09-30 11:10:29 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/9/491"
+---
+<p>WindowsXP sp2를 사용하며 이제야 쓸만하다고 생각된다. 당연해야할 보안 정책들이 선심 쓰듯이 제공되는 형태를 보니 참으로 씁쓸하다. Service Pack 2라니. 이것은 Patch Pack 이란 말이다! 이제야 완제품 느낌이 드는데, 마치 선심을 쓰듯이 <b><u>Service Pack</u></b>이라는 이름으로 이용자에게 제공되는 걸 보니 그동안 미완제품을 써왔다는 묘한 불쾌감. 참으로 유감스럽다.</p>

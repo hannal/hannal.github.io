@@ -1,0 +1,33 @@
+---
+layout: post
+status: publish
+published: true
+title: "많이 쓰지만 자주 틀리는 표현들"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 468
+wordpress_url: http://blog.hannal.com/wp/?p=468
+date: '2004-11-25 20:35:02 +0900'
+date_gmt: '2004-11-25 11:35:02 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/11/565"
+---
+<p><u><b>1. 다르다, 틀리다</b></u><br />
+- 다르다 : 너와 나는 같지 않다.<br />
+- 틀리다 : 나는 맞고 너는 틀리다.</p>
+<p><u><b>2. 너무</b></u><br />
+- 너무 웃기다 : 틀림 --> 매우 웃기다 : 맞음<br />
+- 너무 좋지 않은 상태이다 : 맞음<br />
+- 너무는 부정형에 사용되는 부사.</p>
+<p><u><b>3. 낳다, 낫다, 낮다</b></u><br />
+- 낳다 : 나를 낳으신 분은 어머니다.<br />
+- 낫다 : 내가 더 보다 더 낫다. 감기가 말끔히 낫다.<br />
+- 낮다 : 발은 머리보다 낮은 곳에 있다.</p>
+<p>오늘 하루 인터넷 이용 중 10번 이상 발견한 잘못된 표현들.</p>

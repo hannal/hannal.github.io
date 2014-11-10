@@ -1,0 +1,86 @@
+---
+layout: post
+status: publish
+published: true
+title: "자동 광고 등록기 차단 도구, Bad behavior (워드프레스편)"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 790
+wordpress_url: http://blog.hannal.com/blog/?p=790
+date: '2006-05-23 16:45:08 +0900'
+date_gmt: '2006-05-23 07:45:08 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2006/5/about_bad-behavior"
+---
+<h3>1. 들어가기</h3>
+<p>Bad behavior는 자동 광고(스팸, Spam) 등록기를 막아주는 도구(플러그인, Plugin)이다.</p>
+<p>자동 광고 등록기에 대항하는 방법은 여러 가지이다. 광고 글이 등록될 때 광고 글들의 특성을 파악하여 이 글들을 일반 글들과 구분시켜 준다. 예를 들어, <a href="http://akismet.com/">Akismet</a>은 글에 특정 주소나 단어가 있으면, 혹은 글 등록자의 정보를 토대로 해서 광고 글로 구분시켜 놓는다. 이렇게 분류된 글들을 보고 이용자는 삭제할지 여부를 결정한다.</p>
+<p>이 방식의 장점은 광고 글이 아닌데 광고 글로 판정 받아 억울하게 삭제 당할 수 있는 글들을 구제할 가능성이 높은데 있다. 단점은 광고 분류 규칙에서 벗어나서 광고 글로 분류되지 않는 것과 요즘처럼 어마 어마하게 광고를 등록해대는 곳들의 물량 공세를 이겨내기 버겁다는 점이다.</p>
+<p>또 다른 방식은 자동 광고 등록기의 접근을 막아버리는 것이다. 아예 접근을 막아서 애초에 광고 글 게재 자체를 못하게 한다. 장단점은 위 방식과 반대.</p>
+<p>Bad behavior는 접근 자체를 막는 방식이다. 이 도구가 판단했을 때, 누리집에 접근하는 이를 평가해서 평가 미달이면 접근을 막는다. 그 평가 기준은 이름(bad behavior : 나쁜 짓, 나쁜 행동)에서 알 수 있듯이 접근한 이의 행동이다. 접근한 이가 의심스럽게 생겼거나 나쁜 짓을 하려고 품을 잡으면 쫓아낸다.</p>
+<p>Bad behavior는 여러 정보 게재 도구(블로그, 위키 등)를 지원한다. Wordpress를 비롯하여 DotClear, Drupal, Geeklog, MediaWiki를 지원하며, API 자체가 열려있기 때문에 이런 도구들을 쓰지 않아도 bad-behavior-generic.php 파일을 이용하여 Bad behavior 기능을 직접 써먹을 수 있다.</p>
+<p>이 글에서는 Wordpress에서 쓰는 것을 전제로 한다.</p>
+<ul>
+<li>제작 언어 : PHP</li>
+<li>공식 누리집 : <a href="http://www.homelandstupidity.us/software/bad-behavior/">http://www.homelandstupidity.us/software/bad-behavior/</a></li>
+<li>필요 DBMS : mysql</li>
+</ul>
+<h3>2. Wordpress에 설치하기</h3>
+<p><span style="font-size: 150%; color: #AAAAAA; font-weight: bold;">1.</span> <a href="http://www.homelandstupidity.us/software/bad-behavior/">Bad behavior 공식 누리집</a>에 방문해서 Bad behavior를 내려 받자. 여러 글 관리 도구를 지원하지만, 특정 도구 전용 꾸러미(package)는 따로 없다. 그냥 통짜 파일 하나를 내려 받으면 된다.</p>
+<p>내려 받은 압축 파일을 Wordpress의 확장 도구 디렉토리에 압축을 푼다. 보통은 <strong>wp-content/plugins/</strong>가 Wordpress 확장 도구 디렉토리이다. 이곳에 압축을 풀면 bad-behavior라는 디렉토리가 생겨있다. 이곳에 Bad behavior 관련 파일들이 있다.</p>
+<p><span style="font-size: 150%; color: #AAAAAA; font-weight: bold;">2.</span> 이제 Wordpress에서 Bad behavior 기능을 활성화하면 된다. 관리자로 접속한 뒤 관리자 영역으로 가서 '<strong>플러그인</strong>' 영역으로 가면 Bad Behavior가 보일 것이다. 이걸 '<strong>쓸수있게</strong>'를 눌러 활성화하면 할 일은 끝난다.</p>
+<h3>3. Bad behavior 작동 방식</h3>
+<p>"잘 작동하면 그만"이라는 생각을 하겠지만 Bad behavior는 작동 방식을 알아두는 것이 여러 모로 좋다. 정 귀찮으면 친절한 <a href="http://blog.hannal.com/about_bad-behavior">이 글(자동 광고 등록기 차단 도구, Bad behavior)</a>을 잘 보이는 곳에 적어둬서 쉽게 찾아올 수 있게 하자. :)</p>
+<p>Bad behavior는 Bad behavior 기능이 작동하고 있는 곳에 누군가 접근했을 때, 이 누군가의 정체와 행동을 정해진 규칙에 따라 판단한 뒤 접근 허가 여부를 결정한다. 규칙 몇 가지는 다음과 같다.</p>
+<ul>
+<li>일정 시간 동안 너무 많이 접속을 시도하거나</li>
+<li>접근자의 정보를 조작하거나(일부 웹브라우저는 브라우저 정보를 조작할 수 있다)</li>
+<li><a href="http://www.isi.edu/in-notes/rfc2616.txt">HTTP 명세</a>를 제대로 따르지 않거나</li>
+<li>검색수집기/검색기가 robots.txt 를 따르지 않거나</li>
+<li>Bad behavior에 등록되지 않은 접근자 정보라면</li>
+</ul>
+<p>접근을 하지 못할 수 있다. 대체로 '자동 광고 등록기'들은 위 규칙들을 위반한다. 그래서 아주 많은 '자동 광고 등록기' 접근을 차단해내고, 덕분에 광고 글들은 현격하게 줄어든다. 내 경험을 예로 들면, Bad behavior 도입 전에는 하루에 500여개 광고 댓글이나 글걸기(trackback)가 들어왔었지만, 도입하고 약 30시간이 지난 지금까지 광고 글은 한 건도 등록되지 않았다. 고작 30시간 운영 갖고 <strong>성능을 판단하기엔 이르나</strong> <strong>기능이 잘 작동한다는 건</strong> 알 수 있다.</p>
+<h3>4. 문제 해결</h3>
+<p>Bad behavior를 쓰다보면 난감한 경우를 겪을 수 있다. 하나 하나 살펴보자.</p>
+<p><span style="font-size: 150%; color: #AAAAAA; font-weight: bold;">1.</span> 접근을 할 수 없다.<br />
+나도 당했다. 꽤 많은 사람들이 당하고 있어서 공식 누리집에도 <a href="http://error.wordpress.com/2005/09/30/what-to-do-when-bad-behavior-blocks-you-or-your-friends/">자신이나 주변 사람이 접근 거부 당했을 때 어찌 하라는 방법을 글</a>로 제공하고 있다.<br />
+이 경우는 꽤 흔하게 발생하는 난감한 상황이다. Precondition failed 라는 오류(아파치 웹서버 오류 번호 : 412)를 뿜어대며 접근을 할 수 없다. 남이 그러면 어영 부영 넘어가겠는데, 내가 내 블로그에 접속하지 못하는 상황이 벌어질 수도 있다. 이럴 때는 Bad behavior 기능을 중단하면 된다. 그런데 블로그 접속 자체를 할 수 없는데 어떻게 Bad behavior 확장 도구(plug-in)를 중단하지?</p>
+<p>방법은 두 가지이다. 첫번째 방법은 꼼수인데, <u>ftp나 ssh/telnet 등으로 계정에 접속한 뒤 Bad behavior 디렉토리(wp-content/plugins/bad-behavior) 이름을 바꿔주거나</u> 이 디렉토리 안에 있는 bad-behavior-wordpress.php 파일을 삭제하면 된다. 디렉토리 이름 바꿔주는게 더 간편하니 이 방법을 권장한다. 그러면 Bad behavior가 현재 작동되지 않는 것처럼 속일 수 있기 때문에 블로그 접근이 가능하다.</p>
+<p>두번째 방법은 꼼수가 아닌 Bad behavior에 있는 기능을 활용하는 것이다. 아무리 Bad behavior 규칙을 어겨도 무조건 접근을 허용하게 해주는 기능이 Bad behavior에 있는데, 그 기능을 담당하는 파일이 <strong>bad-behavior-whitelist.php</strong> 이다. 이 파일에 접근을 허용할 자의 ip를 등록하거나 그 자의 정보(Agent information)를 등록하면 된다. <strong><u>주의할 점은 자칫 정보를 잘못 입력하면 대문을 활짝 여는 것처럼 누구나 접근을 허용하는 결과를 초래할 수 있으니, 주의해서 정확한 정보를 입력해야 한다</u></strong>. 아주 중요하고 조심해야 할 사항인 탓에 bad-behavior-whitelist.php 파일 안에도 주석으로 DANGER!! 를 무지하게 외쳐대고 있다. (이용자들이 이 파일을 잘못 관리해서 문제를 일으켜놓고선 제작자에게 도와달라고 무지하게 졸라댔었나보다. 그렇지 않고서야 ...)</p>
+<p>접근을 허용할 자의 IP 주소 등록은 bad-behavior-whitelist.php 파일 안에서 <strong>$wp_bb_whitelist_ip_ranges = array(</strong> 라고 써있는 부분이다. $wp_bb_whitelist_ip_ranges = array( 이 아래에다가 접근을 허용할 IP 주소를 등록하면 되는데, IP 주소만 턱하고 적으면 PHP 문법 오류가 발생한다. 꼭 작은 따옴표나 큰 따옴표로 IP 주소를 묶어주자.</p>
+<blockquote><p>예시 :<br />
+$wp_bb_whitelist_ip_ranges = array(<br />
+<strong>	'211.218.236.252',</strong><br />
+<strong>	'211.218.236.253',</strong><br />
+);
+</p></blockquote>
+<p>IP 주소 맨 뒤에는 꼭 쉼표를 붙여주자. 만일, IP 주소를 두 개 이상 등록했는데, 각 IP 주소마다 쉼표를 찍어주지 않으면 PHP 문법 오류가 발생한다.</p>
+<p>접근자의 정보를 추가해서 접근을 허용하려면 같은 파일 안에서 <strong>$wp_bb_whitelist_user_agents = array( </strong> 이 줄을 찾아 그 아래에다 같은 방법으로 정보를 추가한다. 예제는 해당 파일 안에 주석으로 잘 표현하고 있다.</p>
+<p><span style="font-size: 150%; color: #AAAAAA; font-weight: bold;">2.</span> Database 용량을 꽤 잡아먹는다.<br />
+Bad behavior는 누군가 접근을 할 때마다 접근 관련 정보를 일일이 Database에 기록(log)한다. 각종 검색기나 수집기, 혹은 자동 광고 등록기 대다수가 당신의 누리집이나 블로그를 매우 사랑해서 시도 때도 없이 방문하고, 수 많은 사람들이 RSS 구독기로 당신의 글을 구독하며, 역시 수 많은 사람들이 툭하면 등록해서 새 글 언제 올라오나 눈에 불을 켜고 F5 글쇠를 누르고 있다면, 아마 Bad behavior가 기록하는 정보만도 수~수십 메가바이트(megabytes)는 될 것이다.</p>
+<p>하지만, 너무 걱정할 필요는 없다. 어지간히 많은 사람과 기계(bot)가 접근하는게 아니라면 접근 관련 정보를 한없이 기록하진 않는다. 스스로 일정 기간마다 쌓인 정보를 지우기 때문이다. 기본 설정 기간은 7일이며, 이 값 역시 이용자가 원하는 값으로 고칠 수 있다. 단, 단위는 일(日)이다.</p>
+<p><strong>bad-behavior-wordpress.php</strong>파일에 보면 아래와 같은 줄이 있다.</p>
+<blockquote><p>
+// How long to keep the logs around (in days).<br />
+// Lowering this may have profound negative effects!<br />
+<strong>$wp_bb_logging_duration = 7;</strong>
+</p></blockquote>
+<p>바로 $wp_bb_logging_duration 이 변수가 기간을 설정하는 것인데, 이 값에 해당하는 기간 동안만 정보를 보관하고, 이 기간을 넘기면 삭제한다. 단위는 앞서 말한대로 일(日)이며, 만일 값 단위를 시간이나 분 단위로 바꾸고 싶다면 <strong>bad-behavior-database.php</strong>파일에서 wp_bb_db_clear_old_entries() 함수를 고치면 된다. 자신 없으면 그냥 일 단위로 정리하게 냅두자.</p>
+<p>참고로 접근 관련 정보가 기록되는 DB 테이블은 <strong>wp_bad_behavior_log</strong>이다. 물론, bad-behavior-wordpress.php 파일 안에 있는 <strong>define('WP_BB_LOG', $table_prefix . 'bad_behavior_log');</strong>라는 부분을 고쳐 DB 테이블 이름을 취향에 맞게 고칠 수 있다.</p>
+<p><span style="font-size: 150%; color: #AAAAAA; font-weight: bold;">3.</span> 접근 거부 당했을 때, 안내 화면을 우리 말로 하고 싶다.<br />
+안타깝게도 Bad behavior 관련된 정보는 아직 영문으로 된 것이 대다수이다. 알파벳을 읽을 수 있고, 영어 낱말을 읽을 수 있다고 해도 괜히 영어라면 겁이 나고 소화가 안되는 사람들이 있을 수 있다. 그래서 Bad behavior 공식 누리집에 다 있을법한 내용을 내가 이렇게 친절하게 우리 말로 풀어서 쓰고 있다.</p>
+<p>같은 이유로 접근 거부 당했을 때 나오는 안내 화면도 우리 말로 손본 파일을 나는 제공한다. Bad behavior가 접근 거부 당한 이에게 보여주는 안내 화면은 좋게 표현해서 <strong>안내</strong>이지 사실상 <strong>버럭</strong> 화를 내며 "저리가!" 라고 외치는 것이나 다름 없다. 더욱이 영어로 된 문장을 보면 속이 더부룩하고 글 읽는 속도가 매우 빨라지는 일부 사람들은 영어로 된 이 안내를 보면 면박 당한 무안함을 느낄지도 모른다. (실제로는 쉽고 이해하기 쉽게 안내문을 써놨다. 단지 영어일 뿐)</p>
+<p>우리말로 바꿔놓은 접근 거부 안내 파일 내려 받기 : <a href="http://blog.hannal.com/wp-content/old_uploads/archive/about_bad-behavior/bad-behavior-banned.txt">bad-behavior-banned.txt</a></p>
+<p>위 파일을 내려 받은 뒤, 파일 확장자를 txt 에서 php로 바꾼다. 즉, 전체 파일 이름을 bad-behavior-banned.txt 에서 bad-behavior-banned.php로 바꾼다. 그런 뒤 이 파일을 Bad behavior가 있는 디렉토리에 덮어씌운다. 덮어씌우기 꺼림칙하다면 덮어씌우기 전에 원본 파일을 따로 보관한 뒤 덮어씌우면 된다.</p>
+<p>보면 알겠지만, 원래 있던 영어로 된 안내문도 아래에 있다. 우리글이 깨져 보일 수 있는데 이는 UTF-8이라서 그렇다.</p>
+<p>미안한 말이지만 실제로 잘 작동되는지는 확인해보지 않았다. 내가 접근 거부 당해야 저 화면을 확인할텐데, 내가 Bad behavior의 작동 원리를 이해했더니 놀랍게도 Bad behavior가 나를 접근 거부하는 일이 아예 없어졌다.</p>
+<h3>5. 마무리하기</h3>
+<p>Wordpress 공식 누리집에 <a href="http://www.tamba2.org.uk/T2">podz</a>님이 <a href="http://wordpress.org/support/topic/72930">자동 광고 등록(spam)과 맞서싸우기 좋은 확장 도구를 세개 추천</a>했는데 그 중 하나가 바로 이 Bad behavior이다. 현재(2006년 5월, 월급 이틀 전) 나도 저 세개를 모두 사용하고 있다. 이 세 도구가 힘을 합쳐 나쁜 자동 광고 등록기를 무찌르고 있다. 특히 Bad behavior의 공이 참 크다. 이 글을 쓰고 있는 와중에도 열심히 자동 광고 등록기들을 쫓아내고 있다. (불쌍하게도 <strong>가끔</strong>('항상'이 아니다) 올블로그의 RSS 수집기도 접근 거절 당하고 있다. 'I know you and I don't like you, dirty spammer.'라는 말을 들어가며 ...)</p>
+<p>만일, <a href="http://blog.hannal.com/fuck_the_spam060522/">자동 광고 등록기에 마음의 고통을 받고 있으며 일기장에 분한 마음을 쓰고 있다면</a> 이 쓸만한 확장 도구를 추천한다. 만족할 것이라 생각한다.</p>

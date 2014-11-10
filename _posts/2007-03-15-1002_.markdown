@@ -1,0 +1,29 @@
+---
+layout: post
+status: publish
+published: true
+title: "태우’s 웹 2.0 여행을 후원합니다."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 1002
+wordpress_url: http://blog.hannal.com/1002/
+date: '2007-03-15 18:00:59 +0900'
+date_gmt: '2007-03-15 09:00:59 +0900'
+categories: []
+tags:
+- "여행"
+- "태우"
+- "후원"
+- "희망"
+permalink: "/2007/3/1002_"
+---
+<p><a href="http://twlog.net/wp/?p=667"><img src="http://twlog.net/images/web2trip_logo_thumb.png" alt="태우's 웹 2.0 여행" /></a></p>
+<p>군인(?)에서 민간인이 되신 태우님께서 멋진 여행 계획을 밝히셨네요. 저도 며칠 전에 후원금을 냈습니다. 여행 주제가 참 멋져서 벌써부터 두근거리네요.</p>
+<p>저 역시 이런 여행을 계획하고 있습니다. 아마 올 해 5월 중순에 한 번, 9월에 한 번씩 총 두 번 갈 예정이지요. 저는 모임을 만들어서 총 4명이서 여행하려고 각자 할 일을 준비하고 있는데, 때가 되면 밝히도록 하죠. ^^</p>
+<p>어쨌건, 비슷한 여행을 준비하고 계획하는 입장에서 태우님 여행에 거는 기대가 큽니다. 개인이 공개 후원을 모집해 적잖은 후원금을 마련하고 있고, 개인(1인, 혹은 소규모) 매체가 갖는 힘(시대 특성)을 발견할 수 있으며, 제겐 참고할 귀중한 사례가 될 것이기 때문이죠.</p>
+<p>아직 시간이 좀 남았지만, 부디 잘 다녀오시고 멋진 볼거리 기대하겠습니다.</p>

@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "요즘 블로그 코리아 왜 이러지"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 344
+wordpress_url: http://blog.hannal.com/wp/?p=344
+date: '2004-08-08 23:27:42 +0900'
+date_gmt: '2004-08-08 14:27:42 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/8/419"
+---
+<p>요즘들어 블코가 내 블로그의 RSS를 잘 못긁어간다. 이유는 모르겠다. 글을 올린 뒤 블코에 글이 등록되기 전에 글 내용을 수정하면 십 중 팔구는 글 등록이 안되고, 아무 짓을 안해도 등록이 안되곤 한다.</p>
+<p>이럴 때는 대책 없다. 블코에 등록되는 걸 포기하던가 글을 지우고 새로 쓰던가.</p>
+<p>원인이 뭘까. cafe24와의 문제? 태터툴즈와의 문제?</p>

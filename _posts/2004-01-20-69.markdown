@@ -1,0 +1,33 @@
+---
+layout: post
+status: publish
+published: true
+title: "마이크로소프트가 잘 만든 제품"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 56
+wordpress_url: http://blog.hannal.com/wp/?p=56
+date: '2004-01-20 22:43:04 +0900'
+date_gmt: '2004-01-20 13:43:04 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/1/69"
+---
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0323/040323221604964696/831776.gif" width="480" height="349"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p></center></p>
+<p>「 마이크로소프트 」의 제품을 사용하면서 늘 느끼는 점이다. 얘네는 OS 도 손을 쓰고 있고 Office 프로그램도 만지작거리는데, 아직 대단히 안정적이거나 확실한 것은 없다. 키보드나 마우스는 정말 잘 만들었다. Windows 2003 이나 Office 2003 쪽은 좀 쓸만하긴 하지만 키보드나 마우스만큼 좋지 못하다.</p>
+<p>마이크로소프트가 쓸만하고 안정적으로 더 잘 만든 것은 아직 키보드와 마우스이다.</p>

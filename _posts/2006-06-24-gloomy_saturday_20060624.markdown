@@ -1,0 +1,23 @@
+---
+layout: post
+status: publish
+published: true
+title: "우울하고 아쉽네"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 816
+wordpress_url: http://blog.hannal.com/blog/?p=816
+date: '2006-06-24 12:22:49 +0900'
+date_gmt: '2006-06-24 03:22:49 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/6/gloomy_saturday_20060624"
+---
+<p>우울하다 : KTF 매직엔스의 조용호가 신한은행 스타리그 시즌1 결승전에서 한동욱에게 패해 준우승 했다. 용호야. 고생했다. 잘했어. 다음엔 꼭 우승 기회를 잡아내자!</p>
+<p>아쉽다 : 우리나라 국가대표축구단이 스위스 국가대표축구단에게 졌고, 프랑스가 토고에게 이겨서 16강 진출에 실패했다. 정말 고생 많으셨습니다. 비록 심판의 납득 안갈 정도로 황당한 판정이 있긴 했지만, 우리의 진짜 실력을 확인하는 기회이기도 했습니다. 지난 2002 한일 월드컵에선 벼락치기 공부가 주효했지만 이번엔 큰 효과를 보진 못했다고 생각하고, 기반부터 차근 차근 닦아나갑시다. 지화자!</p>

@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "다녀왔습니다."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 511
+wordpress_url: http://blog.hannal.com/wp/?p=511
+date: '2005-02-18 20:14:18 +0900'
+date_gmt: '2005-02-18 11:14:18 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/2/616"
+---
+<p>4주간의 신병 교육 훈련을 마치고, 2005년 2월 15일자로 돌아왔습니다.</p>
+<p>까매진 피부와 군인스러운 근육의 일부를 가지고 돌아왔습니다. 보고 싶은 사람들이 많기에 하고픈 이야기는 다음 주부터 시작하겠습니다.</p>
+<p>다시 만나뵙게 되어 정말 매우 기쁘며, 앞으로도 잘 부탁드립니다. 꾸벅.</p>
+<p>덧쓰기 : 마눌님!! 내가 왔어!</p>

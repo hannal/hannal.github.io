@@ -1,0 +1,23 @@
+---
+layout: post
+status: publish
+published: true
+title: "솔직함과 무례함."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 982
+wordpress_url: http://blog.hannal.com/?p=982
+date: '2007-02-07 12:14:25 +0900'
+date_gmt: '2007-02-07 03:14:25 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2007/2/the_insolence_n_the_honest"
+---
+<p><a href="http://blog.hannal.com/kindness_n_convenience/">친절과 편의</a>를 혼돈하듯이, 사람들은 솔직함과 무례함을 종종 혼돈한다. 무례함을 거침 없는 솔직함이라고 말하기도 하는데, 솔직함과 무례함은 전혀 관련 없다. 상대방에게 예를 갖추면서 솔직한 사람도 있고, 예를 갖추면서 솔직하지 못한 사람도 있으며, 솔직하지만 예를 전혀 갖추지 못한 사람도 있다.</p>
+<p>당연한 말이지만, 예를 갖출 생각도 없으면서 그다지 솔직하지 못한 사람도 있다.</p>

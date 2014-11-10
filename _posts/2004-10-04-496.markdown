@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "사람 즐겁게 만드는 군대 얘기"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 408
+wordpress_url: http://blog.hannal.com/wp/?p=408
+date: '2004-10-04 14:11:58 +0900'
+date_gmt: '2004-10-04 05:11:58 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/10/496"
+---
+<p>링크 : <a href="http://blog.naver.com/phoo94/20006241485" target="_blank">블로그 따위는 집어치워라.</a></p>
+<p>암, 그렇고 말고. 군가산점 위헌은 남자와 여자의 불평등 때문이 아니라 더 힘든 사람과의 평등 문제 때문이제~</p>
+<p>역시 기념관 아찌 멋지단말여. 멋진 청년~ 얼짱 보쌈해간 것은 괘씸하지만, 이런 청년이기에 그 보쌈을 납득할 수 있는게지~ 핫핫. (납득 못하면 우짤건디..)</p>

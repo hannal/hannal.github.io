@@ -1,0 +1,35 @@
+---
+layout: post
+status: publish
+published: true
+title: "톰보이 할인권 필요하신 분 계세요?"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 794
+wordpress_url: http://blog.hannal.com/blog/?p=794
+date: '2006-05-27 22:00:51 +0900'
+date_gmt: '2006-05-27 13:00:51 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/5/do_you_need_the_tomboy"
+---
+<p>안녕하세요.</p>
+<p>어쩌다보니 여자를 대상으로 하는 두 번째 행사를 벌이네요.</p>
+<p><a href="http://www.tomboy.co.kr">톰보이</a>라는 옷 회사에서 할인권 두 장을 얻게 됐습니다. 여름 신상품에 대해 50~60% 할인(일부 상품은 40%) 받을 수 있는 가족우대권이지요.</p>
+<p>톰보이 본사(2호선 역삼역, 7호선 학동역 근처)에서 사용할 수 있습니다.</p>
+<ul>
+<li>제품 : 2006년 SPRING/SUMMER 신상품</li>
+<li>기간 : 2006년 5월 24일(수) ~ 2006년 5월 28일(일)</li>
+<li>장소 : 본사 (오전 10:00 ~ 오후 6:00, 단 일요일은 오후 5:00)</li>
+<li>대상 상표 : TOMBOY, TOMBOY JEANS, TOMBOY WIZ, TOMKID, COMODO, TOMSTORY</li>
+<li>할인율 : 50~60% (일부 품목은 40%)</li>
+<li>개수 : 총 2장</li>
+</ul>
+<p>받긴 했는데 제가 쓸 일은 없어서 필요하신 분 쓰시라고 이렇게 공개합니다. 시간이 참 촉박하군요. 내일 하루 밖에 안남았으니 말이죠.</p>
+<p><img src="http://blog.hannal.com/wp-content/old_uploads/loathing_at_naver.gif" />로 신청하시면 답신 드리겠습니다.</p>

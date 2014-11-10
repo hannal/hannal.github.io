@@ -1,0 +1,27 @@
+---
+layout: post
+status: publish
+published: true
+title: "부러운 사람"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 915
+wordpress_url: http://blog.hannal.com/?p=915
+date: '2006-10-12 22:53:36 +0900'
+date_gmt: '2006-10-12 13:53:36 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/10/915"
+---
+<p>듣는 이가 기분 상해하거나 어색해하거나 불편해하거나 버릇 없다고 느끼지 않게 자연스레 반말을 하는 사람.</p>
+<p>원래 저 사람이 그에게 반말을 해왔다고 느껴지게끔.<br />
+설령 아직 서로 말을 놓지 못했더라도 그 사람의 반말을 듣다보니 자연스레 자신도 말을 놓게 하게끔.</p>
+<p>그렇게 당당하고 자연스럽고 친근하게 반말을 할 수 있는 사람.</p>
+<p>그런 사람이 부럽다.</p>
+<p>부럽지만 따라하기 어렵기 때문에 난 존대말을 하건 반말을 하건 신경 쓰지 않기로 했다. 그래도 부럽다.</p>

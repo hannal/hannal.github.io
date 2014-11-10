@@ -1,0 +1,22 @@
+---
+layout: post
+status: publish
+published: true
+title: "어헝 어헝"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 323
+wordpress_url: http://blog.hannal.com/wp/?p=323
+date: '2004-07-20 20:42:28 +0900'
+date_gmt: '2004-07-20 11:42:28 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2004/7/390"
+---
+<p>ㅡ.ㅜ 강민의 차기 스타 리그 진출 실패. 챌린지 리그로 떨어지다니. ㅜ.ㅜ 강민 요즘 왜 이러니. 물론 MSL에서 승자조4강에 올라있긴 하지만, 오늘 경기 모습은 평소 강민의 모습이 아니네. ㅜ.ㅜ 강민! 왜 이래!</p>

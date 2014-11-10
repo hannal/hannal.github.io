@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: T_T 잘 수가 없다
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 112
+wordpress_url: http://blog.hannal.com/wp/?p=112
+date: '2004-01-07 05:08:15 +0900'
+date_gmt: '2004-01-06 20:08:15 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2004/1/138"
+---
+<p>음악이 너무 좋아서.</p>
+<p>이 음악을 끄고 잠을 잘 수가 없다.</p>
+<p>T_T 으아아악. 미치겠다. 잠 자려고 한지가 몇 시간째인데 아직도 듣고 있는 음악을 차마 끄지 못하고 듣고 있단 말이냐! T_T</p>

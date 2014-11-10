@@ -1,0 +1,40 @@
+---
+layout: post
+status: publish
+published: true
+title: MSN 메신저에 뜬 내 생일
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 140
+wordpress_url: http://blog.hannal.com/wp/?p=140
+date: '2004-04-08 22:37:57 +0900'
+date_gmt: '2004-04-08 13:37:57 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2004/4/174"
+---
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0408/040408223552480889/074514.jpg" width="198" height="206"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p></center></p>
+<p>사람들이 퇴근하자 온라인 상태의 사람 수가 줄어 10명이 되었다. 10/23. 내 생일. 우훗!</p>
+<p>........</p>
+<p>이런 소소한 것에 즐거워하는 나.<br />
+대체 난 어디까지 단순한걸까. ♡<br />
+샤랄랄라 라랄라 라랄라 랄라 랄라라 라랄라 ♪</p>
+<p>덧쓰기 :<br />
+1월 1일인 사람은? 뭐, 1명 등록하고 1명 로그인할 수 있겠네.</p>
+<p>그렇다면.</p>
+<p>10월 1일인 사람은? 1명 등록하고 10명이 로그인해야하나? 아쉽겠다~ 히히히히히.</p>

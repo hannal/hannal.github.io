@@ -1,0 +1,30 @@
+---
+layout: post
+status: publish
+published: true
+title: "스타크래프트 vod 메모"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 309
+wordpress_url: http://blog.hannal.com/wp/?p=309
+date: '2004-07-14 11:13:47 +0900'
+date_gmt: '2004-07-14 02:13:47 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2004/7/373"
+---
+<p>하나로통신배 : http://starc.hanafos.com<br />
+프리챌배 : 구할 수 없음<br />
+PKO : 구할 수 없음<br />
+크레지오 : http://www.crezio.com<br />
+온게임넷 : http://www.ongamenet.com<br />
+엠비씨게임 : http://www.mbcgame.co.kr<br />
+게임TV : http://www.gametv.co.kr<br />
+iTV : http://www.itv.co.kr</p>
+<p>오늘의 수확. 하나로통신배.</p>

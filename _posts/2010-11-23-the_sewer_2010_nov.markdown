@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "홍수와 하수도"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 2069
+wordpress_url: http://blog.hannal.com/?p=2069
+date: '2010-11-23 20:59:33 +0900'
+date_gmt: '2010-11-23 11:59:33 +0900'
+categories:
+- "essay"
+tags:
+- "꼴통"
+- "연평도"
+permalink: "/2010/11/the_sewer_2010_nov"
+---
+<p>평소에 우리는 길 아래 하수도에 있는 오물을 대할 일은 별로 없지만 홍수가 나면 하수도에 잠겨 있어 보이지 않던 온갖 오물이 저절로 흘러 나온다. 하수도를 상수도로 바꾸기란 아주 어려운 일이기 때문에, 비록 내가 그 길을 사랑할지라도 슬프고 씁쓸한 마음을 안고 유독 오물이 많이 나오는 하수도를 기억한다. 앞으로 마주치지 않길 바라며.</p>
+<p>그래서 나는 의뭉한 꼴통이 싫다. 홍수가 나면 신나서 방방뛰며 정체를 드러내니까. 차라리 홍수가 나기 전에 정체를 드러냈으면...</p>

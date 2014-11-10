@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "우리 팀 사람들 별명 지어주기"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 178
+wordpress_url: http://blog.hannal.com/wp/?p=178
+date: '2004-04-21 19:48:34 +0900'
+date_gmt: '2004-04-21 10:48:34 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/218"
+---
+<p>보노 : 원양어선 바다사나이<br />
+레이딘 : 마인부우 변신 전 모델<br />
+DIEFOR : 택배 직원</p>
+<p>그들에 대한 별명 지어주기는 계속 된다~ 발딱 발딱~</p>

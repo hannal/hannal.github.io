@@ -1,0 +1,28 @@
+---
+layout: post
+status: publish
+published: true
+title: "요즘 수행하고 있는 것"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 569
+wordpress_url: http://blog.hannal.com/wp/?p=569
+date: '2005-04-16 23:03:50 +0900'
+date_gmt: '2005-04-16 14:03:50 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/4/681"
+---
+<p>최근 나는 면식 수행...<br />
+.<br />
+.<br />
+.<br />
+이 아니고, 글 쓰기 수행을 하고 있다. 며칠 전에 있었던 여자도 군대를 가야한다는 이상한 근거로 가득한 글을 읽고 신나게 반박 내용을 썼다. 다 쓰고 오타나 고칠 겸 한 번 스윽 읽었다. 어? 어? 왜 이렇게 말이 많아? 당황스러웠다. 불필요하게 사용한 어휘도 많았고 단어만 바꾼 동일한 내용의 문장을 두번 세번씩 쓰고 있더라. 세상에.</p>
+<p>긴 글을 짧게 줄이는 건 아주 쉽다. 그런데 줄인 짧은 글을 읽어도 긴 글을 읽을 때와 마찬가지로 내용을 동일하게 전달하는 건 쉽지 않다. 잘못 줄이면 오해를 살 수 있으며 횡설 수설하는 경우도 많다.</p>
+<p>하고 싶은 말은 많은데 좀 더 깔끔한 문장 쓰기에 익숙해질 때까지 이마 안보이게 목이나 움츠리고 있어야겠다.</p>

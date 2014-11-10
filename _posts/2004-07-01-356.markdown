@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "볼살마왕님."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 297
+wordpress_url: http://blog.hannal.com/wp/?p=297
+date: '2004-07-01 21:51:15 +0900'
+date_gmt: '2004-07-01 12:51:15 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/7/356"
+---
+<p>ㅡ.ㅜ 많은 글들에 한꺼번에 덧글을 다셔서 어느 글에 덧글을 달아야할지 감당이 안서요. 크흑~</p>
+<p>그나저나 볼살마왕님께서 좋아하는 분이 생기셨나보군요. :D<br />
+아직은 이뤄어지지  못한 마왕님의 안타까운 사랑이 저 하늘의 두 빛으로 만나 하늘에 줄을 긋는 별똥별이 되어 두 분의 그 사랑이 분명히 이뤄지길 바랄께요~ (bk love 가사 일부 개사)</p>
+<p>:D</p>

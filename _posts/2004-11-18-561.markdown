@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "블로그 정책 변경"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 465
+wordpress_url: http://blog.hannal.com/wp/?p=465
+date: '2004-11-18 17:09:08 +0900'
+date_gmt: '2004-11-18 08:09:08 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/11/561"
+---
+<p>안녕하세요.</p>
+<p>기존에는 글 자동 열기와 수동 열기를 지원하였으나, 오늘자로 자동 열기는 사라집니다.</p>
+<p>또한 RSS의 본문은 전체 본문이 아닌 일부(200bytes. 단 tag 용량 제외)만 제공됩니다. :D</p>
+<p>예전에 <a href="http://blog.hannal.com/index.php?pl=361">이와 관련해서 설문 조사</a>를 한 결과 큰 무리가 없다고 판단되었기 때문입니다.</p>

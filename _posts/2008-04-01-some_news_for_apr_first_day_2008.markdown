@@ -1,0 +1,52 @@
+---
+layout: post
+status: publish
+published: true
+title: "몇 가지 소식"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 1141
+wordpress_url: http://blog.hannal.com/some_news_for_apr_first_day_2008/
+date: '2008-04-01 10:13:46 +0900'
+date_gmt: '2008-04-01 01:13:46 +0900'
+categories:
+- "essay"
+tags:
+- django
+- sns
+- "도덕성"
+- "만우절"
+- "애드클릭스"
+- "청혼"
+- "희망소식"
+permalink: "/2008/4/some_news_for_apr_first_day_2008"
+---
+<h3>1. 애드클릭스 광고 수익 기부 내역 공개</h3>
+<p>지난 1월 16일부터 <a href="http://blog.hannal.com/adclix_on_my_blog/">제 블로그에 공익 광고를 달았고</a>, 어느 덧 두 달이 지났습니다. 총 401만원 수익이 났고, 전액을 기부했습니다. 손수 광고를 클릭하시어 적잖은 돈을 기부할 수 있게 도와주신 많은 분들께 고맙다는 인사 올립니다.</p>
+<h3>2. 게임 같은 인연 찾기 SNS</h3>
+<p>지난 해 7월에 <a href="http://www.tnccompany.com">TNC</a>에 입사한 이래 새로운 프로젝트에 매달려 왔는데 마침내 공개합니다. 게임 기획자가 뜬금없이 웹 기획자로 변신한 데에는 다 이유가 있지요. 그간 인터넷 관련 모임에 나가면 Web 2.0과 비유하며 Game 2.0을 만들어 내겠다고 말해왔습니다. 이 이야기에 흥미를 가지셨던 <a href="http://www.moreover.co.kr">Chester</a>님께서 함께 일해보자는 제의를 하셨고, 마침내 9개여월 만에 프로젝트를 1차 완료 했습니다.</p>
+<p>이 자리를 빌어 소개합니다. 기존 Social Networking Service에 게임 같은 놀이 요소를 넣은 새로운 인연 찾기 서비스인 <strong><a href="http://danchu.com/">단추닷컴</a></strong>입니다. 서로의 인연이 서로 엮인다는 뜻을 가진 이름입니다.</p>
+<p>서비스 가입도 Web 2.0 시대에 맞게 구성했습니다. 4월 1일부터 아침 무가지 신문들 마다 작은 단추가 첨부되어 있는데 이 단추 뒷면에 고유한 일련번호가 있습니다. 이 번호로 가입하시면 됩니다.</p>
+<p>덧쓰기 : 현재 가입자 폭주로 잠시 서비스가 뻗었네요. 얼른 복구하겠습니다. ㅜㅜ</p>
+<h3>3. 청혼</h3>
+<p><a href="http://blog.hannal.com/happy_birthday_to_soya_2008/">지난 3월 27일은 제 여자 친구 생일</a>이었습니다. 먼거리 연애를 하고 있는데 모처럼 만나서 즐거운 시간을 보냈습니다. 그리고 청혼을 했습니다. ^^ 대답은? 물론 허락이지요! 조만간 좋은 소식 올리겠습니다.</p>
+<h3>4. 국내 최초 Django 서적 출판</h3>
+<p>최근 RoR이라고 해서 Ruby라는 프로그래밍 언어를 기반으로 하는 Rails라는 웹 프레임워크가 인기를 끌고 있습니다. Python 진영에는 Rails 못지 않은 인기를 누리고 있는 웹 프레임워크로 <a href="http://www.djangoproject.com">Django</a>가 있습니다. 저는 지난 해부터 본격 Django를 써왔는데, <a href="http://www.aircornpub.co.kr/">에어콘 출판사</a>에서 제의가 와서 책을 써왔습니다. 제가 알기론 국내 저서로 Python + Django 책은 제 책이 최초입니다. :)</p>
+<p>잠정 확정한 책 이름은 <strong>기획자의, 기획자를 위한, 기획자에 의한 Django 웹 개발</strong>입니다.</p>
+<h3>5. 국가도덕지수 소식</h3>
+<p>실천력 강한 NGO 중 하나인 <strong>세계 도덕 확산 기구</strong>에서 발표한 <a href="http://www.google.co.kr/search?source=ig&hl=ko&rlz=&q=국가도덕지수&btnG=Google+검색&meta=">2007 국가도덕지수에서 우리나라가 AB+를 획득하여 2위</a>를 했다고 합니다. 1위는 AA-를 획득한 중국이, 3위는 AC+를 획득한 미국이 차지했다고 하네요.</p>
+<p>다만, 2007년 조사에서 우리나라 대선 과정은 반영되지 않았으며 이 내용이 반영되는 2008년에서는 다소 순위가 떨어질 것으로 예상되나, 최근 중국의 티베트 무력 침공이 있어서 2위를 유지할 가능성이 높게 점쳐지고 있습니다.</p>
+<h3>6. 마지막 소식</h3>
+<p>.<br />
+.<br />
+.<br />
+.<br />
+.<br />
+.</p>
+<p>이상으로 2008년 만우절을 맞이하여 제 희망 소식을 나열해 봤습니다. ^^ 다 이뤄졌으면 좋겠네요.</p>
+<p>아참, 낚이셨거나 피식 미소 한 번 지으셨다면 댓글 하나 부탁합니다. 굽신 굽신.</p>

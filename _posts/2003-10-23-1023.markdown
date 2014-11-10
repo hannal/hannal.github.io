@@ -1,0 +1,26 @@
+---
+layout: post
+status: publish
+published: true
+title: "이 글은 존재하는 글이지만 접근할 수 없는 글입니다."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 1153
+wordpress_url: http://blog.hannal.com/?p=1153
+date: '2003-10-23 23:16:24 +0900'
+date_gmt: '2003-10-23 14:16:24 +0900'
+categories:
+- "essay"
+tags:
+- wordpress
+- "워드프레스"
+- "주소체계"
+permalink: "/2003/10/1023"
+---
+<p>이 글은 존재하는 글이지만, 글 낱장 주소를 1000 이상으로 바로 접근하게 했기 때문에 접근할 수 없는 주소입니다.</p>
+<p>이 글에 접근하려면 글 낱장 주소에 바로 숫자 1000이 붙지 않게 주소를 고치거나 글 id 로 접근해야 합니다.</p>

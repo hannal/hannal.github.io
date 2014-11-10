@@ -1,0 +1,68 @@
+---
+layout: post
+status: publish
+published: true
+title: "나의 블로그 생활 관련된 질문과 답변들."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 370
+wordpress_url: http://blog.hannal.com/wp/?p=370
+date: '2004-08-29 00:14:01 +0900'
+date_gmt: '2004-08-28 15:14:01 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/8/453"
+---
+<p><s>어디서 퍼온 질문인지 못찾겠음. :D</s></p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">01. 사용하고 있는 닉네임은 어떤 것입니까?</span><br />
+한날. 전체 표기는 <b>특이한 날</b>이지만, 편의상 한날이라고 불리어지면서 한날로 정착.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">02. 블로그의 주소는?</span><br />
+http://blog.hannal.com 가 정식 주소이지만 http://www.hannal.net로 와도 현재는 무방.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">03. 블로그 툴은 무엇을 사용합니까?</span><br />
+현재 태터툴즈를 사용하며, 9월 중으로 자체 제작 툴로 변경 예정. 블로그밈을 사용할 예정이나, 내 편의에 어울리게 수정을 하자니 내 취향의 소스 코딩 방식이 아니라서 결국 자체 제작 중. -_-;</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">04. 툴 선택의 기준은 무엇이었습니까?</span><br />
+호기심 자극을 하는지 여부가 선택의 기준이다.<br />
+설치나 수정은 문제가 아니기 때문에 흥미롭고 재미만 있으면 된다.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">05. 주요한 주제는?</span><br />
+잘난 척하기. 신변 잡기. 자기 계발 중인 것의 시험장.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">06. 카테고리를 나누고 있습니까? 나눈다면 어떤 형태?</span><br />
+예로 들자면.<br />
+변의 종류로 일단 구분한다. 소변인지 대변인지 구분을 한 뒤, 묽은 소변인지, 양은 어떠한지, 된똥인지 설사똥인지로 구분을 한다.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">07. 자신의 블로그에 접속해서 가장 먼저 하는 일은?</span><br />
+접속되어 있나 확인하기. 싸구려 호스팅 서비스라 접속 안되면 스트레스 받는다. 다음은 내키는대로 행동하는데, 이 질문은 "가장" 먼저에 대한 것이니 답은 여기까지.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">08. 출석에 신경쓰는 편입니까?</span><br />
+단골들에게 이곳이 폐쇄하지 않았다는 사실을 눈치채게 할 정도만.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">09. 트랙백 기능을 사랑하십니까?</span><br />
+트랙백을 지원하지 않는 사이트에 방문했을 때, 장문의 이견을 달려고 하지만 그게 안되면 매우 답답해한다. 그런 걸 보면 아마도 대단히 트랙백 기능을 좋아하는 듯 싶다.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">10. 사용하는 어투는 어떤 형태입니까? 특징이 있다면?</span><br />
+거만체. 이모티콘을 잘 사용하지 않고 글투도 딱딱해서 농담을 해도 상대방은 진지하게 받아들이곤 한다.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">11. 자신의 블로그를 한가지 색으로 정의하자면? (웹칼라코드로 답해도 좋습니다)</span><br />
+<a href="http://blog.naver.com/gotomall/40005256237" target="_blank">울트라마린</a></p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">12. 현재까지의 글들 중 가장 많은 트랙백을 받은 포스트는 무엇입니까? 주소도 써주세요.</span><br />
+현재까지 내가 받은 트랙백 총 갯수는 90여개. 어느 글에 트랙백이 달렸는지도 못찾겠다. 대충 기억에 3개인가 4개가 한 글에 가장 많이 달린 트랙백같은데 무슨 글인지 기억은 안난다.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">13. "이 포스트에는 꼭 트랙백을 받아보고 싶어!" 라고 생각했으나 아무런 트랙백을 받지 못한 포스트를 소개해주세요.</span><br />
+스타크래프트 관련 글들.<br />
+한 게임 하자는 글을 내심 기대했으나 단 한 건도 없다.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">14. 현재까지의 글들 중 가장 많은 코멘트를 받은 포스트는 무엇입니까? 주소도 써주세요.</span><br />
+<a href="http://blog.hannal.com/index.php?pl=90" target="_blank">방명록</a>. 곧 있으면 100개 채울 거 같다.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">15. 코멘트가 달린 모습이 서운했던(?) 포스트가 있습니까?</span><br />
+네이버와 이글루스에서 블로그를 운영하던 당시에 썼던 글을 이곳에 옮겨왔었다. 날짜가 과거라서 사람들에게 노출될 일이 없다. 즉 사람들은 과거 글은 읽지 않는다는 의미이고, 기획자인 내게는 과거 정보의 노출도를 높이는 것이 과제가 되었다.<br />
+서운하기 보다는 골치거리.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">16. 당신이 좋아하는 블로거들 중 한 명을 소개해주세요. (블로그 주소를 알려주십시오)</span><br />
+없다. 내가 직접 찾아 다니는 블로그들은 분명 흥미로운 곳이긴 하나 개인적인 취향상 좋아하는 곳이라고 하기에는 모호한 점이 있다. 왜냐하면 내가 원하는 주제를 가진 곳이 단 한군데도 없기 때문.<br />
+즉 개인적인 취향으로는 좋아한다는 감성적인 판단을 내릴 수 있는 곳은 없지만, 흥미롭다는 이성적인 판단을 내릴 곳은 많다는 말.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">17. 꼭 써보고 싶은데 미루고 있는 주제가 있습니까?</span><br />
+국민 연금 찬성 글 : 자료 조사 중이다. 해외 자료를 구하기가 너무 힘들다. 언제 도서관에라도 가야지, 원.<br />
+인터넷 종량제 찬성 글 : KT가 개인에겐 종량제 실시 안한다고 정책을 바꿔서 졸지에 글이 뒷북치게 되어서.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">18. 당신의 블로그는 독립형입니까, 아니면 홈페이지 삽입형입니까?</span><br />
+현재는 독립형이지만 올해안에 부분화 될 것이다.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">19. 주로 방문하고 있는 블로그는 어떤 주제를 가진 경우가 많습니까?</span><br />
+신변잡기.</p>
+<p><span style="color:#202020;background-color:#E4E4E4;padding:4 5 1 3">20. 답변 감사합니다. 블로그 생활, 즐거우십니까?</span><br />
+요즘은 신문 기사를 그대로 가져와서 RSS 피딩하는 블로그가 너무 많아져서 즐거움이 많이 감소했다.</p>

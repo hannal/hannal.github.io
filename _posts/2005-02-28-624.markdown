@@ -1,0 +1,26 @@
+---
+layout: post
+status: publish
+published: true
+title: "&#039;한날의 블로그&#039;의 위기"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 517
+wordpress_url: http://blog.hannal.com/wp/?p=517
+date: '2005-02-28 19:12:08 +0900'
+date_gmt: '2005-02-28 10:12:08 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/2/624"
+---
+<p>hannal.net 도메인 만기일 : 2005년 3월 10일 (19,800원/1년)<br />
+hannal.net 호스팅 만기일 : 2005년 3월 10일 (33,000원/3개월)</p>
+<p>그러나 내겐 돈이 없다. 책도 사고 싶고 CD도 사고 싶은데 돈이 없다.</p>
+<p>한날의 블로그 최대 위기 봉착!</p>
+<p>이런 위기를 어떻게 극복해야 할 지에 대하여 구글에게 물어볼까, 네이버 지식인에 물어볼까.</p>
