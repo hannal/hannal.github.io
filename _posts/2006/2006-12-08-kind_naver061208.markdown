@@ -1,0 +1,30 @@
+---
+layout: post
+status: publish
+published: true
+title: "박물관이 살아 있다"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 950
+wordpress_url: http://blog.hannal.com/?p=950
+date: '2006-12-08 13:50:14 +0900'
+date_gmt: '2006-12-08 04:50:14 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/12/kind_naver061208/"
+---
+<p class="centerphoto"><img src="http://blog.hannal.com/download/kind_naver.GIF" alt="네이버에서 '박물관이 살아 있다' 검색 말을 치다보면 오타 문장까지 함께 나오는 모습" /></p>
+<p>'박물관이 살아 있다'를 알아보려고 네이버에 갔다. 검색말 입력란에 '박물관이'라고 치니까</p>
+<ul>
+<li>박물관이 살아있다</li>
+<li>박물관이 살아있따</li>
+<li>박물관이 살아잇다</li>
+</ul>
+<p>라는 자동 완성된 검색 말 목록이 나왔다. 친절하셔라.</p>
+<p>근데 기왕 오타까지 함께 나오는 김에 바른 말도 넣어주지. 바르게 쓰면 '박물관이 살아 있다'인데. 히히.</p>

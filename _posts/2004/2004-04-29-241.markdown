@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "오늘 나의 머리 모양 주제는.."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 200
+wordpress_url: http://blog.hannal.com/wp/?p=200
+date: '2004-04-29 15:01:24 +0900'
+date_gmt: '2004-04-29 06:01:24 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/241/"
+---
+<p>오늘 나의 머리카락 모양 주제는 "자다 깬 부시시한 머리카락".<br />
+자다 깨고 머리카락을 안감은게 아니라 머리카락을 감고 왁스 발라서 연출하였다. 후후. 그런데 시간이 지나서 머리카락이 가라앉으니 나의 주제가 드러나질 않는구나! 흑흑.</p>
+<p>p.s : 오늘 나의 헤어스타일 컨셉은! 이라고 쓰는 것보다 더 정감있고 좋군. 외래어를 이렇게 하나 하나 우리말로 바꿔갈 때 은근히 신경이 쓰이지만, 바꾸고 난 후의 문장에서 정감이 느껴지면 보람이 가득해진다. 히히.</p>

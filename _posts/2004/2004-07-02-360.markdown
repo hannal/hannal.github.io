@@ -1,0 +1,36 @@
+---
+layout: post
+status: publish
+published: true
+title: "머리 좋은 멍청이"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 300
+wordpress_url: http://blog.hannal.com/wp/?p=300
+date: '2004-07-02 15:02:00 +0900'
+date_gmt: '2004-07-02 06:02:00 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/7/360/"
+---
+<p>머리 좋은 멍청이라면 누구나 사물을 더 크고 난잡하며 극단적으로 만들 수 있다.<br />
+그 반대 방향으로 나아가려면 천재적인 재능-또한 많은 용기-이 필요하다.</p>
+<blockquote><p><b>원문</b><br />
+Any intelligent fool can make things bigger, more complex, and more violent.<br />
+It takes a touch of genius -and a lot of courage- to move in the opposite direction.</p></blockquote>
+<hr width="90%" size="1" />
+넓게 생각하고, 집중력있게 행동하라.</p>
+<blockquote><p><b>원문</b><br />
+think globally, act locally</p></blockquote>
+<hr width="90%" size="1" />
+작은 것이 아름답다</p>
+<blockquote><p><b>원문</b><br />
+Small Is Beautiful</p></blockquote>
+<p>- E.F. Schumacher (1911 ~ 1978)</p>
+<p>덧쓰기 : 내 나름대로의 의역이므로 원문을 첨부하였음. 쉬운 영문장이기도 하고.</p>

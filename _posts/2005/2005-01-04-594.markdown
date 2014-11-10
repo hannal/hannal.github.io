@@ -1,0 +1,39 @@
+---
+layout: post
+status: publish
+published: true
+title: "너 알아서 해."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 492
+wordpress_url: http://blog.hannal.com/wp/?p=492
+date: '2005-01-04 13:33:04 +0900'
+date_gmt: '2005-01-04 04:33:04 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/1/594/"
+---
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0104/050104132945697730/901315.jpg" width="500" height="648"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p></center></p>
+<p>
+<u><b>대화</b></u><br />
+남자 : 이젠 나는 네가 누구를 만나든, 몇 시에 귀가하든 신경 쓰지 않을래.<br />
+여자 : .....</p>
+<p>
+<u><b>말의 의미</b></u><br />
+남자의 말의 의미 : 난 이제 너를 좀 더 믿도록 노력할께<br />
+여자가 받아들인 의미 : 난 이제 너를 포기할래. 네 멋대로 해.</p>

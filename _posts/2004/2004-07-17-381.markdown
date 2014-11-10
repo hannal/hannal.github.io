@@ -1,0 +1,30 @@
+---
+layout: post
+status: publish
+published: true
+title: "한날의 정체가 이렇게 밝혀지다니.."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 315
+wordpress_url: http://blog.hannal.com/wp/?p=315
+date: '2004-07-17 21:33:38 +0900'
+date_gmt: '2004-07-17 12:33:38 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/7/381/"
+---
+<p><center><font size="3"><b>한날 면도기(JA-111)</b></font></center><br />
+<table border="0">
+<tr>
+<td><img src="http://my.ecplaza.co.kr/jeungan/1.jpg" /></td>
+<td>■ 제품일반설명</p>
+<p>모든 남성들의 필수품인 면도기로서 가장 저렴한 가격으로 여행, 낚시, 샤워시 간편하게 사용할 수</td>
+</tr>
+</table>
+<p>출처 : <a href="http://my.ecplaza.co.kr/jeungan/1.asp" target="_blank">http://my.ecplaza.co.kr/jeungan/1.asp</a></p>

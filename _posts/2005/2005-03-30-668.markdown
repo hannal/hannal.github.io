@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "범양 식품 파산"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 556
+wordpress_url: http://blog.hannal.com/wp/?p=556
+date: '2005-03-30 19:38:36 +0900'
+date_gmt: '2005-03-30 10:38:36 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/3/668/"
+---
+<p>- <a href="http://news.naver.com/news/read.php?mode=LSS2D&office_id=009&article_id=0000431705&section_id=101&section_id2=261&menu_id=101">끝내 무너진 "콜라독립"의 꿈</a></p>
+<p>콜라의 독립을 외치던 815콜라가 끝내 무너졌다. 탄산 음료를 좋아하지 않지만 안타깝다.</p>
+<p>815콜라를 생산하는 범양식품의 계열사인 건양식품에서 나오는 가야 농장 쥬스는 정말 맛있었다. 언제부터인가 이것을 볼 수 없게 되어서 아쉬웠는데 부도가 났었구나.</p>
+<p>아쉽다, 아쉬워.</p>

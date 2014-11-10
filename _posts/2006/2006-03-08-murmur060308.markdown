@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "이제 슬슬 움직입니다."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 749
+wordpress_url: http://blog.hannal.com/blog/murmur060308/
+date: '2006-03-08 22:13:09 +0900'
+date_gmt: '2006-03-08 13:13:09 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/3/murmur060308/"
+---
+<p>이직 하느라 한 3주간 소홀했군요. 내일부터 거의 매일 아침 10시부터 저녁 7~8시까지 선릉 근처에서 생활합니다. 회사는 요 2~3년간(최근 1년간은 아주 극심~?) 부쩍 욕 많이 먹고 있는 곳입니다. 이 회사에 대해 투덜거릴 이야기거리 몇 개를 수개월째 마무리하지 못해 공개하지 않고 있는데 몇 년간은 꺼내지 않겠군요. -_-;</p>
+<p>아무튼 이제 셈틀을 사용할 수 있으니(?) 가끔씩 글을 올릴 수 있을 듯 합니다. 하하.</p>
+<p>그나저나. 월급 가지고 장난하는(?) 사장을 뭐라 부르는지 아십니까? 바로 <del datetime="2006-03-08T22:08:31-09:00">공공의 적</del><ins datetime="2006-03-08T22:08:31-09:00">봉급생활자의 적</ins>입니다. 그런 사장 만나지 않게 여러분 모두 조심하세요~! 월급 제때 받는 걸 회사 복지처럼 여겨야 하는 회사가 싫어요~!</p>

@@ -1,0 +1,32 @@
+---
+layout: post
+status: publish
+published: true
+title: "봄의 햇살"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 145
+wordpress_url: http://blog.hannal.com/wp/?p=145
+date: '2004-04-10 13:47:39 +0900'
+date_gmt: '2004-04-10 04:47:39 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/181/"
+---
+<p>봄의 햇살이 들었다.<br />
+신숭 생숭 봄 바람 들 듯<br />
+산들 산들 산들 바람 얼굴을 어루어만지듯.</p>
+<p>상쾌한 푸른 하늘 바다<br />
+한 곳에 하얀 점 하나<br />
+그곳에 하얀 점 하나<br />
+나를 보솜 보솜 적시니</p>
+<p>아스팔트 돌덩이와 심장을 맞바꾼듯<br />
+불감의 한 20대 총각<br />
+봄 햇살에 가슴 서려져 모처럼 미소 지어보네.</p>
+<p>좋다~ 오늘은 일찍 퇴근해야지~</p>

@@ -1,0 +1,28 @@
+---
+layout: post
+status: publish
+published: true
+title: "블로그 본문 보는 형식 세분화"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 259
+wordpress_url: http://blog.hannal.com/wp/?p=259
+date: '2004-06-10 20:41:00 +0900'
+date_gmt: '2004-06-10 11:41:00 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/6/310/"
+---
+<p>오늘부터 블로그 본문 보기 형식이 세분화됩니다. 총 두 가지 형식이 있습니다.</p>
+<ol>
+<li /> 항상 글 본문 보이기
+<li /> 수동으로 글 본문 보기
+</ol>
+<p>1번은 언제나 글 본문이 출력되어 있는 형태입니다. 2번은 평소에는 글 본문 일부만 나옵니다(196bytes). 이때 글 제목을 누르거나 일부 글의 고유 주소(Permalink)로 접근하면 글 본문 전체가 나옵니다.</p>
+<p>이러한 기능은 우측에 <b>Useful menu</b>라는 곳에서 선택할 수 있으며 한 번 설정하면 쿠키로 저장되어 다음 방문시에도 선택한 방식이 적용되어 출력됩니다.</p>

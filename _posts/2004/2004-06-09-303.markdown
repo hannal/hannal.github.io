@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "블로그 코리아의 장점"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 254
+wordpress_url: http://blog.hannal.com/wp/?p=254
+date: '2004-06-09 17:19:53 +0900'
+date_gmt: '2004-06-09 08:19:53 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/6/303/"
+---
+<p>블로그 코리아의 장점은 뭐니 뭐니해도 산발적으로 흩어져있기 쉬운 블로그와 블로거를 하나의 공간에서 만날 수 있게 하는 점이다. 그러나 그것보다 더 큰 장점이 있다. 바로 온라인/오프라인 유행 파악이다.</p>
+<p>최신 유행에 대해 알고 싶은가? 그럼 1일만 투자하자. 하루를 꼬박 블로그 코리아에 새로 올라오는 글들을 대충 훑어보면 뭐가 인기를 끌고 있고 유행인지 바로 알 수 있다.</p>
+<p>최근의 인기있는 것은? 일본내 환타 광고.</p>
+<p>덧쓰기 : 환타 광고가 재밌어서 소개해주고픈 마음은 알겠는데 너무 많은 사람들이 갈무리하여 떨렁 동영상 하나 올리는게 아닌가 싶다. 아무튼 전파력에 따른 노출도만큼은 블로그가 최고다. 역시 블로그의 사업으로써 활용은 광고다.</p>

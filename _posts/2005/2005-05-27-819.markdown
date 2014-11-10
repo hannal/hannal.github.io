@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "노트북 PC"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 618
+wordpress_url: http://blog.hannal.com/blog/%eb%85%b8%ed%8a%b8%eb%b6%81-pc/
+date: '2005-05-27 17:20:59 +0900'
+date_gmt: '2005-05-27 08:20:59 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/5/819/"
+---
+<p>요즘 노트북 PC가 강렬히 필요하다. 어흑흑. 어떤 일을 하기 위해서는 뭔가가 강렬히 필요한 이런 상황에 봉착하면 현재 내 경제 상황이 나를 슬프게 한다. 지금 준비하고 있는 일들은 다른 것도 아닌 노트북 PC 여야 하는 상황이니 매우 괴롭다. 단지 노트북PC가 갖고 싶어서 노트북PC여야 하는 것이 아니냐며 노트북PC여야만 하는 일은 없다고 <strong>잔인</strong>한 말을 들을 수 있는 생각이다. 하지만 이미 8년 전부터 노트북PC가 갖고 싶었지만 잘 참아왔고, 노트북PC가 아니어도 준비하는 일을 할 수 있지 않을까 싶어 여러 방법으로 진행해봤다. 그 결론이 지금의 몸부림이다. 꼬물딱 꼬물딱.</p>
+<p><a href="http://www.i-rocks.co.kr/keyboard/KR_6130_SILVER.php">아이락스 키보드</a>라도 사서 자위해볼까? 아니면 <a href="http://www.acecat.co.kr/infor-digimemo.html">디지메모</a>라도. 탈탈탈. 움찔.</p>
+<p>덧쓰기 : 공교롭다. 옆에 있는 구글 광고에 HP 노트북PC이 뜨다니! 두근 두근.</p>

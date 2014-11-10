@@ -1,0 +1,29 @@
+---
+layout: post
+status: publish
+published: true
+title: "거대한 힘"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 1938
+wordpress_url: http://blog.hannal.com/?p=1938
+date: '2009-11-04 20:03:06 +0900'
+date_gmt: '2009-11-04 11:03:06 +0900'
+categories:
+- "essay"
+tags:
+- "거대한힘"
+- "모기"
+- "방향"
+- "삶"
+- "자세"
+permalink: "/2009/11/the_greatest_effector/"
+---
+<p><a href="http://blog.hannal.com/murmur_about_mosquito_in_autumn">얼마 전 치뤘던 협상이 결렬</a>된 이후에도 한참동안 나를 괴롭혔던 모기가 며칠 사이에 사라졌다. 내가 아무리 잘난 척하고 솜씨를 부려봐도, 그리고 주변에서 똑똑하다는 소리 꽤나 들었을 연구원들이 모기 위협 도구를 만들어내도 모기에게 이기기를 커녕 불리한 협상 자리에 조차 앉히지 못한다. 그런데, 단 이틀, 더도말고 덜도말고 이틀동안 갑작스레 떨어진 온도에 모기들은 서서히 마비되어 힘없이 날개짓을 하다 자취를 감추었다.</p>
+<p>이 거대한 힘을 보며, 내가 추구하는 거대한 힘은 무엇인지 고민해본다. 거대한 영향력을 거대한 힘이라고 정의하기엔 어딘가 막연하다. 왜냐하면 3년 넘은 노트북에 거대한 영향력을 행사할 수 있으니까. 거대한 자아는 너무 두루뭉술하다. 인류 역사상 본능보다 더 강한 이성(자아)를 가졌던 이는 손에 꼽을 정도니까.</p>
+<p>거대한 힘. 더 고민해본다.</p>

@@ -1,0 +1,28 @@
+---
+layout: post
+status: publish
+published: true
+title: "태터툴즈에서 공지처럼 글 맨위에 띄우기"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 86
+wordpress_url: http://blog.hannal.com/wp/?p=86
+date: '2004-03-29 16:36:47 +0900'
+date_gmt: '2004-03-29 07:36:47 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2004/3/112/"
+---
+<p>요즘 게시판들은 글에 공지 기능을 넣을 수 있습니다. 공지 기능이 된 글은 게시물 목록의 맨 위에 위치하지요. 새 글이 추가되어도 그 글보다 위에 존재합니다.</p>
+<p>태터툴즈로도 그런 기능을 사용할 수 있습니다. 바로 <b>생성시각</b> 조작입니다.</p>
+<p>만일</p>
+<p>"이 블로그는 덧글을 적극 권장합니다"</p>
+<p>라는 공지 사항을 맨 위에 출력하고 싶을 경우 그 글의 생성시각을 <b>미래</b>로 하십시오. 2005년 3월 29일로 한다면 1년 동안은 저 글이 맨 위에 위치하게 됩니다.</p>
+<p>재밌는 점은 태터툴즈는 Archive 목록 생성시 현재를 기준으로 하기 때문에 미래로 잡은 글은 목록에 잡히지 않는다는 것입니다.</p>
+<p>별 시덥잖은 내용으로 거창한 척해서 죄송. 흐흐.</p>

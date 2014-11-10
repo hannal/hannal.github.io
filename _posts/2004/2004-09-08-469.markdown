@@ -1,0 +1,27 @@
+---
+layout: post
+status: publish
+published: true
+title: IETOY 홈페이지 폐쇄
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 384
+wordpress_url: http://blog.hannal.com/wp/?p=384
+date: '2004-09-08 13:22:57 +0900'
+date_gmt: '2004-09-08 04:22:57 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/9/469/"
+---
+<blockquote>실명도 못쓰는 겁쟁이들에게 아침부터 쌍소리나 듣자고 홈 페이지 운영하지 않았습니다. 잠시 닫습니다.</p></blockquote>
+<p>나에게 인터넷 산책에 편리함을 크게 주었던 ietoy. 그 ietoy 의 홈페이지가 익명의 <b>찌질이</b>들에 의해 폐쇄되었다.</p>
+<p>다른 할 말은 없다. 욕 한 마디 뿐.</p>
+<p>DFLJ3K#$#4JSDJF;AJWF23$@#$@ㄴㅣㅂㅈㅇㅇㅂㅈㄱㅆㅂ애#$2들아.</p>
+<p>덧쓰기 : 음모론을 슬쩍 흘려보자면 ietoy 홈페이지에 쌍소리 해댈 사람은 ietoy나 adfree 이용자는 아닐 것으로 추측된다. 히히.</p>
+<p>2006년 5월 8일 덧쓰기 : 저 IEToy 개발자 아닙니다. -_-;</p>

@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "모입시다! 모임 취소 공지."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 342
+wordpress_url: http://blog.hannal.com/wp/?p=342
+date: '2004-08-06 17:35:29 +0900'
+date_gmt: '2004-08-06 08:35:29 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/8/414/"
+---
+<p>안녕하세요.</p>
+<p>모입시다! 모임 취소 공지를 올립니다. 개인 사정에 의해 모임을 진행할 엄두가 나질 않는군요. 저로 인해 소중한 주말 약속 일정에 차질을 빚은 분들께 진심으로 사과드립니다. 나중에 혹 오프라인 모임을 열게 되면 이번에 참여 의사를 밝혀주신 분들의 모임 비용은 제가 감당하겠습니다. (모임 안열어야지...흐흐)</p>
+<p>덧쓰기 : 먼길 행차하실 태환님은 혹 표 예매 취소가 안된다면 loathing@naver.com 날려주셔요. 맥주나 한 잔 합시다. :D</p>

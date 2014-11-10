@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "아싸. 일단 완료~"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 587
+wordpress_url: http://blog.hannal.com/blog/%ec%95%84%ec%8b%b8-%ec%9d%bc%eb%8b%a8-%ec%99%84%eb%a3%8c/
+date: '2005-04-27 14:29:21 +0900'
+date_gmt: '2005-04-27 05:29:21 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/4/787/"
+---
+<p>블로그밈용 태터툴즈 변환기 제작이 일단 완료됐다. 마음 같아서는 지금 바로 공개하고 싶지만 몇 가지 이유로 인해 오늘 저녁이나 내일쯤 공개할 듯 싶다. 블로그밈은 변환기 제작이 참 쉽게 만들어져 있어서 제작하는데 만 하루가 걸렸다. 약간의 삽질을 제외하면 무난하게 개발한 듯 합니다.</p>
+<p>이제 태터툴즈에서 블로그밈으로 옮기고 싶은 분은 자료를 옮길 수 있습니다! 오늘 저녁이나 내일부터. 후다닥.</p>
+<p>옮긴 거 구경하기 : <a href="http://blog.hannal.commeme/blog/index.php?blog_code=tatter">http://blog.hannal.commeme/blog/index.php?blog_code=tatter</a></p>

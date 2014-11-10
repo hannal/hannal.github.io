@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "구독자 여러분, 고맙습니다."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 473
+wordpress_url: http://blog.hannal.com/wp/?p=473
+date: '2004-11-30 19:58:00 +0900'
+date_gmt: '2004-11-30 10:58:00 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/11/570/"
+---
+<p><a href="http://www.blog2004.org/blog/index.php?pl=46">Blogfair 2004</a>에서 RSS 리더로 구독하는 블로그 통계를 산출했는데 제 블로그가 17위를 차지했군요.</p>
+<p>행사가 진행 중이던 토요일에는 한참 회사에서 일을 하느라 행사에는 찾아가보지도 못해서 Top 30내에 자리를 차지한 것이 묘한 기분입니다.</p>
+<p>사실 월요일, 회사에서 blogfair 사이트에 있는 Top 30 목록을 봤지만 제 블로그가 없는 걸 보고 "하긴, 내 블로그가 뭐 볼 게 있다고 RSS 구독이나 할까. 예상대로였네"라고 중얼거렸습니다. 그런데 집에 와서 무선 인터넷으로 인터넷에 접속하여 살펴보니 제 블로그가 무려 17위에나 있는 것이 아닙니까?! 무선 인터넷이 유선 인터넷보다 더 신기술이라 그런가보다라고 이상한 논리로 결론을 내리며 뿌듯해봅니다. 더욱이 쟁쟁한 분들의 블로그 사이에 끼어 있어 더 뿌듯하군요. :D (그분들은 찝지름하실지 모르겠지만. 하하)</p>
+<p>제 블로그의 RSS를 구독해주시는 많은 분들께 감사드리며, 더 좋은 볼거리로 찾아뵙도록 노력하겠습니다.</p>

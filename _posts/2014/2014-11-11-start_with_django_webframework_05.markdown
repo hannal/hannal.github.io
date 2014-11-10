@@ -18,7 +18,7 @@ tags:
 - django
 - view
 - url dispatch
-permalink: "/2014/11/start_with_django_webframework_05"
+permalink: "/2014/11/start_with_django_webframework_05/"
 ---
 * 마지막 갱신일시 : 2014년 11월 10일 4시 31분
 

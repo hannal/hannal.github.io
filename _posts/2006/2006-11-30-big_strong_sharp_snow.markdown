@@ -1,0 +1,29 @@
+---
+layout: post
+status: publish
+published: true
+title: "눈님도 오셨나니"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 945
+wordpress_url: http://blog.hannal.com/?p=945
+date: '2006-11-30 10:58:05 +0900'
+date_gmt: '2006-11-30 01:58:05 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/11/big_strong_sharp_snow/"
+---
+<p>눈이 왔군요. (지금 보니 그새 그쳤네) 매해 겨울이면 찾아오는 <a href="http://www.sadjunu.com">새드주누</a>님의 그 만화가 생각 나는군요.</p>
+<p class="centerphoto"><img src="http://blog.hannal.com/download/123887_200611291254241.jpg" alt="새드주누님의 만화, 크고 딱딱하고 뾰족한 눈" /></p>
+<p>자...</p>
+<p>이제 크고 단단하고 뾰족한 눈으로 바뀌어야지, 응?</p>
+<p>........................</p>
+<p>K양 : 저 남자 너 닮았어<br />
+H양 : 저렇게 되면~혼자 댕겨야지~ 무섭당~</p>
+<p>-_-+ 쳇.</p>

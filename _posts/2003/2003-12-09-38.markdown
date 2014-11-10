@@ -1,0 +1,41 @@
+---
+layout: post
+status: publish
+published: true
+title: "한국의 부자들"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 26
+wordpress_url: http://blog.hannal.com/wp/?p=26
+date: '2003-12-09 23:01:33 +0900'
+date_gmt: '2003-12-09 14:01:33 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2003/12/38/"
+---
+<table align="left">
+<tr>
+<td style="padding-right:5"><center><img src="http://blog.hannal.com/tt-attach/0321/040321180833040521/780792.jpg" width="107" height="155"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p>- 책 제목 : 한국의 부자들 <br />
+- 저자 : 한상복 <br />
+- 분량 : 300여 페이지 <br />
+- 분류 : 투자, 재테크<br />
+- 사진 출처 : <a href='http://www.yes24.com' target='_blank'>YES 24</a></p>
+<p>'부자 아빠 가난한 아빠'라는 책만큼이나 화제가 되고 있는 책. 부자 아빠 가난한 아빠라는 책이 미국이라는 나라의 실정에 적합하여 우리나라 실정에는 적당하지 않다며 우리 나라의 부자들(집을 제외한 재산이 10억 이상을 보유한 이들을 대상으로 함)에 대해 다루고 있다. </p>
+<p>2일에 걸쳐 주욱 읽었는데 사실 별 내용은 없다. 부자들의 X-파일이 공개되었다는 둥 온갖 소란을 다 피우고 있지만 정말 별 내용은 없다. 책 내용을 간단히 줄이자면 </p>
+<p>- 근면 성실 부지런 <br />
+- 은행의 이자보다는 안전한 투자(부동산이건 뭐건)가 낫다 </p>
+<p>가벼운(??) 책들의 공통점이 그러하지만, 한 가지 주제를 최소한 200~300장의 분량을 만들다보니 책의 전반적 내용은 각 Chapter 마다 거의 같다. 부자 아빠 가난한 아빠도 그러했고, 이 책도 그러하고, 영어 공부 절대로 하지 마라도 그러하고. </p>
+<p>만일 이미 부자 아빠 가난한 아빠를 읽은 사람이라면, 서점에 가서 가볍게 읽기엔 좋지만 사서 보기엔 너무 가볍고 내용이 없다는 생각이 든다. 물론 부자 아빠 가난한 아빠를 읽지 않았다면 사서 보기엔 괜찮다. 책 내용이 부자를 만들어줄지는 알 수 없지만, 책 내용이 우리가 세상을 살아가고 돈을 버는데 있어서는 좋은 내용이기 때문이다.</p>
+<p>(물론 전적으로 동의하는 내용은 아니다. 일부는 부정한다)</p>

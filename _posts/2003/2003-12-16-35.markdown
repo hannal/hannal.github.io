@@ -1,0 +1,36 @@
+---
+layout: post
+status: publish
+published: true
+title: "컴퓨터 네트워크 프로그래밍"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 24
+wordpress_url: http://blog.hannal.com/wp/?p=24
+date: '2003-12-16 15:23:56 +0900'
+date_gmt: '2003-12-16 06:23:56 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2003/12/35/"
+---
+<table align="left">
+<tr>
+<td style="padding-right:5"><center><img src="http://blog.hannal.com/tt-attach/0321/040321180356226377/800505.jpg" width="113" height="155"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p>- 책 제목 : 컴퓨터 네트워크 프로그래밍 <br />
+- 저자 : 김화종 <br />
+- 분량 : 300페이지 + 약간 <br />
+- 분류 : 프로그래밍 서적 <br />
+- 사진 출처 : <a href='http://www.yes24.com' target='_blank'>YES 24</a></p>
+<p>개인적으로 친분이 있는 분으로부터 추천을 받은 책. 내용은 매우 간결하다. 하지만 Network Programming 을 시작하기 위한 기초와 기본은 매우 쉽게 익힐 수 있다. 그간 Network Programming 을 익히기 위해 여러 책들을 봤지만, 번역서의 이해하기 까다로운 번역체, 번역서 못지 않게 번역체스려운 말을 휘갈겨놓은 국내의 여러 책들보다 훨씬 명쾌한 해설을 하고 있다. </p>
+<p>이 책을 읽은 뒤 Windows(IOCP) 쪽으로 나가건 Linux/Unix(Socket) 으로 나가간 결정을 하면 될 것이다. 즉 Network Programming 을 시작하려는 사람은 이 책부터 시작할 것을 강력히 추천한다.</p>

@@ -1,0 +1,23 @@
+---
+layout: post
+status: publish
+published: true
+title: "내가 만든 블로그 쓰느니 남이 만들 걸 쓰겠다."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 196
+wordpress_url: http://blog.hannal.com/wp/?p=196
+date: '2004-04-27 22:28:18 +0900'
+date_gmt: '2004-04-27 13:28:18 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/237/"
+---
+<p>블로그를 자작하며 내가 생각하던 그런 블로그의 형태에서 조금씩 빗나가기 시작했다. 울컥. 이러다가 기껏 완성해놓고선 "내가 만든 블로그 프로그램을 쓰느니 차라리 남의 걸 쓰고 만다!" 라고 외치는 거 아닌가 모르겠다.</p>
+<p>만일 정말 다른 블로그 프로그램처럼 흔한 형태가 나오면 내가 쓸 버전은 애초 구조부터 다시 기획해야겠다.</p>

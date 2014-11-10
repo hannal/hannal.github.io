@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "조정되는 지하철 요금 알아보기"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 269
+wordpress_url: http://blog.hannal.com/wp/?p=269
+date: '2004-06-16 15:26:27 +0900'
+date_gmt: '2004-06-16 06:26:27 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/6/322/"
+---
+<p>2004년 7월 1일부터 대중 교통(버스, 지하철) 요금이 인상한다. 버스의 경우 노선까지 개편이 되는데 아직 시내 곳곳이 공사도 완료되지 않았고 개편된 노선이 확정되지 않은 곳도 있어 교통 대란도 우려된다. 역시 막무가내의 최고봉 이<b>맹빡</b> 시장답다.</p>
+<p>뭐, 이 글은 그에 대해 비판을 하는 건 아니니 이정도로 줄이고, 이번에 인상된 지하철 요금의 계산을 도와주는 웹 사이트가 있어서 소개해본다. 지하철로 출퇴근, 등하교를 하는 이들은 해당 사이트를 통해 7월 1일부터 내 지갑에서 돈이 얼마나 많이 빠져나가는지 확인하여 마음의 준비를 해두자.</p>
+<p>☞ <a href="http://bus.seoul.go.kr/bus/toll.asp" target="_blank">지하철 개편요금 조회 페이지</a></p>
+<p>덧쓰기 : 이번 지하철 요금 인상으로 지하철 운영이 좀 더 나아지길 바래본다. 1열차 2인 승차제 등등. 만일 전혀 개선되는 거 없으면 나 진짜 사고 하나 칠거다. 쓰.</p>

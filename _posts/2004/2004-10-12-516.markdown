@@ -1,0 +1,95 @@
+---
+layout: post
+status: publish
+published: true
+title: "나의 손 빠르기 속도의 향상에 대한 단상"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 425
+wordpress_url: http://blog.hannal.com/wp/?p=425
+date: '2004-10-12 16:05:30 +0900'
+date_gmt: '2004-10-12 07:05:30 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2004/10/516/"
+---
+<p>나의 APM(Action Per Minute)의 변천사.</p>
+<ul>
+<li /> 2003년 초 : 80~90대</p>
+<li /> 2004년 1분기 : 100대
+<li /> 2004년 2분기 : 110~130대
+<li /> 현재 : 140~160대</ul>
+<p>장족의 발전이다. -_-; 1년 6개월에 비해 2배 가까이 빨라진 셈인데, 1년 6개월동안 손을 빠르게 하기 위하여 엄청난 연습을 했다...면, 아마 지금쯤 평균 200대는 유지할 듯 싶다.</p>
+<p>나는 게임을 열심히 하지 않는 편이다. 나는 스타크래프트를 1999년도부터 해왔는데 그때부터 지금까지 해온 총 전적을 합쳐봐야 1,000게임 정도일 것이다(컴퓨터와 하는 것 제외 -_-;). 실제로 내 배틀넷 id의 총 전적은 500전이 안되며 임시 id것들을 합쳐도 500전 수준이다.</p>
+<p>그럼에도 나는 실력이 많이 향상했다. 나를 이기던 주변 사람들을 이제는 내가 다 이기며, 유닛 생산이나 확장, 컨트롤 모두 향상했다. 나보다 게임을 더 열심히 많이 하는 녀석들보다 나의 발전이 빠른 편이다. 그 이유를 나는 스타크래프트 경기 관람에서 찾는다. 나는 게임을 하는 것보다 보는 정도가 월등히 많다. 게임 하는 시간이 1달에 3~4시간이라면 20시간은 관람하는 편이다. 열심히 보고 따라하는 것이다.</p>
+<p>그런데 스타크래프트 경기 관람을 통해 얻는 것은 전략과 전술이지 손 빠르기는 아니다. 그런데 신기하게도 손 빠르기도 조금씩이나마 증가하고 있다. 내가 생각해도 신기하다. 아무래도 프로게이머들의 전술적 운영을 흉내내려면 잔손길이 많아야하는데 그때문인 듯 싶다. (하지만 나는 여전히 어택땅 성향을 크게 벗어나지 못하고 있다)</p>
+<p>재밌는 사실은 나의 손 빠르기 속도는 예전에 비해 2배 가까이 늘었으나 승률은 예전과 거의 같다는 점. 물론 예전에는 배틀넷에서 주로 초보방에 갔고 요즘에는 초보 글자가 없는 방에 가긴 하지만, 게임 면면을 보면 손 빠르기의 향상 덕을 보는 경우는 그다지 없는 듯 싶다. 내 APM이 80~90일 때도 지금 정도의 물량은 뽑아냈고, 지금 정도의 힘 싸움은 했었다.</p>
+<p>또 다른 재밌는 점은 회사에 가끔 1:1을 붙는 K팀장님의 손 빠르기다. 그는 회사내 스타크래프트 고수 3인방(-_-;;) 중 1명으로, 프로토스가 주종족이며 3인방 중 가장 손이 느리다. 70~80정도인데 내가 그와 프로토스 대 프로토스 1:1을 붙은 전적이 처참할 정도다. 아마 내가 1판 이기고 10경기 가까이 진 듯 싶다. 내가 장기전을 좋아해서 중장기전으로 간 게임들은 내가 이겼지만, 진 게임들은 전부 초반에 끝났다. 내가 그보다 손은 두 배 빠르지만 그의 물량은 나와 비교하여 부족하지 않으며, 오히려 초반 질럿 싸움에서 컨트롤 우위를 보인다. 참 잘한다. -_- 손 빠르기가 실력과 비례하지 않는다는 새삼스럽지 않은 사실을 잘 보여주는 실존 사례이다.</p>
+<p>물론 손이 빨라지면 컨트롤 할 것이 많아지는 중장기전에 유리하다. 확장 기지 구축이라던가 견제(게릴라), 진영 구축을 하기가 좀 더 유리하다. 동시에 할 수 있기 때문이다. 실제로 K팀장님은 중장기전이 되었을 때 동시 운영을 잘 못하는 듯 싶다.</p>
+<p>이보다 더 빨라져서 200대 APM을 찍게 되면 나의 손 빠르기는 최연성 선수나 강민 선수급이 된다. 그러나 내가 그들 수준의 실력을 갖추지는 못할 것이 뻔하다. 손 빠르기가 향상되면 좋겠지만, 현재정도로도 충분히 이기는 게임을 할 수 있도록 좀 더 생각하고 연구하고 분석하도록 해야겠다.</p>
+<p>그런 의미에서, 지금보다 더 즐기지(Play)말고 즐겨(Watch)볼까나.</p>
+<p>
+아래는 최근 게임의 Replay 몇 개. (물론 이긴것만. 히히)</p>
+<p><center><br />
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td>
+<table>
+<tr>
+<td><center><br />
+<table class="ib" onclick="location.href='http://blog.hannal.com/down.php?attachname=141699.rep'">
+<tr>
+<td><img src="http://blog.hannal.com/images/icon/file.gif"></td>
+<td class="centerphoto">battle 041008 01.rep (46.3 KB)</td>
+</tr>
+</table>
+<p></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> 39800won(플토)이 <span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span> </td>
+</tr>
+</table>
+</td>
+<td>
+<table>
+<tr>
+<td><center><br />
+<table class="ib" onclick="location.href='http://blog.hannal.com/down.php?attachname=416009.rep'">
+<tr>
+<td><img src="http://blog.hannal.com/images/icon/file.gif"></td>
+<td class="centerphoto">daeja 041011 01.rep (108.3 KB)</td>
+</tr>
+</table>
+<p></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> 테란이 <span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span></td>
+</tr>
+</table>
+</td>
+<td>
+<table>
+<tr>
+<td><center><br />
+<table class="ib" onclick="location.href='http://blog.hannal.com/down.php?attachname=743507.rep'">
+<tr>
+<td><img src="http://blog.hannal.com/images/icon/file.gif"></td>
+<td class="centerphoto">php 041008 01.rep (94.2 KB)</td>
+</tr>
+</table>
+<p></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> 39800won(플토)이 <span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p></center></p>

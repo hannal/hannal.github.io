@@ -1,0 +1,33 @@
+---
+layout: post
+status: publish
+published: true
+title: "안중근 = 상습 성폭행범?"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 385
+wordpress_url: http://blog.hannal.com/wp/?p=385
+date: '2004-09-09 13:40:47 +0900'
+date_gmt: '2004-09-09 04:40:47 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/9/470/"
+---
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0909/040909133756540453/310521.jpg" width="450" height="154"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p></center><br />
+구글 뉴스를 읽는데 묘한 광경을 발견했다. 바로 위 장면! 영화 도마 안중근에서 안중근님의 역을 맡은 유오성의 사진이 저 기사와 함께 붙은 것. 실제로 저 사진을 클릭하면 저 기사가 있는 언론 사이트로 이동한다. 프프.</p>
+<p>역시 사람이 수집하고 편집하는 것이 아닌 컴퓨터가 하는 거라 그런지 이런 현상이 나타나는구만. 히히.</p>

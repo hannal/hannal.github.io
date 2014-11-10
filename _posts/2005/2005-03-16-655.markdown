@@ -1,0 +1,46 @@
+---
+layout: post
+status: publish
+published: true
+title: "마린블루스, 성게군이 부러울 때"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 543
+wordpress_url: http://blog.hannal.com/wp/?p=543
+date: '2005-03-16 16:25:50 +0900'
+date_gmt: '2005-03-16 07:25:50 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/3/655/"
+---
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0316/050316161226053198/476923.jpg" width="450" height="327"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> 성게군, 죽여버리겠다! 줘뻐줘뻐 ㄱ(-_-ㄱ)</td>
+</tr>
+</table>
+<p></center></p>
+<p>성게군은 글씨를 참 예쁘게 쓴다. -_- 정말 부럽다.</p>
+<p>
+멀더 : 어딨어요, 스컬리. 외계인의 기밀 문서를 발견했어요!<br />
+스컬리 : (젠장, 또 시작이냐 -_-) 그건 <span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>군의 연습장이에요.<br />
+멀더 : 이런 글자와 구성을 가진 글은 지구 어디에도 있을 수 없어요. 이걸 읽을 수 있겠어요?</p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0316/050316161226053198/967308.jpg" width="350" height="200"></center></td>
+</tr>
+<tr>
+<td class="centerphoto">연출을 위해 휘갈겨 쓴 글씨이며, 실제로는 훠~월씬 잘씀. </td>
+</tr>
+</table>
+<p></center></p>

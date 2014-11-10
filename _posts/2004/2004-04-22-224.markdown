@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: '3:33'
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 184
+wordpress_url: http://blog.hannal.com/wp/?p=184
+date: '2004-04-22 15:34:30 +0900'
+date_gmt: '2004-04-22 06:34:30 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/224/"
+---
+<p>풀업이다! 공3, 방3, 실드3 !!!</p>
+<p>불타올라라!!</p>
+<p>p.s : 3시 33분이었다는 얘기.</p>
+<p>p.s : 나는 프로토스 유저라는 얘기.</p>

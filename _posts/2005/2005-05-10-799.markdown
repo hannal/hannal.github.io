@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "크흑. 좀 더 열심히 살자."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 599
+wordpress_url: http://blog.hannal.com/blog/799/
+date: '2005-05-10 15:13:59 +0900'
+date_gmt: '2005-05-10 06:13:59 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/5/799/"
+---
+<p>T_T 그간 참 게으르게 대충 살았다. 그 사실을 깨닫고 수차례 열심히 살자고 다짐했건만 아직도 그러하지 못하니, 인생이 참으로 덧없어지는군. 이 나이 먹도록 제대로 된 기술과 능력 없이 쌓인 시간으로 먹고 사니 앞날이 두렵다. 그간 잔뜩 휘갈겨 놓은 글이 수백개 되다보니 검색 엔진에 노출되어 새 글을 쓰지 않아도 먹고 사는 지금의 내 블로그와 수년간의 내 신세가 뭐가 다를까?</p>
+<p>슬프다. 슬프다. 집도 절도 없는 지금, 나는 대체 뭐하며 살았을까. 아직 생각하는 힘이 남아있으니 빨리 생각하던 걸 표현하도록 노력해야겠다. 그것이 내가 앞으로 살아갈 마지막 끈이다. 이 끈을 놓치면 이제 추락하는 길 밖에 없다.</p>
+<p>욕심 부리지 말고, 일단 지금보다 조금 더 열심히 살자. 일단은.</p>

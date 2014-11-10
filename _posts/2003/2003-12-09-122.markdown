@@ -1,0 +1,23 @@
+---
+layout: post
+status: publish
+published: true
+title: "언어 장애"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 96
+wordpress_url: http://blog.hannal.com/wp/?p=96
+date: '2003-12-09 22:41:02 +0900'
+date_gmt: '2003-12-09 13:41:02 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2003/12/122/"
+---
+<p>아무 생각 없이 있는 것도 아니고 평상시 생활에서 타인의 말이 마치 외국어처럼 느껴지는 경우가 있다. 마치 전혀 듣도 보도 못한 언어를 대하는 것처럼 무언가 소리가 귀에 들리는데 무슨 말인지 전혀 알아 듣지 못하는 상태랄까? 나중에 무슨 말 했냐고 물어보면 상대방은 분명히 우리나라 말을 했다. 하지만 난 마치 아프리카의 소수 종족의 언어나 러시아말처럼 전혀 접해보지 못해서 저것이 그냥 씨불씨불거리는 것인지 무슨 "말"을 하는 것인지 전혀 알아 들을 수 없었다.</p>
+<p>단지 말을 잘못 알아듣는 사오정같은 것이라기보다는 아예 말 자체가 머리에서 접수가 안되는 현상. 심히 불쾌하다. -_-</p>

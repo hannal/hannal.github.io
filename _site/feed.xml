@@ -6,8 +6,8 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 11 Nov 2014 02:17:01 +0900</pubDate>
-    <lastBuildDate>Tue, 11 Nov 2014 02:17:01 +0900</lastBuildDate>
+    <pubDate>Tue, 11 Nov 2014 03:02:06 +0900</pubDate>
+    <lastBuildDate>Tue, 11 Nov 2014 03:02:06 +0900</lastBuildDate>
     <generator>Jekyll v2.3.0</generator>
     
       <item>
@@ -317,8 +317,8 @@
 &lt;/ul&gt;
 </description>
         <pubDate>Tue, 11 Nov 2014 12:00:49 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/11/start_with_django_webframework_05</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/11/start_with_django_webframework_05</guid>
+        <link>http://blog.hannal.com//2014/11/start_with_django_webframework_05/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2014/11/start_with_django_webframework_05/</guid>
         
         <category>django</category>
         
@@ -368,8 +368,8 @@
 &lt;p&gt;개똥같은 커피를 마시는 데 16,500회도 안 남은 기회를, 15회도 안 남은 게임 개발 기회를 개똥같은 게임을 만드는 데 쓰지 않겠다. 유한한 기회를 낭비하지 않아야겠다.&lt;/p&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 19 Oct 2014 01:47:21 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/10/the_time_that_remains</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/10/the_time_that_remains</guid>
+        <link>http://blog.hannal.com//2014/10/the_time_that_remains/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2014/10/the_time_that_remains/</guid>
         
         <category>시간</category>
         
@@ -582,8 +582,8 @@ class Photo(models.Model):
 &lt;/ul&gt;
 </description>
         <pubDate>Sun, 05 Oct 2014 19:00:49 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/10/start_with_django_webframework_04</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/10/start_with_django_webframework_04</guid>
+        <link>http://blog.hannal.com//2014/10/start_with_django_webframework_04/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2014/10/start_with_django_webframework_04/</guid>
         
         <category>django</category>
         
@@ -914,8 +914,8 @@ Running migrations:
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 15 Sep 2014 02:05:48 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/9/start_with_django_webframework_03</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/9/start_with_django_webframework_03</guid>
+        <link>http://blog.hannal.com//2014/9/start_with_django_webframework_03/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2014/9/start_with_django_webframework_03/</guid>
         
         <category>django</category>
         
@@ -951,8 +951,8 @@ Running migrations:
 &lt;p&gt;webkit renderer를 쓰는 safari와 chrome에서는 발견되지 않으며, wkhtmltopdf에서 발생. 이외에도 다양한 원인이 있겠지만, 현재까지 발견한 원인은 이 두 가지.&lt;/p&gt;
 </description>
         <pubDate>Fri, 05 Sep 2014 00:34:40 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/9/letter_overlap_problem_on_wkhtmltopdf</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/9/letter_overlap_problem_on_wkhtmltopdf</guid>
+        <link>http://blog.hannal.com//2014/9/letter_overlap_problem_on_wkhtmltopdf/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2014/9/letter_overlap_problem_on_wkhtmltopdf/</guid>
         
         
         <category>essay</category>
@@ -1354,8 +1354,8 @@ else:
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 25 Aug 2014 00:05:44 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/8/start_with_django_webframework_02</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/8/start_with_django_webframework_02</guid>
+        <link>http://blog.hannal.com//2014/8/start_with_django_webframework_02/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2014/8/start_with_django_webframework_02/</guid>
         
         <category>django</category>
         
@@ -1625,8 +1625,8 @@ else:
 &lt;p&gt;이것으로 강좌 첫 회를 마칩니다. 2회에선 Django도 설치하고, 개발 환경을 꾸려볼 겁니다. 내용이 그다지 많진 않을 겁니다. 그럼 강좌 2회에서 뵙겠습니다.&lt;/p&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 18 Aug 2014 00:01:47 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/8/start_with_django_webframework_01</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/8/start_with_django_webframework_01</guid>
+        <link>http://blog.hannal.com//2014/8/start_with_django_webframework_01/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2014/8/start_with_django_webframework_01/</guid>
         
         <category>django</category>
         
@@ -1694,8 +1694,8 @@ else:
 &lt;p&gt;이렇게 예고 했으니 이제 정말 연재를 시작할 수 밖에 없게 됐네요. 어느 정도 길이가 될 지 모르겠지만 열심히 연재해 보겠습니다. :)&lt;/p&gt;
 </description>
         <pubDate>Mon, 04 Aug 2014 18:20:24 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/8/start_with_django_webframework_00</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/8/start_with_django_webframework_00</guid>
+        <link>http://blog.hannal.com//2014/8/start_with_django_webframework_00/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2014/8/start_with_django_webframework_00/</guid>
         
         <category>django</category>
         
@@ -1756,8 +1756,8 @@ else:
 아참, 이희우 대표님. 연암 박지원의 월하일기를 즐겁게 읽으셨다 하시니, 정민 선생님이 쓰신 “비슷한 것은 가짜다” 책을 추천드려 봅니다.&lt;/p&gt;
 </description>
         <pubDate>Sat, 26 Jul 2014 06:18:39 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/7/review-just_start_dont_be_chicken</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/7/review-just_start_dont_be_chicken</guid>
+        <link>http://blog.hannal.com//2014/7/review-just_start_dont_be_chicken/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2014/7/review-just_start_dont_be_chicken/</guid>
         
         <category>서평</category>
         
@@ -1863,8 +1863,8 @@ else:
 &lt;p&gt;(그리고 이런 추세라면 올해 안에 타운홀 최대 레벨이 11로 확장될 것 같은 불길한 예감도 든다... 덜덜덜)&lt;/p&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 17 Jul 2014 04:32:11 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/7/coc_update_plan_and_mass_marketing</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/7/coc_update_plan_and_mass_marketing</guid>
+        <link>http://blog.hannal.com//2014/7/coc_update_plan_and_mass_marketing/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2014/7/coc_update_plan_and_mass_marketing/</guid>
         
         <category>업데이트</category>
         

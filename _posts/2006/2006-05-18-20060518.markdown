@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: 2006년 5월 18일. 봄날은 간다.
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 787
+wordpress_url: http://blog.hannal.com/blog/2006%eb%85%84-5%ec%9b%94-18%ec%9d%bc/
+date: '2006-05-18 11:42:56 +0900'
+date_gmt: '2006-05-18 02:42:56 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/5/20060518/"
+---
+<p class="centerphoto"><a href="http://blog.hannal.com/wp-content/old_uploads/mooyook2_4982395-badasomi.jpg" rel="lightbox"><img src="http://blog.hannal.com/wp-content/old_uploads/mooyook2_4982395-badasomi.jpg" width="50%" /></a><br />
+사진을 누르면 크게 볼 수 있음.<br />
+참고 : <a href="http://blog.naver.com/badasomi/110004361047">5.18 광주 민주화 운동 사진전</a></p>

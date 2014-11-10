@@ -1,0 +1,29 @@
+---
+layout: post
+status: publish
+published: true
+title: "날이면 날마다 오는 위기론이 아닙니다."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 737
+wordpress_url: http://blog.hannal.com/blog/624-2/
+date: '2006-02-08 17:20:52 +0900'
+date_gmt: '2006-02-08 08:20:52 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2006/2/624-2/"
+---
+<p>날이면 날마다 오는 <a href="http://blog.hannal.com/624/">위기론</a>이 아닙니다. 1년에 한 번씩 들이대는 위기론입니다!</p>
+<blockquote><p>hannal.net 도메인 만기일 : 2006년 3월 10일<br />
+hannal.net 호스팅 만기일 : 2006년 3월 10일</p></blockquote>
+<p>orz... 평소에도 돈은 없지만 이번 달은 유별나게 돈이 더 없는데, 진정한 위기!<br />
+.<br />
+.<br />
+.<br />
+뭐, 그렇다고 해서 이대로 닫진 않겠죠. 호스팅은 당분간 매월 1,000원씩 지불하다가 적당한 시기봐서 옮겨야 겠습니다. 흐흣.</p>

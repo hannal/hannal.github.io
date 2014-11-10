@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "누나 동생"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 268
+wordpress_url: http://blog.hannal.com/wp/?p=268
+date: '2004-06-15 16:06:46 +0900'
+date_gmt: '2004-06-15 07:06:46 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/6/321/"
+---
+<p>나는 첫째다. 여동생이 하나 있는데 5살 어리다. 그런데 사람들은 종종 나를 내 여동생의 동생으로 생각한다.</p>
+<p>오늘 오전, 물리 치료를 받고 있는데 접수처에서 동생한테 이랬단다.</p>
+<p>"동생분 것(치료비)까지 해서 XXX원입니다"</p>
+<p>히히. 좋군~</p>

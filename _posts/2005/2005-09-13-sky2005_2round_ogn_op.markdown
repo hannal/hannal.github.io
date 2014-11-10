@@ -1,0 +1,23 @@
+---
+layout: post
+status: publish
+published: true
+title: "스카이 2005 프로 후기 리그 온겜 오프닝 대박"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 698
+wordpress_url: http://blog.hannal.com/blog/sky2005_2round_ogn_op/
+date: '2005-09-13 11:08:14 +0900'
+date_gmt: '2005-09-13 02:08:14 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2005/9/sky2005_2round_ogn_op/"
+---
+<p>오오. 어제 공개된 <a href="http://bonobono24.netcci.net/zboard/zboard.php?id=ongamenet&page=1&sn1=&divpage=1&sn=off&ss=on&sc=on&select_arrange=headnum&desc=asc&no=96">sky 프로 리그 2005 후기(Sky proleague 2005) 리그 온게임넷 오프닝 (Ongamenet Opening)</a> 정말 멋지다. 오오. 분위기는 <a href="http://bonobono224.com.ne.kr/SKY2005_OPL_2ROUND_OP_YEGO.wmv">예고편</a>이 훨씬 멋있다만, 전체 흐름과 연출은 역시 본 오프닝이 낫다.</p>
+<p>MBC게임의 프로 리그 오프닝도 나름대로 괜찮았는데 역시 온게임넷이 다시 한 발 앞서는구먼. 햐햐.</p>

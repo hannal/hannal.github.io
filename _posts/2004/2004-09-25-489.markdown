@@ -1,0 +1,26 @@
+---
+layout: post
+status: publish
+published: true
+title: "내 책상엔 귀신이 산다"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 402
+wordpress_url: http://blog.hannal.com/wp/?p=402
+date: '2004-09-25 11:49:22 +0900'
+date_gmt: '2004-09-25 02:49:22 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/9/489/"
+---
+<div style="padding:10;margin:10;background-color:#F0F0F0;">난 특별히 어지르는 것 같지 않은데 왜 내 자리는 이리 너저분하지 -_-</div>
+<p>내 현재 MSN 대화명. 저 말은 분명 사실이다(라고 나는 주장한다). 나는 특별히 책상을 어지르지 않는다. 쓴 물건 제자리에 놓고(아주 가끔 여러 일이 겹칠 때면 책상의 빈 공간에 두곤 한다) 새로운 물품을 마구 구비하지 않으며(가끔 쓰레기통이 꽉 차서 버릴 쓰레기를 물품처럼 책상 위에 구비해둘 뿐이다), 책도 펼쳐놓지 않는다(가끔 읽고 있는 책 위에 서류가 쌓일 뿐이다). 이에 대해</p>
+<p>http://bbs.kldp.org/viewtopic.php?t=44198</p>
+<p>위와 같은 교류가 있던데, 나는 책상을 어지럽히는 귀신이 산다는 논문(...)을 발표한 <b>buttfly</b>님의 의견에 동의한다. 굿이라도 해서 귀신을 떼어내야겠다. 버럭 버럭.</p>
+<p>덧쓰기 : 재밌는 링크 알려준 지아군에게 감사를~</p>

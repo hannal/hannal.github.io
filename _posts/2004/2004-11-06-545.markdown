@@ -1,0 +1,38 @@
+---
+layout: post
+status: publish
+published: true
+title: "각 가입형 블로그의 성격"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 452
+wordpress_url: http://blog.hannal.com/wp/?p=452
+date: '2004-11-06 21:26:06 +0900'
+date_gmt: '2004-11-06 12:26:06 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/11/545/"
+---
+<p><b><u>1. 네이버 블로그</u></b><br />
+<blockquote><img src="http://blog.hannal.com/tt-attach/1106/041106210229417487/435479.gif" alt=""> 블로그씨 : 어린이 여러분<br />
+<img src="http://blog.hannal.com/tt-attach/1106/041106210229417487/007818.gif" alt=""> 이용자들 : 네에에에에~<br />
+<img src="http://blog.hannal.com/tt-attach/1106/041106210229417487/435479.gif" alt=""> 블로그씨 : 서로 싸우지 말고 가증스럽게 방긋 방긋 웃어가며 지내요오오오~ ^-^<br />
+<img src="http://blog.hannal.com/tt-attach/1106/041106210229417487/007818.gif" alt=""> 이용자들 : 네에에에~ ^-^*</p>
+<p>한 마디로 네이버 블로그가 이용자들을 어린이 취급하며 <b>다루는</b> 느낌. 이용자들이 어린애같다는 게 아니라 네이버 블로그가 이용자들을 대하는 자세가 어린애 다루는 거 같다는 말이다.</p></blockquote>
+<p><b><u>2. 이글루스</u></b><br />
+<blockquote><img src="http://blog.hannal.com/tt-attach/1106/041106210229417487/879159.gif" alt=""> 어제 코믹스에 갔는데 사람이 많다는... 털썩 OTL ..<br />
+<img src="http://blog.hannal.com/tt-attach/1106/041106210229417487/879159.gif" alt=""> <font size="+1"><b>그래서 어쩌란 말이냐!!!!!!</b></font> (실은 이미 알고 있었던 걸지도 .. (먼산))<br />
+<img src="http://blog.hannal.com/tt-attach/1106/041106210229417487/879159.gif" alt=""> 웃흥.. 유이짱님♡</p>
+<p>묘하게도 저런 말투를 쓰며, 만화 그림이 많이 노출되어 있는 곳이 많다. 이글루스 이용자 중에서 많다기보다는 다른 블로그 서비스와 비교했을 때 많다는 얘기. 어떤 이는 여행기로 유명한 일본인, <a href="http://www.naokis.net/">naokis</a>씨의 글투와 매우 유사한 경우도 있다.</p></blockquote>
+<p><b><u>3. 엔비</u></b><br />
+<blockquote><img src="http://blog.hannal.com/tt-attach/1106/041106210229417487/972116.gif" alt=""><a href="http://blog.hannal.com/index.php?pl=540&nc=1">재밌는 현상</a> : 국내에 유통되는 키보드에 대한 다큐멘터리<br />
+<img src="http://blog.hannal.com/tt-attach/1106/041106210229417487/972116.gif" alt=""><a href="http://blog.hannal.com/index.php?pl=454&nc=1">불편한 인터페이스는 죄악</a> : 그의(한날) 홈페이지도 죄악</p>
+<p>역시 링크 블로그의 힘은 크다.</p></blockquote>
+<p>물론 이 글이 대단히 과장된 것은 사실이다. 이 과장은 각 서비스를 이용하는 이용자들을 비하하기 위함이 아니라, 각 서비스마다 문화와 분위기가 형성될만큼 블로거가 많아졌다는 사실과 각 서비스 업체마다의 정책이 그 서비스를 이용하는 이용자들에게 미치는 영향이 크다는 점을 말하기 위함이다. (<a href="http://blog.hannal.com/index.php?pl=540&nc=1">아, 재미 없다. 왜 내가 이렇게까지 일일이 설명하고, 하나 하나 이해가도록 설명을 해줘야하는걸까?</a> 웃자고 쓴 글인데 이런 설명을 덧붙이니 전혀 재미있지 않다!)</p>
+<p>블로그인이나 야후 블로그, 엠파스 블로그 등 위 두 곳 외에도 많은 곳들이 있지만 역시 위 3곳의 개성이 가장 뚜렷하게 느껴진다.</p>

@@ -1,0 +1,32 @@
+---
+layout: post
+status: publish
+published: true
+title: "내게 email 보내는 이들 필독!"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 152
+wordpress_url: http://blog.hannal.com/wp/?p=152
+date: '2004-02-03 01:18:07 +0900'
+date_gmt: '2004-02-02 16:18:07 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/2/189/"
+---
+<p>나 이효리 가슴 노출된 사건에 관심 없다. 나 이효리 안좋아한다. 아마 그녀도 나 안좋아할 거다.</p>
+<p>이웃집 아저씨가 원조 교제했다는 소식도 관심 없다. 이웃집 아저씨는 소심하다.</p>
+<p>스와핑? 애인도 없다. 관심 없다.</p>
+<p>남성 단련 트레이닝? 난 본래 타고난 변강쇠다. 그런 거 관심 없다.</p>
+<p>카드 대출? 우씨. 교통 카드로 무이자 대출해주면 관심 가질께.</p>
+<p><font color="red"><br />
+<h2>그러니까.<br />
+난 아무 관심 없으니까 광고 좀 보내지마!<br />
+힘겹게 수신 완료한 수백통의<br />
+email 전체가 광고면 어쩌자는겨!</h2>
+<p></font></p>

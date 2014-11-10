@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "할 말은 많은데"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 139
+wordpress_url: http://blog.hannal.com/wp/?p=139
+date: '2004-04-08 18:59:48 +0900'
+date_gmt: '2004-04-08 09:59:48 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/173/"
+---
+<p>할 말은 많은데 말 그대로 바빠서 할 말도 못하는 때가 되었군요. -_- 아무리 바빠도 시간 쪼개서 글 쓰는 성격인데, 시간 쪼갤 계획자체를 잡기도 힘든 상황. 흑흑 답답해라.</p>
+<p>다음 주에 장문의 글 두어개 올려야겠다. 금주는 무리~</p>
+<p>그나저나 개인 프로젝트도 해야하는데 정말 왜 이리 시간이 없지. 하루에 4시간씩 자도 시간이 부족하네. blog, music player, 11n, virtual balance simulator. 음음. 정말 너무 시간이 부족하다. 누가 내게 무이자로 하루에 4시간씩 시간 좀 대출해줘~ 하루를 28시간으로 지낼 수 있게~~</p>

@@ -1,0 +1,39 @@
+---
+layout: post
+status: publish
+published: true
+title: "한날닷컴 공식 오픈."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 66
+wordpress_url: http://blog.hannal.com/wp/?p=66
+date: '2004-03-24 16:47:15 +0900'
+date_gmt: '2004-03-24 07:47:15 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/3/81/"
+---
+<p>안녕하세요. <span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>입니다.</p>
+<p>그간 오픈을 위해 열심히 자료를 옮기고, 스킨도 꾸미던 <span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>닷컴이 2004년 3월 24일자로 공식 오픈을 선언합니다. 와아~</p>
+<p>이곳은 기존에 운영하던 블로그의 글들을 옮겨옴과 동시에 분류들을 정리하고, 이전부터 운영하려던 주제들도 다루는 곳입니다. 이전 블로그에서 <span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>닷컴으로의 Move 가 아닌 <span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>닷컴이 이전 블로그를 include 하는 방향으로 나아가려 합니다.</p>
+<p>아직은 이전 블로그에서 작성했던 글 모두를 옮겨오지는 못했지만, 차츰 옮겨오며 하나 하나 새 글들을 추가해가겠습니다. 또한 이전 블로그들은 이곳과 동일하게 업데이트하며 차츰 비중을 줄이고 마침내는 폐쇄를 할 것입니다.</p>
+<p>그동안 제 개인 블로그의 잦은 이사로 쫓아/찾아오시느라 고생 많으셨습니다. 고생하셨으니 돈 있으시면 빵이라도 사드리고, 앞으로 이곳에서 뵙겠습니다. :D</p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0324/040324164003593281/582111.jpg" width="286" height="256"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> </td>
+</tr>
+</table>
+<p></center></p>
+<p>2004년 3월 24일.<br />
+일하다 말고 뜬금없이 공식 오픈을 결정하며...<br />
+<span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span> 올림.</p>

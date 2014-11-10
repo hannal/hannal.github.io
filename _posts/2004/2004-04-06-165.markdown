@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "춥다 부르르"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 132
+wordpress_url: http://blog.hannal.com/wp/?p=132
+date: '2004-04-06 09:39:08 +0900'
+date_gmt: '2004-04-06 00:39:08 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/165/"
+---
+<p>날씨가 왜 이리 쌀쌀한거지. 사무실에서 자다 입 돌아가는 줄 알았네. (- _-) 이렇게. 음. 감기 걸리기에 매우 쾌적하고 명랑한 기후로군. 하지만 순순히 당할 지 않는다.</p>
+<p>기압이 떨어진건지 아니면 단순히 추워져서 그런 것인지 혈액 순환이 안되어 손에 핏기도 거의 없네. 이럴 때는 손바닥이 완전히 좌악 펴지지 않아서 손이 저리저리한데. 음.</p>
+<p>아무튼, 춥다 부르르~</p>

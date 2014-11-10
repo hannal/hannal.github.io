@@ -1,0 +1,29 @@
+---
+layout: post
+status: publish
+published: true
+title: "다음 주 안에 다 읽자."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 650
+wordpress_url: http://blog.hannal.com/blog/%eb%8b%a4%ec%9d%8c-%ec%a3%bc-%ec%95%88%ec%97%90-%eb%8b%a4-%ec%9d%bd%ec%9e%90/
+date: '2005-06-27 15:39:24 +0900'
+date_gmt: '2005-06-27 06:39:24 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/6/849/"
+---
+<ol>
+<li>It's All in your mind : Visual psychology and perception in game design (by Hayden Duvall from Gamasutra)</li>
+<li>Guidelines for developing successful games (by Bruce Shelley from Gamasutra)</li>
+<li>링크 (by Alberto-Laszlo Barabasi )</li>
+<li>대중의 지혜 (by James Surowiecki)</li>
+<li>전쟁의 발견 (이희진 저)</li>
+</ol>
+<p>누리상에 공개함으로써 스스로에게 숙제를 내는 한날. orz... 나 요즘 왜 이리 게으르니?</p>

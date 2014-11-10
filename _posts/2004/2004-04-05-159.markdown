@@ -1,0 +1,24 @@
+---
+layout: post
+status: publish
+published: true
+title: "지금 내 귀를 즐겁게 해주는 음악들"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 127
+wordpress_url: http://blog.hannal.com/wp/?p=127
+date: '2004-04-05 18:45:28 +0900'
+date_gmt: '2004-04-05 09:45:28 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/159/"
+---
+<p>mc sniper 3집<br />
+kanno yoko - cosmic dare</p>
+<p>:D 좋다.</p>

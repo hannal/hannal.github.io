@@ -1,0 +1,26 @@
+---
+layout: post
+status: publish
+published: true
+title: "하루에 글 360개 올리는 방법"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 147
+wordpress_url: http://blog.hannal.com/wp/?p=147
+date: '2004-04-10 15:39:16 +0900'
+date_gmt: '2004-04-10 06:39:16 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/184/"
+---
+<p>출처 : <a href="http://news.naver.com/news_read.php?office=moneytoday&article_id=396400&no=140325&plus=community&npno=80">http://news.naver.com/news_read.php ? office=moneytoday & article_id=396400 & no=140325 & plus=community & npno=80</a></p>
+<p>기업이 고성장한다고 꼭 직원에게 좋은 것만은 아니라네요.</p>
+<p>............. .<br />
+이런 식으로 글을 쓰면 하루에 글 360개도(12시간 동안 2분에 한 개씩) 올릴 수 있겠군. 뒤늦게라도 도배를 했다는 사실을 깨달은 듯 싶지만. :(</p>
+<p>p.s : 음. 글이 너무 직설적인가?</p>

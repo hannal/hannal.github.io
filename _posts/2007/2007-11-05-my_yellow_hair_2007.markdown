@@ -1,0 +1,30 @@
+---
+layout: post
+status: publish
+published: true
+title: "처음이자 마지막으로 해보는 머리카락 모양"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 1078
+wordpress_url: http://blog.hannal.com/my_yellow_hair_2007/
+date: '2007-11-05 10:24:03 +0900'
+date_gmt: '2007-11-05 01:24:03 +0900'
+categories:
+- "essay"
+tags:
+- "머리카락"
+- "쿠보즈카요스케"
+- "탈색"
+permalink: "/2007/11/my_yellow_hair_2007/"
+---
+<p>이번에 태어나서 처음으로 탈색을 했다. 더 나이 먹기 전에 좀 강한 걸 해보자는 마음이 들었기 때문이다. 약 5시간 동안 3번에 걸쳐 탈색을 했는데 아직 머리 바닥이 따끔거린다. 하지만, 색은 만족스럽게 나왔다.</p>
+<p class="centerphoto"><img src="http://blog.hannal.com/assets/uploads/2007/11/img_0048_s.jpg" alt="탈색한 모습" /></p>
+<p>실은 일본 드라마인 I.W.G.P에 나왔던 <a href="http://blog.naver.com/bangbooje/130001777860">쿠보즈카 요스케</a> 머리카락 모양을 하고 싶었다. 하지만 요건 파마를 해야했고 머리카락 상태나 머리 바닥 상태가 영 안좋을 듯 해서 일단 색 바꾸는 걸로 만족.</p>
+<p>머리 바닥도 아프고 더 나이 들면 나이 들어 추태라는 말 들을까봐 못할테니 사실상 이번 탈색이 처음이자 마지막이 될 듯 싶다. ^^</p>
+<p class="centerphoto"><img src="http://blog.hannal.com/assets/uploads/2007/11/img_0053_s.jpg" alt="연출 사진. 지켜보고 있다" /></p>
+<p>마지막으로 사진은 “지켜보고 있다”로 마무리. 우훗.</p>

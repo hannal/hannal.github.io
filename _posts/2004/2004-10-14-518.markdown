@@ -1,0 +1,100 @@
+---
+layout: post
+status: publish
+published: true
+title: "히히 오늘 승률 좋네."
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 427
+wordpress_url: http://blog.hannal.com/wp/?p=427
+date: '2004-10-14 01:29:20 +0900'
+date_gmt: '2004-10-13 16:29:20 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2004/10/518/"
+---
+<p>오늘 배틀넷에서 딱 5게임을 했는데 전적이 6승 2패다.</p>
+<ul>
+<li />1승(노스텔지아) : 프토(<span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>, 1시) vs 저그(11시)</p>
+<li />2승(로템) : 프토(<span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>, 2시) vs 저그(12시)
+<li />3승(로템) : 테란(<span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>, 8시) vs 프토(6시)
+<li />1패(신개마고원) : 테란(<span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>, 2시) vs 프토(8시)
+<li />4승(로템) : 프토(<span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>, 12시) vs 테란(8시)
+<li />2패(로템) : 테란(<span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>, 6시) vs 프토(8시)
+<li />5승(로템) : 테란(<span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')>한날</span>, 2시) vs 프토(8시)<br />
+(맞나? 기억이 가물 가물. 또 한 게임은 아예 기억도 안난다. 흐흐.)</ul>
+<p></p>
+<div id=div5181a style=display:block><a href=# onclick="layer_toggle(document.getElementById('div5181a')); layer_toggle(document.getElementById('div5181b')); return false; "> 전체 리뷰 보기 </a></div>
+<div id=div5181b style=display:none ><a href=# onclick="layer_toggle(document.getElementById('div5181a')); layer_toggle(document.getElementById('div5181b'));return false;"> 너무 길다. 닫자 </a> <br />
+첫 번째 게임과 두 번째 게임은 매우 가난한 하드코어 질럿 러쉬를 하였다. 7파일런, 7.5프로브 정찰, 8게이트웨이 빌드였기 때문에 일꾼이 대단히 적어 매우 자원이 안모이는 상황이었다. 운이 따른 점은 저그가 내 본진에서 거리가 가까웠다는 것! 나는 초반 질럿으로 상대방 드론을 잡거나 확장 기지를 파괴하며 쉽게 이겼다.</p>
+<p>세 번째 게임은 나의 맵핵같은 게임 운영이 승리를 가져왔다. 초반에 나는 상대의 몰래 로보틱스 건물을 발견했다. 물론, 건물을 발견하기에 앞서 프토의 본진 위치가 바로 옆이라 빠르게 엔지니어링 베이를 건설한 뒤 터렛으로 안전하고 기지를 보호한 뒤 상대의 리버 공격을 무난히 막은 뒤 확장을 하며 벌쳐 4기와 탱크 2개, SCV 3기로 조이기를 들어갔다. 상대방 앞마당을 취소시키고 앞마당에서 조이기를 들어가는 순간, 상대의 다크 템플러가 드랍되었고 SCV를 동원하여 방어에 성공하자 상대의 GG. 흐흐.</p>
+<p>네 번째 게임은 초반에 상대방의 리버에 이리 저리 시달리느라 돈도 못캐고 멀티가 늦어져 무난히 진 게임이다. 드래군 압박이 너무 약한 걸 보고 리버를 예상하긴 했는데 팩토리 증설과 확장 커맨드 센터 건설 중이라 손이 느린 나는 리버 드랍에 너무 늦게 대처한 것이다. 흑흑.</p>
+<p>다섯 번째 게임은 힘싸움 게임이었다. 나는 초반 옵저버 테크를 타는 척 하고 정찰 온 SCV를 잡자마자 리버 테크를 탔다. 초반 드래군으로 압박을 가하면서 마치 정석 빌드인 척하고 리버 공격을 갔는데 이득은 보지 못하고 본전치기만 했다. SCV 몇 기와 탱크 하나, 벌쳐 2기 정도는 잡았지만 나의 초반 드래군과 리버가 잡힌 것이다. 그리고 리버 컨트롤과 드래군 생산을 하느라 일꾼을 많이 못뽑아서 가난한 상태였고, 상대의 2탱크 드랍에 내 일꾼 몇기와 드래군이 잡혔다. 그래서 본전치기. 리버가 잡히자마자 생산 해둔 드래군을 앞마당 앞에 배치하고 넥서스를 건설했다. 추가 리버 드랍을 가면서 옵저버로 보니 상대의 확장 기지가 나보다 빠른 상태! 일꾼도 많아보였다. 난 두 번째 리버 드랍에서 좀 더 재미를 본 뒤에 게이트웨이를 늘리며 힘 싸움을 하였다. 프로브가 적어서 미네랄보다 가스가 남았고, 그래서 싸이오닉 스톰 개발과 함께 하템을 생산하여 힘 싸움을 대비했다. 그리고 3차례의 힘싸움을 모두 이겼다. 나는 그 과정에서 확장 기지 2개를 늘리며 하템 드랍으로 상대의 SCV 1부대 정도를 잡았고, 상대방은 마지막 힘 싸움에서 패배하며 생산된 나의 2기의 캐리어를 보더니 GG.</p>
+<p>여섯 번째 게임은 방심이 부른 패배였다. 상대의 드래군 드랍에 허무하게 GG. 흑흑.</p>
+<p>일곱 번째 게임은 무슨 내용인지 기억이 안난다.</p></div>
+<p>재밌는 것은 마지막 게임. 게임이 재밌었다기보다는 상대방이 재밌는 사람이었다.<br />
+마지막 게임은 물량전으로 유도했다. 나는 1팩 엔지니어링 더블을 하였다. 1팩 더블보다 조금 느린 더블이었지만, 이 빌드가 내게는 편하고 안전했다. 나는 초반에 벌쳐의 마인으로 상대 확장 기지만 확인하며 물량을 확보했다. 게임 시작한지 12분이 되었을 때 나의 인구수는 126에 육박했고, 드랍쉽에 2탱크로 신경 쓰이게 하다가 상대방의 두 번째 확장 기지인 6시 멀티를 제거하는데 성공했을 즈음에는 인구수가 150대까지 늘어났다. 나는 2번째 3번째 멀티까지 성공하였고, 어택땅으로 상대를 끝냈다.</p>
+<p>게임은 무난하다. 다만 상대방이 재밌었는데 상대방은 나보다 손이 빠른 듯 하다. APM을 보면 나는 고작 127이 나왔고 상대는 136이 나왔다. 나는 별다른 전투 없이 확장 기지 짓고 물량만 뽑아댔으니 APM이 많이 나올 일이 없었다. 그런데 상대방은? 나보다 물량도 적었고 진영도 안좋았으며 일꾼 생산도 정말 적었다. 내가 테란에게 아무 견제를 받지 않으며 저 타이밍에 멀티하였다면 저 사람보다 인구수가 2배는 많았을 것이다. 대체 이 사람은 어디에 그 많은 손길을 쏟았길래 APM이 136이나 나왔을까. -_-;</p>
+<p><center><br />
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td>
+<table>
+<tr>
+<td><center><br />
+<table class="ib" onclick="location.href='http://blog.hannal.com/down.php?attachname=910310.rep'">
+<tr>
+<td><img src="http://blog.hannal.com/images/icon/file.gif"></td>
+<td class="centerphoto">battle 041013 01.rep (89.7 KB)</td>
+</tr>
+</table>
+<p></center></td>
+</tr>
+<tr>
+<td class="centerphoto">2승 게임 </td>
+</tr>
+</table>
+</td>
+<td>
+<table>
+<tr>
+<td><center><br />
+<table class="ib" onclick="location.href='http://blog.hannal.com/down.php?attachname=082870.rep'">
+<tr>
+<td><img src="http://blog.hannal.com/images/icon/file.gif"></td>
+<td class="centerphoto">battle 041013 02.rep (90.4 KB)</td>
+</tr>
+</table>
+<p></center></td>
+</tr>
+<tr>
+<td class="centerphoto">3승 게임 </td>
+</tr>
+</table>
+</td>
+<td>
+<table>
+<tr>
+<td><center><br />
+<table class="ib" onclick="location.href='http://blog.hannal.com/down.php?attachname=537980.rep'">
+<tr>
+<td><img src="http://blog.hannal.com/images/icon/file.gif"></td>
+<td class="centerphoto">battle 041013 03.rep (101.9 KB)</td>
+</tr>
+</table>
+<p></center></td>
+</tr>
+<tr>
+<td class="centerphoto">마지막게임 </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p></center></p>

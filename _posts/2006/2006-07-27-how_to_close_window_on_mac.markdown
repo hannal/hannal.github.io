@@ -1,0 +1,29 @@
+---
+layout: post
+status: publish
+published: true
+title: "맥에서 무른모 닫기"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 839
+wordpress_url: http://blog.hannal.com/blog/?p=839
+date: '2006-07-27 14:52:42 +0900'
+date_gmt: '2006-07-27 05:52:42 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2006/7/how_to_close_window_on_mac/"
+---
+<ol>
+<li>무른모 완전 끝내기 : Command 글쇠 + Q 글쇠</li>
+<li>무른모 창 닫기 : Command 글쇠 + W 글쇠</li>
+</ol>
+<p>Command + W 는 현재 이용 중인 무른모(Software)에서 현재 열려있는 <strong>창 (화면)</strong>을 닫는다. 즉, 무른모 자체는 열려있는 상태를 유지하기 때문에 메모리(Memory)를 잡고 있다.</p>
+<p>Command + Q 는 현재 이용 중인 무른모를 완전히 끝낸다. 메모리 상에서 완전히 제거된다.</p>
+<p>예를 들어, Firefox (Web browser)에서 Command + T 단축 글쇠를 이용하여 탭(Tab)을 하나 열었다고 하자. 여기서 Command + W 를 누르면 현재 선택한 탭을 닫는다. 그러나, Command + Q 를 누르면 Firefox 가 종료되어 열려있는 모든 탭이 닫힌다.</p>
+<p>일부 무른모는 언제나 실행된 채 다른 무른모의 작동을 돕거나 빠르게 무른모 화면을 보여줄 수 있도록 대기하고 있다. Finder가 그런 무른모 중 하나인데, 이런 무른모들은 Command + Q로 완전히 끝낼 수 없다. 그래서, Command + W로 화면을 닫아야 한다.</p>

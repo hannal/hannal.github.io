@@ -1,0 +1,29 @@
+---
+layout: post
+status: publish
+published: true
+title: "맥북, 미투데이"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 995
+wordpress_url: http://blog.hannal.com/macbook_me2day_070226/
+date: '2007-02-26 17:29:03 +0900'
+date_gmt: '2007-02-26 08:29:03 +0900'
+categories: []
+tags:
+- "맥북"
+- "미투데이"
+- "희망"
+permalink: "/2007/2/macbook_me2day_070226/"
+---
+<h3>맥북</h3>
+<p>멀쩡하던 맥북이 갑자기 <a href="http://me2day.net/hannal/2007/02/26#16:47:45">A글쇠와 F7글쇠가 안먹고, 재우면 스스로 깨어나는 증상</a>을 보여 오늘 애플 공인 수리점(수리 대행?)에 맡겼다. 언제쯤 다시 내 곁에 올까...  <a href="http://blog.hannal.com/change_vienna_to_newsfire/#comment-13556">Newsfire</a>에 감동하고, 해야 할 일 정리하느라 무척 필요한 때 딱 맛이 가버리니 원.</p>
+<p>그나마 다행인 점은 자료 등은 멀쩡한 점. 급한 마음에 얼른 수리점에 맡기느라 안에 있는 자료를 따로 보관하지 못해 영 불안하다.</p>
+<h3>미투데이</h3>
+<p><a href="http://www.doubletrack.net">더보얼츄뤡 (더블트랙이라고도 불리는)</a>에서 만든 <a href="http://www.me2day.net">미투데이</a>가 여러 고수들 사이에서 화제를 낳고 있어 <a href="http://www.sumanpark.com">만사장</a>님과 <a href="http://www.codian.net">코이사</a>님께 훈훈함을 주고 있다는 소식. 나도 <a href="http://www.me2day.net/hannal">자리 하나 얻었는데</a>, 블로그에 쓰자니 쓸 말이 거의 없고 입 다물고 있자니 서운한 때 아주 적합하다.</p>
+<p>쉽고 편해서 좋다. 근데 이는 어디까지나 기능(UI 등) 측면에서 쉽고 편한 것이지, 글 자체를 쓸 때는 의외로 부담을 가지고 조심하게 하는 몇 가지 정책이 있다. 좋은 점과 나쁜 점도 뻔하고, 뻔한 것이기에 저 분들도 이미 알고 계시긴 하며, 이는 어디까지나 서비스 정책 차원에서 접근해야 하는 내용이기 때문에 알아서 적응하는 수 밖에.</p>

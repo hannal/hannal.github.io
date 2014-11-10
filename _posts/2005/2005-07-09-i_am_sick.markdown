@@ -1,0 +1,23 @@
+---
+layout: post
+status: publish
+published: true
+title: "끄억, 난감한 시점에 다치기"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 656
+wordpress_url: http://blog.hannal.com/blog/i_am_sick/
+date: '2005-07-09 14:13:58 +0900'
+date_gmt: '2005-07-09 05:13:58 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/7/i_am_sick/"
+---
+<p>어제 밤 11시경에 교통 사고가 났습니다. 좌회전 신호를 기다리고 있는데 뒤에서 차가 제가 운전 중인 차를 들이받았습니다. 큰 사고는 아닌데 허리와 어깨가 제법 아퍼서 한 7~10일은 입원해서 잠수를 탈 거 같군요. orz 중간에 종이에 글로 써서 등장하겠습니다. 하핫.</p>
+<p>이상, 근황 보고였습니다.</p>

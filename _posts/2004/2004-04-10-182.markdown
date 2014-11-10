@@ -1,0 +1,29 @@
+---
+layout: post
+status: publish
+published: true
+title: "인터넷 종량제 시행되면 미움받는 홈페이지"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 146
+wordpress_url: http://blog.hannal.com/wp/?p=146
+date: '2004-04-10 15:29:06 +0900'
+date_gmt: '2004-04-10 06:29:06 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/182/"
+---
+<ol>
+<li> 커다란 사진, 용량 최적화 안하고 그대로 올리는 곳.
+<li> 음악을 주인장 마음대로 자동 시작 시키는 곳.
+<li> 불필요한 이미지가 잔뜩 있는 곳.<br />
+그리고 ..</p>
+<li> 나처럼 군더더기가 너무 많은 장문을 많이 쓰는 사람 (군더더기가 50% 이상) 히히
+</ol>
+<p>인터넷 종량제 가격표가 나왔으니까 이제 슬슬 인터넷 종량제에 대해 투덜거려볼까. 얼른 써야할 생각 잡기들이 몇 개 있는데 언제 쓴댜.</p>

@@ -1,0 +1,22 @@
+---
+layout: post
+status: publish
+published: true
+title: "겁과 사나움"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 319
+wordpress_url: http://blog.hannal.com/wp/?p=319
+date: '2004-07-19 11:36:34 +0900'
+date_gmt: '2004-07-19 02:36:34 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/7/385/"
+---
+<p>그 사람은 겁이 많아졌다. 그리고 더 사나워졌다. 자신이 겁을 먹고 있다는 걸 감추기 위함일까. 무엇이 그 사람을 그렇게 만들었을까. 뭐긴 뭐야. 나지. -_-; 각성하자. 반성하자.</p>

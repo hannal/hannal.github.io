@@ -1,0 +1,35 @@
+---
+layout: post
+status: publish
+published: true
+title: "앗?"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 548
+wordpress_url: http://blog.hannal.com/wp/?p=548
+date: '2005-03-21 14:21:29 +0900'
+date_gmt: '2005-03-21 05:21:29 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2005/3/660/"
+---
+<p>앗?!</p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0321/050321141917954842/354643.gif" width="215" height="90"></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> 2005년 3월 21일 14시 19분 당시 ..</td>
+</tr>
+</table>
+<p></center></p>
+<h1>찌찌뽕!</h1>
+<p>
+생활 속의 즐거움 발견. 난 왜 이런 게 즐겁지? 아직 떡국을 덜 먹어서 그런가.</p>

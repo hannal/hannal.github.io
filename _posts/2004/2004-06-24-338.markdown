@@ -1,0 +1,22 @@
+---
+layout: post
+status: publish
+published: true
+title: "요즘 정말 바쁘다"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 283
+wordpress_url: http://blog.hannal.com/wp/?p=283
+date: '2004-06-24 15:40:39 +0900'
+date_gmt: '2004-06-24 06:40:39 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/6/338/"
+---
+<p>할 것이 너무 많아서 우선 순위를 정하는데도 시간이 너무나 많이 걸린다. 흑흑. 일정 계획 다시 짜야겠다.</p>

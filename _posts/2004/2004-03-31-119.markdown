@@ -1,0 +1,25 @@
+---
+layout: post
+status: publish
+published: true
+title: "고기 요리에 대한 나름대로 진지한 의문점"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 93
+wordpress_url: http://blog.hannal.com/wp/?p=93
+date: '2004-03-31 20:01:27 +0900'
+date_gmt: '2004-03-31 11:01:27 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/3/119/"
+---
+<p><b>불고기</b>는 불로 조리하는 고기 요리를 의미한다.</p>
+<p>그렇다면..</p>
+<p>물로 조리하면 <b>물고기</b>가 되는건가?</p>
+<p><font color="#dedede">랄랄라~ 나는 말장난이 좋아~</font></p>

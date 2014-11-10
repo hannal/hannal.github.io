@@ -1,0 +1,22 @@
+---
+layout: post
+status: publish
+published: true
+title: "글 쓰기"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 241
+wordpress_url: http://blog.hannal.com/wp/?p=241
+date: '2004-06-02 14:41:35 +0900'
+date_gmt: '2004-06-02 05:41:35 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/6/290/"
+---
+<p>나는 그렇게 글 쓰지 말아야지. 아우 정말 읽으면서 짜증난다.</p>

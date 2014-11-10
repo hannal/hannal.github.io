@@ -1,0 +1,182 @@
+---
+layout: post
+status: publish
+published: true
+title: 2006년 결산
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 943
+wordpress_url: http://blog.hannal.com/?p=943
+date: '2006-12-31 14:00:21 +0900'
+date_gmt: '2006-12-31 05:00:21 +0900'
+categories:
+- "essay"
+tags: []
+permalink: "/2006/12/closing_in_2006/"
+---
+<h3>블로그 (한날의 낙서)</h3>
+<ol>
+<li>쓰고 있는 블로그 도구 : <a href="http://www.wordpress.org">Wordpress 1.5.2</a></li>
+<li>쓰고 있는 블로그 확장도구(plug-in) : 13개</li>
+<li>글 개수 : 205개 (이 글 포함)</li>
+<li>공개하지 않은 글 개수 : 19개</li>
+<li>댓글 개수 :  989개 (방명록 포함. 방명록은 65개. 12월 31일에 달리는 댓글은 그때 그때 포함)</li>
+<li>댓글 많이 남긴 일곱 사람 : 띠용님, <a href="http://www.blogmeme.com/claire">뽀</a>님, <a href="http://www.fribirdz.net">프리버즈</a>님, seok님, <a href="http://www.sumanpark.com">만박</a>님, <a href="http://rantro.dothome.co.kr">Rantro</a>님, <a href="http://www.withstory.net">astraea</a>님. (순서는 댓글 개수와 관계 없음)</li>
+<li>하루 평균 방문자 : 약 1500명 (이용자 방문과 RSS구독기 방문 총합)</li>
+<li>올 해 방문 수 : 약 54만회 (무단 광고 등록기 및 검색 수집기 방문 수 제외)</li>
+<li>검색말 : <a href="http://www.google.co.kr/search?hl=ko&newwindow=1&q=%EC%97%AC%EC%9E%90%EA%B0%80%EC%8A%B4+site%3Awww.hannal.net&btnG=%EA%B2%80%EC%83%89&lr=">여자가슴</a> (외부에서 검색으로 이곳을 방문했을 때 사람들이 쓴 검색말)</li>
+<li>검색기 : 검색기에서 검색 결과를 통해 이곳을 오는 횟수로 보는 방문 순위</li>
+<ul>
+<li>1위 : <a href="http://www.kr.yahoo.com">야후</a></li>
+<li>2위 : <a href="http://www.google.co.kr">구글</a></li>
+<li>3위 : <a href="http://www.naver.com">네이버</a></li>
+<li>4위 : <a href="http://www.fian.co.kr">피앙</a></li>
+<li>5위 : <a href="http://www.www.allblog.net">올블로그</a></li>
+<li>6위 : <a href="http://www.daum.net">다음</a></li>
+<li>7위 : <a href="http://www.empas.com">엠파스</a></li>
+</ul>
+<li>많이 본 글 순위</li>
+<ul>
+<li>1위 : <a href="http://blog.hannal.com/i_want_gas">가스와 5학년 여자 가슴의 관계</a></li>
+<li>2위 : <a href="http://blog.hannal.com/womans_breast/">여자 가슴 전문 블로그</a></li>
+<li>3위 : <a href="http://blog.hannal.com/gojihoo_tensilove/">텐시러브 - 고지후</a></li>
+<li>4위 : <a href="http://blog.hannal.com/912/">듣자 듣자 하니까 이 사람들이. -_-+</a></li>
+</ul>
+<li>글 본문 총 용량 : html tag 포함, 한글 등은 2bytes로 계산.</li>
+<ul>
+<li>제목 용량 총합 : 6,468 bytes</li>
+<li>본문 용량 총합 : 430,190 bytes</li>
+</ul>
+<li>댓글 본문 용량 총합 : 249,616 bytes</li>
+<li>댓글 많이 달린 글 순위</li>
+<ul>
+<li>1위(19개) : <a href="http://blog.hannal.com/912/">듣자 듣자 하니까 이 사람들이. -_-+</a></li>
+<li>1위(19개) : <a href="http://blog.hannal.com/birthday_2006/">태어난 날</a></li>
+<li>2위(18개) : <a href="http://blog.hannal.com/command_on_dos/">autoexec.bat, config.sys</a></li>
+<li>3위(17개) : <a href="http://blog.hannal.com/do_you_want_tistory060712/">Tistory 초대권 배포합니다.</a></li>
+<li>4위(16개) : <a href="http://blog.hannal.com/we_release_pornomeme/">Web2.0 포르노, 포르노밈</a></li>
+<li>5위(14개) : <a href="http://blog.hannal.com/my_homepage_since_1997/">블로그 3년. 누리집 10년</a></li>
+<li>5위(14개) : <a href="http://blog.hannal.com/2006%eb%85%84_%ed%95%9c%ea%b8%80%eb%82%a0/">늦었지만 한글날을 기리며.</a></li>
+<li>6위(13개) : <a href="http://blog.hannal.com/help_me_about_computer/">컴퓨터 사양 좀 맞춰주세요.</a></li>
+<li>6위(13개) : <a href="http://blog.hannal.com/is_it_really_permalink/">변하는 불변 주소</a></li>
+</ul>
+<li>갈래 별 글 개수와 순위 : 공개하지 않은 글 개수도 포함 됨.</li>
+<ul>
+<li>1위 (192개) : <a href="http://blog.hannal.com/category/i_am_hannal/murmur/">나른한 오후의 단상</a></li>
+<li>2위 (9개) : <a href="http://blog.hannal.com/category/i_am_dreamer/hello_mac/">안녕, 맥</a></li>
+<li>3위 (5개) : <a href="http://blog.hannal.com/category/i_am_dreamer/knowledge/">잘난 척 하기</a></li>
+</ul>
+</ol>
+<h3>방문자 환경</h3>
+<ol>
+<li>웹 브라우저 </li>
+<ul>
+<li>Internet Explorer : 80%</li>
+<li>Firefox : 17%</li>
+<li>Safari / Opera : 3%</li>
+</ul>
+<li>운영체제</li>
+<ul>
+<li>Windows 계열 : 90%</li>
+<li>Linux/Unix 계열 : 7%</li>
+<li>Mac OS 계열 : 3%</li>
+</ul>
+</ol>
+<h3>책</h3>
+<h4>읽은 책 (33권)</h4>
+<ul>
+<li>인간 연습</li>
+<li>파이 이야기</li>
+<li>셀프</li>
+<li>조제와 호랑이와 물고기들</li>
+<li>1리터의 눈물</li>
+<li>하늘에 이르는 남자 건달</li>
+<li>아내가 결혼했다</li>
+<li>위대한 개츠비</li>
+<li>종교의 자연사</li>
+<li>왜 나는 너를 사랑하는가</li>
+<li>그리고 아무도 없었다</li>
+<li>강산무진</li>
+<li>2006 이상문학상 수상작 모음</li>
+<li>조선 전기 가부장제와 여성</li>
+<li>홀림 (성석제)</li>
+<li>철학 콘서트</li>
+<li>찰리와 초콜릿 공장 원서</li>
+<li>시간을 정복한 남자 류비셰프</li>
+<li>만 가지 슬픔</li>
+<li>아버지</li>
+<li>다빈치 코드</li>
+<li>카스테라</li>
+<li>키친 (요시모토 바나나)</li>
+<li>이야기 세계사</li>
+<li>질문의 힘</li>
+<li>악마는 프라다를 입는다</li>
+<li>원미동 사람들</li>
+<li>전략 기획 노트</li>
+<li>Big fat cat</li>
+<li>선물</li>
+<li>실용 예제로 배우는 웹 표준</li>
+<li>그 남자 그 여자</li>
+<li>타네씨, 농담하지 마세요.</li>
+</ul>
+<h4>다시 읽은 책 (43권)</h4>
+<ul>
+<li>링크</li>
+<li>대중의 지혜</li>
+<li>아리랑, 태백산맥, 한강 (조정래)</li>
+<li>체인지 몬스터</li>
+<li>셰익스피어 4대 비극</li>
+<li>마키아벨리의 군주론</li>
+<li>곽해선의 쉽게 배우는 경영학</li>
+<li>깊은 슬픔</li>
+<li>호밀밭 파수꾼</li>
+<li>대한민국 특산물, 오 마이 뉴스</li>
+<li>황만근은 이렇게 말했다</li>
+<li>번쩍하는 황홀한 순간</li>
+</ul>
+<h4>읽다 멈춘 책 (7권)</h4>
+<ul>
+<li>이기적 유전자 : 번역이 개떡 같아서</li>
+<li>순수이성비판 : 읽다 힘들어서</li>
+<li>인지심리학과 그 응용 : 기반 지식 부족 때문에</li>
+<li>아리랑 (님 웨일즈, 김산) : 눈 아파서</li>
+<li>촘스키, 세상의 권력을 말하다 : 다른 일 하느라 잠시 멈춤</li>
+<li>소유냐 존재냐 : 기반 지식 부족 때문에</li>
+<li>놀이와 인간 : 참조 사항 찾다가 옆길로 새서</li>
+<li>웹 2.0을 이끄는 방탄웹 : 필요한 부분은 그때 그때 찾아 보니까</li>
+<li>CSS 마스터 전략 : 필요한 부분은 그때 그때 찾아 보니까</li>
+</ul>
+<h3>음악</h3>
+<h4>오늘의 추천곡 (2006.06.20 ~ 2006.12.18. 24곡)</h4>
+<p>일정치 않게 MSN 메신저 대화명 넣는 곳에 음악을 권했음.</p>
+<ul>
+<li>20060620 : 리아 - 스무살 일기</li>
+<li>20060623 : Papa roach - blanket of fear</li>
+<li>20060710 : Vinalog - 도라지</li>
+<li>20060719 : Dream theater - Surrounded</li>
+<li>20060726 : Fujiwara hiroshi - Natural born dub</li>
+<li>20060803 : Offspring - All I want</li>
+<li>20060810 : Greenday - Minority</li>
+<li>20060816 : Bon jovi - Comoyo nadie te ha amado</li>
+<li>20060824 : 부활 - 추억이면(異面)</li>
+<li>20060901 : 자전거 탄 풍경 - 안녕</li>
+<li>20060911 : 강은일 - Hey ya!</li>
+<li>20060918 : Liquid tension Experiment - Acid jazz</li>
+<li>20060925 : Crash - Moss(Dead water love)</li>
+<li>20061011 : Dream theater - Erotomania</li>
+<li>20061017 : Guns n' Roses - Sweet child O mine</li>
+<li>20061026 : 양방언 - Silhouette of a Breeze</li>
+<li>20061101 : Guns n' Roses - November rain</li>
+<li>20061109 : Era - Divano</li>
+<li>20061115 : 박정운 - 먼 훗날에</li>
+<li>20061120 : Justin king - Knock on wood</li>
+<li>20061127 : Freddie Mercury - Exercises In Free Love</li>
+<li>20061204 : Skid row - I remember you</li>
+<li>20061211 : Yann Tiersen - La Noyee</li>
+<li>20061218 : 슬기둥 - 징글벨</li>
+</ul>

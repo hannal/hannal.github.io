@@ -1,0 +1,32 @@
+---
+layout: post
+status: publish
+published: true
+title: "추석 연휴, 읽을 책 목록"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 399
+wordpress_url: http://blog.hannal.com/wp/?p=399
+date: '2004-09-22 12:26:53 +0900'
+date_gmt: '2004-09-22 03:26:53 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/9/486/"
+---
+<p>- 로지컬 씽킹<br />
+- 다빈치 코드 (교환이 연휴 전에 완료된다면 ...)<br />
+- 거꾸로 읽는 세계사<br />
+- 왼손과 오른손<br />
+- 한국인 트렌드<br />
+- 한권으로 읽는 조선왕조실록<br />
+- Good to Great<br />
+- 북한 유산 답사기</p>
+<p>다빈치 코드를 구매하였는데, 한참 빠져들며 읽는 중간에 파본임을 깨달았다. 65쪽부터 80쪽이 없고 64쪽 다음으로 81쪽이 기다리고 있다. 처음에는 문장이 어색하게나마 그럭저럭 연결되어서 아무 생각 없이 읽었는데, 갑자기 이상한 내용이 펼쳐져서 깜짝 놀랐다. -_- 버럭.</p>
+<p>이번 연휴가 2004년의 실질적인 마지막 연휴이다. 크리스마스는 24일이 토요일이고 25일은 일요일이기 때문이다. 한 번에 대량(?)으로 읽어야할 책들이 아직 많은데 당혹스럽다. 이 책들 중에는 지하철에서 쪼개어 읽을 수 없는 것들이 많아서 더 당혹스럽다. 특히 6권으로 구성된 Harvard business essentials 를 보면 막막하달까. 흐흣.</p>
+<p>아아~ 내게 매달 휴일을 제외한 3일의 추가 휴가를 주오!</p>

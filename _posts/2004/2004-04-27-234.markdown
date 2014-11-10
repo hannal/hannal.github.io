@@ -1,0 +1,23 @@
+---
+layout: post
+status: publish
+published: true
+title: "땅과 나무의 계약 파기"
+author:
+  display_name: Kay
+  login: Kay
+  email: iam@hannal.net
+  url: ''
+author_login: Kay
+author_email: iam@hannal.net
+wordpress_id: 193
+wordpress_url: http://blog.hannal.com/wp/?p=193
+date: '2004-04-27 15:33:04 +0900'
+date_gmt: '2004-04-27 06:33:04 +0900'
+categories: []
+tags:
+- "희망"
+permalink: "/2004/4/234/"
+---
+<p>(전략) ... 그리하여 계약을 파기하기로 최종 결정하였다.. 내게 필요한 건 비옥한 땅이지 나무가 아니다. 당신은 의도적으로 표출하지는 않았으나 보이지 않는 언행과 행동으로 내게 땅임을 강요해왔다. 그러나 나 단풍 나무는 땅임을 사양하며, 애초 계약에서도 쌍방간의 ... (후략)</p>
+<p>- 땅과 나무와의 계약 파기 공표 中 에서..</p>

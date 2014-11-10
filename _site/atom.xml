@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2014-11-11T02:17:01+09:00</updated>
+  <updated>2014-11-11T03:02:06+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -13,7 +13,7 @@
   
   <entry>
     <title>5. url에 view 함수 연결해서 사진 출력하기</title>
-    <link href="/2014/11/start_with_django_webframework_05"/>
+    <link href="/2014/11/start_with_django_webframework_05/"/>
     <updated>2014-11-11T12:00:49+09:00</updated>
     <id>/2014/11/start_with_django_webframework_05</id>
     <content type="html">&lt;ul&gt;
@@ -324,7 +324,7 @@
   
   <entry>
     <title>유한한 기회</title>
-    <link href="/2014/10/the_time_that_remains"/>
+    <link href="/2014/10/the_time_that_remains/"/>
     <updated>2014-10-19T01:47:21+09:00</updated>
     <id>/2014/10/the_time_that_remains</id>
     <content type="html">&lt;p&gt;시간은 금이라고 하는데, 시간이 소중하다고 생각하지만 꽤 막연하게 느껴진다. 지구와 태양 간 평균 거리는 149,597,870,700 m인데 이를 1천문단위(au)라고 줄이듯이 나도 시간을 다른 단위로 바꿔 보기로 했다. 단위는 기회.&lt;/p&gt;
@@ -365,7 +365,7 @@
   
   <entry>
     <title>4. Photo 모델로 Admin 영역에서 데이터 다루기</title>
-    <link href="/2014/10/start_with_django_webframework_04"/>
+    <link href="/2014/10/start_with_django_webframework_04/"/>
     <updated>2014-10-05T19:00:49+09:00</updated>
     <id>/2014/10/start_with_django_webframework_04</id>
     <content type="html">&lt;ul&gt;
@@ -571,7 +571,7 @@ class Photo(models.Model):
   
   <entry>
     <title>3. Photo 앱과 모델 만들기</title>
-    <link href="/2014/9/start_with_django_webframework_03"/>
+    <link href="/2014/9/start_with_django_webframework_03/"/>
     <updated>2014-09-15T02:05:48+09:00</updated>
     <id>/2014/9/start_with_django_webframework_03</id>
     <content type="html">&lt;p&gt;이 강좌를 연재하는 중에 Django 1.7이 정식 출시됐습니다. 다행히(?) Django를 본격 다루기 전이니 이번 편부터 Django 1.7판을 기준으로 작성하겠습니다.&lt;/p&gt;
@@ -891,7 +891,7 @@ Running migrations:
   
   <entry>
     <title>wkhtmltopdf 에서 글자 겹치는 문제</title>
-    <link href="/2014/9/letter_overlap_problem_on_wkhtmltopdf"/>
+    <link href="/2014/9/letter_overlap_problem_on_wkhtmltopdf/"/>
     <updated>2014-09-05T00:34:40+09:00</updated>
     <id>/2014/9/letter_overlap_problem_on_wkhtmltopdf</id>
     <content type="html">&lt;p&gt;wkhtmltopdf (QT 패치 적용한 버전)으로 html을 pdf로 변환할 때 글자가 겹치는 현상이 일어나는 원인.&lt;/p&gt;
@@ -918,7 +918,7 @@ Running migrations:
   
   <entry>
     <title>2. 개발 환경 꾸리기</title>
-    <link href="/2014/8/start_with_django_webframework_02"/>
+    <link href="/2014/8/start_with_django_webframework_02/"/>
     <updated>2014-08-25T00:05:44+09:00</updated>
     <id>/2014/8/start_with_django_webframework_02</id>
     <content type="html">&lt;ul&gt;
@@ -1317,7 +1317,7 @@ else:
   
   <entry>
     <title>1. Pystagram 기획</title>
-    <link href="/2014/8/start_with_django_webframework_01"/>
+    <link href="/2014/8/start_with_django_webframework_01/"/>
     <updated>2014-08-18T00:01:47+09:00</updated>
     <id>/2014/8/start_with_django_webframework_01</id>
     <content type="html">&lt;ul&gt;
@@ -1568,7 +1568,7 @@ else:
   
   <entry>
     <title>날로 먹는 Django 웹프레임워크 강좌, 여는 글</title>
-    <link href="/2014/8/start_with_django_webframework_00"/>
+    <link href="/2014/8/start_with_django_webframework_00/"/>
     <updated>2014-08-04T18:20:24+09:00</updated>
     <id>/2014/8/start_with_django_webframework_00</id>
     <content type="html">&lt;h3&gt;hello world&lt;/h3&gt;
@@ -1621,7 +1621,7 @@ else:
   
   <entry>
     <title>서평 : 쫄지말고 창업</title>
-    <link href="/2014/7/review-just_start_dont_be_chicken"/>
+    <link href="/2014/7/review-just_start_dont_be_chicken/"/>
     <updated>2014-07-26T06:18:39+09:00</updated>
     <id>/2014/7/review-just_start_dont_be_chicken</id>
     <content type="html">&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/assets/uploads/2014/07/book-cover_isbn-978-89-97453-26-9.jpg&quot;&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/07/book-cover_isbn-978-89-97453-26-9-317x400.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
@@ -1671,7 +1671,7 @@ else:
   
   <entry>
     <title>클래시 오브 클랜즈 업데이트와 대중 마케팅</title>
-    <link href="/2014/7/coc_update_plan_and_mass_marketing"/>
+    <link href="/2014/7/coc_update_plan_and_mass_marketing/"/>
     <updated>2014-07-17T04:32:11+09:00</updated>
     <id>/2014/7/coc_update_plan_and_mass_marketing</id>
     <content type="html">&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/assets/uploads/2014/07/coc_kayos_town-20140715.png&quot;&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/07/coc_kayos_town-20140715-400x300.png&quot; alt=&quot;2014년 7월 15일자 내 coc 타운&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
@@ -1768,7 +1768,7 @@ else:
   
   <entry>
     <title>팀 세우기 (마지막 편), 팀의 목적</title>
-    <link href="/2014/7/startup_diary_04-4"/>
+    <link href="/2014/7/startup_diary_04-4/"/>
     <updated>2014-07-08T00:31:13+09:00</updated>
     <id>/2014/7/startup_diary_04-4</id>
     <content type="html">&lt;p&gt;자리에 앉혔다고 팀이 만들어지는 것은 아니며, 팀이 만들어졌다고 팀워크가 저절로 생기지 않는다. 그렇다고 고난과 역경에 처한다고 서로를 잇는 끈이 생기지 않는다. 팀은 구성원들이 가치가 있다고 여기는 것을 세상에 내놓지 못해 밤에 잠을 잘 수 없는, 필요에 따라서는 독기가 바싹 올라 같은 방향을 향해 실행력을 낼 때 비로소 만들어진다. 그냥, 괜히 생기는 것은 없다.&lt;/p&gt;
@@ -1864,7 +1864,7 @@ else:
   
   <entry>
     <title>우아하게 우아</title>
-    <link href="/2014/7/hello_our_elegant_ua"/>
+    <link href="/2014/7/hello_our_elegant_ua/"/>
     <updated>2014-07-01T16:01:30+09:00</updated>
     <id>/2014/7/hello_our_elegant_ua</id>
     <content type="html">&lt;p&gt;우아라고 부릅니다. 태명입니다.&lt;/p&gt;
@@ -1881,7 +1881,7 @@ else:
   
   <entry>
     <title>전자책, 리디북스, 리디북스의 TTS 기능에 대한 단상</title>
-    <link href="/2014/6/short_text-ebook_ridibooks_and_tts"/>
+    <link href="/2014/6/short_text-ebook_ridibooks_and_tts/"/>
     <updated>2014-06-28T05:13:23+09:00</updated>
     <id>/2014/6/short_text-ebook_ridibooks_and_tts</id>
     <content type="html">&lt;p&gt;지인이 방전된 몸과 마음을 충전하는 데 쓰라고 책 상품권을 푸짐하게 선물해주었다. 보답하는 마음으로 리디북스 장바구니 무게를 줄이는 데 다 썼다. 전집이나 묶음 상품 사니 순식간에 충전금이 사라지네... 덜덜덜. 리디북스, 이 묶음연쇄할인마 같으니라고.&lt;/p&gt;
@@ -1914,7 +1914,7 @@ else:
   
   <entry>
     <title>아이맥(iMac) 전면 보호유리 들어내기</title>
-    <link href="/2014/6/cheap_tool_for_extracing_a_glass_covering_of_imac"/>
+    <link href="/2014/6/cheap_tool_for_extracing_a_glass_covering_of_imac/"/>
     <updated>2014-06-20T23:53:05+09:00</updated>
     <id>/2014/6/cheap_tool_for_extracing_a_glass_covering_of_imac</id>
     <content type="html">&lt;p&gt;&lt;a href=&quot;http://goo.gl/QgyQhK&quot;&gt;아이맥 액정을 청소하거나 내부에 있는 하드디스크를 교체&lt;/a&gt;하려면 전면에 있는 LCD 보호유리를 먼저 들어내야 한다.&lt;/p&gt;
@@ -1933,7 +1933,7 @@ else:
   
   <entry>
     <title>20주 동안 백스쿼트 90파운드 올리기</title>
-    <link href="/2014/5/my_bill-starr_super-squat_review"/>
+    <link href="/2014/5/my_bill-starr_super-squat_review/"/>
     <updated>2014-05-19T03:36:57+09:00</updated>
     <id>/2014/5/my_bill-starr_super-squat_review</id>
     <content type="html">&lt;h2&gt;부제 : Bill starr와 Super squat 완주 후기&lt;/h2&gt;
@@ -2127,7 +2127,7 @@ WOD를 마치고 잠시 쉬고 나서 슬쩍 Back squat 1RM을 측정해봤다. 
   
   <entry>
     <title>효과적 훈련의 원리</title>
-    <link href="/2014/5/principles_for_efficient_training"/>
+    <link href="/2014/5/principles_for_efficient_training/"/>
     <updated>2014-05-16T01:51:39+09:00</updated>
     <id>/2014/5/principles_for_efficient_training</id>
     <content type="html">&lt;p&gt;며칠 전에 참석한 근거기반훈련(evidence based training) 워크샵에서 배운 내용 중 &lt;strong&gt;효과적 훈련의 원리&lt;/strong&gt;라는 내용이 기억에 남아 기록해본다.&lt;/p&gt;
@@ -2261,7 +2261,7 @@ WOD를 마치고 잠시 쉬고 나서 슬쩍 Back squat 1RM을 측정해봤다. 
   
   <entry>
     <title>게임학교 1기 졸업발표회에 초대합니다.</title>
-    <link href="/2014/1/graduation-invitation_of_the_gameschool-season1"/>
+    <link href="/2014/1/graduation-invitation_of_the_gameschool-season1/"/>
     <updated>2014-01-20T00:24:24+09:00</updated>
     <id>/2014/1/graduation-invitation_of_the_gameschool-season1</id>
     <content type="html">&lt;p&gt;지난 2013년 3월, 저는 &lt;a href=&quot;http://blog.hannal.com/join_up_the_game_school/&quot;&gt;&lt;strong&gt;게임학교&lt;/strong&gt; 프로젝트를 공표&lt;/a&gt;하였습니다. 제가 좋아하고 잘하는 방법으로 사회에 참여하고 기여하고픈 마음으로 시작한 일이지요. 그리고 팀 구성을 마친 7월에 &lt;a href=&quot;http://blog.hannal.com/gameschool_with_the_hims_s1x1/&quot;&gt;게임학교 1기 1주차를 시작&lt;/a&gt;하였습니다.&lt;/p&gt;
@@ -2294,7 +2294,7 @@ WOD를 마치고 잠시 쉬고 나서 슬쩍 Back squat 1RM을 측정해봤다. 
   
   <entry>
     <title>2014년을 맞이하며</title>
-    <link href="/2014/1/hello_2014"/>
+    <link href="/2014/1/hello_2014/"/>
     <updated>2014-01-01T01:00:50+09:00</updated>
     <id>/2014/1/hello_2014</id>
     <content type="html">&lt;p&gt;딱.&lt;br /&gt;
@@ -2360,7 +2360,7 @@ WOD를 마치고 잠시 쉬고 나서 슬쩍 Back squat 1RM을 측정해봤다. 
   
   <entry>
     <title>내가 도로명주소를 좋아하지 않는 이유</title>
-    <link href="/2013/12/i_dont_like_the_new_address_system"/>
+    <link href="/2013/12/i_dont_like_the_new_address_system/"/>
     <updated>2013-12-04T17:30:10+09:00</updated>
     <id>/2013/12/i_dont_like_the_new_address_system</id>
     <content type="html">&lt;p&gt;“&lt;a href=&quot;http://goo.gl/ZlM3RL&quot;&gt;양재대로103길&lt;/a&gt;”은 어디에 있을까요~?&lt;/p&gt;
@@ -2382,7 +2382,7 @@ WOD를 마치고 잠시 쉬고 나서 슬쩍 Back squat 1RM을 측정해봤다. 
   
   <entry>
     <title>팀 세우기 (3편), 호흡 맞추기</title>
-    <link href="/2013/11/startup_diary_04-3"/>
+    <link href="/2013/11/startup_diary_04-3/"/>
     <updated>2013-11-18T15:04:16+09:00</updated>
     <id>/2013/11/startup_diary_04-3</id>
     <content type="html">&lt;p&gt;갓 창업했을 때 우리는 한 무리였다. 각자 개성을 가진 두 사람이 모여있는, 단지 그 상태였다. 그리고 약 1년 가까이 시간을 보낸 시점에 이르러 비로소 우리는 팀으로 호흡 맞춰 움직이게 되었다.&lt;/p&gt;
