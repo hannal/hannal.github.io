@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="icon" type="image/png" href="http://blog.hannal.com/favicon.ico" />
+  <link rel="alternate" type="application/rss+xml" title="Kay on the rails RSS Feed" href="http://blog.hannal.coom/feed.xml" />
+  <title>
+    
+      원격근무를 시작하다. 일주일 중간 소감. &middot; Kay on the rails
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=308847979152210&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2015. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">원격근무를 시작하다. 일주일 중간 소감.</h1>
+  <span class="post-date">08 Feb 2015</span>
+  <p>출산을 앞두고 지난 월요일부터 집에서 원격으로 일하고 있다. 팀이나 아내는 어떤지 모르겠지만, 난 무척 만족스럽다. 가능하다면 앞으로도 원격으로 집에서 일하고 싶다.</p>
+
+<h3>1. 환경</h3>
+
+<p>몇 몇 환경 요소는 집보다 사무실에 있는 것이 더 좋다. 하지만, 대부분은 내 작업방이나 서재가 훨씬 좋은 환경으로 꾸려져 있다. 천 여 권 정도 되는 책과 넓은 책상, 넉넉한 모니터, 쾌적한 네트워크, 휴식에 좋은 널부러질 공간과 여러 장난감, 애교 넘치는 강아지와 만삭인데도 날 챙겨주는 아내가 있다. 몸에 뭔가를 걸치는 걸 싫어하는데, 집에서는 아무래도 간편하게 입어도 되어서 좋다.</p>
+
+<p>사무실 근처엔 괜찮은 커피를 파는 곳이 없다. 내가 단골로 다니는 까페는 왕복 1km 거리에 있다. 집에서는 Nuova Simonelli Oscar라는 괜찮은 가정용 에스프레소 기기와 좋은 원두로 커피를 내리거나 제법 솜씨 좋은 아내가 핸드드립으로 내려주는데, 어지간한 까페보다 낫다. 양 조절하느라 하루에 한 잔만 마시려 애쓰는데, 맛없는 커피를 마시는 데 내 <a href="http://blog.hannal.com/2014/10/the_time_that_remains/">유한한 기회</a>를 낭비하고 싶지 않다.</p>
+
+<h3>2. 집중</h3>
+
+<p>신경쓰지 않으면 집에서 일에 집중하기 안좋다는 조언(?)을 여러 번 들었다. 맞다. 집에서 집중하기 안좋은 상황이 종종 벌어진다. 소파에 파묻혀 한창 일하는데 강아지가 품으로 파고 들어와 허벅지를 차지하기도 하고, 아내의 (정당한) 일상 생활 활동이 방해가 되기도 한다.</p>
+
+<p>그러나 집중을 방해하는 상황은 사무실에서도 매우 빈번하게 일어난다. 여러 사람과 한 공간에 있어서 발생하는 상황이기 때문에 어찌할 도리가 마땅찮다.</p>
+
+<p>집에서 일하면 대처 가능한 방법이 있다. 밤에 일하는 것이다. 그래서 낮이나 저녁엔 손으로 해치우는 일을 주로 치르고, 밤, 대략 23시 경부터 3~4시 경까지는 머리로 해치우는 일을 주로 치른다. 사무실에 있으면 사람들이 퇴근하면서 슬슬 집중하기 좋은 여건이 만들어질 때쯤엔 나도 퇴근해야 한다. 버스나 지하철이 끊기기 때문이다.</p>
+
+<h3>3. 소통</h3>
+
+<p>소통은 <a href="https://slack.com/">Slack</a>과 전자우편으로 나눈다. 작업물은 git과 redmine 같은 도구로 관리한다. 현재 진행하고 있는 업무가 긴밀하게 동기식 소통을 나눠야 하지 않아도 되는 단계여서 협업하기 불편하지는 않다. 적어도 나는.</p>
+
+<p>제대로 원격근무를 한 지는 아직 일주일 밖에 되지 않아서 소통에 대해서는 우려하는 일은 생기지 않았다.</p>
+
+<h3>4. 안좋은 점</h3>
+
+<p>생활과 일이 섞여서 좋은 경우도 있지만 안좋을 때도 있다. 자동차 공유 서비스를 이용해 몇 시간 차를 빌려 만삭인 아내와 장을 보는 건 좋다. 장보는 것 자체는 지루하고 재미없고 피곤한 일이지만, 아내를 돕는 몇 가지 안 되는 일이어서 좋다. 다만, 이런 생활 활동이 누적되면 정작 저녁이나 밤에 일에 집중하지 못하는 경우가 생긴다.</p>
+
+<p>일을 하지 않고 자꾸 딴짓하거나 노는 경우는 별로 없다. 어차피 원격근무를 하지 않을 때에도 집에서 일하는 경우가 많았어서 그 정도 자기 관리는 해왔다. 오히려 일을 끊어내지 않고 계속 이어가는 경우가 더 잦아서 다음 날 생활에 지장을 주는 경우가 문제이다. 출근하면 대중교통 시간에 맞추어 일을 끊어내기라도 하지만, 집에서 내복만 입고 소파에 앉아 일하다 문득 오줌보가 터질듯이 가득 차서 화장실 가며 시계를 보면 새벽 4~6시인 경우가 잦다. 잦은 정도가 아니라 일주일 중 6일은 그랬다.</p>
+
+<p>아직 우리 집이 내가 원격근무하는 데 준비가 되어 있지 않아서 원격근무에 안좋은 일이 생기곤 한다. 그래서 차라리 팀이 활동하는 시간대와 내가 활동하는 시간대가 달라서 시차가 발생하면 낫겠다는 생각도 든다.</p>
+
+<h3>5. 직업</h3>
+
+<p>내가 원격근무를 할 수 있는 요인은 크게 다음과 같이 분류된다.</p>
+
+<ol>
+<li>환경의 배려와 지원
+
+<ul>
+<li>회사의 배려와 지원</li>
+<li>가정의 배려와 지원</li>
+</ul></li>
+<li>직업 소양과 환경
+
+<ul>
+<li>서버 프로그래머</li>
+<li>혼자 진행하는 업무 진행</li>
+<li>원격으로 작업 가능한 작업 인프라와 경험</li>
+</ul></li>
+</ol>
+
+<p>여러 여건이 어우러져 원격근무가 가능한 것이며, 이 중 하나라도 빠져도 원격근무가 어렵거나 힘들 것 같다. 가령, 기획자로 일할 때엔 업무 특성상 사무실에서 동기화 된 소통과 업무를 진행해야 했다. 프로그래밍을 한다고 해서 원격근무가 항상 가능한 것은 아니지만, 기획 업무에 비해서는 더 융퉁성 있게 대응 가능하다.</p>
+
+<h3>6. 중간 평가</h3>
+
+<p>아주 만족한다. 가정에서 식구와 오랜 시간을 보내서 좋다. 같이 있다고 해서 특별한 경험이 있는 것도 아니다. 그냥 언제든 아내와 강아지 존재를 느끼는 것 뿐이다. 아기가 태어나서 낮과 밤 모두가 사라지는 상황이 오면 어떨지 모르겠지만, 어쨌든 지금은 가정에 머무르는 시간이 좋다.</p>
+
+<p>일이 더 잘되는 것도 좋다. 긴밀한 소통이 필요한 경우도 분명 오겠지만, 그런 상황 대부분은 내 역량이 부족해서 일어난다고 예상하고 있다. 그동안 해온 동기화 된 소통은 최소화 할 여지가 많아 보인다.</p>
+
+<p>급여를 열 배 정도 더 받는 게 아닌 이상, 집에서 원격으로 일하는 게 좋을 것 같다. 앞으로 약 한 달 동안 원격근무를 해보고나서 진지하게 그 이후를 고민해봐야 겠다.</p>
+
+</div>
+
+<div class="fb-like" data-href="http://blog.hannal.com/2015/02/working_remotely/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  var disqus_url = 'http://blog.hannal.com/2015/02/working_remotely/';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2015/01/hello_2015/">
+            2015년을 맞이하며
+            <small>01 Jan 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/11/start_with_django_webframework_05/">
+            5. url에 view 함수 연결해서 사진 출력하기
+            <small>11 Nov 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/the_time_that_remains/">
+            유한한 기회
+            <small>19 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-33535239-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
