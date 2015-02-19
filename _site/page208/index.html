@@ -99,6 +99,49 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2006/8/get_random_article/">
+        워드프레스에서 아무 글이나 읽기 기능
+      </a>
+    </h1>
+
+    <span class="post-date">02 Aug 2006</span>
+
+    <h3>개요</h3>
+
+<p>안녕하세요.</p>
+
+<p>혼자서 갖고 놀던 워드프레스용 Script 하나를 공개합니다. 심장에 바람이라도 들었나봅니다.</p>
+
+<p>이 도구는 워드프레스에 써놓고 공개한 글 중 아무거나 하나를 골라 보여줍니다.</p>
+
+<p>전 가끔 제가 쓴 지난 글을 읽으며 키득거리곤 합니다. 아~ 나도 참 가열차게 참견하고 다녔구나! 하는 생각이 들기도 합니다. 하지만, 블로그의 화면 구성 특성상 최근 글은 봐도 지나간 글은 잘 보지 않지요. 불편하달까요. 제 블로그가 지난 글 찾아보기에 불편한 구조라서 그런 걸지도 모르겠습니다. HTML이나 CSS 고치기 귀찮아서 좀 더 귀찮지 않은 방법을 생각하다가 워드프레스에 있는 기능을 이용했습니다. 이 도구 덕분에 지난 글을 읽기 편해졌습니다.</p>
+
+<ul>
+<li>도구 이름 : Random article. ...이라고 해두죠.</li>
+<li>저작권 : 없습니다.</li>
+<li>실험해본 곳 : Wordpress 2.0.3. 실은 1.5.2에서도 확인해볼 수 있었지만, 운영 정책상 1.5.2에선 실험해보기 귀찮아서 안했습니다. 아마 잘 될 겁니다.</li>
+<li>내려받기 : <a href="http://blog.hannal.com/wp-content/old_uploads/archive/get_random_article/random_article-20060804.txt">random article 20060804판</a>. 쓰는 법은 저 아래를 보세요.</li>
+</ul>
+
+<h3>쓰는 법</h3>
+
+<p><strong>1.</strong> 아주 간단합니다. 이 파일을 여러분이 쓰고 있는 Wordpress의 template 디렉토리에 넣으세요. 저를 예로 들면, 제가 사용하는 껍데기는 almost-spring 이기 때문에 이 파일을 <strong>wp-content/themes/almost-spring</strong> 에 넣었습니다.<br />
+이것은 확장도구(plug-in)가 아니니 wp-content/plugins 에 넣으면 아무 일도 일어나지 않습니다. 그만큼 이것은 위험도가 낮습니다. (?????)</p>
+
+<p><strong>2.</strong> 이 파일의 확장자를 php로 바꾸십시오. 내려받을 때 확장자는 txt 입니다. 파일이름에 이상한 숫자도 붙고 했으니 아예 파일이름 전체를 바꿔봅시다. <strong>random_article.php</strong>로요. 원하는 다른 파일이름이 있다면 그걸로 해도 상관없습니다. 파일이름은 여러분의 마음 속에 있으면 그만입니다. 단, 파일 확장자는 반드시 <strong>php</strong>로 해야 합니다.</p>
+
+<p><strong>3.</strong> 이 파일은 정확히 말해서 Template 파일입니다. 때문에 '쪽 (page)'에다가 붙여야 합니다. 그러려면 '쪽'부터 써야 겠군요.<br />
+관리자 화면에 가셔서 '쪽 쓰기'로 가십시오. 아마 주소는 http://여러분의주소/워드프레스/wp-admin/page-new.php 일 겁니다. 남의 워드프레스 주소를 입력한게 아니라면 아마 쪽쓰기 화면이 잘 나올 겁니다. 거기에 잘 찾아보시면 '<strong>쪽 템플릿</strong>'이라고 있을 겁니다. 거기에서 '펼침선택상자'(Select box)를 누르면 <strong>Random article</strong>이라고 보일 겁니다. 위에 있는 1~2번 과정을 정확히 했다면 분명히 Random article이라는 것이 나옵니다. 그걸 고르십시오. '쪽이름'은 적당히 짓고 '주소'도 예쁘고 지으십시오. 편의상 쪽이름은 '아무거나 읽기'로 하고 주소는 'random_article'이라고 해보죠.</p>
+
+<p><strong>4.</strong> 이제 여러분이 방금 만든 쪽을 열어보십시오. 다른 글로 이동할 겁니다. 제 블로그인 '<a href="http://blog.hannal.com">한날은 생각한다</a>'에 와서 보시면    친절한 길라잡이에 '아무 글이나 읽기'라는 것이 있는데, 이것이 지금 제가 이렇게 배포하고 있는 걸로 작동하는 겁니다.</p>
+
+<p>어때요. 참 쉽죠?<br />
+<img src="http://blog.hannal.com/wp-content/old_uploads/bob_rossvery_easy.jpg" alt="밥 로스 아저씨" /></p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2006/8/letter_word_break_correct_word/">
         난 자음말을 반대한다.
       </a>
@@ -125,48 +168,6 @@
 <p>하지만, 자음말은 말을 단조롭게 하며 감성(뜻) 전달력을 떨어뜨린다. 익숙치 않은 사람의 경우 자음말을 쓴 사람의 본뜻과는 전혀 다르게 뜻을 받아들여 오해를 일으킬 수 있다. ㅎㅎ나 ㅋㅋ가 가진 쓰임새를 몰라서 오해를 하는 것이 아니라, 자신의 말에 동조하여 기분 좋게 웃는 것인지 음흉한 뜻을 품고 웃는 것인지 비웃는 것인지 쉽게 알 수 없기 때문이다.<br />
 우리말은 다른나라 말들과 비교했을 때 감성이 풍부하다는 평을 받는다. 우리의 보석같은 많은 문학이 노벨문학상을 받지 못한 것은 우리말이 갖고 있는 그 풍부하고 짙은 감성을 다른나라 말로 표현해내기 매우 어렵거나 거의 불가능하기 때문이라는 의견도 있다. 노란 색 느낌을 노랗다, 샛노랗다, 누렇다, 누르스름하다, 누리끼리하다, 노릇 노릇, 노른끼 등 매우 다양하게 표현할 수 있을 정도로 우리말의 감성 표현력은 뛰어나다. 우리 흉내말이 2196개에 달한다고 하니 참 대단하다는 생각이 든다.<br />
 우리말을 더 우리말답게 쓸 수 있고 말뜻을 제대로 전달하기 위해서, 자음말은 우리말의 감성을 두루뭉술하게 해치고 뜻 전달력을 떨어뜨리기 때문에, 그렇기 때문에 나는 자음말을 반대한다.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2006/8/this_is_my_macbook/">
-        제 맥북을 소개합니다
-      </a>
-    </h1>
-
-    <span class="post-date">01 Aug 2006</span>
-
-    <p>지난 주 목요일에 <a href="http://www.apple.co.kr/macbook/macbook.html">맥북</a>이 왔고 며칠 만지작거렸습니다.</p>
-
-<p class="centerphoto"><a href="http://blog.hannal.com/wp-content/old_uploads/macbook_box.jpg" rel="lightbox"><img src="http://blog.hannal.com/wp-content/old_uploads/macbook_box.jpg" alt="상자 속에 갇혀있는 맥북" /></a></p>
-
-<p>큰 상자는 맥북이고 작은 상자는 아이팟 나노 검돌이입니다. 함께 파는 행사가 있길래 그걸로 산 것이지요.</p>
-
-<p class="centerphoto"><a href="http://blog.hannal.com/wp-content/old_uploads/macbook_n_ipodnano.jpg" rel="lightbox"><img src="http://blog.hannal.com/wp-content/old_uploads/macbook_n_ipodnano.jpg" alt="상자에서 나온 맥북과 아이팟 나노 검돌이" /></a></p>
-
-<p>발정난 똥강아지 마냥 들떠서 미친듯이 비닐을 벗겨내고 상자를 뜯어냈습니다. 이성을 가다듬고 이런 사진을 찍은 것이 신기할 정도입니다. <a href="http://www.apple.co.kr">사과장사 회사</a> 애들은 어쩜 상자도 이렇게 예쁠까요.</p>
-
-<p class="centerphoto"><a href="http://blog.hannal.com/wp-content/old_uploads/macosx_screen_on_macbook.jpg" rel="lightbox"><img src="http://blog.hannal.com/wp-content/old_uploads/macosx_screen_on_macbook.jpg" alt="Mac OS X를 띄우고 끄적대기" /></a></p>
-
-<p>hannal이라는 예쁜 이름도 붙여주고(사용자 계정 생성) 코엑스에 <a href="http://www.appleforum.com/showthread.php?t=48220">있던</a> 체험 가게 속 맥이 보여주던 그 화면을 저도 슬쩍 띄워놓고 사진도 찍었습니다.</p>
-
-<p>아직 1주일도 채 쓴 건 아니지만 벌써부터 Windows XP의 합리성 떨어지는 구조에 슬슬 불만이 생기고 있습니다. 워낙 Windows용 Total Commander에 손이 익은 탓에 Finder를 이용한 파일 관리는 좀 어리숙하지만 일단은 대충 아무데나 파일 저장해놓고 spotlight로 찾아 쓰곤 합니다. 하하.  <a href="http://www.versiontracker.com/dyn/moreinfo/macosx/22549">Quick silver</a>랑 spotlight를 쓰니 Finder를 여는 일도 줄어버리는군요. 하하!</p>
-
-<p class="centerphoto"><a href="http://blog.hannal.com/wp-content/old_uploads/quicksilver.png" rel="lightbox"><img src="http://blog.hannal.com/wp-content/old_uploads/quicksilver.png" width="500" alt="Quicksilver로 iPhoto를 찾아 실행하려는 장면" /></a><br />
-사진을 누르면 원래 크기로 볼 수 있음</p>
-
-<p>내가 지정한 Command +  단축글쇠를 누르면 Quicksilver가 나오는데 그 상태에서 글자를 치면 그 이름을 가진 무른모(Software)를 이렇게 나열해준다. 마우스에 손 댈 필요 없이 자판 몇 번 두드리면 필요한 무른모를 열 수 있다. 만일, 무른모가 아닌 문서 파일을 열고 싶다면? 그럴 때는 Ctrl + Space bar 글쇠를 누른 뒤 열려는 문서 이름을 치면 주욱 주욱 나온다.</p>
-
-<p class="centerphoto"><img src="http://blog.hannal.com/wp-content/old_uploads/spotlight.png" alt="Spotlight로 1리터의 눈물이라는 문서를 찾은 장면" /></p>
-
-<p>정말 폴더별로 파일을 쓰임새에 따라 정리할 필요가 없을 것 같다. 문서는 모조리 '도큐먼트'라는 폴더에 넣고, 그림이나 사진은 '사진'에 넣어버린 뒤, Spotlight나 iPhoto 등으로 찾아다니며 관리해도 전혀 불편할 것 같지 않다.</p>
-
-<p>열이 어느 정도 나는 편이고 Trackpad 감도가 좀 떨어지며, Combo drive가 LG 16배속 <strong>CD-ROM</strong>(cd-r, dvd-rom이 아님. 비행기 떠오를 때 나는 수준으로 시끄러운 cdrom임) 수준으로 시끄럽다는 단점은 있지만, 이 가격에 이정도 편리함과 성능을 갖춘 노트북 셈틀은 흔하지 않다.</p>
-
-<p>후우.<br />
-아~ 이제 누리집에도 제대로 자랑했으니 이젠 어디다 자랑하지?<br />
-간질 간질 간~질, 혓바닥이 간지러워~ 병원에 가봤더니 자랑병이래요~</p>
 
   </div>
   

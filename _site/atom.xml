@@ -3,13 +3,142 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-02-08T22:57:13+09:00</updated>
+  <updated>2015-02-19T17:13:14+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
   </author>
   <rights>copyright_details</rights>
 
+  
+  <entry>
+    <title>개발 생활 - 1</title>
+    <link href="/2015/02/devlife-s1-01/"/>
+    <updated>2015-02-18T16:50:49+09:00</updated>
+    <id>/2015/02/devlife</id>
+    <content type="html">&lt;p&gt;지난 8월 중순부터 취미로 하던 프로그래밍을 전업으로 하고 있다. 그동안 세 개 제품을 투입(release)했고, 하나는 비공개 시험 운영 중이며, 약 두 달 동안 강의를 하기도 했다. 지난 6개월을 돌이켜 본다.&lt;/p&gt;
+
+&lt;h3&gt;1. 전업 결심&lt;/h3&gt;
+
+&lt;p&gt;2014년 7월에 프로그래머로 전직을 결심했지만 막막하기만 했다. 여러 언어와 도구, 분야를 검토한 끝에 Python을 주 프로그래밍 언어로, 관심을 두고 꾸준히 언어로 Go 언어를 정했다. 기준은 내가 하고 싶고 만들고 싶은 것에 필요하고 내 취향이나 성향에 맞는 지 여부이며, 급여 등은 판단 기준에 넣지 않았다.&lt;/p&gt;
+
+&lt;p&gt;그러다 8월 중순에 &lt;a href=&quot;http://www.rsquare.co.kr&quot;&gt;부동산 다이렉트&lt;/a&gt;라는 회사에 서버 프로그래머로 합류했다.&lt;/p&gt;
+
+&lt;h3&gt;2. 개발 프로젝트&lt;/h3&gt;
+
+&lt;h4&gt;2-1. PDF 문서 생성 서버&lt;/h4&gt;
+
+&lt;h5&gt;개요&lt;/h5&gt;
+
+&lt;p&gt;이 프로젝트는 서버에 저장된 데이터를 제안서를 PDF 문서로 생성하는 기능을 만드는 것이었다. 기존에 Go 언어로 만들어 사용하는 서버가 있었는데 다음 요구사항을 구현해야 했고, 이를 내가 기능 구현을 내가 맡은 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;요구사항
+
+&lt;ul&gt;
+&lt;li&gt;여러 제안서를(PDF 파일) 하나로 묶어서 PDF 파일 하나로 만든다.&lt;/li&gt;
+&lt;li&gt;DB에서 직접 데이터를 가져오던 기존 방식 대신 API Server에서 REST API로 데이터를 가져온다.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;내가 정한 추가 목표치
+
+&lt;ul&gt;
+&lt;li&gt;웹 페이지에서 PDF 생성 버튼을 누르면 응답 화면을 먼저 보여주고, PDF 생성이 완료되면 따로 알려주어 사용성을 높인다.&lt;/li&gt;
+&lt;li&gt;유연하고 빠르게 제안서 양식에 변화를 주어 생산성을 높인다.&lt;/li&gt;
+&lt;li&gt;3주 안에 개발을 끝낸다.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5&gt;개발 환경&lt;/h5&gt;
+
+&lt;p&gt;제안서는 꽤 복잡한 구조(layout)였고 Google Map API도 사용해서 Javascript를 처리해야 했다. &lt;a href=&quot;http://wkhtmltopdf.org/&quot;&gt;wkhtmltopdf&lt;/a&gt;는 이런 복잡한 HTML를 PDF로 변환하는 데 가장 적합한 도구이다. Webkit 렌더러를 이용하여 웹브라우저가 HTML를 렌더링하는 방식으로 HTML 문서를 출력하고 이 문서를 PDF로 변환하기 때문에 우리에게 필요한 기능을 모두 제공했고, 이미 개발팀에서 사용하고 있기도 했다.&lt;/p&gt;
+
+&lt;p&gt;하지만, wkhtmltopdf엔 PDF 파일들을 하나로 합치는 기능이 없다. 여러 도구를 살펴봤는데 &lt;a href=&quot;http://www.python.org&quot;&gt;Python&lt;/a&gt;용 라이브러리인 PyPDF 2가 적합했다. 그리고 내가 정한 추가 목표치를 달성하는 데에도 Python이 가장 적합했다. 그래서 PDF 문서 생성 서버는 Python을 이용해 새로 만들기로 결정했다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;언어 : Python 2.7&lt;/li&gt;
+&lt;li&gt;사용 라이브러리, 프레임워크
+
+&lt;ul&gt;
+&lt;li&gt;웹 프레임워크 : &lt;a href=&quot;http://flask.pocoo.org/&quot;&gt;Flask&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;PDF 병합 : &lt;a href=&quot;http://mstamy2.github.io/PyPDF2/&quot;&gt;PyPDF 2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;백그라운드 처리 : &lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;Celery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;웹 소켓 : &lt;a href=&quot;http://www.gevent.org/&quot;&gt;gevent&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5&gt;개발 과정&lt;/h5&gt;
+
+&lt;p&gt;막상 개발에 착수하자 시작부터 문제에 봉착했다. PyPDF 2는 wkhtmltopdf로 만든 PDF를 두 개 이상 병합하려 하면 &lt;code&gt;__WKANCHOR__&lt;/code&gt; 관련 오류가 발생하였다. wkhtmltopdf로 만든 PDF에 형성한 앵커의 ID가 PDF 마다 동일하게 만들어져서 이를 합칠 때 중복되어서(고유하지 않아서) 발생하는 문제 같다. wkhtmltopdf나 PyPDF 2 소스를 고쳐서 문제를 해결하려 했으나 시간이 여의치 않았다. 나는 여러 제안서를 HTML 문서 하나로 합치고, 이 합친 HTML 문서를 PDF로 변환하기로 했다. wkhtmltopdf에 여러 HTML 문서를 PDF 문서 하나로 병합해 생성하는 기능이 있긴 했으나, 결과물인 PDF 외양(layout)이 깨지는 문제가 발생하였다.&lt;/p&gt;
+
+&lt;p&gt;API Server에서 제공하는 REST API로 데이터를 가져오는 건 &lt;a href=&quot;https://github.com/jcgregorio/httplib2&quot;&gt;httplib2&lt;/a&gt;를 이용했다. 대세인 HTTP 라이브러리인 &lt;a href=&quot;http://docs.python-requests.org/&quot;&gt;Requests&lt;/a&gt;를 사용하려 했으나 &lt;code&gt;HTTPS&lt;/code&gt; 통신이 잘 되질 않았다. 구현을 마친 나중에 안 사실이지만 이 문제는 HTTPS 인증서를 내가 잘못 사용해서 발생한 문제였다.&lt;/p&gt;
+
+&lt;p&gt;API Server에서 가져온 데이터를 어떻게 구조화 할까 고민하다 &lt;a href=&quot;https://www.djangoproject.com/&quot;&gt;Django&lt;/a&gt;의 ORM을 흉내 내기로 했다. Django의 Model은 다음과 같이 데이터를 데이터베이스에서 가져온다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;building = Building.objects.get(id=3, status=&amp;#39;open&amp;#39;)
+
+print building.name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;내가 만든 건 이런 모양이다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;building = Building.filter(id=3, {&amp;#39;status&amp;#39;: &amp;#39;open&amp;#39;})
+
+print building.name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;데이터베이스를 사용하지 않고 오직 REST API로 데이터를 가져오기 때문에 굳이 ORM처럼 만들 필요는 없었다. 데이터 모델 스키마는 API Server의 문서에 잘 나와 있기 때문에 문서 서버에서 모델을 정의하지 않아도 무방했다. Django ORM을 분석하면서 많이 배우긴 했지만 프로젝트 관리 관점에서 보면 초과 사양으로 보였다. 하지만, 자잘한 수정 사항이 매우 빈번하게 발생하자 그 나름대로 기준과 일관성이 있는 인터페이스 덕에 유연하게 대응할 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;1차 요구사항을 구현하고 나서 사용성을 높이는 단계로 넘어갔다. PDF 생성은 적지 않은 시간이 소요되기 때문에 이용자가 웹 페이지에서 PDF 생성 버튼을 누르면 한참 기다려야 했다. 만약 100장짜리 제안서를 PDF로 생성하는 경우 30~40분을 기다려야 하며, HTTP/1.x 특성상 연결이 끊기거나(Timeout) 연결에 문제가 생길 가능성이 높아진다. 그래서 PDF 생성은 백그라운드에서 별도 작업자가 처리하고, 생성이 완료되면 푸시로 이용자에게 알려주는 기능을 구현하기로 했다.&lt;/p&gt;
+
+&lt;p&gt;Celery를 이용해 백그라운드로 처리하는 기능은 구현하긴 쉬웠다. 하지만, PyPDF 2의 PDF 병합 문제로 병합할 개별 PDF 문서를 분산해서 처리하지 않았기 때문에 비동기로 백그라운드에서 PDF 를 생성하는 역할로만 활용했다.&lt;/p&gt;
+
+&lt;p&gt;웹 브라우저가 웹 소켓을 열어 웹 소켓 서버와 연결을 유지하고, PDF 생성이 완료되면 서버가 클라이언트인 웹 브라우저로 푸시 알림으 보내는 기능도 간단히 구현했다. gevent 라이브러리를 사용하는 &lt;a href=&quot;https://pypi.python.org/pypi/gevent-websocket/&quot;&gt;gevent-websocket&lt;/a&gt; 라이브러리를 이용하여 웹 소켓 서버를 만들었다. 처음엔 직접 구현하고 있었는데 때마침 열린 &lt;a href=&quot;http://www.pycon.kr/2014&quot;&gt;PYCON Korea 2014&lt;/a&gt;에서 정민영님이 발표한 &lt;a href=&quot;http://www.pycon.kr/2014/program/3&quot;&gt;제약을 넘어 : Gevent&lt;/a&gt;를 듣고 gevent와 gevent-websocket을 도입했다. 무척 간단했다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from gevent import monkey
+monkey.patch_all()
+
+from geventwebsocket import (
+    WebSocketServer,
+    WebSocketApplication,
+    Resource,
+)
+
+class TaskChecker(WebSocketApplication):
+    # 작업 class
+    pass
+
+notifier_host = &amp;#39;localhost&amp;#39;
+notifier_port = 9999
+
+WebSocketServer(
+    (notifier_host, notifier_port),
+    Resource({&amp;#39;/&amp;#39;: TaskChecker})
+).serve_forever()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;서버가 백그라운드에서 PDF를 생성하는 긴긴 시간 동안 이용자는 자신이 받을 제안서 PDF를 웹 화면으로 먼저 접하게 된다. 미리보기(preview) 역할을 하는 셈이다. 이용자에겐 별다른 기능이 없지만, 실제로는 제안서 HTML을 만드는 중요 역할을 한다. 이 웹 서버는 Flask를 이용해 만들었다. 내겐 Django가 더 익숙했지만, 경량 프레임워크이면서도 문서 서버의 웹 서버에 필요한 기능은 충분히 포함하고 있었고, Flask에 기본 탑재된 템플릿 엔진인 &lt;code&gt;jinja2&lt;/code&gt;의 문법이 Django의 템플릿 문법과 거의 동일해서 금방 적응했다.&lt;/p&gt;
+
+&lt;p&gt;Flask는 참 좋은 프레임워크이다. PDF 생성과 병합하는 기능을 분석하고 구현하는 데 예상보다 많은 시간을 써서 시간에 쫓기는 상황이다보니 Flask 문서를 거의 읽지 않고 &lt;a href=&quot;http://www.stackoverflow.com&quot;&gt;Stackoverflow&lt;/a&gt;를 전전하며 개발했는데, 대부분 코드에서 기대하는 바가 의도하는 대로, 그리고 예상하는 대로 동작하였다. 구조도 명료해서 Flask 내부를 들여다 보기에도 좋았다.&lt;/p&gt;
+
+&lt;h5&gt;우여곡절&lt;/h5&gt;
+
+&lt;p&gt;이용자가 웹 브라우저에서 웹 소켓으로 푸시 알림 서버에 연결하면 이 알림 서버는 Redis 서버에 접속하여 Celery가 진행하고 있는 작업 상태를 추적한다. 작업이 끝나면(&lt;code&gt;celery.AsyncResult(id=task_id).status == &amp;#39;SUCCESS&amp;#39;&lt;/code&gt;) 푸시 알림 서버는 해당 작업(PDF 생성)에 대한 알림을 요청한 클라이언트들에게 생성된 PDF 파일을 내려 받는 URL을 반환한다. 웹 브라우저는 이 URL을 받으면 화면에 PDF 다운로드 버튼을 출력하고, 이용자는 이 버튼을 눌러 제안서 PDF를 받는 것이다.&lt;/p&gt;
+
+&lt;p&gt;그래서 백그라운드 작업 처리 부분과 푸시 알림 서버를 연계해야 했는데, 테스트가 까다로웠다. 동시성이나 병렬성에 익숙하지 않다보니 지극히 직렬성 사고를 하여 코드나 로직을 직렬성을 전제로 작성했는데, 동기식 직렬성을 전제로 작성한 코드로 비동기 상황을 테스트 하려다 보니 상황을 재현하고 발생한 문제를 추적하기 용이하지 않았다. 작은 코드 변화만으로 작동 순서가 달라져 문제가 발생하기도 했다.&lt;/p&gt;
+
+&lt;p&gt;wkhtmltopdf가 만든 PDF가 HTML 문서와 다르게 만들어지는 문제도 해결하기 참 까다로웠다. wkhtmltopdf이 Webkit을 사용하긴 하지만, Webkit을 사용하는 구글 크롬이나 애플 사파리과는 다르게 작동하는 부분이 꽤 많았다. 렌더러 버전 차이도 있고, 웹 브라우저 벤더마다 따로 맞춘 설정(customized)이 문제였다.&lt;/p&gt;
+
+&lt;p&gt;글자 간격이나 틀(layout)이 틀어지는 건 그나마 간단했다. &lt;a href=&quot;http://blog.hannal.com/2014/9/letter_overlap_problem_on_wkhtmltopdf/&quot;&gt;HTML DOM 요소들이 미쳐 날뛰듯이 뒤엉키는 문제&lt;/a&gt;는 해결하기 무척 힘들고 어려웠다. 이 문제가 오직 wkhtmltopdf로 생성한 PDF에서만 발생했고, HTML 문서와는 달리 PDF 문서는 요소를 검사(inspect)할 마땅한 방법이 없었기 때문이다. HTML과 CSS의 여러 속성과 항목을 하나하나 고치고 wkhtmltopdf로 PDF를 생성해 결과 화면을 보며 문제 원인을 추적해야 했다. 디버깅 할 때 중단점(breaking point)을 찍고선 진행 과정을 한 단계씩 추적하듯이, wkhtmltopdf가 PDF 문서를 생성하는 과정을 하나 하나 추적할 수 있었다면 얼마나 좋았을까. 또 다른 어려운 점은 이런 문제는 구글링을 해도 딱히 자료가 없다는 점이다.&lt;/p&gt;
+
+&lt;p&gt;몇 몇 문제는 도저히 재현되지도 파악되지도 않아서 wkhtmltopdf 컴파일 설정을 바꿔서 wkhtmltopdf를 다르게 빌드해보기도 했다. 몇 가지 문제는 &lt;a href=&quot;http://natepinchot.com/2014/01/31/building-static-wkhtmltopdf/&quot;&gt;wkhtmltopdf에 QT 패치&lt;/a&gt;를 해서 해결하기도 했다. wkhtmltopdf는 상당히 덩치가 큰 소프트웨어여서 컴파일하고 빌드하는 데 시간이 많이 든다. 인텔 i5 (2.2GHz quad core), 램 8기가, SSD 사양인 맥북 프로에서도 Clean build를 마치는 데 40여 분이 소요됐고, 이보다 훨씬 사양이 낮은 실 서비스 서버에서는 네 시간에서 다섯 시간이 소요됐다. 개발 중이어서 서비스 서버 사양을 &lt;a href=&quot;http://aws.amazon.com/ko/ec2/instance-types/#t2&quot;&gt;AWS t2.micro&lt;/a&gt;로 낮게 설정했기 때문이다. 힘들게 개발 환경인 Mac OS X에서 wkhtmltopdf 컴파일 설정을 맞췄는데, Redhat 계열 Linux인 AMI에서는 다르게 동작해서 다시 컴파일을 하기도 했다.&lt;/p&gt;
+
+&lt;p&gt;마지막으로 고생했던 점은 Go로 작성된 기존 문서 서버 코드를 분석하며 새 버전을 만든 점이다. 당시 개발팀은 중요 일정을 맞추려고 밤낮으로 고생하고 있었다. 그에 비해 나는 비교적 일정과 구현에 대해 배려받고 있었고, 기능만 놓고 보면 내가 맡은 부분은 중요도가 높진 않았다. 그래서, 가능한 한 다른 개발자를 방해하지 않고 기존 코드를 보며 알아서 해결하려 노력했다. 이미 운영 중인 문서 서버의 Go 소스 코드를 몇 번이고 읽으며 의도를 이해하려 했지만, 기존 문서 서버는 DB에 직접 연결하여 데이터를 다루는 등 동작 방식이 전혀 다른데다 객체 지향 언어가 아닌 Go로 작성된 코드여서 Python으로 코드를 작성하는 데 혼란을 야기했다. 즉, 맥락 전환(context switching)에 비용이 많이 든 것인데, 당시엔 전혀 염두에 두지 않았던 상황이다.&lt;/p&gt;
+
+&lt;p&gt;코드로는 의도나 목적을 이해하여 초기 구현은 빨리 마쳤다. 기존 것과 동일하게 동작하면 됐기 때문이다. 하지만, 나는 새로 만드는 버전을 맡은 것이고, 새 버전의 제안서는 기존 제안서와 꽤 달랐다. 이런 문제들은 출시(release)하고나서 운영할 때 유지보수에 혼란을 일으키는 요소가 된다. 정확한 기능의 의도와 목적을 이해하지 않은 상태에서 구조와 설계를 잡고 구현했기 때문이다. 다행히 초과 사양으로 구현하느라 일정 초기에 고생스러웠던 추상화 부분들, 그리고 기획자의 꼼꼼한 지원 덕에 서비스 적용(release) 후 유지보수에 큰 난관이 일어나진 않았다.&lt;/p&gt;
+
+&lt;h5&gt;정리&lt;/h5&gt;
+
+&lt;p&gt;목표로 했던 것보다 2주 더 걸린 5주 만에 개발을 마쳤다. Python 2.7을 사용한 걸 제외하면, 사용한 라이브러리나 프레임워크 등 대부분을 처음 사용하는 경우였다. 도구 뿐만 아니라 개발 메카니즘이나 구성도 생소했다. 이용자가 실제로 접하는 기능과 동작은 단순하기 그지 없는데, 실제 구현은 까다로운 부분도 많았다.&lt;/p&gt;
+
+&lt;p&gt;당시엔 밤엔 공부하고 실험하고 출근하면 밤에 쌓은 자산을 적용하여 구현하는, 말 그대로 주경야독 시기를 혹독하게 보냈다. 과의욕 상태에서 불필요한 설계를 하거나 구현하여 고생을 자초하기도 했다.&lt;/p&gt;
+
+&lt;p&gt;많이 학습하고 부족한 부분을 찾은 과정이었다.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>원격근무를 시작하다. 일주일 중간 소감.</title>
@@ -2359,69 +2488,6 @@ WOD를 마치고 잠시 쉬고 나서 슬쩍 Back squat 1RM을 측정해봤다. 
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;우리 청소년 친구들이 만든 게임, 재밌게 잘 만들어졌습니다. 그리고 재밌고 즐거운 전시 자료도 열심히 준비하였습니다. 부담갖지 마시고 방문하시어 저희가 만든 게임개발스토리를 함께 즐겨주시길 바랍니다.&lt;/p&gt;&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>2014년을 맞이하며</title>
-    <link href="/2014/1/hello_2014/"/>
-    <updated>2014-01-01T01:00:50+09:00</updated>
-    <id>/2014/1/hello_2014</id>
-    <content type="html">&lt;p&gt;딱.&lt;br /&gt;
-&lt;a href=&quot;http://blog.hannal.com/hello_2012/&quot;&gt;이 년 전 이때가 기억&lt;/a&gt;납니다. 죽을 둥 살 둥 위기 속에서도 기어코 2011년을 살아남았습니다. 그때보다 판이 좀 더 커졌을 뿐, 여전히 2012년과 2013년도 살아남으려고 발버둥 치는 나날이었습니다. 어쨌든 죽지 않고 창업 후 만 3년을 버텨내어 이렇게 글을 쓰고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;제가 창업할 때쯤, 제 또래 여러 명이 창업을 했습니다. 그들은 늘 저보다 앞섰습니다. 누구의 표현대로 저는 C급이었고, 그들은 A급이고 S급이었습니다. 전 그들보다 늘 느렸고 평판도 낮았으며, 일도 더 못하는 것 같았습니다. 비슷한 시기에 창업했던 또래 창업가 중에는 코스닥에 입성한 이도 있고, 영향력 있는 사업체를 만들어 인수합병을 마쳐 창업부터 Exit까지 전 과정을 멋지게 해낸 이도 있고, 수십 수백억 원 매출을 거둔 이도 있습니다. 국외 여러 지역에서 사랑받는 제품을 만든 이도 있고, 팀에 약속한 많은 것을 실천한 이도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;누가 봐도 저와 비교하면 A급이고 S급인 창업가 중에는 저만큼 혹은 저보다 더 힘든 여정을 걸은 이도 많습니다. 어떤 이는 업계를 떠났고, 정부와 금융권이 불신하는 처지가 된 이도 있습니다. 회사를 다른 이에게 넘기자 그 회사가 빠르게 자리 잡아 성장한 경우도 있고, 회사를 빼앗기고 쫓겨난 이도 있습니다. 좋은 의도로 해온 행위가 그렇게도 받아들일 수도 있구나 싶을 만큼 나쁜 의도로 해석되어 악인이 된 이도 있고, 나갈 사람 떠나보내고 또 열심히 사람 데려오며 살다 어느 날 정신 차려보니 자신을 빼고 전 임직원이 바뀌어 있었다며 쓸쓸하게 웃던 이도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;만 3년을 생존하다 보니 제 사업과 남의 사업을 비교하며 주눅이 들거나 우쭐해 하지 않게 됐습니다. 한때는, 다른 이를 부러워하기도 했고, 투자 받고 나서 이유 없이 우쭐해 한 적도 있었습니다. 하지만 그럴 이유도, 그럴 필요도 없다는 걸 깨달았습니다. 우린 우리 길을 걷고 우리의 이야기(story)를 써나가면 그만이니까요.&lt;/p&gt;
-
-&lt;p&gt;내가 진짜 정말 원하는 건 뭘까, 나는 내가 원하는 길을 걷고 있나, 왜 나는 죽지 않고 살고 있는가, 나는 어떻게 살아가고 있고, 삶을 누리며 무엇을 써나가고 있는가. 지난 2013년을 &lt;a href=&quot;http://blog.hannal.com/41point25percents/&quot;&gt;제 이야기&lt;/a&gt;를 찾는 시간으로, 그리고 우리가 쓸 이야기를 찾는 시간으로 보냈습니다. 찾았을까요? 일단 좀 더 살아보고 판단하려 합니다.&lt;/p&gt;
-
-&lt;p&gt;운 좋게 죽지 않고 살아남아 게임 만들고 있습니다. 많은 분이 도와주셔서 가능한 일입니다. 2014년에도 많이 도와주세요. 저도 제 강점인 적응력과 근성, 인내로 버텨내어 도와주신 분들께 보답하기를 바라봅니다. 모두 2014년엔 멋진 이야기 써나가시길.&lt;/p&gt;
-
-&lt;p&gt;마지막으로 모두 명랑하게, 바람처럼 자유롭게 길을 나아가길 바라는 마음으로 양방언의 Free as the wind를 담아봅니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;iframe width=&quot;640&quot; height=&quot;480&quot; src=&quot;//www.youtube.com/embed/Bgn3ubqoNWE?rel=0&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;hr /&gt;
-&lt;h2&gt;2013년에 잘한 일, 좋은 일&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/41point25percents/&quot;&gt;내가 원하는 것이 무엇인지 고민&lt;/a&gt;하고 찾아가는 시간을 가졌다.&lt;/li&gt;
-&lt;li&gt;회사 &lt;a href=&quot;http://www.flaskon.com&quot;&gt;플라스콘&lt;/a&gt;이 안 망하고 만 3년을 생존했다.
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.cspartners.co.kr&quot;&gt;캡스톤파트너스&lt;/a&gt;로부터 투자를 받았다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/join_up_the_game_school/&quot;&gt;게임제작학교&lt;/a&gt;를 시작했다.
-&lt;ul&gt;
-&lt;li&gt;얼마 전에 1기 마지막 수업을 마쳤고, 곧 졸업발표회를 연다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/my_exercise_diary&quot;&gt;운동을 꾸준히 했다&lt;/a&gt;.
-&lt;ul&gt;
-&lt;li&gt;몸과 정신 건강이 무척 좋아졌다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;강아지를 입양했다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;2013년에 아쉬운 점&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;2013년에 출시를 목표로 한 게임을 결국 출시하지 못했다.&lt;/li&gt;
-&lt;li&gt;아내와 그리고 양가 부모님과 많은 대화를 하지 않았다.&lt;/li&gt;
-&lt;li&gt;우리의 고객을 아직 찾지 못 했다.&lt;/li&gt;
-&lt;li&gt;내 직업 게임 개발을 나라와 사회로부터 부정 당했다.&lt;/li&gt;
-&lt;li&gt;운동하며 배운 교훈을 삶과 일에 잘 녹여내지 못 했다.
-&lt;ul&gt;
-&lt;li&gt;그냥 운동만 열심히 한 게 돼버렸다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;공부를 열심히 하지 않았다.&lt;/li&gt;
-&lt;li&gt;연재하는 글을 열심히 쓰지 않았다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr /&gt;
-&lt;p&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/01/my_family_20140101.jpg&quot; alt=&quot;아내와 강아지랑 남산 팔각정에서 새해를 맞이하며&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;아내와 강아지랑 남산 팔각정에서 새해를 맞이하며&lt;/p&gt;&lt;/p&gt;
 </content>
   </entry>
   
