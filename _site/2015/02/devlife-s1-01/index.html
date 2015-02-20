@@ -159,9 +159,7 @@
 
 <h5>개발 과정</h5>
 
-<p>막상 개발에 착수하자 시작부터 문제에 봉착했다. PyPDF 2는 wkhtmltopdf로 만든 PDF를 두 개 이상 병합하려 하면 <code>__WKANCHOR__</code> 관련 오류가 발생하였다. wkhtmltopdf로 만든 PDF에 형성한 앵커의 ID가 PDF 마다 동일하게 만들어져서 이를 합칠 때 중복되어서(고유하지 않아서) 발생하는 문제 같다. wkhtmltopdf나 PyPDF 2 소스를 고쳐서 문제를 해결하려 했으나 시간이 여의치 않았다. 나는 여러 제안서를 HTML 문서 하나로 합치고, 이 합친 HTML 문서를 PDF로 변환하기로 했다. wkhtmltopdf에 여러 HTML 문서를 PDF 문서 하나로 병합해 생성하는 기능이 있긴 했으나, 결과물인 PDF 외양(layout)이 깨지는 문제가 발생하였다.</p>
-
-<p>두어 가지 수단을 검토한 끝에 제안서를 하나로 합친 HTML을 만들고 이 HTML을 PDF로 변환하는 방식을 채택했다. wkhtmltopdf에 여러 HTML 문서를 지정하여 PDF 파일 하나로 만드는 기능이 있었지만, 백 개가 넘는 제안서를 하나로 합치는 상황을 터미널 콘솔에서 테스트하기 번거로웠다. 그래서 아예 하나로 합쳐진 HTML을 만드는 방법을 골랐다.</p>
+<p>막상 개발에 착수하자 시작부터 문제에 봉착했다. PyPDF 2는 wkhtmltopdf로 만든 PDF를 두 개 이상 병합하려 하면 <code>__WKANCHOR__</code> 관련 오류가 발생하였다. wkhtmltopdf로 만든 PDF에 형성한 앵커의 ID가 PDF 마다 동일하게 만들어져서 이를 합칠 때 중복되어서(고유하지 않아서) 발생하는 문제 같다. wkhtmltopdf나 PyPDF 2 소스를 고쳐서 문제를 해결하려 했으나 시간이 여의치 않았다. 나는 여러 제안서를 HTML 문서 하나로 합치고, 이 합친 HTML 문서를 PDF로 변환하기로 했다. wkhtmltopdf에 여러 HTML 문서를 PDF 문서 하나로 병합해 생성하는 기능이 있긴 했으나, 결과물인 PDF 외양(layout)이 깨지는 문제가 발생하였다. 그리고, 백 개가 넘는 제안서를 하나로 합치는 상황을 터미널 콘솔에서 테스트하기 번거로웠다. 그래서 아예 하나로 합쳐진 HTML을 만드는 방법을 골랐다.</p>
 
 <p>API Server에서 제공하는 REST API로 데이터를 가져오는 건 <a href="https://github.com/jcgregorio/httplib2">httplib2</a>를 이용했다. 대세인 HTTP 라이브러리인 <a href="http://docs.python-requests.org/">Requests</a>를 사용하려 했으나 <code>HTTPS</code> 통신이 잘 되질 않았다. 구현을 마친 나중에 안 사실이지만 이 문제는 HTTPS 인증서를 내가 잘못 사용해서 발생한 문제였다.</p>
 
