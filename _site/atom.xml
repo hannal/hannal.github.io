@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-02-20T17:56:11+09:00</updated>
+  <updated>2015-02-20T18:09:17+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -29,7 +29,7 @@
 
 &lt;h3&gt;1. 전업 결심&lt;/h3&gt;
 
-&lt;p&gt;2014년 7월에 프로그래머로 전직을 결심했지만 막막하기만 했다. 여러 언어와 도구, 분야를 검토한 끝에 Python을 주 프로그래밍 언어로, 관심을 두고 꾸준히 언어로 다룰 언어로는 Go 언어를 정했다. 기준은 내가 하고 싶고 만들고 싶은 것에 필요하고 내 취향이나 성향에 맞는 지 여부이며, 급여 등은 판단 기준에 넣지 않았다.&lt;/p&gt;
+&lt;p&gt;2014년 7월에 프로그래머로 전직을 결심했지만 막막하기만 했다. 여러 언어와 도구, 분야를 검토한 끝에 Python을 주 프로그래밍 언어로, 관심을 두고 꾸준히 다룰 언어로는 Go 언어를 정했다. 기준은 내가 하고 싶고 만들고 싶은 것에 필요하고 내 취향이나 성향에 맞는 지 여부이며, 급여 등은 판단 기준에 넣지 않았다.&lt;/p&gt;
 
 &lt;p&gt;그러다 8월 중순에 &lt;a href=&quot;http://www.rsquare.co.kr&quot;&gt;부동산 다이렉트&lt;/a&gt;라는 회사에 서버 프로그래머로 합류했다.&lt;/p&gt;
 
@@ -39,7 +39,7 @@
 
 &lt;h5&gt;개요&lt;/h5&gt;
 
-&lt;p&gt;이 프로젝트는 서버에 저장된 데이터를 제안서 PDF 문서로 생성하는 기능을 만드는 것이었다. 기존에 Go 언어로 만들어 사용하는 서버가 있었는데 다음 요구사항을 구현해야 했고, 이 기능 구현을 내가 맡은 것이다.&lt;/p&gt;
+&lt;p&gt;이 프로젝트는 서버에 저장된 데이터를 제안서로 만들고, 이 제안서를 PDF 문서로 생성하는 기능을 만드는 것이었다. 기존에 Go 언어로 만들어 사용하는 서버가 있었는데 다음 요구사항을 구현해야 했고, 이 기능 구현을 내가 맡은 것이다.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;요구사항
