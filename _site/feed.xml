@@ -6,9 +6,200 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 20 Feb 2015 19:23:48 +0900</pubDate>
-    <lastBuildDate>Fri, 20 Feb 2015 19:23:48 +0900</lastBuildDate>
+    <pubDate>Sun, 22 Feb 2015 21:10:16 +0900</pubDate>
+    <lastBuildDate>Sun, 22 Feb 2015 21:10:16 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>개발 생활 - 2</title>
+        <description>&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;개발 생활 - 1&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;&lt;code&gt;개발 생활 - 2&lt;/code&gt;&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
+&lt;li&gt;개발 생활 - 3 : 전자우편 알림 서버&lt;/li&gt;
+&lt;li&gt;개발 생활 - 4 : Python과 Django 강의&lt;/li&gt;
+&lt;li&gt;개발 생활 - 5 : 공부 자료&lt;/li&gt;
+&lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;2. 개발 프로젝트&lt;/h3&gt;
+
+&lt;h4&gt;2-2. 연산된 데이터 수집 작업자&lt;/h4&gt;
+
+&lt;h5&gt;개요&lt;/h5&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.rsquare.co.kr&quot;&gt;부동산 다이렉트&lt;/a&gt;의 데이터베이스엔 사무실이나 건물 정보가 많이 등록되어 있다. 각 사무실과 건물을 구성하는 속성도 세세하게 등록되고 관리되어, 많은 검색 조건을 조합해 고객이 원할만한 매물을 검색한다.&lt;/p&gt;
+
+&lt;p&gt;그런데 검색 조건 중에는 별도 연산이 필요한 조건이 있다. 예를 들어, 300평짜리 사무실을 찾는다고 했을 때, 면적만 놓고 보면 다음과 같은 경우가 가능하다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;단일층 : 단일층이 300평인 경우.&lt;/li&gt;
+&lt;li&gt;연층 또는 연속층 : 층이 분할되어도 되지만 층은 연속되어야 하는 경우.&lt;/li&gt;
+&lt;li&gt;복수층 : 여러 층이어도 되고 층이 꼭 연속되지 않아도 되는 경우.&lt;/li&gt;
+&lt;li&gt;분할층 : 한 층을 여러 사무실로 분할하였고, 이 중 1개 이상 사무실이 다른 층과 연속되는 경우.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;복수층이나 연층, 분할층인 경우, 몇 개 층까지 분할이어도 되는지, 즉 2~3개인데 연속층으로 총 300평인 사무실을 찾는 검색 조합도 가능하다.&lt;/p&gt;
+
+&lt;p&gt;내가 두 번째로 맡은 프로젝트는 바로 연층이나 복수층을 빠르고 정확하게 검색하는 기능을 구현하는 것이었다. 이런 검색 기능은 SQL Query만으로 처리하기에는 연산 비용이 크다. 나는 SQL Query만으로 이런 검색을 아주 빠르게 처리하는 방법을 모른다.&lt;/p&gt;
+
+&lt;h5&gt;개발 환경&lt;/h5&gt;
+
+&lt;p&gt;내가 이 프로젝트를 맡겠다고 한 이유는 특정 검색을 위해 미리 계산된 데이터를 구축하고 이 구축한 데이터 안에서 검색하면 쉽고 빠르겠다는 생각이 떠올랐고, 이를 직접 실현하고 싶었기 때문이다. 결자해지.&lt;/p&gt;
+
+&lt;p&gt;사무실이나 빌딩은 분야 특성상 데이터가 생성되거나 수정되는 빈도가 높진 않다. 더구나 부동산 다이렉트는 사람이 일일이 사무실이나 건물을 확인하여 허위 매물을 걸러내기 때문에 데이터 변화 빈도가 아주 높진 않다. 빈도가 높지 않다라는 말은 초 단위로 데이터가 수 백 수 천 개가 쌓이거나 변경되진 않는다는 뜻이다.&lt;/p&gt;
+
+&lt;p&gt;이런 이유로 애초에 개발 언어는 Python으로 결정했다. DBMS 외 부분에서 연산을 Python이 하더라도 충분히 빠르고, 개발 생산성이 좋고, 무엇보다 내게 익숙한 언어이기 때문이다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;언어 : Python 2.7&lt;/li&gt;
+&lt;li&gt;사용 라이브러리, 프레임워크
+
+&lt;ul&gt;
+&lt;li&gt;ORM : &lt;a href=&quot;http://www.sqlalchemy.org/&quot;&gt;SQLAlchemy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;반복 예약 처리 : &lt;a href=&quot;https://pypi.python.org/pypi/schedule&quot;&gt;schedule&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;schedule&lt;/code&gt;은 Linux나 Unix의 &lt;code&gt;crontab&lt;/code&gt; 역할을 하는 라이브러리이다. &lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;Celery&lt;/a&gt;의 &lt;a href=&quot;http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html&quot;&gt;Periodic Tasks&lt;/a&gt; 기능을 채택할 지 고민하기도 했지만 일정 주기로 작업자를(worker) 호출해 정해진 작업(task)을 수행하는 정도에 쓰기엔 거창하다 생각했다. 직접 구현하기에도 간단한 기능이지만, 많은 사람이 이미 사용하여 검증된 &lt;code&gt;schedule&lt;/code&gt; 라이브러리를 도입했다.&lt;/p&gt;
+
+&lt;h5&gt;개발 과정&lt;/h5&gt;
+
+&lt;p&gt;이 프로젝트는 시작부터 확장성과 이전성(migration)을 고려했다. 이전 가능성은 Python 3로 이전하는 걸 염두에 두는 것이고, 확장성은 연층 검색 뿐만 아니라 다른 검색 조건에 대응하는 작업(task) 처리 구조로 만드는 것이다.&lt;/p&gt;
+
+&lt;p&gt;프로젝트는 검색 편의를 돕는 역할이어서 편의점(convenient store)이라고 이름지었다. 그리고 각 구성물도 편의점과 연관된 용어를 썼다. 로직을 상상할 때 실제 사람이 매장에서 일하는 모습이 떠올라 재밌어서 지루하지도 않고 개념을 다루기에도 좋았다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;매장 : 검색 조건과 관련된 작업을 정의한 모듈(module).
+
+&lt;ul&gt;
+&lt;li&gt;점원 : 검색 데이터를 수집하고 연산하는 작업자(controller).&lt;/li&gt;
+&lt;li&gt;창고 : DB 관련 작업을 처리하는 모델(model).&lt;/li&gt;
+&lt;li&gt;본사 직원 : 검색용 데이터를 쌓은 테이블에서 데이터를 검색하는 SQL Query 인터페이스. API Server용이며 Go 언어로 작성.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;매장 관리자 : 신규 매장이 등록되면 가동하고, 기존 매장이 변동되면 그 내용을 반영하여 재가동하는 프로세스 관리자.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;난 연층 검색을 위한 데이터를 다루는 첫 번째 매장을 만드는 셈인데, 구조도 정해놓은 규칙으로 클래스와 설정 파일 등을 만들어 창고, 본사 직원으로 구성하고, 이 Python 패키지를 매장(&lt;code&gt;store&lt;/code&gt;) 디렉터리에 넣는다. 매장 관리자는 곧 이를 감지하여 메모리에 적재하여 매장을 개장하고 영업을 개시한다. 그래서 코드가 변경되더라도 편의점 프로세서는 중단되지 않고 계속 작업을 처리한다. 즉, 검색봇을 쉽게 추가하고 변경하면서도 무중단 서비스가 가능한 설계를 구상했다.&lt;/p&gt;
+
+&lt;p&gt;이는 반만 구현해냈는데, 병렬 처리를 위한 구조로 만들지 않았기 때문이다. 게다가 신규 매장을 만드는 일 자체가 그 이후 없었기 때문에 결국 필요없는 작업을 하느라 일주일을 써버린 셈이 되었다. 소득이라면 연결과 분리(pluggable) 가능한 모듈을 어떻게 작성하고 구조를 잡아야 하는 지 고민하고 경험하여 다음 프로젝트에 도움이 됐다는 점이다.&lt;/p&gt;
+
+&lt;p&gt;여러 층을 조합하여 면적을 산출하여 DB 테이블에 데이터를 넣는다면, 어떤 조합까지 연산하여 DB에 넣을 것인지 고민해야 한다. 연층은 기본이다. A건물에 3, 4, 6, 8, 9, 10층 사무실이 공실인 경우,&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3,4층&lt;/li&gt;
+&lt;li&gt;8, 9층&lt;/li&gt;
+&lt;li&gt;9, 10층&lt;/li&gt;
+&lt;li&gt;8, 9, 10층&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이 조합을 뽑아내어 면적 등을 합해야 한다. 하지만, 연속되지 않은 복수층은 난감했다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3, 6층, 3, 8층, 3, 9층, 3, 10층&lt;/li&gt;
+&lt;li&gt;3, 4, 6층, 3, 4, 8층, 3, 4, 9층, 3, 4, 10층, ...&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;연속되지 않은 복수층은 이와 같이 조합 가능한 경우의 수가 무척 많다. 건물에 사무실이 많은 큰 건물인 경우 수 억 가지 조합이 발생했다. 회사에 등록된 전체 건물을 대상으로 계산해보니 수십 억 건이 넘는 조합이 나왔다. 각 조합이 DB의 항목(&lt;code&gt;row&lt;/code&gt;)이므로 “오, 나도 좀 큰 데이터 좀 다루는 건가!?”하는 시덥잖은 생각이 들기도 했다.&lt;/p&gt;
+
+&lt;p&gt;실제로 갓 완공되어 20여 개 층이 임대 가능한 건물이 있었는데, 이 건물의 20개 사무실에 대해 조합 가능한 경우의 수는 263,644,104가지이다. 그리고, 공실이 30개 이상인 건물도 몇 개 있었다. 이런 경우(case)는 양이 너무 많아 시간이 오래 걸렸다. 느려서 Go언어나 C언어로 짜서 시간을 몇 십배 줄여봤지만, 수에는 어쩔 도리가 없었다. 결국, 연속되지 않은 복수층은 사전에 연산하여(pre-operated) 데이터 테이블에 넣는 방법 대신 매 질의(query) 때마다 연산하기로 했다.&lt;/p&gt;
+
+&lt;p&gt;건물이나 사무실에 변동이 생기면 이를 감지하는 건 &lt;a href=&quot;http://www.mysqltutorial.org/mysql-triggers.aspx&quot;&gt;DBMS의 Trigger&lt;/a&gt; 기능으로 구현하려 했다. 지정한 이벤트가 일어나면 관련 내용을 트럭에 쌓아두고, 점원이 트럭에 쌓인 작업물을 꺼내어 연산하는 식이다. 여기서 트럭이란 Task queue를 의미한다. 하지만, &lt;a href=&quot;http://aws.amazon.com/ko/rds/&quot;&gt;AWS RDS&lt;/a&gt;에서 운영 중인 DB에서는 Trigger가 동작하지 않았다. &lt;a href=&quot;https://techtavern.wordpress.com/2013/06/17/mysql-triggers-and-amazon-rds/&quot;&gt;MySQL, Triggers and Amazon RDS&lt;/a&gt; 글에 따르면 가능하긴 한데, 내키진 않았다. 마침 그 시기에 데이터베이스와 관련된 문제, 다분히 사람의 실수로 큰 문제가 생길 뻔한 상황을 겪어서 운영 중인 데이터베이스에 안전한 설정이라도 변화를 주기 부담스러웠다.&lt;/p&gt;
+
+&lt;p&gt;그래서 일정 시간마다 정보가 변경된 사무실을 검색하고, 있으면 그 사무실이 속한 건물의 검색 대상인 사무실들을 모두 가져와 연층을 연산하는 방식으로 구현 방법을 바꿨다. 건물에 속한 검색 대상 사무실을 모두 가져오는 이유는, 기존엔 연층 조합인 사무실인데 이 사무실이 계약되어 더이상 공실이 아닌 경우, 이 사무실과 연층으로 연결된 조합을 끊어야 하기 때문이다. 만약, 3, 4, 5층, 4, 5층 조합이 있는데 4층이 빠지면, 이 두 조합은 더이상 유효하지 않다.&lt;/p&gt;
+
+&lt;p&gt;조합을 찾는 알고리즘은 Python에 이미 내장되어 있다. &lt;code&gt;itertools&lt;/code&gt; 모듈에 여러 함수가 있는데, 그 중에서 &lt;a href=&quot;https://docs.python.org/2/library/itertools.html#itertools.combinations&quot;&gt;combinations&lt;/a&gt;를 사용하면 건물에 속한 사무실을 조합 가능한 모든 경우를 한 줄로 산출해낸다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from itertools import combinations
+
+_combinated = combinations((&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c&amp;#39;, &amp;#39;d&amp;#39;,), 2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 코드를 수행하면 &lt;code&gt;_combinated&lt;/code&gt;엔 &lt;code&gt;[(&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;), (&amp;#39;a&amp;#39;, &amp;#39;c&amp;#39;), (&amp;#39;a&amp;#39;, &amp;#39;d&amp;#39;), (&amp;#39;b&amp;#39;, &amp;#39;c&amp;#39;), (&amp;#39;b&amp;#39;, &amp;#39;d&amp;#39;), (&amp;#39;c&amp;#39;, &amp;#39;d&amp;#39;)]&lt;/code&gt;이 이터레이션 객체로 할당된다. 편하긴 했는데, 같은 기능을 하는 코드를 Go언어와 C언어로 짤 때엔 알고리즘을 직접 구현해야 했다. 재밌긴 했지만, 알고리즘 문제(issue)는 어딘가 알고리즘스러운(?) 코드로 짜고 싶은 욕심이 생겨서 스트레스를 받게 된다. 왜냐하면 알고리즘 자체가 모든 걸 해결해주는 은총알이 아니기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;이 조합(&lt;code&gt;combinations&lt;/code&gt;)은 연속 여부와는 관계없이 조합하는 경우이다. 즉, 연층과 연속하지 않은 복수층 모두를 포함한다. 여기에서 연속층 조합은 따로 연산해야 한다. 그리고, 사무실이 언제나 한 층에 하나만 있진 않아서 다음과 같은 조합도 염두에 둬야 한다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3층 전체&lt;/li&gt;
+&lt;li&gt;401호, 402호, 403호, 405호&lt;/li&gt;
+&lt;li&gt;501호&lt;/li&gt;
+&lt;li&gt;6층 전체&lt;/li&gt;
+&lt;li&gt;8층 전체&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이 경우, 단순히 4, 5, 6층이 아니라 401호, 5, 6층이나 401, 402호, 5층과 같은 조합도 연층으로 연산해야 한다. 그리고, 지하는 층 숫자가 -1, -2와 같이 음수로 입력이 되어 있어서, 지하 1층, 1층, 2층과 같은 연속층은 층 숫자만으로는 연속되지 않는다. -1, 1, 2가 되기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;이런 저런 예외 상황을 고려하니 기존에 알려진 &lt;a href=&quot;http://ghebook.blogspot.kr/2010/10/permutation-combination.html&quot;&gt;순열(順列, permutation)과 조합(組合, combination)&lt;/a&gt; 알고리즘으로는 내게 필요한 조합을 도출할 수 없었다. 촌철살인 같은 알고리즘으로 멋지게 문제를 해결하고 싶었지만 결국 2중 for문으로 일일이 조합을 연산하여 해결했다.&lt;/p&gt;
+
+&lt;p&gt;Python으로 검색용 사전 연산된 데이터를 탐색하고 구축하는 기능을 구현한 후, Go 언어로 작성된 API Server가 해당 DB 테이블에서 데이터를 질의(query)하는, 실제 검색하는 코드를 작성하는 단계로 넘어갔다. 수행은 다음 단계로 진행한다.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;연층 데이터 테이블에서 요청받은 연층 조건에 해당하는 건물을 찾는다.&lt;/li&gt;
+&lt;li&gt;이 건물 목록을 대상으로 다른 검색 조건으로 검색한다. (예 : 보증금, 임대료, 24시간 개방 여부 등)&lt;/li&gt;
+&lt;li&gt;클라이언트에게 반환할 건물 항목마다 해당 건물의 연층 데이터를 추가한다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;JSON&lt;/code&gt;으로 반환한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;연층, 즉 사무실 연속 연결 관계를 미리 연산하여 각 조합을 DB 테이블에 넣어두었으니 당연히 1번 과정은 빠르게 처리돼서(평균 0.01 이하) 기존 검색 수행 속도에 별 영향을 주지 않았다. 만족스러웠다.&lt;/p&gt;
+
+&lt;p&gt;약 한 달 동안 개발했다. 1주일은 분석하고 조사하는 데, 1주일은 Python으로 개발하는 데, 10여일은 테이블 구조를 변경하고 재구축하는 삽질하는 데, 나머지 며칠은 Go 코드 작성하는 데 썼다. 이후 한 차례 정도 고생하고, 자잘하게 손 보는 일은 있었지만, 대체로 사고없이 동작하고 있다.&lt;/p&gt;
+
+&lt;h5&gt;우여곡절&lt;/h5&gt;
+
+&lt;p&gt;미리 연산한 데이터를 구축하는 기능을 만들다보니 데이터 집합을 재구성하는 데 시간이 많이 소요되는 문제가 몇 번 있었다. 조합 하나를 처리하는 데 0.5초가 소요되는데, 순수 연산 시간 자체는 얼마 안 걸리고 대부분 DB I/O에 시간이 소요된다. 사무실이나 건물에 변동이 생겨서 해당 건에 대해서만 연층 정보를 DB에 반영하는 건 양이 많지 않아서 몇 초에서 몇 분 안에 처리가 끝나지만, 전체 연층 조합을 처음 구성하는 초기화 또는 전체 재구성을 하는 경우엔 시간이 너무 오래 걸렸다. 실제로 사소한 산술 오류가 생기거나 테이블 구조가 변경되어 전체 데이터를 재구성하는 경우가 몇 번 있었는데, 그때마다 몇 시간씩 재구성이 끝날 때까지 기다려야 했다.&lt;/p&gt;
+
+&lt;p&gt;DB Commit 시기를 조정해보며 어떡해서든 DB I/O 시간을 줄이려 했지만, 병렬 처리를 하지 않는 이상 어쩔 수 없었다. 더도 말고 CPU Core 수만큼만 병렬 처리해도 시간은 크게 단축됐다. 하지만, 이번에도 나는 코드를 병렬 수행을 염두에 두지 않고 작성했다. 정확한 계산을 하려고 각 연산 과정을 잠가서(locked) 수행했고, SQLAlchemy도 처음 사용하다보니 세션이 꼬여서 DB 연결에 문제가 발생하기도 했다. 이 일을 계기로 동시성과 병렬성 문제를 직접 체험하였고, 이론으로 접하던 상황이나 해결책을 좀 더 이해하게 되었다. 역시 게임 규칙에 걸려서 얻어 맞으면 곧바로 게임 규칙을, 적어도 내게 고통을 야기하는 게임 규칙만큼은 빠르게 이해하는 법이다.&lt;/p&gt;
+
+&lt;p&gt;연속되지 않은 복수층을 검색하는 기능은 예상보다 힘들고 어려웠다. DB에 모든 조합을 넣기엔 양이 너무 많아서 그때 그때 연산을 하려 했는데,&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;산술 연산이 생각보다 까다롭고&lt;/li&gt;
+&lt;li&gt;이 산술 연산을 SQL Query문으로 표현하는 것이 어려웠다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;예를 들어, 두 개에서 여덟 개 층으로 250~400평에 해당하는 건물을 찾는다고 가정해보자. 32평씩 여덟 개 층 조합도 조건을 만족하고, 200평 두 개 층도 조건을 만족한다. 즉, 최소, 최대 층 개수와 최소, 최대 면적을 이용하면 된다.&lt;/p&gt;
+
+&lt;p&gt;문제는 여기에 다른 조건이 추가되는 것이다. 이 조건에서 월 고정비가 2,000~3,500만원을 추가하면 연산이 복잡해진다. 실제로는 여기에 그치지 않고 보증금 조건도 추가된다. 조합이 다(many) 대 다(many) 대 다(many)로 연결되는데, 각 요소가 교집합(AND)이 아니라 차집합 연산도 필요하다. 교집합으로만 연산하면 검색 결과가 아주 적어지는데, 최대면적/최소층개수, 최소면적/최대층개수 등 그룹 중 어느 하나라도 조건을 만족하지 않으면 연관된 조건 전체가 성립되지 않기 때문이다. 즉, A건물이 32평씩 여덟 개 층이 있고 200평 두 개는 없으면 이 건물은 검색 대상이 돼야 하는데, 모든 조건을 교집합으로 연산하면 A건물은 검색 대상에서 빠지는 것이다. 그렇다고 이 둘을 합집합(OR)으로 연산해서도 안 된다. 보증금이나 월 고정비와 같은 다른 조건식과 조합할 때 조합 경우의 수가 너무 많아져서 연산하는 데 시간이 오래(몇 배에서 몇 십 배) 걸린다.&lt;/p&gt;
+
+&lt;p&gt;이를 의사(pseudo) 코드로 작성했을 땐 비교적 간단하게 답을 찾았다. 문제는 SQL Query로 표현하는 것이었다. 몇 시간을 끙끙댔지만 결국 제대로 동작하는 Query문을 작성하지 못했다. 다행히 동료 개발자가 한 시간도 안 되어 문제를 해결해 주었다. &lt;code&gt;Union&lt;/code&gt;을 사용했는데, 생각보다 빠르게 수행되었다.&lt;/p&gt;
+
+&lt;p&gt;여러 검색 조건이 조합된 복수층 검색을 구현할 때 겪은 어려움 중 하나는 검색 결과가 유효한 것인지를 판단하기 어렵다는 점이었다. SQL Query문을 조금 고치자 검색된 데이터가 달라졌는데, 매번 일일이 제대로 검색된 것인지 데이터를 확인할 수는 없었다. 하지만, 제대로 된 테스트 케이스를 만들지 않아서 “할 수는 없는” 그 일을 실제로 해야만 했다. 면적 조건은 만족하고 보증금 조건도 만족하고 월 고정비도 만족하는 것 같은데, 자세히 살펴보니 월 고정비에서 몇 만원 차이로 조건을 만족시키지 않는 경우가 있다. 이는 암산으로 유효한 결과인지 검증해서는 안 된다는 걸 뜻한다. 그렇다고 하나 하나 계산기를 두드리기엔 사람은 너무 느리다.&lt;/p&gt;
+
+&lt;p&gt;검색된 결과에서 조건에 해당하지 않는 데이터를 찾는 건 그래도 낫다. 검색 결과에 포함되지 않는 수많은 데이터는 막막하다. 검색 결과에 포함돼야 하는데, 포함되지 않은 경우 대체 어떻게 이 사실을 알아내야 할까? 테스트 시나리오를 만들어서 검색될 수 밖에 없는 데이터를 대상으로 검색 조건을 돌리는 것이다.&lt;/p&gt;
+
+&lt;p&gt;테스트 케이스를 작성하지 않아 고통이 증폭되고, 도저히 견딜 수 없겠다 싶은 시점 직전에 모든 문제를 해결했다. 아마 느리디 느리고 부정확한 사람의 연산 능력으로 검색 결과 데이터를 검증하는 일을 몇 번 더 했더라면 진행하던 일을 중단하고 테스트 케이스부터 작성했을 것이다.&lt;/p&gt;
+
+&lt;h5&gt;정리&lt;/h5&gt;
+
+&lt;p&gt;목표치는 모두 달성했다. 이 프로젝트 이후 나는 Python 3에 정착하였고, Python 2.7용으로 작성한 소스도 비교적 간단히 Python 3용 코드로 전환된다. 불필요한 사양이 좀 있긴 하지만, 어쨌든 확장성과 유연성이 있는 설계와 구조로 동작한다.&lt;/p&gt;
+
+&lt;p&gt;이번 프로젝트를 진행하면서 전업 프로그래머가 된 이래 비로소 내가 하고 싶은 일과 만들고 싶은 일을 어떻게 해야할 지 방향을 잡았다. 이 프로젝트를 마치고 나는 곧바로 수학 공부를 중등 과정부터 다시 시작했으며, 알고리즘과 데이터 구조, 프로그램 구조 공부를 시작했다. 비동기와 병렬성, 그리고 데이터 처리도 물론 내가 공부할 분야이지만, 일단은 좀 더 여유를 두고 파기로 했다.&lt;/p&gt;
+
+&lt;p&gt;기능에 대한 유닛 테스트가 필요하다는 건 생각만 했지 실제로는 잘 실천하지 않았는데, 데이터를 다루면서 유닛 테스트가 반드시 필요하다는 걸 절실히 느꼈다. 데이터 연산에 사소한 연산 변화를 주더라도 예측을 크게 벗어나는 경우가 많았고, 이를 사람이 직관으로 검증하는 건 효율이 대단히 떨어진다.&lt;/p&gt;
+
+&lt;p&gt;기계가 할 일을 사람이 해서는 안 된다. 기계가 할 일은 기계가 잘 하도록 맡겨 두고, 사람은 사람이 잘하는 일에 집중해야 한다.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 22 Feb 2015 21:00:00 +0900</pubDate>
+        <link>http://blog.hannal.com//2015/02/devlife-s1-02/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2015/02/devlife-s1-02/</guid>
+        
+        <category>Python</category>
+        
+        <category>데이터 처리</category>
+        
+        <category>SQLAlchemy</category>
+        
+        <category>AWS RDS</category>
+        
+        <category>병렬 처리</category>
+        
+        <category>유닛 테스트</category>
+        
+        <category>검색</category>
+        
+        <category>선처리 데이터</category>
+        
+        
+        <category>essay</category>
+        
+      </item>
     
       <item>
         <title>개발 생활 - 1</title>
@@ -16,7 +207,7 @@
 
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;&lt;code&gt;개발 생활 - 1&lt;/code&gt;&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
-&lt;li&gt;개발 생활 - 2 : 연산된 데이터 수집 작업자&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
 &lt;li&gt;개발 생활 - 3 : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;개발 생활 - 4 : Python과 Django 강의&lt;/li&gt;
 &lt;li&gt;개발 생활 - 5 : 공부 자료&lt;/li&gt;
@@ -1625,273 +1816,6 @@ else:
         <category>설치</category>
         
         <category>postman</category>
-        
-        
-        <category>start_with_django_webframework</category>
-        
-      </item>
-    
-      <item>
-        <title>1. Pystagram 기획</title>
-        <description>&lt;ul&gt;
-&lt;li&gt;마지막 갱신일시 : 2014년 08월 16일 17시 40분&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;앞으로 우리는 Django를 이용해 &lt;a href=&quot;http://www.instagram.com&quot;&gt;Instagram&lt;/a&gt;과 비슷한 서비스를 만들 겁니다. 비슷한 서비스 중에는 &lt;a href=&quot;http://www.kakao.com/story?locale=ko&quot;&gt;카카오 스토리&lt;/a&gt;가 있지요. Django를 활용하여 만드는 것이지만 이름으로 조합하기 까다로우니 Python을 조합하여 Pystagram이라 이름을 짓도록 하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;자, 이제 우리가 만들 것을 기획해 볼까요?&lt;/p&gt;
-
-&lt;h3&gt;1. 개요&lt;/h3&gt;
-
-&lt;p&gt;Instagram은 친구 및 가족들과 일상을 사진이나 동영상으로 찍어서 필터를 적용해 빠르고, 멋지고, 재미있게 공유할 수 있는 앱이라고 소개되어 있습니다. Pystagram은 Instagram을 기본으로 삼되 좀 더 단순하게 만들 겁니다. 그리고 쉽고 편하게 올리는 걸 최우선 정책 요소로 삼겠습니다. 이용자는 사진만 올릴 수 있고, 몇 가지 필터를 적용할 수 있습니다. 사진을 다루고 나면 동영상은 여러분이 직접 다룰 수 있게 될 겁니다.&lt;/p&gt;
-
-&lt;h3&gt;2. Pystagram 기능&lt;/h3&gt;
-
-&lt;h4&gt;(1) 사진&lt;/h4&gt;
-
-&lt;p&gt;사진은 Pystagram에서 이용자가 활동하고 다른 사람과 교류하는 핵심 매체입니다. 서비스를 만드는 데 들어간 이미지를 제외한 모든 사진은 이용자가 올린 것이고, 이 사진에 댓글을 달거나 좋다는 표시를 남기지요. 이용자가 사진 관련해서 하는 행동을 기반으로 기능을 정리해 보겠습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;사진 올리기
-&lt;ul&gt;
-&lt;li&gt;필터 적용&lt;/li&gt;
-&lt;li&gt;미리보기 이미지(thumbnail image)&lt;/li&gt;
-&lt;li&gt;사진 자르기, 크기 조절&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/li&gt;
-&lt;li&gt;사진 보기
-&lt;ul&gt;
-&lt;li&gt;좋아요 표시 남기기&lt;/li&gt;
-&lt;li&gt;댓글 남기기, 지우기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;사진 삭제&lt;/li&gt;
-&lt;li&gt;사람 태그 달기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;사진 올리기&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/08/01-instagram_04.png&quot; alt=&quot;인스타그램 사진 올리기 화면&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;가장 기본 행동이죠. 사진은 오직 이용자 자신의 공간에만 올리며, 로그인한 모든 이용자가 사용하는 기능입니다.&lt;/p&gt;
-&lt;p&gt;자신의 공간에만 올린다는 건, 서비스 안에서 사진을 소유한 사람이 누구이며, 그 권한 범위가 어디까지인지 정의한 것입니다. 다른 이용자의 공간에 사진을 올리거나 공용 공간에 사진을 올리지 않는다는 것이지요. 로그인한 모든 이용자가 사용하는 기능이란, 이용자는 서비스를 이용하려면 가입하고 로그인해야 대상을 뜻하며, 이용자라면 누구나 공통되게 사진을 올릴 수 있다는 의미입니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;로그인한 이용자만 사진을 올린다.&lt;/li&gt;
-&lt;li&gt;사진은 이용자의 개인 공간에 올린다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;이용자는 사진을 쉽고 편하게 보정해 올릴 수 있습니다. 쉽고 편하게 하는 것이 중요합니다. 그래서 여러 보정 요소와 수치가 미리 조정된(preset) 필터를 골라서 적용하며, 이용자가 직접 정교하게 보정 요소를 조정하지 못합니다. 필터는 한 번에 하나만 고르도록 하겠습니다. 여러 가지를 중첩하면 사진이 지저분해지기 일쑤이고, 지저분해진 상태를 해제하려고 이전 단계로 돌아가는 식으로 편집 단계나 기능이 들어가면 쉽고 편하게 하겠다는 목표를 잃을 것이기 때문이지요. 그리고 이 목표를 위해 이용자는 사진을 올리는 과정 중에만 필터를 적용하며, 사진을 올리고 나면 더는 편집할 수 없습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;미리 만들어진 필터를 제공하고, 이용자는 필터를 선택해서 사진을 보정한다.&lt;/li&gt;
-&lt;li&gt;사진을 올릴 때에만 보정하며, 이미 올라간 사진은 보정할 수 없다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Instagram은 가로(width) 640픽셀, 세로(height) 640픽셀짜리 정사각형 사진만 표시됩니다. 그런데 사진은 대개 직사각형이므로 정사각형 모양으로 잘라야 하는데, Instagram은 사진을 편집하는 과정 중에 정사각형 틀에 맞추어 사진을 잘라내도록 합니다.&lt;/p&gt;
-&lt;p&gt;우리는 좀 더 단순하게 할 예정입니다. 사진을 축소한 다음에 정사각형으로 잘라내는 거죠. 어쨌든 Pystagram도 정사각형으로 사진을 잘라냅시다. 크기는 Instagram과 같게 640x640으로 하겠습니다. 그런데 이용자가 가로나 세로 길이 중 어느 하나라도 640픽셀보다 작은 사진을 올리면 어떻게 할까요? 이런 사진을 받아들인다면 640픽셀로 사진을 늘려야 하는데, 사진을 늘리면 픽셀이 뭉개져서 썩 예쁘지 않습니다. 예쁘지 않은 사진을 올려서 손해 보는 건 엄밀히 말해 이용자이지만, 물 관리(?) 차원에서 품질이 너무 떨어지는 사진은 걸러내고자 합니다. 멋진 사진은 아니더라도 크기(길이)만은 최소한 지켜야 하는 품질을 제한하는 거죠. 그래서 가로, 세로 중 어느 한 변이라도 640픽셀보다 짧은 사진은 등록할 수 없도록 하겠습니다.&lt;/p&gt;
-&lt;p&gt;이외 더 필요한 기능은 뭐가 있을까요? 미리보기 이미지(Thumbnail image)를 만들어야겠네요. 굉장히 자주 표시(호출)될 테니 최종 결과물 사진이 저장될 때마다 미리보기 이미지도 생성해야 합니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;사진은 가로나 세로 길이 모두 640픽셀 이상이어야 한다.&lt;/li&gt;
-&lt;li&gt;최종 결과물은 640x640 정사각형으로 표시하며, 이 크기에 맞게 비율 축소/확대하거나 자른다. 이용자가 표현할 영역을 지정할 순 없다.&lt;/li&gt;
-&lt;li&gt;최종 결과물 사진을 저장할 때 미리보기 이미지(thumbnail image)를 만들어 저장한다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;자, 마지막으로 사진을 올릴 때 서버에 접근할 URL(Uniform Resource Locator)을 정하겠습니다. 웹과는 달리 모바일에서는 이용자가 사진을 올릴 URL을 알 필요가 없습니다. 입력하기 편하든 어렵든 상관없지요. 대신 우리는 URL을 보면 이게 어떤 작동을 하고 어떤 클래스나 함수와 관련되는지 바로 알아보기 편한 게 좋을 것 같습니다. 주소 그 자체가 자원이나 행동을 표현하는 거지요. 나중에 주소는 다시 다듬기로 하고 일단은 다음가 같은 주소로 접근해서 사진을 올리도록 하겠습니다.&lt;/p&gt;
-&lt;p&gt;protocol://domain/photo/upload/&lt;/p&gt;
-&lt;p&gt;간단히 줄여서 /photo/upload/ 입니다. 이 주소는 나중에 /photo/ 로 바꿀 겁니다. 걱정 마세요. Django에서 URL을 바꾸고 그 URL에 관련된 기능을 연결하는 건 아주 쉽고 간단합니다. 이 주소 하나로 사진 올리는 인터페이스와 사진을 실제로 받아서 처리하는 기능 모두 처리할 겁니다.&lt;/p&gt;
-&lt;h5&gt;사진 보기&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/08/01-instagram_05.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;사진 올리기만큼이나 기본 기능입니다. Pystagram에서 사진을 보는 경로는 크게 두 가지입니다. 하나는 목록으로 여러 사진을 보는 것이고, 다른 하나는 개별 사진을 보는 것입니다. Instagram은 모바일이 기본 영역이고 모바일에서 돌아가는 서비스 내 사진을 인터넷에서 접근하여 보는 것이 보조 기능이어서 개별 사진을 보는 것도 모바일에서 보는 것과 웹에서 보는 것을 구분했습니다. 대신 웹에서 여러 사진을 목록으로 볼 수 없습니다. 그런 페이지를 제공하지 않거든요. 그리고 모바일에서는 개별로 보든 목록 중에 보든 같은 화면인데, 우리도 그렇게 하겠습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;사진은 목록 형식으로 나열하거나 개별 사진만 따로 본다.&lt;/li&gt;
-&lt;li&gt;모바일에서는 목록으로 보든 개별로 보든 동일한 화면 디자인을 따른다.&lt;/li&gt;
-&lt;li&gt;웹에 개별 사진 단위로 게재(공유)할 수 있으며, 별도 화면 디자인을 따른다.&lt;/li&gt;
-&lt;li&gt;웹에서는 개별 사진만 볼 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;각 사진에 표시할 정보를 살펴봅시다. 그다지 많지 않습니다. 먼저 사진을 올릴 때 발생하는 정보로는 최종 결과물 사진, 올린 사람, 작성일시, 사진에 넣은 본문 정도입니다. 사진에 관련된 사람이 누구인지 태그를 달 수도 있는데, 이 태그 거는 건 손도 많이 가고 번거로우니 사진을 편집하고 올리는 과정에서는 빼겠습니다. 쉽고 편하게, 쉽고 편하게. ^^&lt;/p&gt;
-&lt;p&gt;이미 올라간 사진에 이용자가 추가 행동을 하고, 이 내용도 화면에 표시돼야 합니다. 누가 사진에 남겨진 하트(좋아요) 표식을 남겼는지, 댓글은 뭐가 있으며, 관련된 사람으로 태그 걸린 사람은 누구인지, 그리고 이외 행동을 선택하는 버튼도 필요하고요. Instagram은 관련된 위치도 지정할 수 있는데, 이 기능은 일단 빼겠습니다.&lt;/p&gt;
-&lt;p&gt;댓글도 단순하게 가겠습니다. 작성자와 댓글 본문, 작성일시. 댓글 작성자는 자신의 댓글에 한하여, 댓글이 달린 사진의 소유자는 사진에 달린 댓글에 한하여 댓글을 지우는 삭제 버튼이 출력돼야 합니다. 그리고 댓글에 답글을 달면 답글을 받은 사람에게 알려주면 좋겠네요.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;사진을 올릴 때 생성된 정보 : 최종결과물 사진, 작성자, 작성일시, 본문&lt;/li&gt;
-&lt;li&gt;사진에 추가되는 정보 : 좋아요 버튼, 좋아요 표시 남긴 사람, 댓글, 태그 걸린 사람
-&lt;ul&gt;
-&lt;li&gt;댓글 정보 : 작성자, 댓글 본문, 작성일시&lt;/li&gt;
-&lt;li&gt;댓글 관련 행동 : 삭제 버튼, 사용자 지정해서 댓글 달기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;기본 기획은 이 정도로 하고, 필요한 기능이 있으면 나중에 따로 다루도록 하겠습니다. ^^&lt;/p&gt;
-&lt;p&gt;이제 사진 관련 URL을 정하겠습니다. 사진을 목록으로 보는 상황은 따로 기획하기로 하고, 개별 사진을 보고, 그 사진에 댓글을 달거나 좋아요를 누르는 행동을 하는 URL부터 정하지요.&lt;/p&gt;
-&lt;p&gt;개별 사진을 보는 건 /photo/&amp;lt; 사진 ID&amp;gt;/로 하겠습니다. 사진 ID 양옆에 있는 꺾쇠는 가변하는 값을 뜻합니다. 사진 ID가 1일 수도 있고 2일 수도 있으니까요. 사진에 좋아요를 누르는 건 어떻게 할까요? /like/&amp;lt; 사진 ID&amp;gt;/ 라고 해도 나쁘지 않지만, /like/ 문자열 뒤에 숫자만 있으면 이게 사진 ID를 뜻하는 것인지 좋아요 행위 자체를 기록한 좋아요 ID인지 잘 구분되지 않습니다. 우리는 특정 사진(/photo/&amp;lt; 사진 ID&amp;gt;/)에 좋아요 표시를(like) 남기는 것이니 /photo/&amp;lt; 사진 ID&amp;gt;/like/ 으로 좋아요 행위를 일으키는 URL을 하도록 하겠습니다. 행위나 자원을 나타내는 문자열이 있고, 그 문자열의 대상이 되는 값(ID)를 적는 구조이지요.&lt;/p&gt;
-&lt;p&gt;댓글도 마찬가지 규칙을 따르겠습니다. 댓글은 특정 사진에 다는 것이니까 /photo/&amp;lt; 사진 ID&amp;gt;/comment/ 로 하겠습니다. 특정 댓글을 지우려면 어떤 댓글인지 알아야겠지요? 앞서 정한 규칙에 따라 /photo/&amp;lt; 사진 ID&amp;gt;/comment/&amp;lt; 댓글 ID&amp;gt;/delete/ 로 하겠습니다. /comment/&amp;lt; 댓글 ID&amp;gt;/delete/ 로 해도 별 상관없습니다. 이후 강좌에서 이와 관련된 내용을 다루겠습니다.&lt;/p&gt;
-&lt;p&gt;사진에 달린 댓글은 어떻게 가져와야 할까요? /photo/&amp;lt; 사진 ID&amp;gt;/comment/ 이 URL은 특정 댓글을 지칭하는 데 사용하는 주소 규칙입니다. 사진에 달린 댓글은 comment를 복수형으로 취해 /photo/&amp;lt; 사진 ID&amp;gt;/comments/ 로 하겠습니다. s 한 글자 차이라서 구분이 잘 안 간다고요? 일리 있는 지적입니다. 그럼 눈에 확 들어오게 /photo/&amp;lt; 사진 ID&amp;gt;/get&lt;em&gt;comments/ 라고 하겠습니다. 일단은요.&lt;/p&gt;
-&lt;p&gt;태그도 좋아요나 댓글과 별다를 바 없습니다. /photo/&amp;lt; 사진 ID&amp;gt;/tag/ 라고 하겠습니다.&lt;/p&gt;
-&lt;p&gt;개별 사진과 관련된 URL을 정리해 보겠습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;개별 사진 보기 : /photo/&amp;lt; 사진 ID&amp;gt;/&lt;/li&gt;
-&lt;li&gt;사진에 좋아요 누르기 : /photo/&amp;lt; 사진 ID&amp;gt;/like/&lt;/li&gt;
-&lt;li&gt;사진에 댓글 달기 : /photo/&amp;lt; 사진 ID&amp;gt;/comment/
-&lt;ul&gt;
-&lt;li&gt;사진에 달린 댓글 가져오기 : /photo/&amp;lt; 사진 ID&amp;gt;/get&lt;/em&gt;comments/&lt;/li&gt;
-&lt;li&gt;사진에 달린 댓글 지우기 : /photo/&amp;lt; 사진 ID&amp;gt;/comment/&amp;lt; 댓글 ID&amp;gt;/delete/&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;사진에 태그 달기 : /photo/&amp;lt; 사진 ID&amp;gt;/tag/&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;여러 사진 보기&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/08/01-instagram_01.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;사진을 여러 개 나열해서 보는 상황은 어떠한 경우일까요? 우선 이용자가 자신이 올린 사진들을 보는 경우가 있습니다. 내가 구독(following)하는 이용자들이 올린 사진을 보는 경우도 있고, 사람이나 기계가 추려낸 사진들, 가령 인기 사진들도 여러 사진을 보는 경우입니다. 더 다양한 경우가 있겠지만 우리는 이 세 경우만 만들도록 하겠습니다.&lt;/p&gt;
-&lt;p&gt;여러 사진을 보는 이 세 페이지는 오직 모바일에서만 이용할 수 있습니다. 그리고 모바일에서는 개별 사진을 따로 보는 화면 디자인이나 목록으로 나열된 개별 사진의 화면 디자인을 굳이 구분할 필요는 없습니다. 개별 사진 영역을 반복 출력하면 되니까요. 결국 출력되는 사진만 다를 뿐, 화면 디자인 요소는 이 세 페이지가 같습니다. 그렇다면 따로 화면 디자인을 할 필요가 없겠군요. 사진 보기 기획할 때 다 했으니까요. ^^&lt;/p&gt;
-&lt;p&gt;그럼 각 페이지 별 기획을 하겠습니다. 먼저 내가 구독(following)하고 있는 이용자들이 올린 사진을 보는 페이지부터 볼까요. 페이스북이나 트위터를 이용하신다면 타임라인(timeline)이라는 페이지나 기능에 익숙하실 겁니다. 자신의 글이나 사진을 포함해서 친구, 혹은 나와 관련된 컨텐츠를 시간 역순으로 나열하는 컨텐츠 연대표이죠.&lt;/p&gt;
-&lt;p&gt;이용자의 타임라인은 모든 이용자가 이용하는 기능이지만 이용자마다 표시되는 내용이 다른 공간입니다. 누구나 쓰는 공통 기능이며 다른 이용자가 내 타인라인을 볼 수 없으므로 굳이 타임라인 페이지를 URL로 구분할 필요는 없습니다. 그래서 /timeline/이라는 URL을 쓰겠습니다. 타임라인에는 어떤 정보를 표시하면 좋을까요? 자신이 올린 사진, 구독하는(following) 이용자의 사진, 나를 태그한 사진, 나를 언급한 댓글이 있는 사진을 가져와서 출력하면 얼추 그럴싸한 타임라인이 될 것 같습니다. 자세한 건 이 기능을 구현할 때 다루겠습니다.&lt;/p&gt;
-&lt;p&gt;이번엔 선정된 사진을 보는 곳. 뭘 기준으로 선정할까요? 무난하게 정해진 시간 동안 인기를 끈 사진을 가져오는 인기 사진을 가져오도록 하겠습니다. 주소는 모든 이용자가 동일한 내용을 보는 공동 구역이니 그에 어울리는 URL로 정해야겠네요. /popular/로 하겠습니다.&lt;/p&gt;
-&lt;p&gt;마지막으로 이용자가 자신이 올린 사진들을 보는 건 이용자 프로필 페이지에서 다루겠습니다. URL만 먼저 정하자면, /user/&amp;lt; 이용자 ID&amp;gt;/ 로 하겠습니다.&lt;/p&gt;
-&lt;p&gt;그럼 여러 사진을 보는 페이지와 관련된 URL을 정리해 보지요.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;인기 사진 : /popular/&lt;/li&gt;
-&lt;li&gt;이용자 개별 타임라인 : /timeline/&lt;/li&gt;
-&lt;li&gt;특정 이용자가 올린 사진 : /user/&amp;lt; 이용자 ID&amp;gt;/&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;사진 삭제&lt;/h5&gt;
-&lt;p&gt;사진 삭제는 간단합니다. 자신의 사진에 한해서 삭제하며, 개별 사진 영역에서 사진 삭제 버튼을 눌러서 지우면 됩니다. 지울 때 정말 지울 건지 한 번 더 물어보면 좋겠고요.&lt;/p&gt;
-&lt;p&gt;사진을 지우는 URL은 사진에 좋아요 표시를 남기거나 댓글을 남기는 규칙을 따르면 됩니다.&lt;/p&gt;
-&lt;p&gt;/photo/&amp;lt; 사진 ID&amp;gt;/delete/&lt;/p&gt;
-&lt;p&gt;사진을 지우면 사진 파일도 지우고, 사진에 달린 활동들도 지우도록 하겠습니다.&lt;/p&gt;
-&lt;h4&gt;(2) 이용자&lt;/h4&gt;
-&lt;p&gt;이용자 관련 기능은 그다지 많진 않습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;회원 가입과 탈퇴&lt;/li&gt;
-&lt;li&gt;로그인, 로그아웃&lt;/li&gt;
-&lt;li&gt;비밀번호 찾기&lt;/li&gt;
-&lt;li&gt;프로필 보기&lt;/li&gt;
-&lt;li&gt;구독하기 (팔로잉(following) 기능)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;회원 가입&lt;/h5&gt;
-&lt;p&gt;Instagram엔 직접 가입하는 방법과 페이스북으로 연결하여 가입하는 방법으로 회원 가입합니다. Pystagram은 ID와 비밀번호를 입력하여 직접 가입하는 방법을 기본으로 하겠습니다. 페이스북으로 연결하여 가입하는 기능은 직접 구현하진 않고 원리나 방식만 설명할 예정입니다.&lt;/p&gt;
-&lt;p&gt;회원 가입에 필요한 정보는 간단하게 받습니다. 사용할 ID, 비밀번호, 그리고 전자우편 주소. 그외 정보는 가입한 후에 언제든지 입력하도록 합니다. 다만 봇(bot)으로 계정을 막 생성하려는 나쁜 사람도 있으니 &lt;a href=&quot;http://ko.wikipedia.org/wiki/CAPTCHA&quot;&gt;캡챠(Captcha)&lt;/a&gt; 기능을 구현할 필요는 있어 보입니다. 이용자가 회원 가입에 필요한 정보를 제출하면 전자우편 주소가 실제로 존재하는지 확인도 해보겠습니다. 가입 확인 전자우편을 보내는 거죠. 전자우편 주소 확인을 받지 않은 이용자는 로그인만 할 수 있고 나머지 기능은 사용할 수 없도록 권한을 제한합니다.&lt;/p&gt;
-&lt;p&gt;회원 가입 URL은 /accounts/registration/ 을 쓰도록 하겠습니다. 좀 긴데, 의미 전달성이 좋고 이용자가 저 URL을 인지할 일이 없는 데다 Django에서 따로 설정 안 하면 쓰게 되는 기본 주소라서 이 주소로 선택했습니다. ^^&lt;/p&gt;
-&lt;h5&gt;로그인, 로그아웃&lt;/h5&gt;
-&lt;p&gt;특별한 건 없습니다. 이용자가 입력한 아이디와 비밀번호로 로그인을 하고, 로그인한 이용자에 한하여 로그아웃을 합니다.&lt;/p&gt;
-&lt;p&gt;URL은 무난하게 /accounts/login/ 과 /accounts/logout/ 을 쓰도록 하겠습니다. 회원 가입 URL과 관련지은 주소이지요.&lt;/p&gt;
-&lt;h5&gt;비밀번호 찾기&lt;/h5&gt;
-&lt;p&gt;이 기능은 여러분이 직접 구현하셔야 합니다. :) 전자우편 주소 확인하는 기능을 활용하면 아주 간단하게 구현하실 수 있습니다.&lt;/p&gt;
-&lt;h5&gt;프로필 보기&lt;/h5&gt;
-&lt;p&gt;프로필 페이지는 각 이용자의 간단한 소개와 그 이용자가 올린 사진을 나열해 보여주는 곳입니다. 특정 이용자가 올린 사진, 또는 자신이 올린 사진만 보는 곳이기도 하지요. 주소는 앞서 정한 /user/&amp;lt; 이용자 ID&amp;gt;/ 입니다.&lt;/p&gt;
-&lt;p&gt;프로필 페이지에서 간단한 소개 영역에 표시할 정보는 많지 않습니다. 이용자가 입력한 정보, 그리고 이용자가 서비스를 이용하며 발생시킨 정보 정도네요.&lt;/p&gt;
-&lt;p&gt;이용자가 입력한 정보 중 겉으로 드러낼 만한 정보는 이용자 ID와 이용자 프로필 사진 정도입니다.&lt;/p&gt;
-&lt;p&gt;이용자가 서비스를 이용하여 발생한 정보는 이용자가 구독하는(following) 이용자들, 이용자를 구독하는 이용자들(followers), 그리고 이용자가 올린 사진이 있습니다. 이용자가 구독하는 팔로잉 페이지는 /user/&amp;lt; 이용자 ID&amp;gt;/following/, 이용자를 구독하는 팔로워 페이지는 /user/&amp;lt; 이용자 ID&amp;gt;/followers/ 로 URL을 정하겠습니다. 이용자가 올린 사진은 이용자 프로필 페이지에 바로 나열하면 되고요. 하지만 웹에서는 사진을 나열해 표시하지 않기로 했으니 이용자가 올린 사진 중 하나를 무작위로 선택해서 표시하도록 하겠습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;간단한 소개 정보
-&lt;ul&gt;
-&lt;li&gt;이용자 프로필 사진&lt;/li&gt;
-&lt;li&gt;이용자 ID&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;이용자가 사진
-&lt;ul&gt;
-&lt;li&gt;시간 역순으로 나열. 무한 스크롤 방식.&lt;/li&gt;
-&lt;li&gt;웹에서는 이용자가 올린 사진 중 하나를 무작위로 선택해서 표시.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;팔로잉
-&lt;ul&gt;
-&lt;li&gt;팔로잉 수&lt;/li&gt;
-&lt;li&gt;URL : /user/&amp;lt; 이용자 ID&amp;gt;/following/&lt;/li&gt;
-&lt;li&gt;누르면 하위 페이지(팔로잉 페이지)로 이동&lt;/li&gt;
-&lt;li&gt;각 이용자의 프로필 사진과 해당 이용자의 프로필 페이지 이동 UI(링크)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;팔로워
-&lt;ul&gt;
-&lt;li&gt;팔로워 수&lt;/li&gt;
-&lt;li&gt;URL : /user/&amp;lt; 이용자 ID&amp;gt;/followers/&lt;/li&gt;
-&lt;li&gt;이외 내용은 팔로잉과 동일&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;구독하기 (following)&lt;/h5&gt;
-&lt;p&gt;구독 기능은 구독 대상 이용자가 올리는 사진을 자신의 타임라인에서 편하게 보도록 합니다. 쌍방이 관계를 맺어야 하는 친구 관계와는 달리 구독자가 구독 대상을 구독하면 그만입니다. URL은 /user/&amp;lt; 이용자 ID&amp;gt;/follow/ 로 하겠습니다. 구독과 구독 해제를 작동시키는 URL을 나눌 필요는 없습니다. 구독하고 있지 않은 상태에서 구독 기능을 호출하면 구독 상태로 바꾸고, 구독 중인 상태에서 또 호출하면 구독 상태를 해제하면 되니까요.&lt;/p&gt;
-&lt;h4&gt;(3) 기능 총 정리&lt;/h4&gt;
-&lt;p&gt;지금까지 기획한 기능을 총 정리해보겠습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;사진
-&lt;ul&gt;
-&lt;li&gt;사진 올리기
-&lt;ul&gt;
-&lt;li&gt;필터 적용&lt;/li&gt;
-&lt;li&gt;미리보기 이미지(thumbnail image)&lt;/li&gt;
-&lt;li&gt;사진 자르기, 크기 조절&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;사진 보기
-&lt;ul&gt;
-&lt;li&gt;좋아요 표시 남기기&lt;/li&gt;
-&lt;li&gt;댓글 남기기, 지우기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;사진 삭제&lt;/li&gt;
-&lt;li&gt;사람 태그 달기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;이용자/회원
-&lt;ul&gt;
-&lt;li&gt;회원 가입과 탈퇴&lt;/li&gt;
-&lt;li&gt;로그인, 로그아웃&lt;/li&gt;
-&lt;li&gt;비밀번호 찾기&lt;/li&gt;
-&lt;li&gt;프로필 보기
-&lt;ul&gt;
-&lt;li&gt;간단한 소개&lt;/li&gt;
-&lt;li&gt;팔로잉, 팔로워&lt;/li&gt;
-&lt;li&gt;이용자가 올린 사진&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;구독하기 (팔로잉(following) 기능)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;사진 모아보기
-&lt;ul&gt;
-&lt;li&gt;타임라인 : 친구 사진들 보기&lt;/li&gt;
-&lt;li&gt;인기 사진들 보기&lt;/li&gt;
-&lt;li&gt;특정 이용자의 사진 보기 =&amp;gt; 프로필 보기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;큼직하게 묶어서 정리했는데 생각보다 많네요. 하지만 Django가 제공하는 기능을 쓰면 무척 쉽게 구현할 수 있습니다.&lt;/p&gt;
-&lt;h4&gt;이외&lt;/h4&gt;
-&lt;p&gt;이외에 필요한 페이지나 기능이 많이 남았습니다. 몇 가지만 이곳에 정리하고, 나머지는 각 기능을 구현하면서 그때 그때 만들겠습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;로그아웃 상태에서 접속한 첫 화면&lt;/li&gt;
-&lt;li&gt;로그인 실패&lt;/li&gt;
-&lt;li&gt;없는 페이지에 접속했을 때 안내하는 페이지 (일명 404 페이지)&lt;/li&gt;
-&lt;li&gt;허용하지 않는 페이지에 접속한 경우 처리
-&lt;ul&gt;
-&lt;li&gt;기획 정책 상 허용하지 않는 경우&lt;/li&gt;
-&lt;li&gt;접근 권한이 없는 경우&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;오류가 발생했을 때 안내하는 페이지&lt;/li&gt;
-&lt;li&gt;관리자 영역&lt;/li&gt;
-&lt;li&gt;존재하는 ID나 전자우편 주소인지 검사&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;3. 페이지 구성&lt;/h3&gt;
-&lt;p&gt;정리한 기능으로 페이지(scene)를 정리해 보겠습니다.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/assets/uploads/2014/08/01-Scene_flow.png&quot;&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/08/01-Scene_flow-400x274.png&quot; alt=&quot;페이지 흐름 및 연결도&quot; /&gt;&lt;/a&gt;&lt;br /&gt;
-&amp;lt; 위 이미지는 클릭하면 크게 볼 수 있습니다. &amp;gt;&lt;/p&gt;
-&lt;p&gt;둥근 모서리 사각형은 개별 페이지를 뜻합니다. 이 중에서 파란 바탕색이 적용된 사각형은 상위 페이지입니다. Instagram 모바일 앱으로 예를 들면, 앱 최하단에 있는 버튼들이 이 상위 페이지에 연결된 것인데, 페이지 안내(navigation) UI 등으로 접근하는 페이지이지요. 흰 바탕인 사각형은 이러한 상위 페이지에 속해있는 하위 페이지입니다.&lt;/p&gt;
-&lt;p&gt;직각 모서리 사각형은 기능을 뜻합니다. 기능 중에는 페이지로 연결되기도 하는데, 편의상 기능으로만 표시했습니다. 기능 중 왼쪽에 있는 것은 자신의 영역에서 실행하는 기능이며, 오른쪽은 다른 이용자의 영역에서 혹은 다른 이용자가 내 영역에서 실행하는 기능입니다.&lt;/p&gt;
-&lt;p&gt;펼쳐 놓으니 뭔가 많아 보이지만, 실제로는 페이지 이동이나 기능 사용이 대부분 한두 단계 안에서 이뤄집니다. 이런 간단명료한 흐름이 Instagram의 매력이고, Pystagram도 그런 매력을 따릅니다. 고민 많이 했을 Instagram 개발자의 노고에 박수를 보내 봅니다.&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;이것으로 강좌 첫 회를 마칩니다. 2회에선 Django도 설치하고, 개발 환경을 꾸려볼 겁니다. 내용이 그다지 많진 않을 겁니다. 그럼 강좌 2회에서 뵙겠습니다.&lt;/p&gt;&lt;/p&gt;
-</description>
-        <pubDate>Mon, 18 Aug 2014 00:01:47 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/8/start_with_django_webframework_01/</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/8/start_with_django_webframework_01/</guid>
-        
-        <category>django</category>
-        
-        <category>python</category>
-        
-        <category>기획</category>
-        
-        <category>instagram</category>
-        
-        <category>virtualenv</category>
-        
-        <category>pip</category>
         
         
         <category>start_with_django_webframework</category>
