@@ -6,16 +6,250 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Feb 2015 01:27:34 +0900</pubDate>
-    <lastBuildDate>Mon, 23 Feb 2015 01:27:34 +0900</lastBuildDate>
+    <pubDate>Wed, 04 Mar 2015 22:08:53 +0900</pubDate>
+    <lastBuildDate>Wed, 04 Mar 2015 22:08:53 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>개발 생활 - 3</title>
+        <description>&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;개발 생활 - 1&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-03/&quot;&gt;&lt;code&gt;개발 생활 - 3&lt;/code&gt;&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
+&lt;li&gt;개발 생활 - 4 : Python과 Django 강의&lt;/li&gt;
+&lt;li&gt;개발 생활 - 5 : 공부 자료&lt;/li&gt;
+&lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;2. 개발 프로젝트&lt;/h3&gt;
+
+&lt;h4&gt;2-3. 전자우편 알림 서버&lt;/h4&gt;
+
+&lt;h5&gt;개요&lt;/h5&gt;
+
+&lt;p&gt;전자우편 알림 서버는 특정 사건(event)이 발생하면 관련된 사람에게 그 사건에 대해 알리는 역할을 한다. 가령, K와 C영업인이 한날이라는 고객을 담당하고 있는데, C담당자가 고객과 영업 관련 일정을 잡을 경우, K담당자에게도 이에 대한 내용을 전자우편으로 안내하는 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;요구사항
+
+&lt;ol&gt;
+&lt;li&gt;사건이나 상황(event)이 발생하면, 이와 관련된 담당자나 팀에 즉시 전자우편으로 그 내용을 보낸다.&lt;/li&gt;
+&lt;li&gt;비밀번호 찾기 등 고객 홈페이지에서 발생하는 안내나 통지 행위도 처리한다.&lt;/li&gt;
+&lt;li&gt;여러 상황에 처한 고객에게 상황에 맞는 전자우편을 자동으로 보낸다.
+
+&lt;ul&gt;
+&lt;li&gt;예) 특정 기간 이상 접속하지 않은 고객에게 서비스 이용 안내와 매물을 추천&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;내가 정한 추가 목표치
+
+&lt;ul&gt;
+&lt;li&gt;Python 3로 작성한다.&lt;/li&gt;
+&lt;li&gt;프로그래밍 언어나 라이브러리, 프레임워크를 이전(migration)할 가능성을 염두에 두고 구조를 짠다.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-0008/&quot;&gt;PEP 8&lt;/a&gt;을 최대한 지킨다.&lt;/li&gt;
+&lt;li&gt;병렬로 작업(알림 처리)을 수행한다.&lt;/li&gt;
+&lt;li&gt;Unittest를 작성한다.&lt;/li&gt;
+&lt;li&gt;오류 내역을 효율성 있게 관리한다.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5&gt;개발 환경&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;언어 : Python 3.4, Go 1.3&lt;/li&gt;
+&lt;li&gt;사용 라이브러리, 프레임워크
+
+&lt;ul&gt;
+&lt;li&gt;ORM : &lt;a href=&quot;http://www.sqlalchemy.org/&quot;&gt;SQLAlchemy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;반복 예약과 분산 처리 : &lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;Celery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;템플릿 : &lt;a href=&quot;http://jinja.pocoo.org/&quot;&gt;Jinja2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;오류 내역 관리 : &lt;a href=&quot;http://www.getsentry.com&quot;&gt;Sentry&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;PEP 8 검사 : &lt;a href=&quot;https://pypi.python.org/pypi/flake8&quot;&gt;Flake 8&lt;/a&gt;, &lt;a href=&quot;https://github.com/SublimeLinter/SublimeLinter3&quot;&gt;SublimeLinter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;HTTP 처리 : &lt;a href=&quot;http://docs.python-requests.org/en/latest/&quot;&gt;Requests&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5&gt;개발 과정&lt;/h5&gt;
+
+&lt;p&gt;먼저 이름부터 붙였다. Mailer라는 비공식 이름이 통용되었지만 좀 더 일상과 대중에 친숙한 단어인 postman이라 프로젝트 이름을 붙였다. 보이지 않는 곳에서 나대지 않고 조용히 일하는 느낌이 들도록 머릿글자도 소문자로 표기했다.&lt;/p&gt;
+
+&lt;p&gt;작동 흐름은 간단했다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;알림 전자우편
+
+&lt;ol&gt;
+&lt;li&gt;전자우편 발송 요청(request)을 API Server가 받으면 각 요청을 발송 대기함에 쌓음.&lt;/li&gt;
+&lt;li&gt;발송 작업자(worker)가 대기함에 있는 발송 대상을 가지고 와서 전자우편 발송 서비스에 전달.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;개인 또는 그룹을 대상으로 하는 소식지(newsletter)
+
+&lt;ol&gt;
+&lt;li&gt;일정 주기 마다 소식지 주제 별 수신자를 수집(build).
+
+&lt;ul&gt;
+&lt;li&gt;예) 가입 후 일정 기간 동안 로그인을 안 한 이용자들에게 서비스 안내 전자우편 발송.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;수신자 그룹을 전자우편 발송 서비스에 생성.&lt;/li&gt;
+&lt;li&gt;생성한 수신자 그룹으로 전자우편 발송.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;SMTP 서버를 직접 구축하진 않기로 했다. 개발팀에서 프로그래머는 개발과 운영, 관리를 수행하고 있는데다 여러 개 제품이 이미 운영되고 있었기 때문에 되도록 관리할 대상을 줄여야 했기 때문이다. 그래서 전자우편 발송 서비스를 이용하기로 하고, 몇 개 업체를 검토한 끝에 &lt;a href=&quot;https://www.mailjet.com&quot;&gt;Mailjet&lt;/a&gt;을 이용하기로 결정했다. API도 잘 만들어져 있고, SMTP를 제공하며, 이미 쓰고 있는 지인이 소개해주어 무료 서비스를 사용해봤는데 기대만큼 만족스러웠다.&lt;/p&gt;
+
+&lt;p&gt;또한, 고객 지원도 아주 빠르고 친절했다. 예를 들어, 무료 서비스는 한 달에 발송 가능한 전자우편 개수가 무척 적게 제한되어 있는데, 이 개수를 모르던 나는 몇 백 개째부터는 전자우편이 발송이 안 되고 대기 상태에 머물러있자 이것 저것 설정을 변경하며 방황하고 있었다. 그러자 놀랍게도 몇 십 분 후에 대시보드 페이지에 도움이 필요하느냐는 안내 버튼이 출력되었고, 이 버튼을 눌러 실시간 대화를 나누어 문제를 파악하고 처리할 수 있었다. 그때가 한국 시간으로 14~15시 경이었기에 꽤 놀랐다. 비용도 한 달에 30,000건 발송하는 정도는 한 달에 약 9 USD이면 되는 수준이라 바로 유료 전환했다.&lt;/p&gt;
+
+&lt;p&gt;postman 프로젝트는 여러 차례 구조를 세웠다 무너뜨리며 설계를 되풀이했다. 그렇다고 해서 처음부터 크게 구조를 잡은 건 아니고, 1차 버전은 특정 상황(event)이 발생하면 담당자에게 이에 대해 개별 전자우편을 보내어 알리는 기능만 개발하는 범위여서 확장하거나 변경될 여지를 두고 구조를 잡았다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;발송부(sender)
+
+&lt;ul&gt;
+&lt;li&gt;발송 서버에 연결하는 API&lt;/li&gt;
+&lt;li&gt;일정 시간 마다 발송 대기함에서 대기 작업물 처리자(periodic worker)&lt;/li&gt;
+&lt;li&gt;각 전자우편에 지정된 템플릿으로 전자우편 제목과 본문을 만드는 서식부&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;발송 대기함에 쌓는 기능부&lt;/li&gt;
+&lt;li&gt;수신자 구성부(builder)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Mailjet에서 &lt;code&gt;REST API&lt;/code&gt;로 개별 전자우편을 발송하는 API를 제공했지만, 발송 서버에 연결하는 부분은 SMTP로 처리하였다. 이 방식이 HTTP로 연결하여 요청하는 것보다 좀 더 빨랐다. 쌓인 전자우편을 여러 개 보내야 하는 경우가 생기는데, HTTP/1.x는 매 요청마다 Mailjet 서버에 연결하고 끊기를 되풀이한다. 그에 반해 SMTP는 연결을 유지한다.&lt;/p&gt;
+
+&lt;p&gt;Python으로 SMTP는 &lt;code&gt;smtplib&lt;/code&gt; 모듈을 이용하여 간단하게 다룬다. 다만, 웹에 있는 대부분 예제는 Python 2용이어서 Python 3.4에서는 문제가 발생하는데, 원인은 패키지나 모듈 배치가 바뀐 탓이다. 다행히 Python 공식 문서에 &lt;a href=&quot;https://docs.python.org/3/library/email-examples.html&quot;&gt;email: Examples&lt;/a&gt;라는 문서에 아주 자세한 예제가 나와있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;편의점 프로젝트&lt;/a&gt;과는 달리 postman 프로젝트는 &lt;code&gt;Celery&lt;/code&gt;를 이용하여 일정 시간마다 지정한 작업이 진행되도록 하였다. &lt;a href=&quot;http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html&quot;&gt;Periodic Tasks&lt;/a&gt;를 이용했는데, &lt;code&gt;periodic_task&lt;/code&gt;라는 장식자(&lt;code&gt;decorator&lt;/code&gt;)를 사용했다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from datetime import timedelta
+
+from celery.decorators import periodic_task
+
+notify_staff_settings = {
+    &amp;#39;notify_staff&amp;#39;: {
+        &amp;#39;run_every&amp;#39;: timedelta(minutes=1),
+    },
+}
+
+@periodic_task(**notify_staff_settings)
+def notify_staff():
+    pass
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;템플릿 엔진인 &lt;code&gt;Jinja2&lt;/code&gt;는 &lt;a href=&quot;http://www.djangoproject.com&quot;&gt;Django&lt;/a&gt;의 템플릿 문법과 유사하고, &lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;제안서를 PDF로 만드는 문서 서버&lt;/a&gt;를 만들면서 다뤄서 친숙했다. 다만, 템플릿 전체가 아니라 블록 단위로 내용을 가져오려고 하는 부분은 문서에 예제가 자세히 나오지 않아서 조금 애먹었다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;{% block subject %}
+[공실] {{ building.name }}에 새로운 공실
+{% endblock %}
+
+{% block body %}
+  {{ building.id }} - {{ product.id }}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+{% endblock %}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이런 템플릿이 있는 경우, 전자우편 제목은 &lt;code&gt;subject&lt;/code&gt; 블록에 있는 내용을, 본문은 &lt;code&gt;body&lt;/code&gt; 블로에 있는 내용을 사용하는 것이다. 템플릿에서 전자우편 제목과 본문을 만들면 알림 전자우편 제목이나 본문 형식(format)이 바뀌어도 Python 애플리케이션 코드는 변동되지 않으므로 애플리케이션 서버를 재가동하지 않아도 되고, 템플릿이 읽히는 다음 작업 시기에 곧바로 변동 내역이 반영된다는 장점이 있다.&lt;/p&gt;
+
+&lt;p&gt;Jinja에서 템플릿을 렌더링하면 템플릿 컨텍스트(변수나 필터 등)가 반영된 최종 결과물 문자열이 반환된다. 나는 이걸 &lt;code&gt;subject&lt;/code&gt; 블록 따로, &lt;code&gt;body&lt;/code&gt; 블록 따로 다루고 싶었고, 당연히(?) Jinja로 이런 처리가 가능하다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from jinja2 import (
+    Environment,
+    FileSystemLoader,
+)
+
+_template_engine = Environment(
+    loader=FileSystemLoader(settings.TEMPLATE_PATH),
+    trim_blocks=True,
+)
+
+_template = _template_engine.get_template(&amp;#39;test.html&amp;#39;)
+_context = _template.new_context({
+    &amp;#39;title&amp;#39;: &amp;#39;Hello world&amp;#39;,
+})
+
+email_subject = &amp;#39;&amp;#39;.join(_template.blocks[&amp;#39;subject&amp;#39;](_context))
+email_body = &amp;#39;&amp;#39;.join(_template.blocks[&amp;#39;body&amp;#39;](_context))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;오류 내역은 벼르고 별렀던 &lt;code&gt;Sentry&lt;/code&gt;를 도입하여 관리했다. 그동안은 로그를 쌓거나 출력하여 문제를 추적했는데, 로그가 쌓이면 문제를 추적하기 불편했고, &lt;code&gt;traceback&lt;/code&gt; 정보가 제대로 나오지 않아 문제 파악도 힘들었다. Sentry 역시 전자우편 발송 서버와 마찬가지로 실 서버는 Sentry 회사가 제공하는 서비스를 이용하고, 개발 중에는 내 작업 PC에 직접 설치하여 관리했다. 사용법도 간단하다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from raven import Client as RavenClient
+
+raven_client = RavenClient(SENTRY_APIKEY)
+
+@raven_client.capture_exceptions
+def notify_staff():
+    pass
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5&gt;우여곡절&lt;/h5&gt;
+
+&lt;p&gt;Mailjet에서 제공하는 &lt;code&gt;REST API&lt;/code&gt;로 개별 전자우편을 발송하는 과정에서 적지않은 시행착오를 겪었다. REST API를 다루려고 &lt;code&gt;Requests&lt;/code&gt; 라이브러리를 사용했는데 자꾸 요청이 Mailjet 서버로부터 거절되었다. &lt;code&gt;Curl&lt;/code&gt;을 이용하면 잘 작동하였다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;curl -X POST --user &amp;quot;$MJ_APIKEY_PUBLIC:$MJ_APIKEY_PRIVATE&amp;quot; \
+    https://api.mailjet.com/v3/send/message \
+    -F from=&amp;#39;Miss Mailjet &amp;lt;ms.mailjet@example.com&amp;gt;&amp;#39; \
+    -F to=mr.mailjet@example.com \
+    -F subject=&amp;#39;Hello World!&amp;#39; \
+    -F text=&amp;#39;Greetings from Mailjet.&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이는 HTTP에서 &lt;code&gt;Post&lt;/code&gt; 방식으로 데이터를 보낼 때 컨텐트 타입을 &lt;code&gt;multipart/form-data&lt;/code&gt;로 보내는 &lt;a href=&quot;https://www.ietf.org/rfc/rfc2388.txt&quot;&gt;RFC 2388&lt;/a&gt;를 따르는 것이며, 이를 Requests 라이브러리를 이용하여 다음과 같이 처리한다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;_res = requests.post(
+    &amp;#39;https://api.mailjet.com/v3/send/message&amp;#39;,
+    auth=(
+        &amp;#39;$MJ_APIKEY_PUBLIC&amp;#39;,
+        &amp;#39;$MJ_APIKEY_PRIVATE&amp;#39;
+    ),
+    data={
+        &amp;#39;from&amp;#39;: &amp;#39;Miss Mailjet &amp;lt;ms.mailjet@example.com&amp;gt;&amp;#39;,
+        &amp;#39;to&amp;#39;: &amp;#39;mr.mailjet@example.com&amp;#39;,
+        &amp;#39;subject&amp;#39;: &amp;#39;Hello World!&amp;#39;,
+        &amp;#39;text&amp;#39;: &amp;#39;Greetings from Mailjet.&amp;#39;,
+    },
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;하지만, 무슨 이유에서인지 Mailjet쪽에서 발송을 거절했다. &lt;a href=&quot;http://www.getpostman.com/&quot;&gt;Postman&lt;/a&gt;이라는 HTTP 클라이언트로 보내도 잘 작동했는데, 유독 Requests로는 실패했다. 그래서 HTTP Header를 하나씩 까보니 Requests는 파일을 첨부하면 Curl 등 다른 소프트웨어와는 미묘하게 다른 HTTP Header를 만든다는 걸 발견했고, Mailjet은 이런 요청은 거부하는 민감한 동작을 했다. 어차피 SMTP를 이용해 보낼 계획이어서 SMTP로 직접 발송하여 문제는 해결했지만, 찝찝한 마음이 남았다. 현재는(2015년 3월 기준) 문제없이 발송된다.&lt;/p&gt;
+
+&lt;p&gt;Celery를 사용하는 인터페이스 부분을 추상화하는 과정도 뜻대로 되지 않은 부분이 많았다. 언제든지 Celery를 걷어내고 다른 라이브러리를 사용해도 문제가 없도록 패키지와 모듈 구성을 구성하였는데, 문제가 발생했을 때 문제를 추적하기 불편하였고 추상화 한 것에 비해 실제 Celery를 사용하는 부분 인터페이스가 많지 않았다. 결국은 Celery 인터페이스 이름만 바꾼 것에 가까운 반쪽짜리 추상화가 되고 말았다. 어설픈 추상화는 안 하느니만 못 하다.&lt;/p&gt;
+
+&lt;p&gt;Python 3를 사용하는 데엔 별다른 시행착오를 겪지 않았다. Python 3 기능을 그다지 깊게 사용하지 않기도 했지만, 지난 프로젝트부터 Python 3를 대비하고 준비한 게 도움이 됐다. 그리고, postman 프로젝트에 사용한 외부 라이브러리도 모두 Python 3를 지원했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://spoqa.github.io/2012/08/03/about-python-coding-convention.html&quot;&gt;PEP 8&lt;/a&gt;을 도입하는 것도 무난했다. PEP 8 검사에 사용한 Flake8의 Sublime Text용 부가기능(plugin)이 Sublime Text 2에서 잘 작동하지 않아 엉겁결에 Sublime Text 3로 이전한 것 빼고는 별달리 어렵거나 힘든 상황은 맞이하지 않았다. &lt;a href=&quot;https://www.python.org/dev/peps/pep-0008/#maximum-line-length&quot;&gt;한 줄을 80열 미만으로 코드를 작성하는 것&lt;/a&gt;을 제외하면.&lt;/p&gt;
+
+&lt;p&gt;Unittest는 만족스럽게 사용하진 못 했다. 딸 출산이 임박한 시기에 이르자 마음이 급해져 다시 원래 개발하던 방식으로 돌아가고 말았던 것이다. 결국 Unittest를 쓰지 않아 겪는 불편을 개발 막바지에 그대로 다시 겪었다.&lt;/p&gt;
+
+&lt;p&gt;Linux에서 프로세스를 관리하는 &lt;code&gt;upstart&lt;/code&gt;용 프로세스 구동 스크립트를 작성하는 데 꽤 고생했다. 그동안 Linux의 init을 쓰거나 Python용 프로세스 관리 도구인 &lt;a href=&quot;http://supervisord.org/&quot;&gt;Supervisor&lt;/a&gt;를 써왔는데, &lt;a href=&quot;http://www.codeok.net/%EC%84%9C%EB%B2%84%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EB%A5%BC%20%EA%B4%80%EB%A6%AC%ED%95%98%EB%8A%94%20%EC%98%AC%EB%B0%94%EB%A5%B8%20%EB%B0%A9%EB%B2%95&quot;&gt;서버 프로세스를 관리하는 올바른 방법&lt;/a&gt;에 대한 글을 읽고 upstart를 사용하기로 했다. 그런데 AWS AMI에서 돌아가는 upstart는 상당히 오래된 버전이어서 웹에서 참고한 자료가 별 도움이 되지 않았다. 가령, &lt;code&gt;uid&lt;/code&gt;나 &lt;code&gt;gid&lt;/code&gt;, &lt;code&gt;chdir&lt;/code&gt; 같은 명령어가 동작하지 않았다. 워낙 간단한 스크립트여서 무작정 시도했는데, 동작하지 않아 결국 로그를 찍으며 문제를 해결했다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;script
+  exec &amp;gt;/tmp/postman_sender.log 2&amp;gt;&amp;amp;1
+  exec sudo -u ec2-user /bin/sh -c &amp;quot;/.../postman_run.sh&amp;quot;
+end script
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5&gt;정리&lt;/h5&gt;
+
+&lt;p&gt;postman 프로젝트는 코딩보다는 설계와 추상화, 그리고 외부 도구 연계에 시간을 많이 썼다. 그동안 Celery나 SQLAlchemy 등 도구의 단편만 다뤘는데, 이번 프로젝트를 진행하면서 좀 더 깊게 들여다보고 시험해 보았다.&lt;/p&gt;
+
+&lt;p&gt;이번 프로젝트는 여러 모로 무척 바빠서 공부를 많이 하지 못 했다. 이 프로젝트에 사용한 기술의 하부 영역을 더 이해하려고 리눅스 시스템 프로그래밍(C언어)과 Python twisted를 공부하였지만, 다소 지지부진하게 진도가 나갔다.&lt;/p&gt;
+
+&lt;p&gt;Go 언어로 작성한 코드는 Go 언어에 좀 더 친숙해진 정도 성과를 거두었다. 워낙 간단한 코드이기 때문이다. 나중에 시간을 내어 발송할 전자우편을 구성(build)하는 부분과 발송 부분을 분리하여 발송 부분을 Go 언어로 재작성하면 좋을 것 같다.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 Mar 2015 22:05:40 +0900</pubDate>
+        <link>http://blog.hannal.com//2015/03/devlife-s1-03/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2015/03/devlife-s1-03/</guid>
+        
+        <category>Python</category>
+        
+        <category>SMTP</category>
+        
+        <category>Jinja2</category>
+        
+        <category>Celery</category>
+        
+        <category>Mailjet</category>
+        
+        <category>Sentry</category>
+        
+        <category>Upstart</category>
+        
+        
+        <category>essay</category>
+        
+      </item>
     
       <item>
         <title>개발 생활 - 2</title>
         <description>&lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;개발 생활 - 1&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;&lt;code&gt;개발 생활 - 2&lt;/code&gt;&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
-&lt;li&gt;개발 생활 - 3 : 전자우편 알림 서버&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;개발 생활 - 4 : Python과 Django 강의&lt;/li&gt;
 &lt;li&gt;개발 생활 - 5 : 공부 자료&lt;/li&gt;
 &lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
@@ -208,7 +442,7 @@ _combinated = combinations((&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;&lt;code&gt;개발 생활 - 1&lt;/code&gt;&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
-&lt;li&gt;개발 생활 - 3 : 전자우편 알림 서버&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;개발 생활 - 4 : Python과 Django 강의&lt;/li&gt;
 &lt;li&gt;개발 생활 - 5 : 공부 자료&lt;/li&gt;
 &lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
@@ -1405,420 +1639,6 @@ Running migrations:
         
         
         <category>essay</category>
-        
-      </item>
-    
-      <item>
-        <title>2. 개발 환경 꾸리기</title>
-        <description>&lt;ul&gt;
-&lt;li&gt;마지막 갱신일시 : 2014년 08월 24일 9시 37분&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이번 2편에서는 Pystagram을 만드는 데 필요한 개발 도구를 설치하겠습니다. 저는 Mac OS X를 쓰기 때문에 Mac OS X 환경을 기준으로 설명하며, 윈도우나 리눅스 환경용 설명은 웹에 있는 관련 자료로 대신하겠습니다.&lt;/p&gt;
-
-&lt;h3&gt;1. Python 설치&lt;/h3&gt;
-
-&lt;h4&gt;(1) Mac OS X, Linux&lt;/h4&gt;
-
-&lt;h5&gt;Python 설치&lt;/h5&gt;
-
-&lt;p&gt;Python은 현재 두 개 큰 버전이 배포되고 사용됩니다. 2 버전과 3 버전입니다. 우리가 사용할 Python 버전은 2.7입니다. 터미널을 연 뒤에 다음 명령어를 입력해보세요. $는 입력하지 마시고요&lt;sup id=&quot;fnref-3125:1&quot;&gt;&lt;a href=&quot;#fn-3125:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ python --version
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;아마도 &lt;code&gt;Python 버전&lt;/code&gt; 형식인 문장이 출력될 겁니다. 대개는 버전이 2.7대입니다. 2버전대의 최신 버전은 &lt;a href=&quot;https://www.python.org/download&quot;&gt;Python 공식 웹사이트에서 내려받아 설치&lt;/a&gt;하거나 패키지 관리 도구로 설치하면 됩니다. 패키지 관리 도구로 프로그램과 같은 패키지를 관리하면 편하니 패키지 관리 도구를 권합니다. Mac OS X라면 &lt;a href=&quot;http://brew.sh/&quot;&gt;Homebrew&lt;/a&gt;를 많이 씁니다. 저도 Homebrew로 설치하겠습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ brew install python
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Homebrew가 설치되어 있지 않다면 &lt;a href=&quot;http://brew.sh/#install&quot;&gt;brew부터 설치&lt;/a&gt;해야 하며, brew 설치할 때 xcode 관련 도구인 Command Line Tools가 요구되기도 합니다. 대개는 관련 과정이 함께 안내되는데, 실수로 그냥 넘어갔거나 안내되지 않았다면 다음 명령어로 Command Line Tools를 설치하면 됩니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ xcode-select --install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;보다 자세한 내용은 &lt;a href=&quot;http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/&quot;&gt;How to Install Xcode, Homebrew, Git, RVM, Ruby &amp;amp; Rails on Snow Leopard, Lion, Mountain Lion, and Mavericks&lt;/a&gt; 글을 참조하세요. 만약 &lt;a href=&quot;https://github.com/Homebrew/homebrew/wiki/Xcode&quot;&gt;Mac OS X 버전이 너무 오래된 경우 Command Line Tools나 brew가 설치되지 않을 수도 있습니다&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Debian 계열 Linux라면 운영체제에 내장된 apt-get을 씁니다. Redhat 계열 Linux는 잘 모르겠네요. RPM을 쓰나요, Yum을 쓰나요? :) 이 강좌에선 Debian 계열을 전제로 두겠습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ apt-get install python
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;그런데 아마 접근 권한 문제로 설치되지 않을 겁니다. 오류 내용을 잘 보면 &lt;code&gt;Permission denied&lt;/code&gt; 문구가 포함되어 있지요. 이런 경우 &lt;code&gt;sudo&lt;/code&gt; 명령어도 써야 합니다. sudo는 다른 이용자(대개는 최고권한자(superuser 또는 root))의 권한으로 sudo 명령어 뒤에 나오는 내용을 수행하는 프로그램입니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ sudo brew install python
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;또는&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ sudo apt-get install python
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;그러면 비밀번호를 묻는데, 시스템 관리자 권한이 있는 계정의 비밀번호를 입력합니다. Mac OS X라면 대개는 현재 로그인한 자신의 계정이 이미 시스템 관리자 권한을 갖고 있으므로 자신의 계정 비밀번호를 입력하면 됩니다.&lt;/p&gt;
-
-&lt;h4&gt;(2) Windows&lt;/h4&gt;
-
-&lt;p&gt;제가 Mac OS X를 사용하다 보니 Windows 환경에서 Python을 설치하는 방법에 관해서는 설명하기 어렵습니다. 그래서 설치 관련 글을 소개하는 걸로 대신하겠습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://goo.gl/v1ikhD&quot;&gt;파이썬 윈도우 설치&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://docs.python-guide.org/en/latest/starting/install/win/&quot;&gt;Installing Python on Windows&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;2. 개발 환경 구축&lt;/h3&gt;
-
-&lt;p&gt;여기서부터는 Mac OS X, Linux 구분을 하지 않습니다. 다만, Windows는 제가 실제 설치와 작동을 확인하기 어려우니 설치 관련 자료를 별첨하겠습니다.&lt;/p&gt;
-
-&lt;h4&gt;(1) pip 설치&lt;/h4&gt;
-
-&lt;p&gt;pip는 Python에 사용되는 각종 패키지&lt;sup id=&quot;fnref-3125:2&quot;&gt;&lt;a href=&quot;#fn-3125:2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;를 설치하거나 업그레이드, 삭제 등을 하는 관리 도구입니다. 이 도구를 설치하는 이유는 Django를 비롯하여 Python에 유용한 패키지를 쉽고 편하게 관리하기 위해서입니다.&lt;/p&gt;
-
-&lt;p&gt;설치는 간단합니다. pip를 설치해주는 스크립트인 &lt;a href=&quot;https://bootstrap.pypa.io/get-pip.py&quot;&gt;get-pip.py&lt;/a&gt; 파일을 받아서&lt;sup id=&quot;fnref-3125:3&quot;&gt;&lt;a href=&quot;#fn-3125:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; 실행하면 됩니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ python get-pip.py
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;별문제 없이 설치가 끝날 겁니다. &lt;code&gt;OSError: [Errno 13] Permission denied:&lt;/code&gt; 이런 식으로 오류가 발생하며 설치가 중단된다면 &lt;code&gt;sudo&lt;/code&gt;를 이용하여 시스템 관리자 권한으로 설치하면 됩니다.&lt;/p&gt;
-
-&lt;p&gt;이외 다른 방법으로 pip를 설치하실 거라면 &lt;a href=&quot;https://pip.pypa.io/en/latest/installing.html&quot;&gt;pip installation&lt;/a&gt; 문서를 참조하세요. pip는 Mac OS X, Linux, 그리고 윈도우에서도 설치되고 작동합니다.&lt;/p&gt;
-
-&lt;h4&gt;(2) virtualenv 설치&lt;/h4&gt;
-
-&lt;p&gt;virtualenv는 가상으로 Python 환경을 만드는 도구입니다. Virtual Environment를 줄인 이름이겠지요?!&lt;/p&gt;
-
-&lt;p&gt;실제 환경인 주 시스템(운영체제)에 패키지를 설치하면 패키지가 바뀔 때마다 그 패키지를 사용하는 프로젝트 모두가 영향을 받습니다. 예를 들어, Django 1.6 버전을 기반으로 Pystagram을 개발하였는데, 얼마 후 1.6버전과 호환성이 떨어지는 Django 1.7버전이 출시됐다고 가정하겠습니다. 만약 Django 1.7 버전을 설치한다면 Django 1.6 버전에서 잘 작동하던 Pystagram에 문제가 발생할 지도 모릅니다.&lt;/p&gt;
-
-&lt;p&gt;Pystagram은 Django 1.6 버전을 기반으로, Hannal 프로젝트는 Django 1.5 버전 기반으로, Kay 프로젝트는 Django 1.7 버전 기반으로 환경을 분리하면 되는데, 한 시스템에서 이런 환경을 가상으로 분리하여 편하게 관리하도록 도와주는 도구가 바로 virtualenv입니다. Python 패키지 뿐만 아니라 사용할 Python 버전도 가상 환경으로 분리할 수 있습니다. 한 시스템에 여러 Python 버전을 설치하고, 버전에 따라 사용할 Python을 프로젝트 마다 지정할 수 있는 것이죠.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://virtualenv.readthedocs.org/en/latest/virtualenv.html&quot;&gt;virtualenv 설치&lt;/a&gt;는 pip를 이용하면 간단합니다. 아참, 관리자 권한이 필요하니 &lt;code&gt;sudo&lt;/code&gt;도 씁니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ sudo pip install virtualenv
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;설치가 끝나면 virtualenv로 만드는 가상 환경이 저장될 공간을 만들고, 그 경로를 설정해야 합니다. 보통은 이용자 계정의 홈 디렉터리에 가상 환경 공간을 만듭니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ mkdir ~/.virtualenvs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;그런 뒤 &lt;code&gt;.bashrc&lt;/code&gt; 나 &lt;code&gt;.bash_profile&lt;/code&gt; 파일&lt;sup id=&quot;fnref-3125:4&quot;&gt;&lt;a href=&quot;#fn-3125:4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;에 이 경로를 지정해줍니다. 이 두 파일은 ~/ 경로에 있으며, 없으면 만들면 됩니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;export WORKON_HOME=$HOME/.virtualenvs    
-export PROJECT_HOME=$HOME/Workspace
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;WORKON_HOME&lt;/code&gt;은 virtualenv로 만드는 가상 환경이 저장될 경로를 지정하며, &lt;code&gt;PROJECT_HOME&lt;/code&gt;은 우리가 만드는 소스 파일을 담을 작업 공간입니다. 저는 ~/Workspace 에 코딩하는 소스 파일을 두는데, 여러분은 자신의 환경에 맞게 경로를 지정하면 되며, 꼭 &lt;code&gt;PROJECT_HOME&lt;/code&gt;을 지정하지 않아도 괜찮습니다.&lt;/p&gt;
-
-&lt;p&gt;이제 위 내용을 실제로 반영하겠습니다. 터미널에서 다음 명령어를 입력하세요.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ source ~/.bashrc
-
-또는 
-
-$ source ~/.bash_profile
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;터미널에서 다음 명령어를 실행했을 때 여러분이 지정한 경로가 나올 겁니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ echo $WORKON_HOME
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;이번엔 &lt;a href=&quot;http://virtualenvwrapper.readthedocs.org/&quot;&gt;virtualenvwrapper&lt;/a&gt;를 설치하겠습니다. 이름을 읽기 고약한데 virtualenv wrapper 입니다. virtualenv를 더 편하게 다루도록 도와주는 도구이지요. 이것도 pip로 설치하면 됩니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;pip install virtualenvwrapper
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;아마도 &lt;code&gt;sudo&lt;/code&gt;가 필요할 겁니다.&lt;/p&gt;
-
-&lt;p&gt;이제 쉘(shell)을 열 때마다 virtualenvwrapper를 쓰도록 해줘야 합니다. &lt;code&gt;.bashrc&lt;/code&gt; 을 열고 다음 줄을 추가하세요.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;source /usr/local/bin/virtualenvwrapper.sh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;저 파일이 있는 경로는 여러분의 환경에 따라 다를 수 있는데, 보통은 &lt;code&gt;/usr/local/bin/&lt;/code&gt;에 있을 겁니다. 이제 &lt;code&gt;source ~/.bash_rc&lt;/code&gt; 를 실행하여 방금 &lt;code&gt;.bashrc&lt;/code&gt;에 추가한 내용을 반영합니다. 잘 됐는 지 확인하려면 터미널에서 &lt;code&gt;workon&lt;/code&gt; 명령어를 실행해보세요.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ workon
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;별달리 출력되는 게 없다면 지금까지 과정을 제대로 마친 겁니다.&lt;/p&gt;
-
-&lt;h5&gt;Windows에 pip와 virtualenv 설치 관련 자료&lt;/h5&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.tylerbutler.com/2012/05/how-to-install-python-pip-and-virtualenv-on-windows-with-powershell/&quot;&gt;How To Install Python, pip, and virtualenv on Windows with PowerShell&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://docs.python-guide.org/en/latest/starting/install/win/#setuptools-pip&quot;&gt;Installing Python on Windows - Setuptools + Pip&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4&gt;(3) SQLite 설치&lt;/h4&gt;
-
-&lt;p&gt;데이터를 저장하는 데 필요한 데이터베이스는 &lt;a href=&quot;http://www.sqlite.org/&quot;&gt;SQLite&lt;/a&gt;를 사용할 겁니다. 실제 서비스를 운영하기엔 부족하지만, 공부하는 데엔 참 좋습니다.&lt;/p&gt;
-
-&lt;p&gt;Mac OS X나 Linux 계열 운영체제엔 SQLite 3가 보통은 이미 설치되어 있습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ sqlite3
-SQLite version 3.8.5 2014-06-04 14:06:34
-Enter &quot;.help&quot; for usage hints.
-Connected to a transient in-memory database.
-Use &quot;.open FILENAME&quot; to reopen on a persistent database.
-sqlite&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;그래서 SQLite 3 설치를 신경써야 하는 경우는 흔하지 않으며, 여러분이 SQLite 3이 설치되어 있지 않아서 문제를 겪는 경우도 드뭅니다. 하지만 그 드문 일을 대비해 설치하는 과정을 다루겠습니다.&lt;/p&gt;
-
-&lt;p&gt;Mac OS X에서는 Homebrew로 설치하거나 버전 업그레이드를 하면 편합니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ brew update
-$ brew upgrade
-$ brew install sqlite3
-$ brew link --force sqlite
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;하지만 이미 &lt;code&gt;sqlite3&lt;/code&gt;이 설치되어 있다는 경고가 표시되며 설치되지 않을 겁니다. 이미 설치되어 있을 테니까요.&lt;/p&gt;
-
-&lt;p&gt;Debian 계열 Linux라면 apt-get으로 설치하면 됩니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ apt-get install sqlite3 libsqlite3-dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;libsqlite3-dev&lt;/code&gt;는 SQLite 3 개발용 라이브러리입니다.&lt;/p&gt;
-
-&lt;p&gt;그런데 패키지 관리 도구로 설치가 안 되거나 직접 소스를 직접 컴파일하여 설치하고 싶다면 &lt;a href=&quot;http://sqlite.org/download.html&quot;&gt;sqlite.org의 Download&lt;/a&gt; 페이지에 가서  “Source Code” 영역에 있는 &lt;code&gt;sqlite-autoconf&lt;/code&gt;로 이름이 시작하는 파일을 받습니다. 파일 확장자는 &lt;code&gt;tar.gz&lt;/code&gt;입니다. 이 소스 파일을 다음과 같이 컴파일하여 설치하면 됩니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ ./configure --prefix=/usr/local
-$ make
-$ sudo make install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;SQLite 3가 &lt;code&gt;/usr/local/&lt;/code&gt; 에 설치되고, &lt;code&gt;/usr/local/bin/&lt;/code&gt;에 &lt;code&gt;sqlite3&lt;/code&gt; 파일이 생깁니다. 하지만 패키지 관리 도구로 설치되지 않을 정도로 오래된 운영체제라면 &lt;strong&gt;직접&lt;/strong&gt; 소스 컴파일해서 프로그램을 설치하느니 운영체제를 더 최신 버전으로 업그레이드 하는 게 나을 것 같습니다. :)&lt;/p&gt;
-
-&lt;p&gt;Python으로 SQLite 3를 사용하는 데 필요한 인터페이스는 대개 Mac OS X나 Linux에 기본 내장되어 있습니다. Python 쉘에서 간단히 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;]]] import sqlite3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;하지만 어떤 이유에서인지 SQLite 3 인터페이스 모듈이 없거나 제대로 불러오지 못하는 경우가&lt;sup id=&quot;fnref-3125:9&quot;&gt;&lt;a href=&quot;#fn-3125:9&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt; 있습니다. &lt;code&gt;ImportError: No module named _sqlite3&lt;/code&gt; 이런 오류를 내면서 말이죠. 이건 예전 Python 버전이 주 시스템에 설치되어 있는 상태에서 최신 Python 버전을 설치하는 과정 중에 &lt;code&gt;_sqlite3.so&lt;/code&gt; 파일이 제대로 설치되지 않아서 그렇습니다. 여러 해결 방법이 있지만, 저는 다른 인터페이스 모듈을 pip로 설치하여 해결하겠습니다. 물론 virtualenv 가상 환경에 말이죠.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ workon pystagram
-(pystagram)$ pip install pysqlte
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;pysqlite은 Python에 기본 내장된 &lt;code&gt;sqlite3&lt;/code&gt; 인터페이스와 다른 모듈입니다. 그래서 다음과 같이 사용하는 경우가 많습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;try:
-    import sqlite3
-except:
-    from pysqlite2 import dbapi2 as sqlite3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;pysqlite3&lt;/code&gt;에 있는 &lt;code&gt;dbapi2&lt;/code&gt;(database api 2)를 &lt;code&gt;sqlite3&lt;/code&gt;으로 이름 붙인 것(alias)입니다. 인터페이스가 같기 때문에 가능한 것이지요. 하지만 웬지 번거로워 보이네요. 그래도 걱정 마세요. Django에는 이미 저런 처리가 되어 있습니다.&lt;/p&gt;
-
-&lt;h5&gt;Windows에 SQLite 3 설치&lt;/h5&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://goo.gl/buqvp3&quot;&gt;윈도우 sqlite 설치&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;3. Django 설치&lt;/h3&gt;
-
-&lt;p&gt;이제 드디어 Django를 설치할 차례입니다. virtualenv로 가상 환경을 만들고 그곳에 Django를 설치하겠습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ mkvirtualenv pystagram
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;sudo&lt;/code&gt;는 필요 없으며, 위 명령어를 실행하면 아마 다음과 같이 뭔가가 출력될 겁니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;New python executable in pystagram/bin/python    
-Installing Setuptools................................done.    
-Installing Pip.......................................done.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;앞에서 &lt;code&gt;WORKON_HOME&lt;/code&gt;으로 지정한 경로에 &lt;code&gt;pystagram&lt;/code&gt; 디렉터리가 생성되어 있습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ ls $WORKON_HOME
-
-또는 
-
-$ ls ~/.virtualenvs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;우리가 virtualenv로 만든 pystagram이라는 가상 환경 공간에서 Django를 설치하면 Python이 설치된 주 시스템이 아닌 저 경로에(&lt;code&gt;~/.virtualenvs/pystagram&lt;/code&gt;) 설치됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;mkvirtualenv&lt;/code&gt;로 가상 환경을 만들면 여러분의 쉘은 자동으로 그 가상 환경으로 들어 갑니다. 아마 쉘 프롬프트는 이렇게 표시될 겁니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;(pystagram)$
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;그 상태에서 &lt;code&gt;deactivate&lt;/code&gt; 명령어를 실행해보세요. 그러면 쉘 프롬프트에 &lt;code&gt;(pystagram)&lt;/code&gt; 부분이 표시되지 않는데, &lt;code&gt;pystagram&lt;/code&gt;이라 이름 붙인 가상 환경에서 빠져 나와서 그렇습니다.&lt;/p&gt;
-
-&lt;p&gt;Django를 pystagram 가상 환경에 설치하기 위해 다시 이 가상 환경으로 들어가겠습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ workon pystagram
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;workon&lt;/code&gt;은 virtualenvwrapper에서 제공하는 명령어입니다. &lt;code&gt;workon&lt;/code&gt;만 실행하면 만들어 놓은 가상 환경 항목이 표시됩니다. &lt;code&gt;workon&lt;/code&gt; 뒤에 사용할 가상 환경 항목 이름을 일부 입력하고 탭(tab) 키를 누르면 나머지 부분이 자동 완성되기도 합니다. &lt;code&gt;workon pys&lt;/code&gt;까지 입력하고 탭을 누르면 나머지 &lt;code&gt;tagram&lt;/code&gt;이 자동 완성되는 것이지요.&lt;/p&gt;
-
-&lt;p&gt;앞으로 우리는 이 가상 환경 안에서 Python 패키지를 관리합니다. 그 첫 번째로 Django를 설치하겠습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;(pystagram)$ pip install django
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;주 시스템에 설치하지 않고 가상 환경에 설치하기 때문에 관리자 권한은 필요 없어서 &lt;code&gt;sudo&lt;/code&gt;를 쓰지 않았습니다.&lt;/p&gt;
-
-&lt;p&gt;설치가 잘 됐는지 확인해 보겠습니다. 쉘에서 &lt;code&gt;python&lt;/code&gt;을 실행하면 Python 대화형 쉘이 실행됩니다. Python 대화형 쉘에서 다음 명령어를 입력하여 Django 버전을 확인해 보겠습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;(pystagram)$ python    
-Python 2.7.5 (default, Mar  9 2014, 22:15:05)    
-[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin    
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.    
-]]] import django    
-]]] django.VERSION    
-(1, 6, 6, &#39;final&#39;, 0)    
-]]]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;실제로는 프롬프트 기호가 &lt;code&gt;]]]&lt;/code&gt; 대신 &lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;가 표시됩니다.&lt;/p&gt;
-
-&lt;p&gt;Python 프롬프트에서 &lt;code&gt;import django&lt;/code&gt;를 실행하면 아무런 안내없이 다음 프롬프트(&lt;code&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/code&gt;)가 출력되는 경우가 잘 설치된 겁니다. Django가 제대로 설치가 안 됐거나 경로(PATH) 설정에 문제가 있다면 &lt;code&gt;ImportError: No module named django&lt;/code&gt;라는 오류가 발생합니다. 하지만 가상 환경 안에서는 이런 문제가 거의 일어나지 않습니다. 설치한 Python 패키지 경로 설정이 이미 잘 되어있기 때문입니다. 만약 virtualenv로 만든 가상 환경에서 벗어나 실제 환경에서 위와 같이 Django를 가져오면(import)하면 무슨 일이 발생할까요? Django를 설치하지 않았기 때문에 &lt;code&gt;ImportError: No module named django&lt;/code&gt; 오류가 발생합니다.&lt;/p&gt;
-
-&lt;p&gt;가상 환경 안에서 설치한 Django는 다음 경로에 있습니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ ls $WORKON_HOME/pystagram/lib/python2.7/site-packages    
-Django-1.6.6.dist-info    
-django    
-.
-.
-.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;4. 편리한 도구 설치&lt;/h3&gt;
-
-&lt;p&gt;Pystagram을 만드는 데 필요한 Python 패키지는 그때그때 설치하겠습니다. 대신 Pystagram을 편하게 만드는 데 좋은 도구는 먼저 소개하겠습니다. 사용 여부는 여러분 마음입니다. :)&lt;/p&gt;
-
-&lt;h4&gt;(1) Postman - REST Client&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.getpostman.com/&quot;&gt;Postman - REST Client&lt;/a&gt;는 HTTP 기반으로 동작하는 API를 편리하게 호출하는 클라이언트(client)입니다. 서버에 기능을 구현한 후 동작 여부를 확인하려면 클라이언트에서 접근할 수 있는 인터페이스(interface)를 만들어야 합니다. 이 클라이언트쪽 인터페이스를 만드는 것 자체가 귀찮기도 하지만, 오류를 확인하고 추적하는 디버깅(debuging) 환경이 미비하여 문제를 파악하기도 불편합니다. Postman은 개발에 용이한 클라이언트 인터페이스를 제공하는 도구입니다.&lt;/p&gt;
-
-&lt;p&gt;Postman은 Google Chrome용 앱입니다. 비슷한 역할을 하는 Firefox용 부가기능은 &lt;a href=&quot;https://addons.mozilla.org/de/firefox/addon/restclient/&quot;&gt;RESTClient&lt;/a&gt;가 있는데, 저는 써본 적이 없습니다.&lt;/p&gt;
-
-&lt;h4&gt;(2) 편집기&lt;/h4&gt;
-
-&lt;p&gt;프로그래밍은 해본 적이 없고 정말 Python 등으로 Hello world만 출력해본 분이라면 코딩에 필요한 편집기를 아직 결정하지 못하셨을 겁니다. Django로 프로그래밍을 하는 데 필요한 전용 편집기는 따로 없습니다. 편집기는 다양하며 취향에 맞는 걸 쓰면 됩니다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Atom (무료)&lt;/li&gt;
-&lt;li&gt;eclipse + PyDev (무료)&lt;/li&gt;
-&lt;li&gt;Emacs (무료)&lt;/li&gt;
-&lt;li&gt;Notepad (일명 메모장. 유료 운영체제에 기본 내장)&lt;/li&gt;
-&lt;li&gt;PyCharm (무료, 유료)&lt;/li&gt;
-&lt;li&gt;Sublime Text (유료)&lt;/li&gt;
-&lt;li&gt;Vim (무료)&lt;/li&gt;
-&lt;li&gt;Visual Studio (유료, 무료)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;저는 Sublime Text 2를 구입하여 사용하고 있으며, 간간히 Vim을 씁니다. 무료인데 꽤 잘 만들어졌고 빠르게 개선되고 있는 Atom도 좋습니다.&lt;/p&gt;
-
-&lt;p&gt;하지만 Apple Pages나 Microsoft Word 같은 도구는 코딩에 적합하지 않습니다. :)&lt;/p&gt;
-
-&lt;h3&gt;5. Python&lt;/h3&gt;
-
-&lt;p&gt;이 강좌는 Python 입문자를 대상으로 하지 않으므로 Python 문법 등에 대해서는 다루지 않습니다. 대신 Python 관련하여 몇 가지 규칙을 정하고, 여러분은 이 규칙을 따르시길 권합니다.&lt;/p&gt;
-
-&lt;h4&gt;(1) utf-8&lt;/h4&gt;
-
-&lt;p&gt;우리는 다루는 문자나 소스 파일의 문자형은 &lt;a href=&quot;http://ko.wikipedia.org/wiki/UTF-8&quot;&gt;UTF-8&lt;/a&gt;로 할 겁니다. 소스 코드를 파일로 저장할 때 꼭 파일 형식을 UTF-8로 지정해서 저장하세요. 그렇지 않으면 영문이 아닌 글자(한글 등)를 다루다 문자 인코딩(encoding) 오류를 접하게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;또, Python 소스 코드 파일 안에 한글을 표기하는 경우 파일 맨 위에&lt;sup id=&quot;fnref-3125:5&quot;&gt;&lt;a href=&quot;#fn-3125:5&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt; 다음 줄을 추가해야 합니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;# coding: utf-8
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;이 내용은 그 Python 소스 코드 파일의 인코딩을 지정하는 역할&lt;sup id=&quot;fnref-3125:6&quot;&gt;&lt;a href=&quot;#fn-3125:6&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;을 합니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;# -*- coding: utf-8 -*-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;이렇게 표현하기도 합니다.&lt;/p&gt;
-
-&lt;p&gt;Python에서 문자 인코딩 오류는 입문자나 Python이 생소한 사람을 괴롭히는 흔한 오류 중 하나입니다. 소스 파일을 UTF-8로 저장하고 소스 파일에 인코딩 종류를 명기하면 정말 사소한 인코딩 오류는 만나지 않습니다.&lt;/p&gt;
-
-&lt;h4&gt;(2) 들여쓰기&lt;/h4&gt;
-
-&lt;p&gt;Python의 언어 문법은 코드를 들여 쓰는 규칙(indentation)을 엄격히 따릅니다. 같은 맥락에 있는 코드는 들여 쓰는 깊이가 같아야 합니다. 들여 쓰는 깊이는 탭(tab)으로 만드는데, 이 탭은 한 자리 공백(space) 문자로 표현하는 소프트 탭(soft tab) 방식과 자판에 있는 탭 키로 표현하는 하드 탭(hard tab) 방식이 있습니다. 하지만 스페이스든 탭이든 공백 문자 하나로 처리하기 때문에 스페이스와 탭을 한 코드 내에 병행해도 됩니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;if type(1023) is int:
-    print &quot;integer&quot;
-else:
-                print &quot;not integer&quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;위 코드에서 &lt;code&gt;print &quot;integer&quot;&lt;/code&gt;는 스페이스 네 개로 들여 썼고, &lt;code&gt;print &quot;not integer&quot;&lt;/code&gt;는 탭 네 개로 들여 썼다고 가정하겠습니다. 이 코드는 &lt;strong&gt;눈으로 보기엔 안 좋지만&lt;/strong&gt; 들여쓰기 문법에서는 허용됩니다&lt;sup id=&quot;fnref-3125:7&quot;&gt;&lt;a href=&quot;#fn-3125:7&quot; rel=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;. 스페이스든 탭이든 네 개로 들여쓰기 깊이를 같게 했기 때문이지요. 만약 &lt;strong&gt;눈으로&lt;/strong&gt; 보기에 좋게 하려고 다음과 탭 네 개를 한 개로 바꿔서 공백이 네 개인 것처럼 &lt;strong&gt;보이게&lt;/strong&gt; 하면 들여쓰기 오류가 발생합니다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;if type(1023) is int:
-    print &quot;integer&quot;
-else:
-    print &quot;not integer&quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;그래서 한 소스 파일 안에서 스페이스와 탭을 혼용하는 걸 권하지 않습니다. 소프트탭이든 하드탭이든 하나만 하길 권하지요.&lt;/p&gt;
-
-&lt;p&gt;저는 &lt;a href=&quot;http://legacy.python.org/dev/peps/pep-0008/#indentation&quot;&gt;스페이스 네 칸을 탭 한 칸으로 표현하는 소프트탭 방식&lt;/a&gt;을 쓰겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;hr /&gt;
-&lt;p&gt;이것으로 강좌 2편을 마칩니다. 분량이 적을 거라 예상했는데, 왜 설치하고 왜 그렇게 설치하는지 설명하려다 보니 예상보다 길게 썼네요.&lt;/p&gt;
-&lt;p&gt;3편에서는 Django로 프로젝트를 만들고 데이터베이스에 데이터도 넣어볼 겁니다. 그럼 3편에서 만나요.&lt;/p&gt;
-&lt;p&gt;아참. 9월 초까지 블로그를 분리하고 이전하느라 접속이 잘 안 될 수 있습니다. :)&lt;/p&gt;
-&lt;hr /&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id=&quot;fn-3125:1&quot;&gt;
-&lt;p&gt;$ 기호는 보통은 쉘 프롬프트(shell prompt)를 뜻합니다. 즉, $가 있다면 터미널을 열어서 쉘에서 실행한다는 의미입니다.&amp;#160;&lt;a href=&quot;#fnref-3125:1&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&quot;fn-3125:2&quot;&gt;
-&lt;p&gt;Python Package : 모듈은 함수나 변수, 클래스를 모아 놓은 파일이며, 패키지는 모듈을 묶어놓은 것이다. &lt;a href=&quot;https://docs.python.org/2/tutorial/modules.html#packages&quot;&gt;Python Modules - Packages&lt;/a&gt; 참조.&amp;#160;&lt;a href=&quot;#fnref-3125:2&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&quot;fn-3125:3&quot;&gt;
-&lt;p&gt;wget을 사용하면 터미널에서 파일을 간편하게 받습니다. &lt;code&gt;wget 주소(URL)&lt;/code&gt; 라고 입력하면 끝이지요. wget은 brew나 apt-get으로 설치하면 되며, &lt;a href=&quot;http://gnuwin32.sourceforge.net/packages/wget.htm&quot;&gt;윈도우용 wget&lt;/a&gt;도 있습니다.&amp;#160;&lt;a href=&quot;#fnref-3125:3&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&quot;fn-3125:4&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://kldp.org/node/38265&quot;&gt;bashrc와 bash_profile 차이&lt;/a&gt;&amp;#160;&lt;a href=&quot;#fnref-3125:4&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&quot;fn-3125:9&quot;&gt;
-&lt;p&gt;예를 들면, Python 2.4가 설치되어 있을만큼 오래된 운영체제 배포본은 놀랍게도 SQLite 3가 설치되어 있지 않은 경우가 있습니다. 이 상태에서 Python 2.7을 설치하면 주 시스템에 SQLite 3 자체가 없어서 SQLite 3에 접근하는 인터페이스가 설치되지 않기도 합니다.&amp;#160;&lt;a href=&quot;#fnref-3125:9&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&quot;fn-3125:5&quot;&gt;
-&lt;p&gt;항상 맨 위는 아닙니다. 리눅스나 유닉스에서 Python 소스 코드 파일 자체를 실행하려는 경우 소스 파일 맨 위에는 이 파일을 실행하는 실행기를 명시하는데, 이런 경우 인코딩을 지정하는 내용을 두 번째 줄에 표기합니다.&amp;#160;&lt;a href=&quot;#fnref-3125:5&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&quot;fn-3125:6&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;http://legacy.python.org/dev/peps/pep-0263/&quot;&gt;PEP 0263 - Defining Python Source Code Encodings&lt;/a&gt;&amp;#160;&lt;a href=&quot;#fnref-3125:6&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&quot;fn-3125:7&quot;&gt;
-&lt;p&gt;하지만 Python 3에서는 허용하지 않습니다.&amp;#160;&lt;a href=&quot;#fnref-3125:7&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;&lt;/p&gt;
-</description>
-        <pubDate>Mon, 25 Aug 2014 00:05:44 +0900</pubDate>
-        <link>http://blog.hannal.com//2014/8/start_with_django_webframework_02/</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2014/8/start_with_django_webframework_02/</guid>
-        
-        <category>django</category>
-        
-        <category>python</category>
-        
-        <category>파이썬</category>
-        
-        <category>virtualenv</category>
-        
-        <category>pip</category>
-        
-        <category>virtualenvwrapper</category>
-        
-        <category>설치</category>
-        
-        <category>postman</category>
-        
-        
-        <category>start_with_django_webframework</category>
         
       </item>
     

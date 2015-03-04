@@ -99,6 +99,23 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2006/8/fishing_of_pressman/">
+        공기정화식물이 사람 잡는다
+      </a>
+    </h1>
+
+    <span class="post-date">11 Aug 2006</span>
+
+    <p>- 프라임경제 유근원 기자 : <a href="http://news.naver.com/news/read.php?mode=LSS2D&office_id=147&article_id=0000011649&section_id=103&section_id2=241&menu_id=103">공기정화식물이 사람 잡는다?</a></p>
+
+<p>.<br />
+.<br />
+orz 낚였다.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2006/8/kindness_n_convenience/">
         친절과 편의
       </a>
@@ -119,40 +136,6 @@
 <p>예전에도 서비스를 개인화하여 각 사람에게 제공해왔다. 요즘엔 더 널리 개인화 기능을 제공하고 있는 추세이다. 그런데, 개인화를 받는다고 꼭 친절함을 베푼다거나 편의를 느낄 수 있게 하는 것은 아니다. 친절과 편의 사이에서 헤매다 길을 잃듯이 외면을 받을 위험이 있는 것이다. <strong>무엇</strong>을 제공하는 걸로 끝나고, <strong>왜</strong> 내가 개인화 기능을 써야 하며 <strong>어떻게</strong> 써야 <strong>왜</strong> 써야 하는지 알아볼 수 있는지는 제공하지 않을수록 이런 위험은 더 커진다. 취향대로 더 잘 찾아서 즐길 수 있게 하려고 제공하는 개인화 기능이 북쪽을 가르키지 않는 나침반이 되어 길을 잃게 하는 것이다.</p>
 
 <p>잘 만들고 이용자를 잘 이끌어 주면 해결되는 말장난 같은 문제이자 위험일 수도 있다. 그러기 위해서는 서비스 제공자는 자신이 만들어 제공하는 개인화 기능이 친절이나 편의를 이미 갖고 있다고 미리 마음을 먹지 않아야 한다. 이미 친절과 편의가 있는데 왜 불친절하다거나 편의성이 떨어진다는 불평을 하는지 이유를 찾는 것보다, 지금 친절과 편의가 없으니 사람들이 바라는 친절과 편의를 찾는 것이 더 빠르고 유연하다.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2006/8/donot_insert_any_function_into_empty_function_on_php/">
-        php에서 이유 없이 오류 날 때
-      </a>
-    </h1>
-
-    <span class="post-date">11 Aug 2006</span>
-
-    <p>php 에서 empty 함수 안에 문자열이나 변수를 넣지 않고 함수를 넣으면 다음과 같은 Parse error가 난다.</p>
-
-<blockquote><p>Parse error: parse error, unexpected T_STRING, expecting T_VARIABLE or '$' in ~~~~</p></blockquote>
-
-<p>예제 :<br />
-<textarea name="code" language="php">< ?php<br />
-$vars = ' 안녕하세요, 한날님 ';</p>
-
-<p>echo empty(trim($vars));<br />
-?></textarea></p>
-
-<p><del datetime="2006-08-11T02:47:48+00:00">이유는 모르겠다. 문법상 맞는데 틀리다고 하는데 왜 틀리다고 하는지 그 이유를 찾지 못했다. </del><ins datetime="2006-08-11T02:47:48+00:00">empty는 변수 자체를 확인할 뿐 문자열을 확인하지 않는다. 그렇기 때문에 문자열을 반환하는 함수를 쓰면 문제가 발생한다.</ins>(<a href="http://blog.hannal.com/donot_insert_any_function_into_empty_function_on_php/#comment-8406">dnzin님 댓글 참조</a>) 문제가 발생하니 이를 피하려면 empty 함수 안에 다른 함수를 넣지 않아야 한다.</p>
-
-<p>예제 :<br />
-<textarea name="code" language="php">< ?php<br />
-$vars = ' 안녕하세요, 한날님 ';</p>
-
-<p>$vars = trim($vars);<br />
-echo empty($vars);<br />
-?></textarea></p>
-
-<p>이렇게 하면 잘 작동한다. 예제에선 trim 함수를 썼는데, trim 이건 무엇이건 empty 함수 안에 값을 반환하건(return) 하지 않건 함수를 넣으면 오류가 발생하며 작동하지 않는다.</p>
 
   </div>
   
