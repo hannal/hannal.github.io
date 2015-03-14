@@ -3,13 +3,190 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-03-09T04:35:04+09:00</updated>
+  <updated>2015-03-14T21:17:25+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
   </author>
   <rights>copyright_details</rights>
 
+  
+  <entry>
+    <title>개발 생활 - 5</title>
+    <link href="/2015/03/devlife-s1-05/"/>
+    <updated>2015-03-14T21:13:40+09:00</updated>
+    <id>/2015/03/devlife-05</id>
+    <content type="html">&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;개발 생활 - 1&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;&lt;code&gt;개발 생활 - 5&lt;/code&gt;&lt;/a&gt; : 공부 자료&lt;/li&gt;
+&lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;4. 공부 자료&lt;/h3&gt;
+
+&lt;h4&gt;개요&lt;/h4&gt;
+
+&lt;p&gt;2014년 7월부터 2015년 2월까지 지낸 개발 생활 중 공부하거나 참고한 자료를 정리했다. 미처 따로 기록하지 못 한 자료는 기재하지 않았다.&lt;/p&gt;
+
+&lt;p&gt;일부는 부분 참고를 했고, 일부는 여전히 공부하느라 참고하고 있다.&lt;/p&gt;
+
+&lt;h4&gt;책&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;파이썬 완벽 가이드
+
+&lt;ul&gt;
+&lt;li&gt;ISBN : 9788966260256&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;파이썬 인 프랙티스
+
+&lt;ul&gt;
+&lt;li&gt;ISBN : 9788998139650&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;실전 파이썬 프로그래밍
+
+&lt;ul&gt;
+&lt;li&gt;ISBN : 9788966261246&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Linux System Programming
+
+&lt;ul&gt;
+&lt;li&gt;ISBN : 9788968481482&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;열혈강의 파이썬
+
+&lt;ul&gt;
+&lt;li&gt;ISBN : 9788989345770&lt;/li&gt;
+&lt;li&gt;강의 준비할 때 참고&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Python Network Programming
+
+&lt;ul&gt;
+&lt;li&gt;ISBN : 9781430230038&lt;/li&gt;
+&lt;li&gt;웹 소켓 서버와 전자우편 알림 서버 개발에 참고&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;트위스티드
+
+&lt;ul&gt;
+&lt;li&gt;ISBN : 9788966261154&lt;/li&gt;
+&lt;li&gt;비동기 처리 학습&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Programming in Python 3, 2nd Edition
+
+&lt;ul&gt;
+&lt;li&gt;ISBN : 9780321680563&lt;/li&gt;
+&lt;li&gt;Python 3 준비하기 위해 부분 참고&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;웹 자료&lt;/h4&gt;
+
+&lt;h5&gt;Python&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.python.org&quot;&gt;Python 공식 문서&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.python.org/3/library/asyncio-task.html&quot;&gt;Tasks and coroutines&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.flowdas.com/thinkpython/&quot;&gt;Think Python&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://legacy.python.org/dev/peps/pep-0008/&quot;&gt;PEP 8&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.eairship.kr/271&quot;&gt;금지된 엑시노아의 비공정 - 파이썬 강좌&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.flowdas.com/blog/asyncio-python-tulip/&quot;&gt;asyncio - Python Tulip&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://medium.com/@cookatrice/why-python-is-slow-looking-under-the-hood-7126baf936d7&quot;&gt;파이썬은 왜 느릴까요? 내부 원리를 살펴 봅시다.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.pycon.kr/2014/program/2&quot;&gt;위대한 dict 이해하고 사용하기&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.python.org/doc/essays/list2str/&quot;&gt;Python Patterns - An Optimization Anecdote&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://openlook.org/wp/?p=801&quot;&gt;파이썬을 두루 이해하는 데 도움 되는(?) 퀴즈&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.dabeaz.com/generators/index.html&quot;&gt;Generator Tricks for Systems Programmers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.cafepy.com/article/python_types_and_objects/python_types_and_objects.html&quot;&gt;Python Types and Objects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://techspot.zzzeek.org/2015/02/15/asynchronous-python-and-databases/&quot;&gt;Asynchronous Python and Databases&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://docs.python-guide.org/&quot;&gt;The Hitchhiker’s Guide to Python!&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5&gt;Python 관련 frameworks나 libraries&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Django
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.djangoproject.com&quot;&gt;Django 공식 문서&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://medium.com/cs-math/11-things-i-wish-i-knew-about-django-development-before-i-started-my-company-f29f6080c131&quot;&gt;11 Things I Wish I Knew About Django Development Before I Started My Company&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.looah.com/article/view/2025&quot;&gt;2014년에 Django로 개발하면서 실수한 부분&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.etianen.com/blog/2013/06/08/django-querysets/&quot;&gt;Using Django querysets effectively&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;번역 : &lt;a href=&quot;http://raccoonyy.github.io/using-django-querysets-effectively-translate/&quot;&gt;Django에서 쿼리셋 효과적으로 사용하기&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.michelepasin.org/blog/2010/07/20/the-power-of-djangos-q-objects/&quot;&gt;The power of django’s Q objects&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;gevent
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.gevent.org/contents.html&quot;&gt;gevent 공식 문서&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://sdiehl.github.io/gevent-tutorial/&quot;&gt;gevent tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.pycon.kr/2014/program/3&quot;&gt;제약을 넘어 : Gevent&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.pythonisito.com/2011/07/gevent-zeromq-websockets-and-flot-ftw.html&quot;&gt;Gevent, ZeroMQ, WebSockets, and Flot FTW!&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.miguelgrinberg.com/post/easy-websockets-with-flask-and-gevent/page/9&quot;&gt;Easy WebSockets with Flask and Gevent&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Celery
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://celery.readthedocs.org/&quot;&gt;Celery 공식 문서&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://zapier.com/blog/async-celery-example-why-and-how/&quot;&gt;Async Celery by Example: Why and How&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html&quot;&gt;Periodic Tasks&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;SQLAlchemy
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://docs.sqlalchemy.org/&quot;&gt;SQLAlchemy 공식 문서&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.pythoncentral.io/understanding-python-sqlalchemy-session/&quot;&gt;Understanding Python SQLAlchemy’s Session&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;이외
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://docs.python-requests.org/&quot;&gt;Requests&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://siriux.net/2013/06/nginx-and-websockets/&quot;&gt;nginx and WebSockets&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://flask.pocoo.org/docs&quot;&gt;Flask 공식 문서&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://jinja.pocoo.org/docs&quot;&gt;Jinja2 공식 문서&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://kombu.readthedocs.org&quot;&gt;Kombu 공식 문서&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://ipython.org/documentation.html&quot;&gt;IPython 공식 문서&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://nbviewer.ipython.org/github/re4lfl0w/ipython/blob/master/books/python_data_analysis/ch03_Introduction%20IPython.ipynb&quot;&gt;IPython 소개&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5&gt;Go&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://go-tour-kr.appspot.com/&quot;&gt;A Tour of Go&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.golang-book.com/&quot;&gt;An introduction to programming in Go&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://code.google.com/p/golang-korea/wiki/EffectiveGo&quot;&gt;Go언어 잘 사용하는 방법&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://gobyexample.com/&quot;&gt;Go by Example&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://talks.golang.org/2012/waza.slide&quot;&gt;Concurrency is not Parallelism&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5&gt;Redis&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.joinc.co.kr/modules/moniwiki/wiki.php/man/12/REDIS/DataModeling&quot;&gt;REDIS 데이터 모델링 예제들&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://charsyam.wordpress.com/category/cloud/redis/&quot;&gt;CharSyam&amp;#39;s Redis posts&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5&gt;이외&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.codeok.net/&quot;&gt;CODEOK&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://sentry.readthedocs.org/&quot;&gt;Sentry&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://natepinchot.com/2014/01/31/building-static-wkhtmltopdf/&quot;&gt;Building static wkhtmltopdf (and static QT)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://ghebook.blogspot.kr/2010/10/permutation-combination.html&quot;&gt;순열(順列, permutation)과 조합(組合, combination)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.rfc-editor.org/rfc-index.html&quot;&gt;RFC Index&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://bespokebytes.com/start-getting-up-and-running-with-upstart/&quot;&gt;Start getting up and running with Upstart&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://lqez.github.io/blog/fool-upstart.html&quot;&gt;Fool Upstart&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   
   <entry>
     <title>개발 생활 - 4</title>
@@ -21,7 +198,7 @@
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;&lt;code&gt;개발 생활 - 4&lt;/code&gt;&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
-&lt;li&gt;개발 생활 - 5 : 공부 자료&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
 &lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -80,7 +257,7 @@
 
 &lt;p&gt;하지만, 일부 수강자가 “객체”라는 것 자체를 생소해 하거나 잘 모르는 상황이었다. 그들 입장에선 내가 어렵게 강의를 준비하고 설명한 것이었고, 결국 미리 준비한 강의 자료와 교재를 전면 수정해야 했다.&lt;/p&gt;
 
-&lt;p&gt;커리큘럼은 이론 부분과 실습 부분으로 구성했고, 나는 이론을 담당했다. 그러다보니 실습할 내용에 대해 이론 부분을 여러 방면으로 준비했다. &lt;/p&gt;
+&lt;p&gt;커리큘럼은 이론 부분과 실습 부분으로 구성했고, 나는 이론을 담당했다. 그러다보니 실습할 내용에 대해 이론 부분을 여러 방면으로 준비했다.&lt;/p&gt;
 
 &lt;p&gt;가령, Django의 모델 필드형 중 &lt;code&gt;TextField&lt;/code&gt;를 Django 공식 문서에서는 큰(large) 텍스트를 담는 필드라고 설명하는데, 나는 SQLite 3는 &lt;code&gt;text&lt;/code&gt;형으로 약 1기가 바이트, PostgreSQL은 길이 제한이 없는 &lt;code&gt;text&lt;/code&gt;, MySQL은 &lt;code&gt;longtext&lt;/code&gt;형으로 약 4기가 바이트, Oracle은 8~12테라 바이트를 담는 &lt;code&gt;NCLOB&lt;/code&gt;형이라고 설명하는 것이다. 수강자가 얼마나 긴 문자열을 담느냐는 질문을 하는데 &lt;code&gt;CharField&lt;/code&gt;보다 긴, 게시판의 글 본문에 쓸만큼 긴 문자열이라고 대답하고 싶진 않았다.&lt;/p&gt;
 
@@ -102,7 +279,7 @@
 
 &lt;h4&gt;우여곡절&lt;/h4&gt;
 
-&lt;p&gt;초반 3주는 무척 힘든 시간을 보냈다. 강의 자료와 교재를 전면 재작성 하다보니 매주 시간에 쫓겼고, 회사 업무도 마감에 임박한 상황이라 정신 없는 나날이었다. 무엇보다도 내가 과의욕 상태이다보니 난이도나 분량을 조절하지 못하여 스트레스를 자초한 탓이 가장 컸다. &lt;/p&gt;
+&lt;p&gt;초반 3주는 무척 힘든 시간을 보냈다. 강의 자료와 교재를 전면 재작성 하다보니 매주 시간에 쫓겼고, 회사 업무도 마감에 임박한 상황이라 정신 없는 나날이었다. 무엇보다도 내가 과의욕 상태이다보니 난이도나 분량을 조절하지 못하여 스트레스를 자초한 탓이 가장 컸다.&lt;/p&gt;
 
 &lt;p&gt;개인 사정으로 수업을 목요일과 토요일로 잡은 것도 좋지 않았다. 수업 간격이 좁다보니 수강자는 복습할 시간 여력이 없었고, 매 수업마다 100여 장이 넘는 교재를 작성하는 나 역시 수업 자료를 만들 시간이 부족했다. 특히 초반 2주는 주말에도 내 수업이 잡혀있다 보니 밤샘하기 일쑤였다.&lt;/p&gt;
 
@@ -155,7 +332,7 @@
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;&lt;code&gt;개발 생활 - 3&lt;/code&gt;&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
-&lt;li&gt;개발 생활 - 5 : 공부 자료&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
 &lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -371,7 +548,7 @@ end script
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;&lt;code&gt;개발 생활 - 2&lt;/code&gt;&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
-&lt;li&gt;개발 생활 - 5 : 공부 자료&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
 &lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -544,7 +721,7 @@ _combinated = combinations((&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
-&lt;li&gt;개발 생활 - 5 : 공부 자료&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
 &lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -2638,25 +2815,6 @@ else:
 &lt;p&gt;유지태 목소리나 이선균 목소리도 있으면 좋겠다. 단지 목소리가 좋아서 내가 이름을 기억하는 배우이다. ㅜㅜ 여자는 만화영화 겨울왕국의 안나 공주가 노래 부를 때 목소리가 있으면 좋겠고. 흠... 다크나이트의 배트맨 목소리는 아무래도 알아 듣기 힘들겠지? 자서전은 막 그 사람 목소리로 나오면 소름 돋을텐데.&lt;/p&gt;
 
 &lt;p&gt;아직 리디북스의 책 읽기 기능으로 듣지 않은 책 중 기대와 걱정이 되는 건 성석제 작가와 천명관 작가의 책이다. 이 두 사람 특유의 속도감이나 문장 갖고 노는 느낌은 눈으로 읽을 때 경험하는 즐거움이고, 난 이게 좋아서 이 두 작가를 좋아하기 때문이다. 하정우의 먹부림을 플스2에서 실시간 렌더링 CG로 표현하는 느낌과 비슷할려나? ㅜㅜ&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>아이맥(iMac) 전면 보호유리 들어내기</title>
-    <link href="/2014/6/cheap_tool_for_extracing_a_glass_covering_of_imac/"/>
-    <updated>2014-06-20T23:53:05+09:00</updated>
-    <id>/2014/6/cheap_tool_for_extracing_a_glass_covering_of_imac</id>
-    <content type="html">&lt;p&gt;&lt;a href=&quot;http://goo.gl/QgyQhK&quot;&gt;아이맥 액정을 청소하거나 내부에 있는 하드디스크를 교체&lt;/a&gt;하려면 전면에 있는 LCD 보호유리를 먼저 들어내야 한다.&lt;/p&gt;
-
-&lt;p&gt;이 유리는 강한 자석으로 본체에 붙어 있어서 유리흡착기로 들어내는 게 가장 좋다. 문제는 이거 한 번 하려고 몇 만원에서 십 만원 넘는 비싼 유리흡착기를 사는 것도 싫고, 무엇보다도 당장 유리흡착기을 살 수 있는 공구상이 주변에 별로 없다는 것이다. 온라인에서 사자니 배송비도 아깝고 시간도 걸리고.&lt;/p&gt;
-
-&lt;p&gt;그래서 내가 선택한 도구는 주방이나 욕실용 흡착식 걸개(행거형 흡착기, hanger suction)이다. 유리나 타일에 붙여서 다른 물건을 거는 데 쓰인다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/assets/uploads/2014/06/10462558_10152575465163623_2351772547915778019_n.jpg&quot;&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/06/10462558_10152575465163623_2351772547915778019_n-400x300.jpg&quot; alt=&quot;주방 및 욕실용 흡착식 걸개&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;두 개가 한 쌍이며 3,000~5,000원이니 전문(?) 유리흡착기에 비해 훨씬 싸고, 아이맥 보호유리 관련 작업을 마치면 본래 용도로 활용할 수 있다. 감당해내는 하중치가 2kg인 제품도 있고 5kg인 제품도 있는데, 5kg짜리 사서 들어보니 2kg짜리로도 충분해 보인다. 2kg짜리가 좀 더 싸다.&lt;/p&gt;
-
-&lt;p&gt;흡착식 자동차 네비게이션 거치대가 있다면 그걸로도 대체할 수 있을 것이다.&lt;/p&gt;
 </content>
   </entry>
   
