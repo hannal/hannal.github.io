@@ -3,13 +3,177 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-03-14T21:17:25+09:00</updated>
+  <updated>2015-03-19T04:17:30+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
   </author>
   <rights>copyright_details</rights>
 
+  
+  <entry>
+    <title>개발 생활 - 6</title>
+    <link href="/2015/03/devlife-s1-06/"/>
+    <updated>2015-03-17T04:13:40+09:00</updated>
+    <id>/2015/03/devlife-06</id>
+    <content type="html">&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;개발 생활 - 1&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;&lt;code&gt;개발 생활 - 6&lt;/code&gt;&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3&gt;5. 앞으로 계획&lt;/h3&gt;
+
+&lt;h4&gt;개요&lt;/h4&gt;
+
+&lt;p&gt;지난 6~7개월 동안 학습과 실무가 겹친 개발 생활을 보냈다. 내가 뭘 할 수 있고, 하고 싶은 건 무엇인지, 재밌다고 여기는 건 무엇이며, 앞으로 뭘 할 것인지를 찾는 시간이었다.&lt;/p&gt;
+
+&lt;p&gt;다음 단계는 현재 내가 맡고 있는 분야와 관심 갖고 있는 분야에 대한 기초와 기본부터 계발하여 제대로 이해한 기술로 구현하려 한다.&lt;/p&gt;
+
+&lt;p&gt;프로그래밍 언어는 Python을 주력으로 사용하고, Go 비중을 높여갈 계획이다. 추후엔 주 Go를 주로 사용하고 Python을 특정 목적용으로 사용할 것으로 예상한다. &lt;a href=&quot;http://julialang.org/&quot;&gt;Julia&lt;/a&gt;, &lt;a href=&quot;http://nim-lang.org/&quot;&gt;Nim&lt;/a&gt;가 재밌어 보이고, Scala, Java, C++은 별로 끌리진 않지만 공부할 필요성을 느낀다. 하지만 현재 진행하고 있거나 계획한 공부 대상으로도 벅차서 Scala, Java, C++은 당분간 공부하진 않을 것이다.&lt;/p&gt;
+
+&lt;p&gt;테스트 케이스, 문서화, 배포/배치 등 여러 부분을 자동화하고 있고 더 많이 자동화 할 예정이다. 맡은 프로젝트가 늘어나고 각 프로젝트 구현단이 확장되면서 개발과 운영 복잡도가 증가하다 보니 자연스레 기존 자동화 도구나 방법이 필요한 이유를 이해하여 필요로 하게 됐다.&lt;/p&gt;
+
+&lt;h4&gt;PDF 문서 생성 서버&lt;/h4&gt;
+
+&lt;p&gt;현재(2015년 3월 기준) PDF 문서 생성 서버를 리팩토링하고 있으며, 리팩토링 후 신규 버전을 개발할 예정이다. 신규 버전은 다음 내용을 목표로 한다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;메모리 사용량 줄이기 (lazy evaluation)&lt;/li&gt;
+&lt;li&gt;PDF 생성을 병렬로 처리&lt;/li&gt;
+&lt;li&gt;Python 3 지원&lt;/li&gt;
+&lt;li&gt;캐쉬(cache) 강화&lt;/li&gt;
+&lt;li&gt;전자우편 알림 서버(&lt;code&gt;postman&lt;/code&gt;) 연동&lt;/li&gt;
+&lt;li&gt;통계 기능 추가&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Sentry&lt;/code&gt; 연동&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;편의점 프로젝트 (연산된 데이터 수집 작업자)&lt;/h4&gt;
+
+&lt;p&gt;4월 이후에 리팩토링을 한 후 소소한 업그레이드를 계획하고 있다. 회사 개발 일정이나 계획에 따로 잡은 건 아니어서 짬짬히 시간 내어 해결할 범위로 구상하고 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;PyPy&lt;/code&gt;로 이전&lt;/li&gt;
+&lt;li&gt;통계 기능 추가&lt;/li&gt;
+&lt;li&gt;Sentry 연동&lt;/li&gt;
+&lt;li&gt;CEP(Complex Event Processing) 적용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;전자우편 알림 서버&lt;/h4&gt;
+
+&lt;p&gt;현재 새로운 알림 조건을 추가하고 있으며, 4월 이후 개인화 된 소식지(newsletter) 기능을 준비한다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;전자우편 발송부를 Go 언어로 이전&lt;/li&gt;
+&lt;li&gt;애플리케이션 서버들 간 통신 방법 변경&lt;/li&gt;
+&lt;li&gt;알림 조건 종류 확장&lt;/li&gt;
+&lt;li&gt;모바일 푸시 알림 기능 추가 (&lt;code&gt;mqtt&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;개인화 된 소식지 기능 추가 (data processing, batch)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;공부&lt;/h4&gt;
+
+&lt;p&gt;공부할 게 많은데, 책을 기준으로 나열하면 다음과 같다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;동시성, 병렬성
+
+&lt;ul&gt;
+&lt;li&gt;입문자를 위한 병렬 프로그래밍 (ISBN : 9791185890159)&lt;/li&gt;
+&lt;li&gt;Pattern-Oriented Software Architecture, Volume 2: Patterns for Concurrent and Networked Objects (ISBN : 0471606956)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;프로그래밍
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;클린 코드&lt;/em&gt; (ISBN : 9788966260959)&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;프로그램 디자인, 어떻게 할 것인가&lt;/em&gt; (ISBN : 9788991268975)&lt;/li&gt;
+&lt;li&gt;Pattern-Oriented Software Architecture, Volume 1: A System of Patterns (ISBN : 9780471958697)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;시스템
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;리눅스 시스템 프로그래밍&lt;/em&gt; (ISBN : 9788968481482)&lt;/li&gt;
+&lt;li&gt;컴퓨터 구조 및 설계 (ISBN : 9788996276531)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;네트워크
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;트위스티드&lt;/em&gt; (ISBN : 9788966261154)&lt;/li&gt;
+&lt;li&gt;컴퓨터 네트워킹 하향식 접근 (ISBN : 9788945006585)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;언어
+
+&lt;ul&gt;
+&lt;li&gt;Programming in Go (ISBN : 9780321774637)&lt;/li&gt;
+&lt;li&gt;The Go Programming Language (ISBN : 9780134190440. 2015년 8월 출간 예정)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;데이터, 통계 관련
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;파이썬을 활용한 베이지안 통계&lt;/em&gt; (ISBN : 9788968481147)&lt;/li&gt;
+&lt;li&gt;파이썬 라이브러리를 활용한 데이터 분석 (ISBN : 9788968480478)&lt;/li&gt;
+&lt;li&gt;Building Machine Learning Systems with Python (ISBN : 9788960775367)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;알고리즘
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;알고리즘 기초&lt;/em&gt; (ISBN : 9791156000129)&lt;/li&gt;
+&lt;li&gt;문제로 풀어보는 알고리즘 (ISBN : 9788966260461)&lt;/li&gt;
+&lt;li&gt;알고리즘 문제 해결 전략 (ISBN : 9788966260546)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;수학
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;수학독본&lt;/em&gt; (ISBN : 9788935640379)&lt;/li&gt;
+&lt;li&gt;착한 수학 (ISBN : 9788993827866)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;현재(2015년 3월 기준) 보고 있는 책은 따로 표시했으며, 이외엔 다음에 읽거나 틈틈히 부분 참고하며 읽을 책들이다.&lt;/p&gt;
+
+&lt;h4&gt;잉여&lt;/h4&gt;
+
+&lt;p&gt;잉여 시간이 나면 Lego mindstorm과 Arduino를 갖고 놀며, &lt;code&gt;Docker&lt;/code&gt;와 &lt;code&gt;Open stack&lt;/code&gt;을 구현 관점에서 분석할 계획이다.&lt;/p&gt;
+
+&lt;h4&gt;집필&lt;/h4&gt;
+
+&lt;p&gt;Python과 Django를 도구로 삼은 입문서를 준비하고 있다. 함께 논의하고 있는 편집자가 믿음직스러워서 정말 출간할 수 있겠다는 기대감이 든다. 학습하고, 개발하고, 가르치는 경험을 잘 녹여내어 올해 안에 출간하고 싶다.&lt;/p&gt;
+
+&lt;h4&gt;개발 환경&lt;/h4&gt;
+
+&lt;p&gt;대개는 문서를 &lt;code&gt;markdown&lt;/code&gt;으로 작성하는데, &lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;Python과 Django 강의&lt;/a&gt; 이후로 IPython을 사용하는 빈도가 늘고 있다. 최근엔 Python 뿐만 아니라 다른 프로그래밍 언어도 지원하는 &lt;a href=&quot;http://jupyter.org/&quot;&gt;Jupyter&lt;/a&gt;를 사용하고 있다. 앞으로 많은 문서를 Jupyter를 이용할 생각이다.&lt;/p&gt;
+
+&lt;p&gt;코드 편집기는 Sublime text 3를 주로 사용하며, &lt;code&gt;PyCharm&lt;/code&gt; 등 JetBrains사의 도구를 사용하려 몇 번 시도했으나 좀처럼 적응하지 못하고 있다. 마음에 드는 기능이 많은데, 미묘하게 느린 화면 반응을 견디기 힘들다. &lt;a href=&quot;http://www.sourcetreeapp.com/&quot;&gt;SourceTree&lt;/a&gt;도 답답해서 터미널에서 &lt;code&gt;git&lt;/code&gt;을 콘솔로 쓰고 있으니, 당분간 IDE에 적응하는 데 적지않은 노력을 들이거나 결국 포기할 것 같다.&lt;/p&gt;
+
+&lt;h4&gt;마치며&lt;/h4&gt;
+
+&lt;p&gt;전업 프로그래머가 된 이후로도 사업 개발이나 기획 업무를 맡아달라는 제안을 받고 있지만, 현재 내가 참여하는 조직들(?)에서는 전부 프로그래밍 관련 일만 하고 있다. 이 조직들 모두 내게 권한과 기회를 위임하고 지원해주는 덕분에 힘든 시기를 즐겁게 보냈다.&lt;/p&gt;
+
+&lt;p&gt;미숙해서 문제를 푸느라 고생하는 상황에 처했을 때, 누군가에게 물어봐서 문제를 빨리 해결하고 싶은 충동을 많이 느꼈다. 이 문제 좀 풀어주세요, 라는 말이 목까지 치밀어 올라온 문제도 몇 개 있었다. 하지만, 내가 부딪힌 문제 대부분은 스스로 해결해야 의미있는 단계라는 걸 알고 있었고, 거의 모두 스스로 해결했다&lt;sup id=&quot;fnref1&quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;지인이 (프로그래밍으로)개발하는 생활을 만족하느냐고 물었다. 재밌고 만족한다고 답했는데, 아직은 혼자 고민하여 스스로 문제를 해결하는 데 들이는 노력이 크지 않은 단계여서 재밌다고 여기는 것일 것이다. 여태껏 겪어 온 문제보다 더 어려운 난관에 부딪히면 그 재미는 (아마도) 줄어들 것이고, 끝내 내 능력으로 풀어내지 못해 좌절할 지도 모른다.&lt;/p&gt;
+
+&lt;p&gt;괜찮다. 프로그래머 생활을 만족하는 이유는 난관을 극복하며 성장하는 즐거움 뿐만 아니라 내 생각을 표현하는 방법으로써 매력과 재미를 느끼기 때문이다. 가령, 요리나 춤, 노래, 대화는 취미나 관심사로 재밌을지 몰라도 직업으로 내 생각을 표현할 방법으로 삼을만큼 재밌지도 매력있게 느껴지지도 않는다.&lt;/p&gt;
+
+&lt;p&gt;지난 6~8개월 동안 겪은 개발 생활은 즐거웠다. 더 재밌고 즐겁고 만족스러운 개발 생활을 보내기 위해 계속 노력하려 한다.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;편의점 프로젝트&lt;/a&gt;에서 SQL Query를 짜는 문제 하나는 결국 동료가 해결해 주었다.&amp;nbsp;&lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+  </entry>
   
   <entry>
     <title>개발 생활 - 5</title>
@@ -22,7 +186,7 @@
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;&lt;code&gt;개발 생활 - 5&lt;/code&gt;&lt;/a&gt; : 공부 자료&lt;/li&gt;
-&lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;개발 생활 - 6&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3&gt;4. 공부 자료&lt;/h3&gt;
@@ -199,7 +363,7 @@
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;&lt;code&gt;개발 생활 - 4&lt;/code&gt;&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
-&lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;개발 생활 - 6&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3&gt;3. Python과 Django 강의&lt;/h3&gt;
@@ -333,7 +497,7 @@
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;&lt;code&gt;개발 생활 - 3&lt;/code&gt;&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
-&lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;개발 생활 - 6&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3&gt;2. 개발 프로젝트&lt;/h3&gt;
@@ -549,7 +713,7 @@ end script
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
-&lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;개발 생활 - 6&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3&gt;2. 개발 프로젝트&lt;/h3&gt;
@@ -722,7 +886,7 @@ _combinated = combinations((&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
-&lt;li&gt;개발 생활 - 6 : 앞으로 계획&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;개발 생활 - 6&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3&gt;1. 전업 결심&lt;/h3&gt;
@@ -2782,39 +2946,6 @@ else:
 &lt;p&gt;태명은 “우리 아가”를 줄인 겁니다. 임시 태명은 콩처럼 무럭 무럭 자라라고 콩이라고 지었는데, 초음파 사진을 보니 이런 저런 의미는 다 머리 속에서 사라지고, 그냥 우리 아가라는 생각만 가득차더군요. 그렇게 지은 태명에 나중에 의미를 부여해서, 기품있고 아름다우라고 우아, 그리고 우아! 감탄사가 나와서 우아라 했습니다.&lt;/p&gt;
 
 &lt;p&gt;안녕, 우아야. 정말 반갑구나. 건강하게 자라거라. 그래서 우리 행복하고 우아한 가정, 함께 만들자. :)&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>전자책, 리디북스, 리디북스의 TTS 기능에 대한 단상</title>
-    <link href="/2014/6/short_text-ebook_ridibooks_and_tts/"/>
-    <updated>2014-06-28T05:13:23+09:00</updated>
-    <id>/2014/6/short_text-ebook_ridibooks_and_tts</id>
-    <content type="html">&lt;p&gt;지인이 방전된 몸과 마음을 충전하는 데 쓰라고 책 상품권을 푸짐하게 선물해주었다. 보답하는 마음으로 리디북스 장바구니 무게를 줄이는 데 다 썼다. 전집이나 묶음 상품 사니 순식간에 충전금이 사라지네... 덜덜덜. 리디북스, 이 묶음연쇄할인마 같으니라고.&lt;/p&gt;
-
-&lt;p&gt;전차책은 화면 크기가 5~6인치이며 한 손으로 들어도 별 부담없는 무게인 기기에서 읽기 좋다. 킨들 페이퍼화이트 2(6인치)도 참 책 읽기 좋은 기기였고, 넥서스 5(5인치)도 참 좋다. 역시 아이폰 6 나오면 사야겠다. (음?)&lt;/p&gt;
-
-&lt;p&gt;넥서스 5에 리디북스를 깔고 책 읽어 주는 기능으로 책을 듣기 시작했는데, 처음엔 희화나 풍자풍 라디오를 듣는 것 같아 재밌었는데, 듣다보니 기대 이상으로 집중하여 듣게 된다. 나보다 발음이 훨씬 좋네... 게다가 한자 같은 건 쿨하게 무시하고 넘어가는 모습이 은근히 내 취향. 초등학교 “말하기 듣기” 수업 때 꼬맹이들이 또박 또박 책을 읽는 모습을 보는 선생님 마음이 내 마음과 비슷할까?&lt;/p&gt;
-
-&lt;p&gt;좀 짓궂은 마음이 들어서 “&lt;a href=&quot;http://ridibooks.com/v2/Detail?id=734000252&quot;&gt;반기문 영어 연설문&lt;/a&gt;”과 “&lt;a href=&quot;http://ridibooks.com/v2/Detail?id=509000308&quot;&gt;맥베스&lt;/a&gt;”, 그리고 “&lt;a href=&quot;http://ridibooks.com/v2/Detail?id=364000352&quot;&gt;파이온에서 힉스 입자까지&lt;/a&gt;” 책을 읽어주는 기능으로 들어 보았다. 반기문 영어 연설문은 읽어주기 기능이 작동 안 하여 실험 실패. 당했다... 맥베스는 역시나 예상답게 문맥을 이해하기 어려웠다. 등장인물 이름이 호명될 때마다 짧게 집중하게 되긴 한다. 크크. 물리 책은 기호 때문에 역시 무리였다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;읽은 문장 : 전기를 가진 입자는 극으로, 전기를 가진 입자는 극으로 각각 끌려간다.&lt;/li&gt;
-&lt;li&gt;원 문장 : (+)전기를 가진 입자는 (-)극으로, (-)전기를 가진 입자는 (+)극으로 각각 끌려간다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;크크, 귀여운 기능이고나. 참 마음에 드는 기능이라 원하는 게 막 샘솟는다.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;앱이 못 읽는 문자(한자나 기호)는 그냥 무시하지 말고, 아주 짧은 호흡을 쉬면 좋겠다. 마치 묵음 처리 하듯이. &lt;/li&gt;
-&lt;li&gt;강조(따옴표나 굵게 표시) 표현은 억양도 강하게 하면 좋겠다.&lt;/li&gt;
-&lt;li&gt;설명문에 붙은 사진이 있는 경우, 사진이 있다는 언급이 있으면 좋겠다. &lt;/li&gt;
-&lt;li&gt;괄호 안에 있는 문장도 읽어주면 좋겠다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;유지태 목소리나 이선균 목소리도 있으면 좋겠다. 단지 목소리가 좋아서 내가 이름을 기억하는 배우이다. ㅜㅜ 여자는 만화영화 겨울왕국의 안나 공주가 노래 부를 때 목소리가 있으면 좋겠고. 흠... 다크나이트의 배트맨 목소리는 아무래도 알아 듣기 힘들겠지? 자서전은 막 그 사람 목소리로 나오면 소름 돋을텐데.&lt;/p&gt;
-
-&lt;p&gt;아직 리디북스의 책 읽기 기능으로 듣지 않은 책 중 기대와 걱정이 되는 건 성석제 작가와 천명관 작가의 책이다. 이 두 사람 특유의 속도감이나 문장 갖고 노는 느낌은 눈으로 읽을 때 경험하는 즐거움이고, 난 이게 좋아서 이 두 작가를 좋아하기 때문이다. 하정우의 먹부림을 플스2에서 실시간 렌더링 CG로 표현하는 느낌과 비슷할려나? ㅜㅜ&lt;/p&gt;
 </content>
   </entry>
   
