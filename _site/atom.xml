@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-03-22T02:00:08+09:00</updated>
+  <updated>2015-03-22T04:52:53+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -12,11 +12,11 @@
 
   
   <entry>
-    <title>Python 3에서 함수의 위치 인자와 주석문</title>
-    <link href="/2015/03/positioning_argument_and_annotations_for_python3/"/>
+    <title>Python 3에서 함수의 키워드 인자 강제와 주석문</title>
+    <link href="/2015/03/keyword-only-arguments_and_annotations_for_python3/"/>
     <updated>2015-03-22T01:50:49+09:00</updated>
     <id>/2015/03/defining_function_for_python3_statement</id>
-    <content type="html">&lt;p&gt;Python 3에 도입된 함수 선언 문법 중 위치 인자 개수를 지정하는 것과 주석문(&lt;code&gt;annotation&lt;/code&gt;)이 있다. Python의 매력 요소 중 하나가 깔끔하고 명료한 코드라 생각하는데, 이 두 문법은 기호를 남발하는 코드처럼 보여서 좀 불만스럽지만 코드 문맥(context)을 읽는 데엔 참 유익하다. 그나마 &lt;code&gt;$&lt;/code&gt; 기호가 사용되는 건 아니라서 다행이랄까?! :)&lt;/p&gt;
+    <content type="html">&lt;p&gt;Python 3에 도입된 함수 선언 문법 중 키워드 인자를 강제하는 방법과 주석문(&lt;code&gt;annotation&lt;/code&gt;)이 있다. Python의 매력 요소 중 하나가 깔끔하고 명료한 코드라 생각하는데, 이 두 문법은 기호를 남발하는 코드처럼 보여서 좀 불만스럽지만 코드 문맥(context)을 읽는 데엔 참 유익하다. 그나마 &lt;code&gt;$&lt;/code&gt; 기호가 사용되는 건 아니라서 다행이랄까?! :)&lt;/p&gt;
 
 &lt;h3&gt;위치 인자 개수 지정&lt;/h3&gt;
 
@@ -40,7 +40,7 @@ args_func(&amp;#39;hello&amp;#39;, &amp;#39;!&amp;#39;, arg3=&amp;#39;world&amp;
 
 &lt;p&gt;출력한다. 위치 인자, 키워드 인자 순서로 전달만 하면 어떤 인자를 위치 인자로 전달하고, 어떤 인자를 키워드 인자로 전달하는지에 별다른 제한은 없다.&lt;/p&gt;
 
-&lt;p&gt;Python 3는 키워드 인자를 강제하는 문법을 지원한다. 바로 &lt;code&gt;*&lt;/code&gt; 문자를 쓰는 것이다.&lt;/p&gt;
+&lt;p&gt;Python 3는 키워드 인자를 강제하는 문법을 지원한다. 바로 &lt;code&gt;*&lt;/code&gt; 문자를 쓰는 것이다&lt;sup id=&quot;fnref1&quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def args2_func(arg1, *, arg2, arg3):
     print(arg1, arg2, arg3)
 
@@ -67,7 +67,7 @@ TypeError: args2_func() takes 1 positional argument but 3 were given
 
 &lt;h3&gt;주석문 (annotation)&lt;/h3&gt;
 
-&lt;p&gt;annotation 문법은 함수 매개 인자와 반환 값에 대한 주석(annotation)을 지정하는 것이다.&lt;/p&gt;
+&lt;p&gt;annotation 문법은 함수 매개 인자와 반환 값에 대한 주석(annotation)을 지정하는 것이다&lt;sup id=&quot;fnref2&quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def anno_func(arg1: str, arg2: &amp;#39;also str&amp;#39;, arg3: 1 is True) -&amp;gt; bool:
     print(arg1, arg2, arg3)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -170,8 +170,25 @@ hello_func(1, 2, &amp;#39;3&amp;#39;, &amp;#39;a&amp;#39;)
 &lt;p&gt;Python스러운 구현인 지 아닌 지 모르겠지만, 함수 매개 인자가 어떤 자료형으로 넘어올 지 몰라서 받는 스트레스는 줄어들 것 같다. :)&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://gist.github.com/hannal/12597a1466307f4290a4&quot;&gt;Python 3에서 함수의 위치 인자와 주석문 예제 코드&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://gist.github.com/hannal/12597a1466307f4290a4&quot;&gt;Python 3에서 함수의 키워드 인자 강제와 주석문 예제 코드&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;hr&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-3102/&quot;&gt;PEP-3102 : Keyword-Only Arguments&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-3107/&quot;&gt;PEP-3107 : Function Annotations&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;
 </content>
   </entry>
   

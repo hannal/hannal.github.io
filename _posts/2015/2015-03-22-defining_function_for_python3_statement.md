@@ -2,7 +2,7 @@
 layout: post
 status: publish
 published: true
-title: Python 3에서 함수의 위치 인자와 주석문
+title: Python 3에서 함수의 키워드 인자 강제와 주석문
 author:
   display_name: Kay
   login: Kay
@@ -15,14 +15,14 @@ categories: [devlife]
 tags:
 - Python 3
 - 위치 인자
-- positional argument
+- positional arguments
 - 키워드 인자
-- keywords argument
+- keyword-only arguments
 - annotation
-permalink: "/2015/03/positioning_argument_and_annotations_for_python3/"
+permalink: "/2015/03/keyword-only-arguments_and_annotations_for_python3/"
 ---
 
-Python 3에 도입된 함수 선언 문법 중 위치 인자 개수를 지정하는 것과 주석문(`annotation`)이 있다. Python의 매력 요소 중 하나가 깔끔하고 명료한 코드라 생각하는데, 이 두 문법은 기호를 남발하는 코드처럼 보여서 좀 불만스럽지만 코드 문맥(context)을 읽는 데엔 참 유익하다. 그나마 `$` 기호가 사용되는 건 아니라서 다행이랄까?! :)
+Python 3에 도입된 함수 선언 문법 중 키워드 인자를 강제하는 방법과 주석문(`annotation`)이 있다. Python의 매력 요소 중 하나가 깔끔하고 명료한 코드라 생각하는데, 이 두 문법은 기호를 남발하는 코드처럼 보여서 좀 불만스럽지만 코드 문맥(context)을 읽는 데엔 참 유익하다. 그나마 `$` 기호가 사용되는 건 아니라서 다행이랄까?! :)
 
 ### 위치 인자 개수 지정
 
@@ -47,7 +47,7 @@ args_func('hello', '!', arg3='world')
 
 출력한다. 위치 인자, 키워드 인자 순서로 전달만 하면 어떤 인자를 위치 인자로 전달하고, 어떤 인자를 키워드 인자로 전달하는지에 별다른 제한은 없다.
 
-Python 3는 키워드 인자를 강제하는 문법을 지원한다. 바로 `*` 문자를 쓰는 것이다.
+Python 3는 키워드 인자를 강제하는 문법을 지원한다. 바로 `*` 문자를 쓰는 것이다[^1].
 
 ```
 def args2_func(arg1, *, arg2, arg3):
@@ -87,7 +87,7 @@ def kwargs_func(*, arg1, arg2, arg3):
 
 ### 주석문 (annotation)
 
-annotation 문법은 함수 매개 인자와 반환 값에 대한 주석(annotation)을 지정하는 것이다.
+annotation 문법은 함수 매개 인자와 반환 값에 대한 주석(annotation)을 지정하는 것이다[^2].
 
 ```
 def anno_func(arg1: str, arg2: 'also str', arg3: 1 is True) -> bool:
@@ -207,4 +207,10 @@ hello_func(1, 2, '3', 'a')
 
 Python스러운 구현인 지 아닌 지 모르겠지만, 함수 매개 인자가 어떤 자료형으로 넘어올 지 몰라서 받는 스트레스는 줄어들 것 같다. :)
 
-* [Python 3에서 함수의 위치 인자와 주석문 예제 코드](https://gist.github.com/hannal/12597a1466307f4290a4)
+* [Python 3에서 함수의 키워드 인자 강제와 주석문 예제 코드](https://gist.github.com/hannal/12597a1466307f4290a4)
+
+----
+
+[^1]: [PEP-3102 : Keyword-Only Arguments](https://www.python.org/dev/peps/pep-3102/)
+
+[^2]: [PEP-3107 : Function Annotations](https://www.python.org/dev/peps/pep-3107/)
