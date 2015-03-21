@@ -3,13 +3,177 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-03-19T04:17:30+09:00</updated>
+  <updated>2015-03-22T01:56:02+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
   </author>
   <rights>copyright_details</rights>
 
+  
+  <entry>
+    <title>Python 3에서 함수의 위치 인자와 주석문</title>
+    <link href="/2015/03/positioning_argument_and_annotations_for_python3/"/>
+    <updated>2015-03-22T01:50:49+09:00</updated>
+    <id>/2015/03/defining_function_for_python3_statement</id>
+    <content type="html">&lt;p&gt;Python 3에 도입된 함수 선언 문법 중 위치 인자 개수를 지정하는 것과 주석문(&lt;code&gt;annotation&lt;/code&gt;)이 있다. Python의 매력 요소 중 하나가 깔끔하고 명료한 코드라 생각하는데, 이 두 문법은 기호를 남발하는 코드처럼 보여서 좀 불만스럽지만 코드 문맥(context)을 읽는 데엔 참 유익하다. 그나마 &lt;code&gt;$&lt;/code&gt; 기호가 사용되는 건 아니라서 다행이랄까?! :)&lt;/p&gt;
+
+&lt;h3&gt;위치 인자 개수 지정&lt;/h3&gt;
+
+&lt;p&gt;Python은 함수 매개 인자 방식으로 위치 인자(positional argument)와 키워드 인자(keywords argument)를 지원한다. 위치 인자는 함수로 전달하는 매개 인자를 순서대로 나열하는 것이고, 키워드 인자는 인자 이름과 인자에 할당할 값을 특정하는 것이다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def args_func(arg1, arg2, arg3):
+    print(arg1, arg2, arg3)
+
+args_func(&amp;#39;hello&amp;#39;, &amp;#39;world&amp;#39;, &amp;#39;!&amp;#39;)
+args_func(&amp;#39;!&amp;#39;, arg3=&amp;#39;hello&amp;#39;, arg2=&amp;#39;world&amp;#39;)
+args_func(&amp;#39;world&amp;#39;, arg3=&amp;#39;!&amp;#39;, arg2=&amp;#39;hello&amp;#39;)
+args_func(&amp;#39;hello&amp;#39;, &amp;#39;!&amp;#39;, arg3=&amp;#39;world&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;위 코드에서&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;args_func(&amp;#39;hello&amp;#39;, &amp;#39;world&amp;#39;, &amp;#39;!&amp;#39;)&lt;/code&gt;는 &lt;code&gt;hello world !&lt;/code&gt;를 출력하고,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;args_func(&amp;#39;!&amp;#39;, arg3=&amp;#39;hello&amp;#39;, arg2=&amp;#39;world&amp;#39;)&lt;/code&gt;는 &lt;code&gt;! world hello&lt;/code&gt;를 출력한다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;args_func(&amp;#39;world&amp;#39;, arg3=&amp;#39;!&amp;#39;, arg2=&amp;#39;hello&amp;#39;)&lt;/code&gt;는 &lt;code&gt;world hello !&lt;/code&gt;를 출력하며,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;args_func(&amp;#39;hello&amp;#39;, &amp;#39;!&amp;#39;, arg3=&amp;#39;world&amp;#39;)&lt;/code&gt;는 &lt;code&gt;hello ! world&lt;/code&gt;를&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;출력한다. 위치 인자, 키워드 인자 순서로 전달만 하면 어떤 인자를 위치 인자로 전달하고, 어떤 인자를 키워드 인자로 전달하는지에 별다른 제한은 없다.&lt;/p&gt;
+
+&lt;p&gt;Python 3는 키워드 인자를 강제하는 문법을 지원한다. 바로 &lt;code&gt;*&lt;/code&gt; 문자를 쓰는 것이다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def args2_func(arg1, *, arg2, arg3):
+    print(arg1, arg2, arg3)
+
+args2_func(&amp;#39;hello&amp;#39;, &amp;#39;world&amp;#39;, &amp;#39;!&amp;#39;)
+args2_func(&amp;#39;!&amp;#39;, arg3=&amp;#39;hello&amp;#39;, arg2=&amp;#39;world&amp;#39;)
+args2_func(&amp;#39;world&amp;#39;, arg3=&amp;#39;!&amp;#39;, arg2=&amp;#39;hello&amp;#39;)
+args2_func(&amp;#39;hello&amp;#39;, &amp;#39;!&amp;#39;, arg3=&amp;#39;world&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;*&lt;/code&gt; 이후에 나열된 매개 인자는 반드시 키워드 인자로 전달돼야 한다. 위 코드에서 &lt;code&gt;args2_func&lt;/code&gt; 함수를 실행하는 네 개 실행 줄 중 첫 번째와 네 번째는 &lt;code&gt;TypeError&lt;/code&gt; 예외가 일어난다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Traceback (most recent call last):
+  File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1, in &amp;lt;module&amp;gt;
+TypeError: args2_func() takes 1 positional argument but 3 were given
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;즉, &lt;code&gt;args2_func&lt;/code&gt; 함수는 위치 인자를 1개 취하는데, 이 개수보다 많은 인자가 위치 인자로 전달되었다는 뜻이다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 &lt;code&gt;*&lt;/code&gt; 이전에 나열된 매개 인자를 키워드 인자로 값을 전달하면 어떻게 될까?&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;args2_func(arg1=&amp;#39;hello&amp;#39;, arg2=&amp;#39;world&amp;#39;, arg3=&amp;#39;!&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;아무 문제도 발생하지 않는다. 즉, &lt;code&gt;*&lt;/code&gt;는 위치 인자 개수를 특정하거나(exact) &lt;code&gt;*&lt;/code&gt; 앞에 나열된 인자를 위치 인자로 강제하는 것이 아니라 &lt;code&gt;*&lt;/code&gt; 이후에 나열되는 인자는 반드시 키워드 인자로 전달 받도록 강제하는 것이다. 만약 위치 인자를 단 한 개도 허용하지 않고자 한다면 다음과 같이 함수 매개 인자를 선언하면 된다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def kwargs_func(*, arg1, arg2, arg3):
+    print(arg1, arg2, arg3)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 함수는 모든 매개 인자를 키워드 인자로 전달해야 한다.&lt;/p&gt;
+
+&lt;h3&gt;주석문 (annotation)&lt;/h3&gt;
+
+&lt;p&gt;annotation 문법은 함수 매개 인자와 반환 값에 대한 주석(annotation)을 지정하는 것이다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def anno_func(arg1: str, arg2: &amp;#39;also str&amp;#39;, arg3: 1 is True) -&amp;gt; bool:
+    print(arg1, arg2, arg3)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;표현된 코드를 보면 마치 인자의 형(&lt;code&gt;type&lt;/code&gt;)을 지정하는 것 같지만, 실제로는 주석이기 때문에 인자의 형이 무엇이 되든 영향을 받지 않아서 다음과 같이 함수를 호출해도 아무 문제가 발생하지 않는다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;anno_func(1, True, &amp;#39;world&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;반환하는(return) 값의 형도 주석으로 설명한 것과 달라도 무방하다. &lt;code&gt;anno_func&lt;/code&gt;은 주석으로 반환 값을 &lt;code&gt;bool&lt;/code&gt;이라 명기했지만, 실제로는 &lt;code&gt;return&lt;/code&gt;문이 따로 없기 때문에 &lt;code&gt;None&lt;/code&gt; 값을 반환한다. 물론, 아무 문제도 없다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 지정한 주석은 함수 객체에 &lt;code&gt;__annotations__&lt;/code&gt; 속성에 담겨 있으며, 사전형(&lt;code&gt;dict&lt;/code&gt;) 객체이다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;print(anno_func.__annotations__)
+print(anno_func.__annotations__[&amp;#39;arg1&amp;#39;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;재밌는 점은 &lt;code&gt;__annotations__&lt;/code&gt;에는 주석으로 지정한 값(&lt;code&gt;value&lt;/code&gt;)이 그대로 할당되어 있다는 점이다. 이 점을 이용하면 함수 매개 인자를 특정할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def static_args_func(arg1: str, arg2: str, arg3: int) -&amp;gt; bool:
+    args = locals()
+    for _k, _v in args.items():
+        arg_type = static_args_func.__annotations__[_k]
+
+        if isinstance(_v, arg_type):
+            continue
+
+        raise TypeError(
+            &amp;quot;The type of &amp;#39;{}&amp;#39; does not match &amp;#39;{}&amp;#39; type&amp;quot;.format(
+                _k, arg_type.__name__
+            )
+        )
+    print(arg1, arg2, arg3)
+
+static_args_func(1, 2, 3)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;static_args_func&lt;/code&gt; 함수의 &lt;code&gt;arg1&lt;/code&gt;, &lt;code&gt;arg2&lt;/code&gt; 인자는 주석으로 &lt;code&gt;str&lt;/code&gt;형을 명기했다. 그래서 사전형 속성인 &lt;code&gt;__annotations__&lt;/code&gt;의 &lt;code&gt;arg1&lt;/code&gt;키에는 명기한 값인 &lt;code&gt;str&lt;/code&gt;이 할당되어 있다. &lt;code&gt;__annotations__&lt;/code&gt;에 할당되어 있는 주석 값을 이용해 &lt;code&gt;arg1&lt;/code&gt;과 같은 함수 매개 인자의 형을(&lt;code&gt;type&lt;/code&gt;) 검사한 것이 &lt;code&gt;if not isinstance(_v, arg_type):&lt;/code&gt; 부분이다.&lt;/p&gt;
+
+&lt;p&gt;이 함수를 &lt;code&gt;static_args_func(1, 2, 3)&lt;/code&gt;와 같이 호출하면 &lt;code&gt;arg1&lt;/code&gt;과 &lt;code&gt;arg2&lt;/code&gt;에 대해 코드에서 지정한 &lt;code&gt;TypeError&lt;/code&gt; 예외가 일어난다.&lt;/p&gt;
+
+&lt;p&gt;다음 코드는 가변 매개 인자도 형 검사를 한다. 더이상 형 검사를 하지 않는 위치부터 나머지 인자까지는 &lt;code&gt;Ellipsis&lt;/code&gt; 형(&lt;code&gt;...&lt;/code&gt;)을 썼다. 즉, 두 번째 인자까지는 형 검사를 하고, 이후 인자는 형 검사를 생략한다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def type_checking_func(*args: (int, int, ...)):
+    annotations = type_checking_func.__annotations__
+
+    if (
+        not isinstance(annotations, dict) or
+        len(annotations) == 0
+    ):
+        return type_checking_func(*args)
+
+    try:
+        _check_index = annotations[&amp;#39;args&amp;#39;].index(Ellipsis)
+    except ValueError:
+        _check_index = len(annotations) - 1
+
+    for i, _v in enumerate(args[:_check_index]):
+        arg_type = annotations[&amp;#39;args&amp;#39;][i]
+
+        if isinstance(_v, arg_type):
+            continue
+
+        raise TypeError(
+            &amp;quot;The type of &amp;#39;{}&amp;#39; does not match &amp;#39;{}&amp;#39; type&amp;quot;.format(
+                _v, arg_type.__name__
+            )
+        )
+    print(*args)
+
+type_checking_func(1, 2, &amp;#39;3&amp;#39;, &amp;#39;a&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;인자의 형을 검사하는 기능을 장식자(&lt;code&gt;decorator&lt;/code&gt;)로 만들어서 여러 함수에 간편하게 사용하면 더 낫다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def check_argument_type(func):
+    def wrapper(*args):
+        annotations = func.__annotations__
+        if (
+            not isinstance(annotations, dict) or
+            len(annotations) == 0
+        ):
+            return func(*args)
+
+        try:
+            check_index = annotations[&amp;#39;args&amp;#39;].index(Ellipsis)
+        except ValueError:
+            check_index = len(annotations[&amp;#39;args&amp;#39;]) - 1
+
+        for _i, _v in enumerate(args[:check_index]):
+            _arg_type = annotations[&amp;#39;args&amp;#39;][_i]
+
+            if isinstance(_v, _arg_type):
+                continue
+
+            raise TypeError(
+                &amp;quot;The type of &amp;#39;{}&amp;#39; does not match &amp;#39;{}&amp;#39; type&amp;quot;.format(
+                    _v, _arg_type.__name__
+                )
+            )
+        return func(*args)
+    return wrapper
+
+@check_argument_type
+def hello_func(*args: (int, int, ...)):
+    print(*args)
+
+hello_func(1, 2, &amp;#39;3&amp;#39;, &amp;#39;a&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Python스러운 구현인 지 아닌 지 모르겠지만, 함수 매개 인자가 어떤 자료형으로 넘어올 지 몰라서 받는 스트레스는 줄어들 것 같다. :)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://gist.github.com/hannal/12597a1466307f4290a4&quot;&gt;Python 3에서 함수의 위치 인자와 주석문 예제 코드&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   
   <entry>
     <title>개발 생활 - 6</title>
@@ -2929,23 +3093,6 @@ else:
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>우아하게 우아</title>
-    <link href="/2014/7/hello_our_elegant_ua/"/>
-    <updated>2014-07-01T16:01:30+09:00</updated>
-    <id>/2014/7/hello_our_elegant_ua</id>
-    <content type="html">&lt;p&gt;우아라고 부릅니다. 태명입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/assets/uploads/2014/07/20140701_hello_ua.jpg&quot;&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/07/20140701_hello_ua-400x314.jpg&quot; alt=&quot;우아한 초음파 사진&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;집만 지어놓고 모습을 보이지 않아 내심 일주일 내내 걱정 끼치던 요, 요, 요!!! 쬐깐한 녀석이 드디어 모습을 드러냈습니다. 아내는 심장 뛰는 것도 봤다고 하네요. 예전엔 남의 초음파 사진 봐봐야 뭐가 뭔지 잘 알아 보지도 못 하겠고 그래서 그런지 별 감흥이 없었는데, 우아 사진은 다르네요. 분명 종이 사진인데 가만히 보고 있으면 심장 뛰는 게 느껴지고 움직이는 것 같고 그래요. 우아합니다.&lt;/p&gt;
-
-&lt;p&gt;태명은 “우리 아가”를 줄인 겁니다. 임시 태명은 콩처럼 무럭 무럭 자라라고 콩이라고 지었는데, 초음파 사진을 보니 이런 저런 의미는 다 머리 속에서 사라지고, 그냥 우리 아가라는 생각만 가득차더군요. 그렇게 지은 태명에 나중에 의미를 부여해서, 기품있고 아름다우라고 우아, 그리고 우아! 감탄사가 나와서 우아라 했습니다.&lt;/p&gt;
-
-&lt;p&gt;안녕, 우아야. 정말 반갑구나. 건강하게 자라거라. 그래서 우리 행복하고 우아한 가정, 함께 만들자. :)&lt;/p&gt;
 </content>
   </entry>
   
