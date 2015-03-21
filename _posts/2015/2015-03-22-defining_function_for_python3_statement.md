@@ -10,7 +10,7 @@ author:
   url: ''
 author_login: Kay
 author_email: iam@hannal.net
-date: '2015-03-22 01:50:49 +0900'
+date: '2015-03-22 01:50:49'
 categories: [devlife]
 tags:
 - Python 3
