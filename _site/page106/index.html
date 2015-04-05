@@ -31,8 +31,25 @@
 
 
   <body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-33535239-1', 'auto');
+  ga('send', 'pageview');
 
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KS9HDB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KS9HDB');</script>
+<!-- End Google Tag Manager -->
     <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -100,6 +117,97 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2008/6/01-python_django_lecture/">
+        한) 우리가 만들고자 하는 것과 필요한 기술 (1편) - django 강좌
+      </a>
+    </h1>
+
+    <span class="post-date">01 Jun 2008</span>
+
+    <p>이번 글은 다소 재미 없는 내용을 다루려 한다. 예전에 아래 나올 내용들을 접했을 때 재미 없어서 대충 살펴보고 일단 hello world 부터 찍었다가, 나중에 다시 되돌아와 개념 이해를 해야 했다. 재미 없는 걸 충분히 알지만, 그래도 되도록이면 꼼꼼히 읽었으면 좋겠다.</p>
+
+<p>몇 번 읽고 이해가 되면 좋지만 이해 안된다고 해서 자신의 머리를 무기질 종류와 비유하며 자책하지 않아도 된다. 앞으로 강좌를 계속 보다 보면 자연스레 이해하게 될테니까(그래도 이해 안되면 돌이나 쇠 같은 무기질로 놀릴 것이므로 아마 자연스레 이해하게 될 것이다).</p>
+
+<h3>django 는 무엇일까?</h3>
+
+<p>강좌를 여는 글에서 <a href="http://www.djangoproject.com">django</a> 에 대해 별로 쓰잘데기는 없지만 아주 간단한 소개를 했다. 여기서는 더 길게, 그렇지만 역시나 간단하게 django 소개를 좀 더 하려 한다. django 는 <strong>web application framework</strong> 이다. 우리글로 쓰자면, 웹 어플리케이션 프레임웍이다. 히히.</p>
+
+<p>웹 어플리케이션을 만들다 보면 아주 시덥잖은 일부터 시작해서 훌륭한 작업까지 두루 하게 된다. 종류에 따라 다르겠지만 하는 일은 무엇이든 같다. <strong>자료를 쌓고 끄집어 내서 나타내는 것</strong>이다. 게시판을 예로 들자. 글을 쓰고(쌓고) 글 목록이나 읽기로(끄집어 내어) 글을 본다(나타낸다). 댓글도 쓴 뒤 글에 매달아 놓아 본다. 글을 쓸 때 그림/사진 파일이나 노래를 덧붙이는 것도 마찬가지이다.</p>
+
+<p>이렇다 보니 기능 마다 알맹이 조금 다를 뿐 알맹이 대부분은 서로 되풀이 되는 편이다. 글이든 댓글이든 집어 넣고 꺼내는 장소(database)와 그 꼴(model)만 다를 뿐, 꺼내는 방법이나 가공하는 방법, 나타내는 방법은 거의 같다.</p>
+
+<blockquote><p>이런 걸 매번 되풀이 하면 귀찮다 못해 우울증에 빠질 것 같다. 난 99년에 도트(pixel)로 게임 캐릭터를 “찍어” 그릴 당시, 도트 하나 찍을 때마다 “와, 0.3원 벌었다”라고 중얼 거리곤 했다. 실수로 그림을 날려 먹을 때는 “으악! 내 374원! ㅜㅜ”이라 비명 지르기도 했다. 그래야 덜 우울했다.
+</p></blockquote>
+
+<p>이런 되풀이 되는 것들을 함수나 클래스 등으로 정리하여 귀찮음, 실수, 우울증 등을 줄이고 가독성을 높일 수 있는데, 이러한 함수나 클래스를 성격이나 목적 등에 따라 묶고 라이브러리(library)나 모듈(module)이라고 부른다. 근데 만들려는 것 덩치가 커지다 보면 라이브러리/모듈도 점점 많아져 이것들끼리 다시 묶어 낼 필요가 생기는데, 산으로 가는 배를 만들지 않도록 정책이나 방향성 등을 잘 짜서 틀을 만든다. 이것이 framework 이다.</p>
+
+<p>django는 django가 갖는 지향점에 따라 웹 개발에 필요한 기능들을 모은 구들 같은 존재이다.</p>
+
+<p><a href="http://www.djangoproject.com/documentation/faq/#what-does-django-mean-and-how-do-you-pronounce-it">근데 django 를 어떻게 소리</a> 내어 읽을까? 정확히는 [<a href="http://red-bean.com/~adrian/django_pronunciation.mp3 ">쟁고</a>]라고 읽지만, 우리나라에선 보통 [장고]라고 읽는다.</p>
+
+<h3>MVC (Model, View, Controller)</h3>
+
+<h4>Model</h4>
+
+<p>django 는 웹 어플리케이션을 만들 때 쓸 만한 기능을 편하고 쉬운 방법들을 잘 뭉쳐 놓은 프레임웍이다. 뭉쳐 놓은 덩어리를 크게 나누자면, <strong>Model부, View부, Controller부</strong>로 나눌 수 있다. django 는 MVT이라고 해서 <strong>Model, View, Template</strong> 로 구성되어 있다고 하는데, 역할면에서는 MVC와 같다고 보면 된다.</p>
+
+<p> • Model = Model<br />
+    • View = Template<br />
+    • Controller = View</p>
+
+<p>Model은 아주 간단하게 막 설명하자면, <strong>자료(data)를 다루는 추상화 된 덩어리</strong>이다. 데이터베이스에 자료를 넣거나 꺼내는 방법이나 규약(interface)인데, 앞서 말했듯이 데이터베이스 입출력과 관련된 여러 되풀이 작업들을 모델이라는 애한테 두루뭉술하게 시키는 것이다.</p>
+
+<p>비빔국수를 만들어 먹는 상황을 예로 들자. 새콤하게 잘 익은 배추 김치를 작게 썰고, 오이는 얇지만 10cm 정도씩 썬다. 고추장과 식초 등으로 양념을 만든 뒤 소면을 삶아내어 다 함께 비비면 끝난다.</p>
+
+<p>이제 여기 예쁜 “모델”이 한 명 있다고 치자. 난 이연희라는 여성 연예인을 가정할테니 여러분은 각자 취향에 맞는 이를 모델로 가정하시고. 귀여운 이연희양은 다행히 비빔국수를 만들 줄 알며, 내 말도 잘 듣는다. 내가 이연희양에게 비빔국수를 만들어 오라고 시키자 금방 만들어 내온다. 바로 이 이연희양이 “모델”이다. 어떤 행위에 필요한 자료를 다루는데 그걸 좀 더 추상화해서 일을 시키는 것이다.</p>
+
+<p>python 엔 이러한 예쁜 모델이 여럿 있는데, django 는 자체 model 을 쓴다. 다른 모델로(SQLAlchemy 등) 바꿀 수도 있지만, <u>django 에서 제공하는 편리한 기능 몇 가지를 쓸 수 없으므로 자체 Model 부를 쓰는 것이 낫다</u>.</p>
+
+<h4>Controller</h4>
+
+<p>이번엔 Controller 를 살펴보자. 앞서 말한대로 django에서는 View 라는 것이 Controller 개념이다. MVC 방식인 다른 framework 에서 말하는 View 와 다른 개념이므로 주의하자.</p>
+
+<p><strong>Controller 는 모델을 통해 가져온 자료를 이리 저리 가공하는 역할</strong>을 한다. 비빔국수를 예로 들면, 비빔국수 재료는 자료(data)이고 이들이 들어있는 냉장고는 데이터베이스이다. 이들을 가지고 와서 썰거나 다듬거나 소면을 삶는데, 이러한 행위를 Controller 가 하는 것이다. 말하자면 요리사다.</p>
+
+<p>아마 이 부분에 많은 손이 필요할 것이다. 모델은 한 번 만들어 두면 이후 가져다 쓰면 그만이지만, 컨트롤러에선 어떤 행위나 상황이 발생할 때마다 그에 대한 대응 처리를 모두 구현하기 때문이다.</p>
+
+<h4>View</h4>
+
+<p>다른 framework 에서 View 라고 부르는 걸 django 에선 Template 이라고 한다. Model이 가져온 재료로 Controller가 뚝딱 뚝딱 요리를 했다면, <strong>View는 먹음직스럽게 꾸미거나 먹을 수 있게 젓가락 역할</strong>을 한다.</p>
+
+<p>우리가 게시판에서 글 제목을 눌러 글 읽기 화면으로 전환하거나 글 쓰기 화면을 열 때, 이러한 행위들을 할 수 있게 하는 표현부이다.</p>
+
+<h3>MVC</h3>
+
+<p>자, 앞서 얘기한 바와 같이 자료를 꺼내서 가공하고 보여주는 것이 어느 곳에서나 볼 수 있는 기본 흐름이다. 자료를 꺼내는 건 Model, 가공하는 건 Controller, 보이는 건 View 이다. 연결은 Model - Controller - View 인 셈이다. (재차 말하지만 django 는 쓰는 이름이 다르므로 Model - View - Template 인 셈이다)</p>
+
+<h3>html/xhtml, css</h3>
+
+<p>어찌보면 가장 만만히 보이는 녀석들이다. 그래서 우습게 보고 대충 넘기는 사람들이 많다. 근데 막상 덤벼보면 알겠지만 절대 만만하지 않다. 웹 브라우저 마다 화면에 그리는 방식이 달라서 고생을 하기도 하지만, 접근성 높은 문서를 만들어 내거나 javascript 등으로 그럴싸한 조작계(Rich Interface)를 제공하려 할 경우, 구조화 된 문서를 만들어야 한다.</p>
+
+<p>아직 많은 이들이 html 과 xhtml 차이, 혹은 Doctype 등을 모른 채 별 생각없이 html/xhtml 문서를 만든다. 이런 것들의 중요성을 이 강좌에서 다루는 건 방향이 맞지 않으니 생략 하겠지만, 짬이 나면 관련 지식을 쌓기를 권한다. 이 강좌에선 <strong>xhtml 1.0을 transitional mode</strong> 로 만들 것이며, css 1.1 을 쓸 것이다.</p>
+
+<h3>Ajax</h3>
+
+<p><a href="http://ko.wikipedia.org/wiki/Ajax">Ajax (Asynchronous Javascript And Xml)</a> 는 javascript 로 구현하는 기술 꾸러미 이름이라고 할 수 있다. <strong>어떤 특정 기술이라기 보다는 기법</strong>이라고 할 수 있다. 아약스, 아작스, 에이잭스 등 여러 이름이 있는데 뭐라 부르든 사람들은 대체로 잘 알아 듣는다. 제대로 된 소리는 에이잭스라고 한다.</p>
+
+<p>하는 일은 간단히 말해서 XmlHttpRequest (줄여서 XHR이라고 부르곤 한다) 이라는 놈을 통해 Javascript 로 같은 도메인에 있는 서버와 통신을 하는 것이다.</p>
+
+<p>예전엔 글을 쓰거나 댓글을 달면 작성한 내용을 받을 서버에 있는 cgi 파일로 이동한다. 화면으로 보면 화면이 깜빡하고 변한다. html/xhtml form tag를 통해 전달하기 때문이다.</p>
+
+<p>Ajax 를 이용하면 이런 방식과는 달리 Javascript 가 서버와 통신을 한다. Javascript는 html/xhtml(DOM : Document Object Model)과 다른 층(layer)에서 돌아가기 때문에 html form 전송을 따르지 않는다. 그래서 화면 전환 없이도 서버에 자료를 보내거나 받아와 처리할 수 있다. (나중에 언급하겠지만, 이런 이유로(정확히는 보안 때문에) Javascript로는 파일 올리기(upload)를 할 수 없다)</p>
+
+<p>Ajax 장점은 화면(page) 전체를 다시 만들어 그리지 않고, 필요한 부분만 다룰 수 있기 때문에 서버 효율면에서 좋다. 그리고 서버와 자료를 주고 받는 일을 Javascript 단에서 처리하기 때문에 위치(page) 이동할 필요 없이 통신을 처리할 수 있어 조작계(Interface)도 좀 더 풍부(Rich) 해진다.</p>
+
+<p>앞서 얘기한 것 중 라이브러리나 모듈 얘기를 했다. 되풀이 될 만한 부분들을 잘 묶고 다듬은 것인데, Ajax도 이런 걸 쓸 것이다. XmlHttpRequest 를 쓰는 방법이 웹 브라우저에 따라 조금씩 다르며 되풀이 되는 코드가 꽤 있기 때문인데, 괜찮은 공개 라이브러리는 기능이나 성능도 괜찮고 많은 사람들이 써서 믿을 만 하다. 이 강좌에서는 <a href="http://www.prototypejs.org">prototype javascript framework</a> 을 쓸 것이다.</p>
+
+<p><hr />
+이번 회는 여기까지이다. 다음 강좌에서는 Django 개발 환경을 구성 할 것이다. 내가 가장 날로 먹을 수 있는 강좌이다. ^^</p></p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2008/5/innovator_2mb/">
         혁신가 이명박
       </a>
@@ -124,25 +232,6 @@
 <p>물론, 밀실/위장/거짓 행정의 진수를 보이며 몰래 <a href="http://newslink.media.daum.net/news/20080529181710161">수돗물 사유화를 발표</a>하거나 <a href="http://media.daum.net/economic/others/view.html?cateid=1041&newsid=20080529180805998&cp=moneytoday&RIGHT_COMM=R7">영리 병원 허용을 검토</a>하고 있어 혁신가로서 오점을 남기고 있기도 하다. 또한 1/3 정도 되는 사람들이 꼴통이거나 무식하거나 천박해서 자신을 뽑아줬다고 해도 <a href="http://news.nate.com/Service/news/ShellView.asp?ArticleID=2008052818533257108&LinkID=8&lv=0">머리 텅 빈 빠순이/빠돌이</a> 취급하여 오점을 키워가고 있는 점도 아쉬운 점이다.</p>
 
 <p>그래도 지금처럼 상황이 흘러가다 잘 마무리 되면 분명 우리는 진보하고 성숙한 민주주의를 다시 이끌어 낼 수도 있을 것 같다. 좀 더 욕심을 낸다면 친일 세력(뉴라이트, 한나라당 등)과 조중동에도 큰 타격을 줄 수 있을지도 모른다. 이 정도 성과라면 비록 몇 가지 오점이 있을지라도 혁신가라 칭할 수 있으리라.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2008/5/where_is_korea_democracy_n_human_rights/">
-        이번 시위와 경찰의 진압을 보며 썩은 냄새를 맡다.
-      </a>
-    </h1>
-
-    <span class="post-date">26 May 2008</span>
-
-    <p>이번 촛불문화제에 이은 시위를 <strong>과잉진압</strong>하는 경찰을 보며 착찹한 심정이다. 헌법과 인권을 생각했을 때 경찰이 저런 대응을 해서는 안됐다.</p>
-
-<p>여러 글들에서도 잘 느낄 수 있지만, <a href="http://dvdprime.dreamwiz.com/bbs/view.asp?major=ME&minor=E1&master_id=40&bbsfword_id=&master_sel=&fword_sel=&SortMethod=&SearchCondition=&SearchConditionTxt=&bbslist_id=1315993&page=1">이 집회 후기 글</a> 곳곳에 나타난 전/의경 대응, 그리고 <a href="http://xenix.egloos.com/1760543">좌파나 불법성 운운하며 과잉 진압을 지지하는 익명성 댓글들</a>, 혹은 전/의경 전역자라며 이번 과잉 진압의 정당성을 주장하는 글을 읽으면 <strong><a href="http://www.ohmynews.com/NWS_Web/view/at_pg.aspx?CNTN_CD=A0000060723">국가주의와 군사주의 산물인 현 징병제 폐단</a></strong>을 다시금 깨닫는다.</p>
-
-<p>과연 국가주의와 군사주의로 이 나라를 장악한 이들이 바라던 대로 흘러가는구나. 무법 정권으로써 정당성과 정통성을 갖기 위해 세뇌 시킨 군사주의가 이렇게 잘 먹히고 있으니, 저런 글들을 볼 때 마다 한나라당과 전두환, 노태우, 혹은 박정희 측근들은 얼마나 행복할까? 기껏해야 반세기 남짓한 의식들이 국민성과 민족성으로까지 발달해 나타날 조짐이 보이니 말이다.</p>
-
-<p>아, 슬픈 대한민국 민주주의. 이렇게도 우리는 근대화와 군대화에서 벗어나기 어려운 것인가!</p>
 
   </div>
   
@@ -182,15 +271,5 @@
         }, false);
       })(document);
     </script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-33535239-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
   </body>
 </html>

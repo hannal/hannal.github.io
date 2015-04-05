@@ -31,8 +31,25 @@
 
 
   <body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-33535239-1', 'auto');
+  ga('send', 'pageview');
 
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KS9HDB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KS9HDB');</script>
+<!-- End Google Tag Manager -->
     <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -100,6 +117,27 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2004/3/77/">
+        zeroboard blog 에 대한 궁금증
+      </a>
+    </h1>
+
+    <span class="post-date">23 Mar 2004</span>
+
+    <p>php 의 fsockopen 의 url 접근 하기나 socket 이 막힌 계정에서 zog 유저들은 트랙백 문제 없나? 문득 생각이 나서 뒤적여보니 잠잠하네.</p>
+
+<p>혹 zog 의 트랙백 보내기가 python 이나 perl 등으로 별도 개발된 건가 싶어서 소스를 살펴봤지만, zog 도 php 로 되어 있던데. zog 유저들은 cafe24 등 fsockopen 의 외부 접근이 막힌 계정을 안쓰는건가.</p>
+
+<p>태터툴즈야 내가 쓰는 거니까 패치를 만든 것이고, zog 는 내가 쓰는 게 아니라 신경쓸 바는 못된다만 그래도 괜히 신경쓰이네.</p>
+
+<p>zog 유저분들, 별 문제 없수이까?</p>
+
+<p>p.s : zog 유저라고 하니까 마치 저그(zerg) 유저라고 하는 거 같네.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2004/3/67/">
         블로그 이사의 딜레마
       </a>
@@ -112,76 +150,6 @@
 <p>2. 이전 블로그로 날아왔던 트랙백은 어찌하지?</p>
 
 <p>으악 괴롭다! 모르겠다! 다 포기하고 글만 옮긴다!</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2004/3/66/">
-        스킨 차원에서 카테고리 아이콘 넣기
-      </a>
-    </h1>
-
-    <span class="post-date">23 Mar 2004</span>
-
-    <p>php 상에서의 수정을 하지 않고 java script 만으로 카테고리 아이콘 넣는 방법입니다. 현재 제 블로그에 해당 방법이 적용되어 있습니다.</p>
-
-<p>본 방법의 장점은 index.php 를 수정하실 필요가 없고(이미 최신 버전에는 수정이 되어있나요?), 카테고리가 한글이건 영문이건 상관 없습니다. 카테고리에 파일명을 직접 지정하니까요. 단점은 반수동 반자동이기에 조.금. 귀찮습니다. 카테고리 추가시마다 손을 조.금. 써야하거든요.</p>
-
-<h3>1. java script 만들기</h3>
-
-<p>category.js 라는 파일을 생성하여 아래의 내용을 넣습니다.</p>
-
-<pre>
-&lt;!--
-function category_str2img(strcode)
-{
-  switch(strcode) {
-    case "조용한 몽상가 - 문화 생활":
-      imgurl = "./skin/hannal_simple/images/category/think-culture.gif";
-      break;
-    default:
-      imgurl = "./skin/hannal_simple/images/category/dev-etc.gif";
-      break;
-  }
-  document.write("&lt;img src=""+imgurl+"" width="32" height"32" alt=""+strcode+"" />");
-}
-//-->
-</pre>
-
-<p>여러분이 각자의 환경에 맞게 수정해야 하는 부분은 <b>조용한 몽상가 - 문화 생활</b> 이라는 부분과 imgurl = ""; 안쪽에 있는 이미지 위치입니다. case " 에 있는 <b>조용한 몽상가 - 문화 생활</b>이라는 글자는 카테고리의 이름입니다. <b>조용한 몽상가 - 문화 생활</b> 라는 카테고리이면 이 부분이 작동된다는 거지요. imgurl 은 출력할 이미지의 위치(url)입니다. 즉 <b>조용한 몽상가 - 문화 생활</b> 라는 카테고리이면 ./skin/hannal_simple/images/category/think-culture.gif 라는 이미지 파일을 출력하겠다는 거지요.</p>
-
-<p>default: 부분은 지정하지 않은 카테고리입니다. 만일 메뉴에 "한날 - 나른한 오후의 단상" 이 있지만 위 javascript 에는 미처 넣지 못했을 경우 바로 이 default: 쪽이 작동되는 겁니다.</p>
-
-<p>카테고리를 추가하려면</p>
-
-<pre>
-    case "카테고리명":
-      imgurl = "이미지경로";
-      break;
-</pre>
-
-<p>위 코드를 default: 앞에다가 추가해가면 됩니다.</p>
-
-<h3>2. 스킨에 적용하기</h3>
-
-<p>스킨에 적용하는 부분은 크게 두 부분입니다. 우선 1번 과정에서 생성한 java script 파일을 읽어들이는 부분과 실제 카테고리 이미지를 출력할 부분이지요.</p>
-
-<p>javascript 파일을 읽어들이는 방법은</p>
-
-<pre>
-&lt;script type="text/javascript" src="./category.js">&lt;/script>
-</pre>
-
-<p>이렇게 해주면 됩니다. 이때 category.js 파일은 skin.html 과 같은 위치에 있어야하지요. 위 태그는 &lt;body> 전에 넣어주세요. 이제 실제 출력을 해야합니다. 간단합니다.</p>
-
-<div class="code">
-&lt;script language = "javascript"> category_str2img( "[&#35;&#35;_article_rep_category_&#35;&#35;]" ); &lt;/script>
-</div>
-
-<p>라고 써주면 됩니다. 태터툴즈 스킨 태그인 &lt;s_article_rep> 과 &lt;/s_article_rep> 안이라면 어디에 쓰건 상관 없습니다. 저렇게 써주면 카테고리 이름이 javascript 에서 category_str2img 함수로 전달되고, category_str2img 함수는 이를 받아서 해당하는 이미지 위치를 알아내어 출력하는 것입니다.</p>
-
-<p>제 설명이 좋지 않아 말이 혼란스러우시면 제 블로그의 html 소스를 보시면 이해가 가실 겁니다. &lt;!-- 제목 시작 //--> 부분에 있습니다.</p>
 
   </div>
   
@@ -221,15 +189,5 @@ function category_str2img(strcode)
         }, false);
       })(document);
     </script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-33535239-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
   </body>
 </html>

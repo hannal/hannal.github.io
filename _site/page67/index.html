@@ -31,8 +31,25 @@
 
 
   <body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-33535239-1', 'auto');
+  ga('send', 'pageview');
 
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KS9HDB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KS9HDB');</script>
+<!-- End Google Tag Manager -->
     <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -100,6 +117,39 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2009/6/about_key_name_of_get_or_insert-method_of_gae/">
+        Google App Engine의 모델에 있는 get_or_insert 메서드 사용할 때 주의점
+      </a>
+    </h1>
+
+    <span class="post-date">07 Jun 2009</span>
+
+    <p><a href="http://code.google.com/appengine/">Google App Engine</a> 에서 제공하는 파이썬(python) SDK로 개발을 할 때, Datastore API를 이용하여 DB를 모델링하고 자료를 넣을 겁니다. 이 중 <a href="http://code.google.com/intl/en/appengine/docs/python/datastore/modelclass.html#Model_get_or_insert">get_or_insert</a> 라는 유용한 클래스 메서드가 있는데, 지정한 값이 있으면 DB에서 그 자료를 가져오고, 없으면 DB에 그 자료를 집어넣습니다.</p>
+
+<p>이렇게 쓰면 됩니다.</p>
+
+<blockquote><p>모델.get_or_insert(키, 값들)</p></blockquote>
+
+<p>Hannal 이라는 모델을 예로 들지요.</p>
+
+<blockquote><pre>class Hannal(db.Model):
+    name = db.StringProperty(required=True)</pre>
+</blockquote>
+
+<p>name이라는 프로퍼티만 있는 클래스이지요. 이 모델에 자료를 하나 넣어보지요.</p>
+
+<blockquote><p>Hannal.get_or_insert('key_0000001', name=u'Hannal Cha')</p></blockquote>
+
+<p>이러면 key_0000001 를 키(id)로 갖는 자료를 찾아보고 있으면 그걸 가져오고 없으면, key_0000001를 키로 하고 name 은 u'Hannal Cha'인 자료를 집어넣습니다.</p>
+
+<p>주의할 점은 바로 이 키인데요. 이 키 문자열 맨 앞이 숫자로 시작하면 <strong>Names may not begin with a digit</strong> 라는 오류가 납니다. 키 자료형이 문자형이어도 마찬가지입니다. 자료형을 따지는 게 아니라 키 문자열의 맨 앞 문자가 숫자인지를 따집니다.</p>
+
+<p>유레카! 를 외칠만큼 위대한 발견을 한 건 아닙니다. 오류 내용에서도 비록 영문이긴 하지만 숫자(digit)으로 시작하면 안 된다고 알려주니까요. 다만, 보통은 키라 하면 일련번호 id로 관리하기 때문에, 그리고 저처럼 초보들은 눈에 익지 않은 오류가 나면 겁부터 먹기 때문에 종종 당할 듯 해서 적어둡니다. 저는 친절하거든요.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2009/5/weather_forecasting_ui_with_yesterday_weather/">
         어제 날씨에 따른 오늘 날씨, 내일 날씨
       </a>
@@ -120,34 +170,6 @@
 <p>하지만, 어제 날씨를 함께 제공하면 이 건조하고 불친절한 기온이나 비 올 확률은 더 많은 정보를 알 수 있다. 어제 날씨를 경험해보니 좀 쌀쌀했는데 낮 기온이 17도였고, 오늘 낮 기온이 19도라면 19만큼 쌀쌀하거나 따뜻하다고 생각하는 게 아니라 어제보다 좀 더 따뜻하게 입으면 되겠다는 생각을 할 수 있기 때문이다. 어제 비 올 확률이 30%였는데 하늘이 배탈난 마냥 꾸룩거리기만 했을 뿐 결국 비가 오지 않았다면, 오늘 비 올 확률 40%는 비가 안 올 확률이 60%라고 느껴지기보다는 비 올 40% 확률을 좀 더 신경 쓸 것이다.</p>
 
 <p>일기<strong>예보</strong>이니 지나간 어제 날씨를 제공하지 않는 것일까? 함께 보면 더 정보전달력이 좋을텐데.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2009/5/new_blog-radio_hannal/">
-        블로그 하나 새로 열었습니다.
-      </a>
-    </h1>
-
-    <span class="post-date">13 May 2009</span>
-
-    <p>블로그 하나 새로 열었습니다.</p>
-
-<ul>
-<li><a href="http://blog.hannal.com">한날의 라디오</a></li>
-<li><a href="http://blog.hannal.com">http://blog.hannal.com</a></li>
-</ul>
-
-<p>저와 전자우편 주고 받는 몇 몇 분들께서는 가끔 제가 “이거 보세요”라며 흥미로운 글이나 자료를 보내드렸는데, 이걸 블로그로 옮긴 겁니다.</p>
-
-<p>제가 관심 갖고 있는 것에 대한 추세나 새로운 소식을 간결하게 전할텐데요. 요즘은 경영, 경제, 웹, 게임, 모바일, 메타버스(metaverse), Geospatial Web, 시맨틱 웹을 주로 들여다보고 있으니 대체로 이런 쪽 글을 올릴 겁니다. 이외에도 역사, 심리 등 자료도 소개할 것 같긴 한데, 언제가 될 지는 모르겠네요.</p>
-
-<p>주로 제 <a href="http://twitter.com/hannal">트위터</a>나 <a href="http://friendfeed.com/hannal">프렌드피드</a>에 올리는 자료를 관련있는 것끼리 엮은 뒤 제 생각을 가볍게 곁들인 글을 올리려 합니다. 그러다가 어느 날, “한날의 라디오”에 올린 글을 정리하고 가다듬어서 “<a href="http://blog.hannal.com">한날은 생각한다</a>”에 올리겠지요? :)</p>
-
-<p>아직은 <strong>시험 운영</strong> 중입니다. <del datetime="2009-05-13T15:06:36+00:00"><a href="http://blog.textcube.com/63">구글이 텍스트큐브.com에 새로 블로그를 여는 사람 중 우수 블로그 운영자에게 맥북 프로를 준다</a>고 해서</del> 텍스트큐브.com 에서 운영을 시작했는데, 4년 동안 워드프레스를 써온 탓에 텍스트큐브.com은 아직 많이 불편하네요. p 태그로 문단을 구분할 수도 없고 br 태그로 개행만 해야 하는 점이나<small>(전 br 태그를 꽤 싫어합니다)</small>, 글머리구분(소제목, h1~5 태그) 넣기도 불편하네요<small>(그냥 글씨 크고 굵게 하는 건 글 구조화 관점에서 볼 때 전혀 유의미하지 않지요)</small>. 아니, 쓸 수 있긴 한데 많~은 귀찮음을 감수해야 합니다.</p>
-
-<p>좀 더 써보고 도저히 제 성향이나 글 관리 규칙과 안 맞으면 워드프레스 블로그로 옮길 겁니다. 즉, 어느 날 갑자기 주소가 바뀔 수 있어요. 바꾼다면 radio.hannal.net 대신 hannal.net/radio 로 옮길 가능성이 크겠죠? :)</p>
 
   </div>
   
@@ -187,15 +209,5 @@
         }, false);
       })(document);
     </script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-33535239-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
   </body>
 </html>
