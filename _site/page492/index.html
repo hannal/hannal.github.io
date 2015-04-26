@@ -117,6 +117,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2004/4/237/">
+        내가 만든 블로그 쓰느니 남이 만들 걸 쓰겠다.
+      </a>
+    </h1>
+
+    <span class="post-date">27 Apr 2004</span>
+
+    <p>블로그를 자작하며 내가 생각하던 그런 블로그의 형태에서 조금씩 빗나가기 시작했다. 울컥. 이러다가 기껏 완성해놓고선 "내가 만든 블로그 프로그램을 쓰느니 차라리 남의 걸 쓰고 만다!" 라고 외치는 거 아닌가 모르겠다.</p>
+
+<p>만일 정말 다른 블로그 프로그램처럼 흔한 형태가 나오면 내가 쓸 버전은 애초 구조부터 다시 기획해야겠다.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2004/4/236/">
         블로그 번개 모임이라.
       </a>
@@ -136,52 +151,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>p.s : 모임의 이름을 "도원결의"라고 했던데, 모임 참석자들은 다들 의형제가 되는 건가? 누나~ 언니~ 오빠~ 동상~<br />
 7~8년 전에 자주 가던 온라인 모임에서 서로의 인척 관계를 만들었던 기억이 아련하다. 삼촌이니 이모니 ~</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2004/4/235/">
-        외부 스크립트를 javascript 로 가져와 사용하기
-      </a>
-    </h1>
-
-    <span class="post-date">27 Apr 2004</span>
-
-    <p>자 우선 html 소스를 보자.</p>
-
-<blockquote><p>
-{div id="get_php_string">{/div>
-</p></blockquote>
-
-<p>이번엔 javascript 소스이다.</p>
-
-<blockquote><p>
-ele_script = document.createElement("script");<br />
-ele_script.src = "a.php";<br />
-document.body.appendChild(ele_script);
-</p></blockquote>
-
-<p>document 에 script라는 엘레먼트 하나를 생성하는 것이다. 이는 tag 이다. 만일 createElement("iframe") 이라고 하면 iframe 이 하나 생기는 것이다. createElement 에 대한 자료는 http://www.webreference.com/js/column44/createtag.html 이나 http://www.webreference.com/programming/javascript/domscripting/1/6.html 이다.</p>
-
-<p>이렇게 생성한 엘레먼트의 소스를 a.php 로 연결한다. 즉 a.php 가 웹상에서 실행되는 것이다. 이제 a.php 를 보자.</p>
-
-<blockquote><p>
-{?php<br />
-echo "document.getElementById("get_php_string").innerHTML = "<b>merong</b>";";<br />
-?>
-</p></blockquote>
-
-<p>document.getElementById("get_php_string").innerHTML = "merong"; 를 단지 출력하고 있다. 이 말은 php 가 출력한 내용이<br />
-위에서(javascript)에서 생성한 script element 에 들어간 것이다. 이제 document.body.appendChild(ele_script); 를 통해 적용(??? 적절한 표현을 못하겠다)을 한다. 저기 굵은 merong 이라는 글자가 html 에서 {div id="get_php_string">{/div> 에 출력이(들어가게) 될 것이다.</p>
-
-<p>예제는  http://www.webreference.com/programming/javascript/domscripting/1/iframecreate.htm 를 보면 눈으로 확인이 가능하다. 그 자리에서 iframe tag(element) 를 생성하여 외부 사이트를 출력하고 있다.</p>
-
-<p>좋은 자료를 알려준 <a href="http://bumsoo.joeunbook.net/" target="_blank">오</a>님에게 고맙다는 인사를 해본다.</p>
-
-<p>p.s : < 글자를 칠 수가 없어 { 로 대체했다.</p>
-
-<p>p.s : 이 참에 javascript 에 대해 좀 배웠다. ~ 룰루</p>
 
   </div>
   

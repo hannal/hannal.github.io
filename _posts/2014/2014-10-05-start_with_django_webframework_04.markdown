@@ -15,7 +15,7 @@ wordpress_url: http://blog.hannal.com/?p=3147
 date: '2014-10-05 19:00:49 +0900'
 date_gmt: '2014-10-05 10:00:49 +0900'
 categories:
-- "start_with_django_webframework"
+- "start-with-django-webframework"
 tags:
 - django
 - migration

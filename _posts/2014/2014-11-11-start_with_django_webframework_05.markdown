@@ -13,7 +13,7 @@ author_email: iam@hannal.net
 date: '2014-11-11 12:00:49 +0900'
 date_gmt: '2014-11-11 12:00:49 +0900'
 categories:
-- "start_with_django_webframework"
+- "start-with-django-webframework"
 tags:
 - django
 - view

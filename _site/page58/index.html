@@ -117,6 +117,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2010/3/hw_acceleration_of_video_for_adobe_flash/">
+        유튜브에서 고화질 동영상 버퍼링이 심할 때.
+      </a>
+    </h1>
+
+    <span class="post-date">20 Mar 2010</span>
+
+    <h3>유튜브에서 고화질 동영상 보기 너무 힘들다</h3>
+
+<p>유튜브에서 고화질 동영상, 가령 480p 이상인 영상을 볼 때 재생 막대에 빨간색이 아주 느리게 차오르는 버퍼링 지연 현상이 종종 생긴다. 처음엔 워낙 고화질 영상이라 동영상 용량이 크고, 유튜브 서버가 국외에 있어서 네트워크에서 지연이 걸리나보다 생각했다. 그런데 가만히 지켜보니 네트워크 문제라고 하기엔 지나치게 버퍼링이 오래 걸렸다.</p>
+
+<p>그래서 네트워크 송수신 상황을 따로 들여다보니(monitoring) 네트워크 문제가 아니었다. 왜냐하면 동영상 파일(flv)은 몇 초 안에 다 내려 받았는데, 여전히 동영상 재생기에서 빨간색 막대는 느릿느릿 차올랐기 때문이다.</p>
+
+<h3>버퍼링이 심한 원인 분석</h3>
+
+<p>동영상을 볼 때 지연이 일어나는 요소는 대체로 두 가지를 들 수 있다. 하나는 전송 속도이고, 다른 하나는 화면 출력 속도이다. 가령 HD 1080p 급 동영상을 보려는데 하드디스크 자체가 지나치게 느리거나 파일 복사를 하고 있어서 하드디스크에 과부하가 걸릴 경우 영상이 뚝뚝 끊기게 된다. 온라인 동영상이라면 네트워크 전송 속도가 더 큰 영향을 미칠 것이다.</p>
+
+<p>두 번째는 화면 출력 속도인데, CPU나 그래픽(비디오) 카드가 고화질 동영상을 빠르게 재생하지 못하는 것이다. 요즘엔 CPU 성능이 워낙 좋아서 어지간한 고화질 영상이야 CPU 성능으로도 감당이 가능하긴 하다. 하지만, 대체로 그래픽 처리를 전문으로 하는 그래픽 카드, 정확히는 GPU가 CPU보다는 더 효율 있게 처리할 수 있다.</p>
+
+<p>원인에 대해 결론부터 말하자면, 내가 유튜브 동영상 볼 때 버퍼링 심한 것은 화면 출력쪽이 원인이었다. 하지만, 내가 쓰는 그래픽 카드는 HD 1080p도 별 무리없이 재생하는 성능을 갖고 있는데, 고작(?) 480p 급을 재생하는 데 이렇게 버벅대다니? 그렇다면 그래픽 카드 문제라기 보다는 동영상을 재생하는 재생기를 의심해야 한다. 바로 Adobe Flash Player이다.</p>
+
+<h3>해결 방법 : 하드웨어 가속 기능은 Adobe Flash Player 10.1부터...</h3>
+
+<p>현재(2010년 3월 기준) 사용되는 Adobe Flash Player는 10.0이 정식판이다. 그런데 이 판은 동영상을 재생할 때 하드웨어 가속을 이용하는 기능이 신통치 않다. 제대로 된 하드웨어 가속 기능은 아직 시험판인 10.1에 들어갔다.</p>
+
+<p>자신의 운영체제에 깔린 Adobe Flash Player의 판번호는 <a href="http://www.adobe.com/software/flash/about/">http://www.adobe.com/software/flash/about/</a> 에서 확인할 수 있다. 화면 가운데쯤에 Version information이라는 상자에 판번호가 나오는데 아마도 10.0.42 나 10.0.45 일 것이다. 이 판이라면 아마도 고화질 동영상이 버벅댈 것이다. 버벅대는 걸 확인하려면 유튜브에 가서 <a href="http://www.youtube.com/results?search_type=videos&amp;search_query=kara&amp;high_definition=1&amp;suggested_categories=10,24,22&amp;uni=3">Kara</a> 나 <a href="http://www.youtube.com/results?search_type=videos&amp;search_query=snsd&amp;high_definition=1&amp;suggested_categories=10,24,22&amp;uni=3">SNSD</a> 로 검색해보면 카라나 소녀시대의 고화질 동영상을 보면 된다. 480p 정도인데도 버퍼링이 느리다면 아래 단계를 진행해본다.</p>
+
+<p>먼저 <strong>10.0판을 지워야</strong> 한다. 자신의 운영체제에서 기존에 설치된 Adobe Flash Player 를 지워야 한다. 윈도우 운영체제 사용자라면 제어판에서 “프로그램 및 기능”이나 그 비슷한 이름을 가진 아이콘을 실행하면 된다. 거기에서 Adobe Flash Player 10(혹은 9) Plugin 과 Active-X 를 지운다.</p>
+
+<p>이번엔 <strong>10.1판을 설치</strong>한다. 정식판이 아닌 시험판이므로 별도 웹페이지에서 받아야 하는데, <a href="http://labs.adobe.com/technologies/flashplayer10/">http://labs.adobe.com/technologies/flashplayer10/</a> 여기에서 받으면 된다. 열려있는 모든 웹 브라우저를 종료한 뒤에 설치하면 끝난다. 2010년 3월 중순 기준으로 10.1.51.95판이 가장 최신판이다.</p>
+
+<p>설치가 끝났다면 앞서 버벅댔던 동영상을 다시 봐보자. 아마도 빨간색 재생 막대가 이전보다 더 긴박하게 움직일 것이다. ^^</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2010/1/positive_thinking_n_negative_thinking/">
         긍정성과 부정성을 생각하다.
       </a>
@@ -141,71 +178,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>여러 사람을 만나며 얻은 이 교훈은 사실상 무척 사소하다. 진짜 교훈은 저런 생각에 비추어 나 자신을 봐야 한다는 생각을 하게 된 것이다. 난 그러지 말아야지, 저 사람은 왜 저리 부정 성향이 강할까? 에 그치지 않고, 내 말과 생각을 다시 보게 된다. 편하게 내뱉은 내 말이 혹시 상대방의 힘을 희석시키거나 와해시키는 건 아닌지 되돌아보게 된다. 여러 사람을 만나면 만날수록 그들이 나와 다르다는 사실, 그리고 그들에게 있어서 나라는 사람도 다르다는 사실을 깨닫는다.</p>
 
 <p>오늘도 자신에게 되묻는다. 나는 긍정주의자인가?</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2009/12/closing_in_2009/">
-        2009년 결산 
-      </a>
-    </h1>
-
-    <span class="post-date">31 Dec 2009</span>
-
-    <p>시간 참 빠르다. 벌써 2010년 하루 전이라니. 혼란스럽고 유독 추웠던 2003년 11월에 블로그를 열어 우울한 마음을 남기고 벌써 만 6년을 보냈다. 매년 말마다 느끼는 것이긴 하지만, 올해는 정말 많은 일을 겪었다. 매 순간엔 참 힘들거나 기쁘거나 슬펐는데 2009년 마지막날에 지난 364일을 되돌아보니 “그런 일도 있었구나” 하고 만다. 그런 마음으로 담담히 2009년을 결산해본다.</p>
-
-<h3>창업</h3>
-
-<p>함께 일했던 회사 동료인 <a href="http://www.jungyunho.com">유노</a>님과 <a href="http://bklove.net">BKLove</a>님이 작년 여름에 <a href="http://www.userstorylab.com">유저스토리랩</a>을 창업했고, 리더(leader)는 자신의 시간 뿐 아니라 그가 이끄는 사람들의 시간도 책임지므로 몸값이 비싸다며 <a href="http://blog.hannal.com/they_have_started_their_company/">응원으로 가장한 압박을 글</a>로 남겼다(<small>압박을 느꼈는지 자신들을 응원하는 글인데도 그들은 저 글에 출석 확인을 하지 않았다 +_+</small>). 그리고 나도 <a href="http://startup.hannal.net/2">몸값 비싼 도시 남자가 되기로 결심</a>했다.</p>
-
-<p>2000년에 첫 창업을 했었으니 내년 초에 회사를 세우면 딱 10년 만에 두 번째 창업을 하는 것이다. 난 아직 부족하지만 예전보다 좋은 분들을 많이 만나 인연을 맺었기에 두 번째 창업에선 더 잘 해내리라 생각한다. 창업 준비 과정과 창업 이후 이야기는 “<a href="http://startup.hannal.net/">한날의 창업 이야기</a>” 블로그에 계속 써나아갈 예정이다.</p>
-
-<h3>스마트폰</h3>
-
-<p>기술 추세에는 예민하지만 제품 구매와 경험은 다소 느린 편인데, 드디어 <a href="http://na.blackberry.com/eng/devices/blackberrybold/">블랙베리 Bold 9000</a>이라는 기기를 마련했다. 비록 <a href="http://blog.hannal.com/bad_going_home/">잃어버리긴 했지만 아이팟 나노</a>에 이어 블랙베리도 <a href="http://www.moreover.co.kr">체스터</a>님께 중고로 샀다. 요즘 한창 잘 나가는 아이폰 3GS를 사느냐, 내년에 나올 안드로이드폰을 사느냐 고민을 많이 했지만, 요금제를 강요 받지 않아도 되고 전지(battery)도 오래 가며, 내게 필요한 기능만 딱 적절히 제공하는 기기를 중고로 싸게 살 수 있어서 두 번 고민 안 하고 블랙베리를 샀다.</p>
-
-<p>개통이 늦어져 며칠 밖에 못쓰긴 했는데 현재까지는 아주 만족스럽다. 좀 더 써본 뒤에 사용기를 글로 남겨야겠다.</p>
-
-<h3>책</h3>
-
-<p>2008년 말에 <a href="http://blog.hannal.com/absolutely_do_not_read_many_books_within_a_certain_period/">2009년 동안 책을 100권 읽겠다고 목표를 세웠고, 그 목표를 달성</a>했다. 자세한 내용은 “<a href="http://blog.hannal.com/absolutely_do_not_read_many_books_within_a_certain_period/">한 해에 책 100권 읽는 목표를 달성하고, 후회한다.</a>”는 글에 썼으니 여기서는 간단히 적자면, 난 앞으로 이런 목표를 세우지 않을 것이다.</p>
-
-<p>책은 약 170권 가량 샀는데 이미 갖고 있던 책도 읽어서 새로 산 책은 반 정도 읽은 것 같다.</p>
-
-<p>올해는 독자가 아닌 저자나 역자로 활동을 시작했다. 우선 집필 아닌 집필을 했는데, 작년 여름에 한참 연재했던 “<a href="http://blog.hannal.com/01-python_django_lecture/">날로 먹는 Django 웹 프로그래밍</a>” 강좌를 <a href="http://wikidocs.net">박응용</a>님께서 책으로 인쇄해서 보내주셨다.</p>
-
-<p style="text-align: center;"><img class="alignnone" title="책 사진" src="http://farm3.static.flickr.com/2471/3728771256_04a7059e64.jpg" alt="" width="500" height="375" /></p>
-
-<p style="text-align: left;">많이 부족한 강좌를 묶어주신 덕에 두고두고 기념할 수 있게 됐다.</p>
-
-<p style="text-align: left;">출판을 목적으로 하는 집필을 준비했으나 더 준비를 하지 않으면 독자들에게 사기치는 것이라는 생각을 하여 유보했다.</p>
-
-<p style="text-align: left;">대신 번역을 하나 하고 있다. 지금쯤이면 반 정도 번역을 해야 했는데 바쁘다는 핑계로 25% 정도 밖에 못했다. 정말 좋은 책이라서 얼른 번역을 마쳐서 소개하고 싶은데 아쉽다. 그래도 열심히 한다면 내년 2분기 중에는 내놓을 수 있지 않을까 생각한다.</p>
-
-<p style="text-align: left;">마지막으로 올해 읽은 책 중 좋았던 책 몇 권을 꼽아본다. 나열한 순서에 딱히 기준은 없다.</p>
-
-<ul>
-<li>스티븐 코비 - 원칙 중심 리더십</li>
-<li>Head First Software Development</li>
-<li>피터 드러커 - 미래 경영</li>
-<li>게리 해멀 - 경영의 미래</li>
-<li>제 3의 길</li>
-<li>프레드 R. 버거 - 논리학이란 무엇인가?</li>
-<li>로마인 이야기 (1~15권)</li>
-<li>스티븐 핑커 - 언어본능</li>
-<li>프로젝트가 서쪽으로 간 까닭은?</li>
-<li>가이 가와사키 - 당신의 기업을 시작하라</li>
-<li>에리히 프롬 - 소유냐 존재냐</li>
-<li>새로운 혁신의 시대</li>
-<li>가장 듣고 싶은 한마디 Yes!</li>
-</ul>
-
-<h3>마치며</h3>
-
-<p>실은 <a href="http://blog.hannal.com/my_feelings_present_hope/">올해에 안좋은 일이 무척 많았다</a>. 그래도 견뎌내고 희망을 찾으며, 어딘가 있을 희망을 보며 나아갔다. 그래서 <a href="http://blog.hannal.com/the_projects_i_have_been_workin_with/">더 많은 일을 벌였는지</a>도 모른다.</p>
-
-<p>내년엔 더 큰 일을 벌였으니 무척 정신없이 바쁠 것이다. 그래도 난 해낼 것이다. 이보다 더 큰 어려움과 위기도 견뎌내고 이겨내왔다. 절망하지 않고, 쓰러져도 다시 일어나서 뚜벅뚜벅 내가 가야할 길, 우리가 가야할 길을 걸을 것이다.</p>
 
   </div>
   

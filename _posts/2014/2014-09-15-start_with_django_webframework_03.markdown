@@ -15,7 +15,7 @@ wordpress_url: http://blog.hannal.com/?p=3137
 date: '2014-09-15 02:05:48 +0900'
 date_gmt: '2014-09-14 17:05:48 +0900'
 categories:
-- "start_with_django_webframework"
+- "start-with-django-webframework"
 tags:
 - django
 - model
