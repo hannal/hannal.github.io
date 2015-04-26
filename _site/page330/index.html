@@ -176,16 +176,21 @@ require("./wp-blog-header.php");<br />
 
 <p><strong>아래 변환기는 워드프레스 옛날 판에서 작동하므로 현 2.0 이상인 워드프레스에 맞게 돌아가지 않습니다.</strong></p>
 
-<p><hr />
-<p>곰님께서 만드신 &quot;<strong><a href="http://heygom.com/blog/?p=244">태터툴즈(클래식) 게시물을 워드프레스로 옮기는 도구</a></strong>&quot; 중 UTF-8로 게시물을 변환하며 워드프레스로 게시물을 옮기는 도구에 몇 가지 문제가 있어 수정했습니다.</p>
-<ul><strong>발견된 문제점 (파일명 : import<em>tt</em>utf8.php)</strong></p>
+<hr />
+
+<p>곰님께서 만드신 "<strong><a href="http://heygom.com/blog/?p=244">태터툴즈(클래식) 게시물을 워드프레스로 옮기는 도구</a></strong>" 중 UTF-8로 게시물을 변환하며 워드프레스로 게시물을 옮기는 도구에 몇 가지 문제가 있어 수정했습니다.</p>
+
+<ul><strong>발견된 문제점 (파일명 : import_tt_utf8.php)</strong></p>
 <li>UTF-8로 변환해주는 카테고리 이름을 UTF-8로 변경하지 않는 문제</li>
 <li>부모 카테고리 값이 0일 때 처리 문제</li>
-<li>댓글 작성자 이름에 &#39; 들어갈 시 변환 오류나는 것 처리</li>
+<li>댓글 작성자 이름에 ' 들어갈 시 변환 오류나는 것 처리</li>
 </ul>
-<p>위의 문제는 곰님의 실수같고, 두번째 문제는 흔히 일어나기 어려운 문제이지만 제 블로그에는 해당 경우가 있어서 예외 처리를 해놨습니다. INSERT INTO $wpdb-&gt;post2cat (post<em>id,category</em>id) VALUES (숫자, ) 이렇게 되어 category<em>id 쪽에 빈공백이 들어가서 SQL error가 나는 문제는 이제 생기지 않습니다.</p>
+
+<p>위의 문제는 곰님의 실수같고, 두번째 문제는 흔히 일어나기 어려운 문제이지만 제 블로그에는 해당 경우가 있어서 예외 처리를 해놨습니다. INSERT INTO $wpdb-&gt;post2cat (post_id,category_id) VALUES (숫자, ) 이렇게 되어 category_id 쪽에 빈공백이 들어가서 SQL error가 나는 문제는 이제 생기지 않습니다.</p>
+
 <p>또한 게시물을 워드프레스에 저장할 때 게시물 이름(postname)을 게시물 제목이 아닌 태터툴즈의 게시물 번호로 했습니다. 만일 태터툴즈에서의 게시물 번호가 566이었다면, 워드프레스에 저장된 해당 게시물의 게시물 이름은 566이 됩니다. 워드프레스에서 변하지 않는 링크(Permalink) 형태를 /%postname% 이런 식으로 하면 아주 손쉽게 태터툴즈 때 사용하던 Permalink를 변환할 수 있습니다.</p>
-<p>- &lt;a href=&quot;http://www.hannal.net/import</em>tt<em>utf8-20050423.php.txt&quot;&gt;import</em>tt<em>utf8-20050423.php.txt 파일 받기</a> &lt;- 클릭. (받은 뒤 파일 확장자인 .txt 를 없애서 import</em>tt_utf8-20050423.php 로 파일명을 바꾼 뒤 사용하십시오)</p></p>
+
+<p>- <a href="http://www.hannal.net/import_tt_utf8-20050423.php.txt">import_tt_utf8-20050423.php.txt 파일 받기</a> &lt;- 클릭. (받은 뒤 파일 확장자인 .txt 를 없애서 import_tt_utf8-20050423.php 로 파일명을 바꾼 뒤 사용하십시오)</p>
 
   </div>
   
