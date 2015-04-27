@@ -6,8 +6,8 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 27 Apr 2015 05:49:34 +0900</pubDate>
-    <lastBuildDate>Mon, 27 Apr 2015 05:49:34 +0900</lastBuildDate>
+    <pubDate>Mon, 27 Apr 2015 12:09:46 +0900</pubDate>
+    <lastBuildDate>Mon, 27 Apr 2015 12:09:46 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -245,10 +245,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, &amp;#39;uploaded_files&amp;#39;)
 
 &lt;hr&gt;
 
-&lt;p&gt;강좌 6편을 마칩니다. 5편과 6편 사이에 6개월이 흘렀네요. 그동안 Django는 1.8판이 나왔고, Python과 Django 입문자를 대상으로 오프라인 강의도 두 차례 했으며, 저는 딸바보가 되었습니다. 딸이 첫 돌을 맞이하기 전에 이 강좌 연재를 완주하면 좋겠습니다. :)&lt;/p&gt;
+&lt;p&gt;강좌 6편을 마칩니다. 5편과 6편 사이에 5개월이 흘렀네요. 그동안 Django는 1.8판이 나왔고, Python과 Django 입문자를 대상으로 오프라인 강의도 두 차례 했으며, 저는 딸바보가 되었습니다. 딸이 첫 돌을 맞이하기 전에 이 강좌 연재를 완주하면 좋겠습니다. :)&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/hannal/start_with_django_webframework/tree/05-fullsource/pystagram&quot;&gt;6편까지 진행한 전체 소스 코드&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/hannal/start_with_django_webframework/tree/06-fullsource/pystagram&quot;&gt;6편까지 진행한 전체 소스 코드&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;hr&gt;
