@@ -57,7 +57,7 @@ site = AdminSite()
 
 `photo`앱의 `admin.py`를 저장하고 나면 Django의 개발용 내장 웹서버(이하 내장 웹서버)가 자동으로 재실행 됩니다. 재실행이 되고 나면 웹 브라우저에서 `http://127.0.0.1:8000/admin/`로 접속해 보세요. 로그인에 필요한 ID와 비밀번호를 묻는데, 지난 3편에서 `manage.py`로 만든 계정 정보로 접속하면 됩니다. 비밀번호가 기억이 나질 않는다면 `manage.py`에 `changepassword` 명령어로 비밀번호를 새로 생성하면 됩니다.
 
-![](/assets/uploads/2014/10//assets/uploads/2014/10/04-login_to_admin.png)
+![](/assets/uploads/2014/10/04-login_to_admin.png)
 
 로그인을 했다면 `Photo`라는 영역이 있고 그 아래에 `Photos`라는 항목이 보입니다. 그 항목이 바로 `Photo` 모델입니다. `Photo` 항목 오른쪽에 `Add`를 눌러보세요. `Photo` 모델에 데이터를 넣는 **Form**이 나타납니다.
 
