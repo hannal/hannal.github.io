@@ -125,10 +125,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <span class="post-date">15 Sep 2014</span>
 
     <ul>
+<li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
 <li>마지막 갱신일시 : 2015년 4월 26일 21시 10분</li>
 </ul>
 
-<p>이 강좌를 연재하는 중에 Django 1.7이 정식 출시됐습니다. 다행히(?) Django를 본격 다루기 전이니 이번 편부터 Django 1.7판을 기준으로 작성하겠습니다. </p>
+<p>이 강좌를 연재하는 중에 Django 1.7이 정식 출시됐습니다. 다행히(?) Django를 본격 다루기 전이니 이번 편부터 Django 1.7판을 기준으로 작성하겠습니다.</p>
 
 <h3>1. Django Project와 App</h3>
 
@@ -138,7 +139,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>Django는 <a href="https://docs.djangoproject.com/en/1.6/glossary/#term-project">Django project</a> 단위로 만드는데, Python 체계로 보면 Python 패키지를 뜻합니다. Django로 만드는 프로젝트에 사용되는 코드와 Django 설정값이 Python 모듈로 존재하고 모두를 포함하는 Python 패키지로 묶은 것이지요.</p>
 
-<p>우리가 Pystagram 프로젝트를 Django로 만든다는 건 Pystagram이라는 Python 패키지를 만들고, Pystagram에 들어가는 기능은 Python 모듈로 만든다는 뜻입니다. 그럼 Django를 써서 Pystagram을 만들려면 먼저 Pystagram 디렉터리를 만들어야 겠지요. 이 디렉터리는 Python 패키지니까 초기화 파일인 <code>__init__.py</code>이 필요합니다. 그리고 Django framework이 참조할 프로젝트 설정 항목은 settings라는 모듈이므로 <code>settings.py</code>라는 파일로 필요합니다. 웹 주소(URL)로 서비스에 접근하므로 각 접근 주소에 연결될 기능을 설정하는 <code>urls.py</code>라는 파일도 필요합니다. 이 중에서 <code>settings.py</code>는 필수 모듈입니다.  </p>
+<p>우리가 Pystagram 프로젝트를 Django로 만든다는 건 Pystagram이라는 Python 패키지를 만들고, Pystagram에 들어가는 기능은 Python 모듈로 만든다는 뜻입니다. 그럼 Django를 써서 Pystagram을 만들려면 먼저 Pystagram 디렉터리를 만들어야 겠지요. 이 디렉터리는 Python 패키지니까 초기화 파일인 <code>__init__.py</code>이 필요합니다. 그리고 Django framework이 참조할 프로젝트 설정 항목은 settings라는 모듈이므로 <code>settings.py</code>라는 파일로 필요합니다. 웹 주소(URL)로 서비스에 접근하므로 각 접근 주소에 연결될 기능을 설정하는 <code>urls.py</code>라는 파일도 필요합니다. 이 중에서 <code>settings.py</code>는 필수 모듈입니다.</p>
 
 <h4>(2) Django project 만들기</h4>
 
@@ -147,9 +148,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>Python 패키지인 Pystagram 디렉터리를 만들고, 여기에 필수 모듈인 <code>settings.py</code>와 <code>__init__.py</code>를 만드는 과정을 간편하게 처리하는 프로그램이 <code>django-admin.py</code>입니다. 이 파일로 Pystagram 프로젝트를 개설하겠습니다. 그 전에 지난 편에서 꾸려놓은 개발 환경을 먼저 써볼까요?</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ workon pystagram
 </code></pre></div>
-<p>virtualenv로 만든 pystagram 가상 환경에 들어가는 겁니다. 지난 편에서 우리는 이 가상 영역에 Django를 설치했지요. </p>
+<p>virtualenv로 만든 pystagram 가상 환경에 들어가는 겁니다. 지난 편에서 우리는 이 가상 영역에 Django를 설치했지요.</p>
 
-<p>이번엔 Pystagram 프로젝트를 개설합니다. 여러분이 원하는 아무 곳(디렉터리)에 만들어도 됩니다. 저는 <code>~/Workspace</code> 안에다 프로그래밍 프로젝트를 넣어두니 이 안에 만들겠습니다. </p>
+<p>이번엔 Pystagram 프로젝트를 개설합니다. 여러분이 원하는 아무 곳(디렉터리)에 만들어도 됩니다. 저는 <code>~/Workspace</code> 안에다 프로그래밍 프로젝트를 넣어두니 이 안에 만들겠습니다.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ django-admin.py startproject pystagram
 </code></pre></div>
 <p><code>django-admin.py</code> 프로그램(script file)에 첫 번째 인자로 <code>startproject</code>라는 명령어를 넣고 두 번째 인자에 만들 프로젝트 이름을 넣습니다. 그러면 두 번째 인자로 넣은 프로젝트 이름으로 디렉터리가 하나 만들어 집니다.</p>
@@ -221,7 +222,7 @@ Quit the server with CONTROL-C.
 <p>하지만 <code>migrate</code>와 <code>syncdb</code>가 똑같은 일을 수행하지는 않습니다. <code>syncdb</code>는 <code>migrate</code> 명령어를 수행한 다음에 최고 권한 이용자(super user)를 만드는 일도 합니다. 이 작업은 <code>createsuperuser</code> 명령어로 합니다. 즉 <code>syncdb</code> == <code>migrate</code> + <code>createsuperuser</code>인 셈이지요. 최고 권한 이용자도 만들겠습니다. 곧 필요하거든요.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ ./manage.py createsuperuser
 Username (leave blank to use &#39;hannal&#39;): hannal
-Email address: 
+Email address:
 Password:
 Password (again):
 Superuser created successfully.
@@ -263,7 +264,7 @@ Superuser created successfully.
         tests.py
         views.py
 </code></pre></div>
-<p><code>photo</code> package가 photo app입니다. </p>
+<p><code>photo</code> package가 photo app입니다.</p>
 
 <ul>
 <li><a href="https://github.com/hannal/start_with_django_webframework/tree/startapp_photo/pystagram">photo App을 생성한 단계의 전체 소스 코드</a></li>
@@ -311,7 +312,7 @@ class Photo(models.Model):
 
 <p>문자열을 다룬다는 점에서 <code>CharField</code>와 <code>TextField</code>는 같지만, 실은 전혀 다릅니다. <code>CharField</code>는 데이터베이스의 <code>VARCHAR</code>에 대응합니다. Django는 통상 200자 정도를 보장합니다. “보장”이라는 표현을 쓴 이유는 데이터베이스 시스템에 따라 <code>VARCHAR</code> 제한 길이가 다르기 때문입니다. 그에 반해 <code>TextField</code>는 이보다 훨씬 긴 문자열을 다룹니다. 이것도 데이터베이스 시스템에 따라 길이 제한이 다른데, SQLite3는 약 1기가 바이트까지 저장하는 <code>text</code>, PostgreSQL은 길이 제한이 없는 <code>text</code>, MySQL은 약 4기가 바이트까지 담는 <code>longtext</code>, Oracle은 약 8~12테라 바이트까지 담는 <code>NCLOB</code>에 대응합니다<sup id="fnref3"><a href="#fn3" rel="footnote">3</a></sup><sup id="fnref4"><a href="#fn4" rel="footnote">4</a></sup>. 보통은 긴 문자열을 담는 저러한 필드형에는 데이터베이스 인덱스가 걸리지 않으므로 Django의 <code>TextField</code> 필드에도 데이터베이스의 인덱스가(필드 옵션 : <code>db_index</code>) 걸리지 않습니다.</p>
 
-<p>어쨌든 데이터베이스 시스템에 따라서 <code>TextField</code> 필드의 길이제한 단위가 무시무시한데, 굳이 저렇게 긴 문자열을 저장하진 않을 겁니다. 안 예쁘잖아요. 최대 길이를 500자로 제한하겠습니다. <code>CharField</code>와 <code>TextField</code> 둘 다 <code>max_length</code>라는 필드 옵션으로 최대 문자열 길이를 제한하며, <code>CharField</code>는 <code>max_length</code> 필드 옵션을 반드시 넣어야 합니다. </p>
+<p>어쨌든 데이터베이스 시스템에 따라서 <code>TextField</code> 필드의 길이제한 단위가 무시무시한데, 굳이 저렇게 긴 문자열을 저장하진 않을 겁니다. 안 예쁘잖아요. 최대 길이를 500자로 제한하겠습니다. <code>CharField</code>와 <code>TextField</code> 둘 다 <code>max_length</code>라는 필드 옵션으로 최대 문자열 길이를 제한하며, <code>CharField</code>는 <code>max_length</code> 필드 옵션을 반드시 넣어야 합니다.</p>
 
 <p><code>created_at</code>은 Photo 모델이 생성되어 데이터베이스에 저장되는 시각을 담는데, Django에는 날짜를 다루는 <code>DateField</code>, 시간을 다루는 <code>TimeField</code>, 그리고 날짜와 시간을 같이 다루는 <code>DateTimeField</code>가 있습니다. 생성일시 정보를 다루니 <code>DateTimeField</code>를 쓰겠습니다. 이 필드에는 <code>auto_now</code> 옵션과 <code>auto_now_add</code> 옵션이 있는데, 자동으로 현재 시간 정보를 담을 지 여부를 <code>True</code>와 <code>False</code>로 지정합니다. <code>auto_now_add</code>는 객체가 처음 생성될 때, <code>auto_now</code>는 객체가 저장될 때 자동으로 시간 정보를 담습니다. <code>auto_now_add</code>만 <code>True</code>로 설정한다면, 데이터가 처음 저장되는 시간 정보만 잡히고, 이후에 그 데이터를 수정하여 저장하더라도 자동으로 시간 정보가 담기진 않겠지요. 코드로 표현한다면 이런 모습일 겁니다.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">from datetime import datetime
@@ -349,7 +350,7 @@ if the_photo.is_created is True:
 </code></pre></div>
 <h5>데이터베이스에 반영 (migration)</h5>
 
-<p>Django 1.7 이전 판에서는 <code>manage.py</code>에 <code>syncdb</code> 명령으로 우리가 만든 모델을 데이터베이스에 반영했지만, 1.7판부터는 <code>makemigrations</code>과 <code>migrate</code> 명령어를 이용합니다. <code>Photo</code> 모델을 마이그레이션 하려면 <code>settings.py</code>에 <code>photo</code> 앱을 추가해야 하니 <code>settings.py</code>에서 <code>INSTALLED_APPS</code> 항목을 찾아서 다음과 같이 <code>photo</code>를 추가합니다. </p>
+<p>Django 1.7 이전 판에서는 <code>manage.py</code>에 <code>syncdb</code> 명령으로 우리가 만든 모델을 데이터베이스에 반영했지만, 1.7판부터는 <code>makemigrations</code>과 <code>migrate</code> 명령어를 이용합니다. <code>Photo</code> 모델을 마이그레이션 하려면 <code>settings.py</code>에 <code>photo</code> 앱을 추가해야 하니 <code>settings.py</code>에서 <code>INSTALLED_APPS</code> 항목을 찾아서 다음과 같이 <code>photo</code>를 추가합니다.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">INSTALLED_APPS = (
     &#39;django.contrib.admin&#39;,
     &#39;django.contrib.auth&#39;,
@@ -361,7 +362,7 @@ if the_photo.is_created is True:
 )
 </code></pre></div>
 <p>그 다음에 <code>makemigrations</code>으로 마이그레이션 작업 내용을 만듭니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ ./manage.py makemigrations 
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ ./manage.py makemigrations
 Migrations for &#39;photo&#39;:
   0001_initial.py:
     - Create model Photo

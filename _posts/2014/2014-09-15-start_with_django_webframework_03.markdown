@@ -22,9 +22,11 @@ tags:
 - migration
 permalink: "/2014/9/start_with_django_webframework_03/"
 ---
+
+* [날로 먹는 Django 웹프레임워크 강좌 목차](http://blog.hannal.com/category/start-with-django-webframework/)
 * 마지막 갱신일시 : 2015년 4월 26일 21시 10분
 
-이 강좌를 연재하는 중에 Django 1.7이 정식 출시됐습니다. 다행히(?) Django를 본격 다루기 전이니 이번 편부터 Django 1.7판을 기준으로 작성하겠습니다. 
+이 강좌를 연재하는 중에 Django 1.7이 정식 출시됐습니다. 다행히(?) Django를 본격 다루기 전이니 이번 편부터 Django 1.7판을 기준으로 작성하겠습니다.
 
 ### 1. Django Project와 App
 
@@ -34,7 +36,7 @@ Python 코드가 담긴 파일을 [Python 모듈](https://docs.python.org/2/tuto
 
 Django는 [Django project](https://docs.djangoproject.com/en/1.6/glossary/#term-project) 단위로 만드는데, Python 체계로 보면 Python 패키지를 뜻합니다. Django로 만드는 프로젝트에 사용되는 코드와 Django 설정값이 Python 모듈로 존재하고 모두를 포함하는 Python 패키지로 묶은 것이지요.
 
-우리가 Pystagram 프로젝트를 Django로 만든다는 건 Pystagram이라는 Python 패키지를 만들고, Pystagram에 들어가는 기능은 Python 모듈로 만든다는 뜻입니다. 그럼 Django를 써서 Pystagram을 만들려면 먼저 Pystagram 디렉터리를 만들어야 겠지요. 이 디렉터리는 Python 패키지니까 초기화 파일인 `__init__.py`이 필요합니다. 그리고 Django framework이 참조할 프로젝트 설정 항목은 settings라는 모듈이므로 `settings.py`라는 파일로 필요합니다. 웹 주소(URL)로 서비스에 접근하므로 각 접근 주소에 연결될 기능을 설정하는 `urls.py`라는 파일도 필요합니다. 이 중에서 `settings.py`는 필수 모듈입니다.  
+우리가 Pystagram 프로젝트를 Django로 만든다는 건 Pystagram이라는 Python 패키지를 만들고, Pystagram에 들어가는 기능은 Python 모듈로 만든다는 뜻입니다. 그럼 Django를 써서 Pystagram을 만들려면 먼저 Pystagram 디렉터리를 만들어야 겠지요. 이 디렉터리는 Python 패키지니까 초기화 파일인 `__init__.py`이 필요합니다. 그리고 Django framework이 참조할 프로젝트 설정 항목은 settings라는 모듈이므로 `settings.py`라는 파일로 필요합니다. 웹 주소(URL)로 서비스에 접근하므로 각 접근 주소에 연결될 기능을 설정하는 `urls.py`라는 파일도 필요합니다. 이 중에서 `settings.py`는 필수 모듈입니다.
 
 
 #### (2) Django project 만들기
@@ -47,9 +49,9 @@ Python 패키지인 Pystagram 디렉터리를 만들고, 여기에 필수 모듈
 $ workon pystagram
 ```
 
-virtualenv로 만든 pystagram 가상 환경에 들어가는 겁니다. 지난 편에서 우리는 이 가상 영역에 Django를 설치했지요. 
+virtualenv로 만든 pystagram 가상 환경에 들어가는 겁니다. 지난 편에서 우리는 이 가상 영역에 Django를 설치했지요.
 
-이번엔 Pystagram 프로젝트를 개설합니다. 여러분이 원하는 아무 곳(디렉터리)에 만들어도 됩니다. 저는 `~/Workspace` 안에다 프로그래밍 프로젝트를 넣어두니 이 안에 만들겠습니다. 
+이번엔 Pystagram 프로젝트를 개설합니다. 여러분이 원하는 아무 곳(디렉터리)에 만들어도 됩니다. 저는 `~/Workspace` 안에다 프로그래밍 프로젝트를 넣어두니 이 안에 만들겠습니다.
 
 ```
 $ django-admin.py startproject pystagram
@@ -142,7 +144,7 @@ $ ./manage.py migrate
 ```
 $ ./manage.py createsuperuser
 Username (leave blank to use 'hannal'): hannal
-Email address: 
+Email address:
 Password:
 Password (again):
 Superuser created successfully.
@@ -195,7 +197,7 @@ pystagram/
         views.py
 ```
 
-`photo` package가 photo app입니다. 
+`photo` package가 photo app입니다.
 
 * [photo App을 생성한 단계의 전체 소스 코드](https://github.com/hannal/start_with_django_webframework/tree/startapp_photo/pystagram)
 
@@ -245,7 +247,7 @@ Django에서 모델의 속성(attribute)은 데이터베이스 필드(field)로 
 
 문자열을 다룬다는 점에서 `CharField`와 `TextField`는 같지만, 실은 전혀 다릅니다. `CharField`는 데이터베이스의 `VARCHAR`에 대응합니다. Django는 통상 200자 정도를 보장합니다. “보장”이라는 표현을 쓴 이유는 데이터베이스 시스템에 따라 `VARCHAR` 제한 길이가 다르기 때문입니다. 그에 반해 `TextField`는 이보다 훨씬 긴 문자열을 다룹니다. 이것도 데이터베이스 시스템에 따라 길이 제한이 다른데, SQLite3는 약 1기가 바이트까지 저장하는 `text`, PostgreSQL은 길이 제한이 없는 `text`, MySQL은 약 4기가 바이트까지 담는 `longtext`, Oracle은 약 8~12테라 바이트까지 담는 `NCLOB`에 대응합니다[^3][^4]. 보통은 긴 문자열을 담는 저러한 필드형에는 데이터베이스 인덱스가 걸리지 않으므로 Django의 `TextField` 필드에도 데이터베이스의 인덱스가(필드 옵션 : `db_index`) 걸리지 않습니다.
 
-어쨌든 데이터베이스 시스템에 따라서 `TextField` 필드의 길이제한 단위가 무시무시한데, 굳이 저렇게 긴 문자열을 저장하진 않을 겁니다. 안 예쁘잖아요. 최대 길이를 500자로 제한하겠습니다. `CharField`와 `TextField` 둘 다 `max_length`라는 필드 옵션으로 최대 문자열 길이를 제한하며, `CharField`는 `max_length` 필드 옵션을 반드시 넣어야 합니다. 
+어쨌든 데이터베이스 시스템에 따라서 `TextField` 필드의 길이제한 단위가 무시무시한데, 굳이 저렇게 긴 문자열을 저장하진 않을 겁니다. 안 예쁘잖아요. 최대 길이를 500자로 제한하겠습니다. `CharField`와 `TextField` 둘 다 `max_length`라는 필드 옵션으로 최대 문자열 길이를 제한하며, `CharField`는 `max_length` 필드 옵션을 반드시 넣어야 합니다.
 
 `created_at`은 Photo 모델이 생성되어 데이터베이스에 저장되는 시각을 담는데, Django에는 날짜를 다루는 `DateField`, 시간을 다루는 `TimeField`, 그리고 날짜와 시간을 같이 다루는 `DateTimeField`가 있습니다. 생성일시 정보를 다루니 `DateTimeField`를 쓰겠습니다. 이 필드에는 `auto_now` 옵션과 `auto_now_add` 옵션이 있는데, 자동으로 현재 시간 정보를 담을 지 여부를 `True`와 `False`로 지정합니다. `auto_now_add`는 객체가 처음 생성될 때, `auto_now`는 객체가 저장될 때 자동으로 시간 정보를 담습니다. `auto_now_add`만 `True`로 설정한다면, 데이터가 처음 저장되는 시간 정보만 잡히고, 이후에 그 데이터를 수정하여 저장하더라도 자동으로 시간 정보가 담기진 않겠지요. 코드로 표현한다면 이런 모습일 겁니다.
 
@@ -285,7 +287,7 @@ class Photo(models.Model):
 
 ##### 데이터베이스에 반영 (migration)
 
-Django 1.7 이전 판에서는 `manage.py`에 `syncdb` 명령으로 우리가 만든 모델을 데이터베이스에 반영했지만, 1.7판부터는 `makemigrations`과 `migrate` 명령어를 이용합니다. `Photo` 모델을 마이그레이션 하려면 `settings.py`에 `photo` 앱을 추가해야 하니 `settings.py`에서 `INSTALLED_APPS` 항목을 찾아서 다음과 같이 `photo`를 추가합니다. 
+Django 1.7 이전 판에서는 `manage.py`에 `syncdb` 명령으로 우리가 만든 모델을 데이터베이스에 반영했지만, 1.7판부터는 `makemigrations`과 `migrate` 명령어를 이용합니다. `Photo` 모델을 마이그레이션 하려면 `settings.py`에 `photo` 앱을 추가해야 하니 `settings.py`에서 `INSTALLED_APPS` 항목을 찾아서 다음과 같이 `photo`를 추가합니다.
 
 ```
 INSTALLED_APPS = (
@@ -302,7 +304,7 @@ INSTALLED_APPS = (
 그 다음에 `makemigrations`으로 마이그레이션 작업 내용을 만듭니다.
 
 ```
-$ ./manage.py makemigrations 
+$ ./manage.py makemigrations
 Migrations for 'photo':
   0001_initial.py:
     - Create model Photo

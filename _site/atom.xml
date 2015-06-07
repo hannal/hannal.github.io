@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-06-07T16:44:14+09:00</updated>
+  <updated>2015-06-07T23:12:44+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -17,6 +17,7 @@
     <updated>2015-06-07T02:45:00+09:00</updated>
     <id>/2015/06/start_with_django_webframework_08</id>
     <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2015년 6월 7일 7시 19분&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -201,7 +202,7 @@
 &lt;li&gt;&lt;code&gt;django.contrib.auth.forms.AuthenticationForm&lt;/code&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;django.contrib.auth.authenticate()&lt;/code&gt; 
+&lt;li&gt;&lt;code&gt;django.contrib.auth.authenticate()&lt;/code&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;settings.AUTHENTICATION_BACKENDS&lt;/code&gt;에서 인증 기반 하나씩 가져옴&lt;/li&gt;
@@ -240,7 +241,7 @@
 
 &lt;hr&gt;
 
-&lt;p&gt;강좌 8편을 마칩니다. 아직은 Django 1.7판을 기준으로 강좌를 진행하고 있는데, 조만간 1.8판을 기준으로 내용을 다듬어야 겠습니다. &lt;/p&gt;
+&lt;p&gt;강좌 8편을 마칩니다. 아직은 Django 1.7판을 기준으로 강좌를 진행하고 있는데, 조만간 1.8판을 기준으로 내용을 다듬어야 겠습니다.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/hannal/start_with_django_webframework/tree/08-fullsource/pystagram&quot;&gt;8편까지 진행한 전체 소스 코드&lt;/a&gt;&lt;/li&gt;
@@ -267,6 +268,7 @@
     <updated>2015-05-18T02:47:49+09:00</updated>
     <id>/2015/05/start_with_django_webframework_07</id>
     <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2015년 5월 18일 2시 47분&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -502,7 +504,7 @@ def new_photo(request):
         if edit_form.is_valid():
             new_photo = edit_form.save()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Django Form은 첫 번째 인자로 넘어온 데이터는 &lt;code&gt;data&lt;/code&gt; 멤버에, 파일은 &lt;code&gt;files&lt;/code&gt; 멤버에 할당하는 걸 이용한 것인데, Form 클래스로 인스턴스 객체를 생성해 할당하는 과정에서(&lt;code&gt;__init__()&lt;/code&gt;) 인자로 전달된 데이터나 파일이 있으면 &lt;code&gt;is_bound&lt;/code&gt;라는 멤버에 &lt;code&gt;True&lt;/code&gt;가 할당되고, 이 &lt;code&gt;is_bound&lt;/code&gt;가 &lt;code&gt;True&lt;/code&gt;여야만 &lt;code&gt;is_valid()&lt;/code&gt;를 비롯한 폼 검사를 수행하기 때문입니다. 물론, &lt;/p&gt;
+&lt;p&gt;Django Form은 첫 번째 인자로 넘어온 데이터는 &lt;code&gt;data&lt;/code&gt; 멤버에, 파일은 &lt;code&gt;files&lt;/code&gt; 멤버에 할당하는 걸 이용한 것인데, Form 클래스로 인스턴스 객체를 생성해 할당하는 과정에서(&lt;code&gt;__init__()&lt;/code&gt;) 인자로 전달된 데이터나 파일이 있으면 &lt;code&gt;is_bound&lt;/code&gt;라는 멤버에 &lt;code&gt;True&lt;/code&gt;가 할당되고, 이 &lt;code&gt;is_bound&lt;/code&gt;가 &lt;code&gt;True&lt;/code&gt;여야만 &lt;code&gt;is_valid()&lt;/code&gt;를 비롯한 폼 검사를 수행하기 때문입니다. 물론,&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;    if request.method == &amp;quot;POST&amp;quot;:
         edit_form.is_bound = True
         edit_form.data = request.POST
@@ -586,7 +588,7 @@ class Photo(models.Model):
     {{form.errors.image_file}}
 {% endif %}
 
-또는 
+또는
 
 {% if form.image_file.errors %}
     {{form.image_file.errors}}
@@ -639,6 +641,7 @@ class Photo(models.Model):
     <updated>2015-04-27T04:00:49+09:00</updated>
     <id>/2015/04/start_with_django_webframework_06</id>
     <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2015년 4월 26일 21시 10분&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -2183,6 +2186,7 @@ WebSocketServer(
     <updated>2014-11-11T12:00:49+09:00</updated>
     <id>/2014/11/start_with_django_webframework_05</id>
     <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2015년 4월 25일 21시 10분&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -2244,7 +2248,7 @@ WebSocketServer(
 
 &lt;p&gt;&lt;code&gt;patterns&lt;/code&gt; 함수는 두 종류 인자를 받습니다. 하나는 &lt;code&gt;prefix&lt;/code&gt;인데, 맨 앞에 있는 아무 내용이 없는 문자형 자료(객체)인 &lt;code&gt;&amp;#39;&amp;#39;&lt;/code&gt;가 &lt;code&gt;prefix&lt;/code&gt;입니다. &lt;code&gt;prefix&lt;/code&gt;는 따로 설명하겠습니다. &lt;code&gt;prefix&lt;/code&gt; 뒤에 나오는 부분은 &lt;code&gt;url&lt;/code&gt; 함수로 만든 URL 연결자들입니다. 그냥 쭈욱 나열한 것 뿐입니다.&lt;/p&gt;
 
-&lt;p&gt;그럼 주소 연결자를 만드는 &lt;code&gt;url&lt;/code&gt; 함수 부분을 보겠습니다. 이 함수는 총 다섯 개 인자를 받습니다. &lt;/p&gt;
+&lt;p&gt;그럼 주소 연결자를 만드는 &lt;code&gt;url&lt;/code&gt; 함수 부분을 보겠습니다. 이 함수는 총 다섯 개 인자를 받습니다.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;regex : 주소 패턴 (정규표현식)&lt;/li&gt;
@@ -2314,7 +2318,7 @@ WebSocketServer(
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;다른 &lt;code&gt;prefix&lt;/code&gt;를 지정한 &lt;code&gt;patterns&lt;/code&gt; 함수를 실행하고, 그 결과값을 &lt;code&gt;urlpatterns&lt;/code&gt;에 덧이으면 됩니다. &lt;code&gt;urlpatterns&lt;/code&gt;가 &lt;code&gt;list&lt;/code&gt; 자료형이니 &lt;code&gt;urlpatterns.extend( ... )&lt;/code&gt; 이렇게 추가해도 됩니다.&lt;/p&gt;
 
-&lt;p&gt;기왕 기계가 할 일을 사람이 하지 않고 기계가 하도록 한 김에 좀 더 간결히 줄여보겠습니다. &lt;/p&gt;
+&lt;p&gt;기왕 기계가 할 일을 사람이 하지 않고 기계가 하도록 한 김에 좀 더 간결히 줄여보겠습니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;urlpatterns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patterns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;photo.views&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&amp;#39;^photo/(?P&amp;lt;photo_id&amp;gt;\d+)$&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;single_photo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
@@ -2328,11 +2332,11 @@ WebSocketServer(
     &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&amp;#39;^admin/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;site&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이 정도로 Django의 URL Dispatch 기능의 작동법과 사용법 설명을 마치고, 추가 기능은 필요하면 그때 그때 설명하겠습니다. 아참, &lt;code&gt;url&lt;/code&gt; 함수가 받는 마지막 인자인 &lt;code&gt;kwargs&lt;/code&gt;는 부록에서 설명하겠습니다. &lt;/p&gt;
+&lt;p&gt;이 정도로 Django의 URL Dispatch 기능의 작동법과 사용법 설명을 마치고, 추가 기능은 필요하면 그때 그때 설명하겠습니다. 아참, &lt;code&gt;url&lt;/code&gt; 함수가 받는 마지막 인자인 &lt;code&gt;kwargs&lt;/code&gt;는 부록에서 설명하겠습니다.&lt;/p&gt;
 
 &lt;h4&gt;(4) 개별 사진 보기 View - 2&lt;/h4&gt;
 
-&lt;p&gt;웹브라우저에서 &lt;code&gt;/photo/&amp;lt;사진 ID&amp;gt;/&lt;/code&gt;, 예를 들어 &lt;code&gt;/photo/3&lt;/code&gt;으로 접근하면 “TypeError at /photo/3”이라는 오류가 뜹니다. 내용은 
+&lt;p&gt;웹브라우저에서 &lt;code&gt;/photo/&amp;lt;사진 ID&amp;gt;/&lt;/code&gt;, 예를 들어 &lt;code&gt;/photo/3&lt;/code&gt;으로 접근하면 “TypeError at /photo/3”이라는 오류가 뜹니다. 내용은
 “single&lt;em&gt;photo() got an unexpected keyword argument &amp;#39;photo&lt;/em&gt;id&amp;#39;”이고요. &lt;code&gt;single_photo&lt;/code&gt; 함수로 &lt;code&gt;photo_id&lt;/code&gt;라는 인자를 넘길려는데 &lt;code&gt;single_photo&lt;/code&gt; 함수가 받지 않아서 그렇습니다. &lt;code&gt;photo_id&lt;/code&gt;는 &lt;code&gt;urls.py&lt;/code&gt;에서 &lt;code&gt;(?P&amp;lt;photo_id&amp;gt;\d+)&lt;/code&gt; 바로 이 부분입니다. 정규표현식 패턴에 해당되는 문자열이 &lt;code&gt;?P&amp;lt;이름&amp;gt;&lt;/code&gt;에 지정된 &lt;code&gt;이름&lt;/code&gt;에 저장되어 View 함수의 인자로 넘겨집니다. &lt;code&gt;/photo/숫자&lt;/code&gt; URL에서 숫자가 &lt;code&gt;photo_id&lt;/code&gt;라는 이름을 갖는 인자에 저장되어 &lt;code&gt;single_photo&lt;/code&gt; 함수로 전달됩니다. 그래서 &lt;code&gt;single_photo&lt;/code&gt; 함수가 이 인자를 받도록 해야 합니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;single_photo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;photo_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpResponse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;{0}번...{0}번 사진을 보여 드릴게요.&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;photo_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
@@ -2474,7 +2478,7 @@ WebSocketServer(
 
 &lt;p&gt;혹시 &lt;code&gt;views.py&lt;/code&gt; 파일 맨 위에 &lt;code&gt;# coding: utf-8&lt;/code&gt; 내용을 넣지 않은 채 &lt;code&gt;views.py&lt;/code&gt; 파일 안에 한글을 직접 입력했다면 &lt;code&gt;SyntaxError&lt;/code&gt; 오류가 발생합니다. 오류 내용은 &lt;code&gt;Non-ASCII character &amp;#39;무엇&amp;#39; in file&lt;/code&gt;인데, 파일에 ascii 문자가 아닌 문자가 있다는 뜻입니다. Python 버전 2대를 쓰는 입문자라면 영원히(?) 고통 받는 상황입니다.&lt;/p&gt;
 
-&lt;p&gt;이 문제는 Python 모듈(파일)에 ascii 문자의 표현 범위를 벗어나는 한글이나 한자 같은 문자가 포함되면 Python 인터프리터가 “어?! 이 문자 뭐임? 몰라, 무서워. 뱉어”라며 Syntax 예외를 일으켜서 발생합니다. 이 문제를 예방하려면 소스 파일에 ascii 문자만 입력하거나 &lt;a href=&quot;http://legacy.python.org/dev/peps/pep-0263/&quot;&gt;소스 파일이 어떤 문자형(charset)으로 작성됐는지 Python 인터프리터에게 알려줘야 합니다&lt;/a&gt;. 그 알려주는 방법이 소스 파일 상단에 &lt;code&gt;# coding: utf-8&lt;/code&gt;를 명기한 것이지요. Emacs 같은 편집기를 위해 &lt;code&gt;# -*- coding: utf-8 -*-&lt;/code&gt; 라고 명기하기도 합니다. &lt;/p&gt;
+&lt;p&gt;이 문제는 Python 모듈(파일)에 ascii 문자의 표현 범위를 벗어나는 한글이나 한자 같은 문자가 포함되면 Python 인터프리터가 “어?! 이 문자 뭐임? 몰라, 무서워. 뱉어”라며 Syntax 예외를 일으켜서 발생합니다. 이 문제를 예방하려면 소스 파일에 ascii 문자만 입력하거나 &lt;a href=&quot;http://legacy.python.org/dev/peps/pep-0263/&quot;&gt;소스 파일이 어떤 문자형(charset)으로 작성됐는지 Python 인터프리터에게 알려줘야 합니다&lt;/a&gt;. 그 알려주는 방법이 소스 파일 상단에 &lt;code&gt;# coding: utf-8&lt;/code&gt;를 명기한 것이지요. Emacs 같은 편집기를 위해 &lt;code&gt;# -*- coding: utf-8 -*-&lt;/code&gt; 라고 명기하기도 합니다.&lt;/p&gt;
 
 &lt;p&gt;Python 2의 기본 문자형(charset)이 ascii이기 때문에 Python 2를 쓰는 이상 유니코드와 관련된 고통은 감수해야 합니다. :) 아, 이런 문제는 Python 3에선 발생하지 않습니다.&lt;/p&gt;
 
@@ -2535,6 +2539,7 @@ WebSocketServer(
     <updated>2014-10-05T19:00:49+09:00</updated>
     <id>/2014/10/start_with_django_webframework_04</id>
     <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2015년 4월 26일 21시 10분&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -2570,9 +2575,9 @@ site = AdminSite()
 
 &lt;p&gt;&lt;img src=&quot;/assets/uploads/2014/10/04-add_photo_form_in_admin.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;어차피 싹 지우고 다시 데이터는 채워 넣을 거니까 아무 자료나 넣어보세요. 사진이 아닌 파일도 지정해보고 본문(description) 입력란에 아무 내용도 넣지 말고 저장도 해보세요. 또 본문 입력란에 500글자가 넘는 글자를 넣어 보세요. 우리가 뭔가 따로 조치를 취한 게 없는데도 파일이 이미지 파일인지 아닌지, 본문이 채워져 있는지를 검사하고 본문에 500자 이상 입력이 안 되게 제한됩니다. &lt;/p&gt;
+&lt;p&gt;어차피 싹 지우고 다시 데이터는 채워 넣을 거니까 아무 자료나 넣어보세요. 사진이 아닌 파일도 지정해보고 본문(description) 입력란에 아무 내용도 넣지 말고 저장도 해보세요. 또 본문 입력란에 500글자가 넘는 글자를 넣어 보세요. 우리가 뭔가 따로 조치를 취한 게 없는데도 파일이 이미지 파일인지 아닌지, 본문이 채워져 있는지를 검사하고 본문에 500자 이상 입력이 안 되게 제한됩니다.&lt;/p&gt;
 
-&lt;p&gt;Django의 &lt;code&gt;forms&lt;/code&gt; 기능(패키지)이 이런 처리를 하며, 이미지 파일이어야 하고 본문은 반드시 내용이 있어야 한다거나 본문 길이와 같은 검사 항목과 정보를 우리가 만든 &lt;code&gt;Photo&lt;/code&gt; 모델에서 참조합니다. &lt;code&gt;image_file&lt;/code&gt; 모델 속성을 &lt;code&gt;ImageField&lt;/code&gt;라는 필드 타입으로 지정해서 업로드 되는 파일이 이미지 파일인지 검사하는 것이며, &lt;code&gt;description&lt;/code&gt; 모델 속성을 최대 길이 500자로 지정한 &lt;code&gt;TextField&lt;/code&gt; 필드 타입으로 지정해서 문자열 길이가 500자 이하인지 검사합니다. 생성일시인 &lt;code&gt;created_at&lt;/code&gt;은 자동으로 값이 저장되는 옵션을 주어서 입력란으로 등장하지 않았습니다. &lt;/p&gt;
+&lt;p&gt;Django의 &lt;code&gt;forms&lt;/code&gt; 기능(패키지)이 이런 처리를 하며, 이미지 파일이어야 하고 본문은 반드시 내용이 있어야 한다거나 본문 길이와 같은 검사 항목과 정보를 우리가 만든 &lt;code&gt;Photo&lt;/code&gt; 모델에서 참조합니다. &lt;code&gt;image_file&lt;/code&gt; 모델 속성을 &lt;code&gt;ImageField&lt;/code&gt;라는 필드 타입으로 지정해서 업로드 되는 파일이 이미지 파일인지 검사하는 것이며, &lt;code&gt;description&lt;/code&gt; 모델 속성을 최대 길이 500자로 지정한 &lt;code&gt;TextField&lt;/code&gt; 필드 타입으로 지정해서 문자열 길이가 500자 이하인지 검사합니다. 생성일시인 &lt;code&gt;created_at&lt;/code&gt;은 자동으로 값이 저장되는 옵션을 주어서 입력란으로 등장하지 않았습니다.&lt;/p&gt;
 
 &lt;p&gt;몇 가지 실험해보죠. &lt;code&gt;photo&lt;/code&gt; 앱의 &lt;code&gt;Photo&lt;/code&gt; 모델에서 &lt;code&gt;created_at&lt;/code&gt;을 고치겠습니다. &lt;code&gt;auto_now_add&lt;/code&gt;와 &lt;code&gt;auto_now&lt;/code&gt; 필드 옵션을 모두 제거하겠습니다. 그리고 &lt;code&gt;description&lt;/code&gt;의 필드 타입에 &lt;code&gt;blank&lt;/code&gt;라는 필드 옵션을 &lt;code&gt;True&lt;/code&gt;로 추가 지정하겠습니다. 코드로 보면 이렇습니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Photo(models.Model):
@@ -2622,7 +2627,7 @@ Migrations for &amp;#39;photo&amp;#39;:
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;image_file = models.ImageField(upload_to=&amp;#39;static_files/uploaded&amp;#39;)
 filtered_image_file = models.ImageField(upload_to=&amp;#39;static_files/uploaded&amp;#39;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;위와 같이 &lt;code&gt;Photo&lt;/code&gt; 모델을 고쳐서 저장한 후 Admin 영역에서 &lt;code&gt;Photo&lt;/code&gt; 모델에 데이터를 추가해 보세요. 업로드한 이미지 파일이 &lt;code&gt;static_files/uploaded&lt;/code&gt;에 저장되어 있습니다. &lt;/p&gt;
+&lt;p&gt;위와 같이 &lt;code&gt;Photo&lt;/code&gt; 모델을 고쳐서 저장한 후 Admin 영역에서 &lt;code&gt;Photo&lt;/code&gt; 모델에 데이터를 추가해 보세요. 업로드한 이미지 파일이 &lt;code&gt;static_files/uploaded&lt;/code&gt;에 저장되어 있습니다.&lt;/p&gt;
 
 &lt;p&gt;파일이 저장되는 경로에 자동으로 내용이 채워지는 몇 가지 규칙이 있습니다. 예를 들어, 2014년도에 올라오는 파일은 &lt;code&gt;static_files/uploaded/2014&lt;/code&gt;에 넣고, 2015년도에 올라오는 파일은 &lt;code&gt;static_files/uploaded/2015&lt;/code&gt;에 넣고자 한다면, 따로 그런 기능을 구현하지 않아도 됩니다. 우리는 네 자리 년도, 두 자리 월, 두 자리 일로 디렉터리를 구분해서 업로드 되는 파일을 저장하겠습니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;image_file = models.ImageField(upload_to=&amp;#39;static_files/uploaded/%Y/%m/%d&amp;#39;)
@@ -2644,13 +2649,13 @@ filtered_image_file = models.ImageField(upload_to=&amp;#39;static_files/uploaded
 
 &lt;p&gt;혹시 Admin 영역에서 추가한 &lt;code&gt;Photo&lt;/code&gt; 모델의 객체를 지워보셨나요? Admin 영역에서는 모델 객체를 추가하는 것 뿐만 아니라 기존 모델 객체를 수정하거나 지우는 기능을 기본 제공합니다. 한 번 모델 객체를 지워 보세요.&lt;/p&gt;
 
-&lt;p&gt;이상한 점 발견하셨나요? 모델 객체를 지우면 객체 자체는 지워지는데 그 객체에 연결된 파일들, 그러니까 업로드한 두 개 파일은 지워지지 않고 여전히 남아 있습니다. Django의 모델 기능은 모델 객체가 삭제되어도 그 모델 객체의 파일 필드에 연결된 파일을 지우지 않습니다. 그래서 삭제할 모델 객체를 먼져 가져와서 연결된 파일을 일일이 지워준 후에 모델 객체를 지워야 합니다. &lt;/p&gt;
+&lt;p&gt;이상한 점 발견하셨나요? 모델 객체를 지우면 객체 자체는 지워지는데 그 객체에 연결된 파일들, 그러니까 업로드한 두 개 파일은 지워지지 않고 여전히 남아 있습니다. Django의 모델 기능은 모델 객체가 삭제되어도 그 모델 객체의 파일 필드에 연결된 파일을 지우지 않습니다. 그래서 삭제할 모델 객체를 먼져 가져와서 연결된 파일을 일일이 지워준 후에 모델 객체를 지워야 합니다.&lt;/p&gt;
 
 &lt;p&gt;모델 객체가 삭제될 때 그 모델 객체에 연결된 파일도 자동으로 함께 지우는 기능은 따로 구현해야 합니다. 몇 가지 방법이 있습니다.&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;모델을 삭제하는 기능이 호출되면 파일 삭제 기능도 실행&lt;/li&gt;
-&lt;li&gt;모델이 삭제되는 신호가 감지되면 파일 삭제 기능도 실행 &lt;/li&gt;
+&lt;li&gt;모델이 삭제되는 신호가 감지되면 파일 삭제 기능도 실행&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;2번은 나중에 알아보기로 하고, 이번 편에서는 1번 방법을 구현해 보겠습니다.&lt;/p&gt;
@@ -2666,7 +2671,7 @@ filtered_image_file = models.ImageField(upload_to=&amp;#39;static_files/uploaded
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;먼저 &lt;code&gt;def delete(self, *args, **kwargs):&lt;/code&gt;는 특별한 내용은 없습니다. &lt;code&gt;delete&lt;/code&gt; 함수는 인스턴스 메서드이므로 첫 번째 인자로 객체 자신을 &lt;code&gt;self&lt;/code&gt;라는 이름으로 넘겨 받습니다. &lt;a href=&quot;http://stackoverflow.com/questions/3394835/args-and-kwargs&quot;&gt;&lt;code&gt;*args&lt;/code&gt;와 &lt;code&gt;**kwargs&lt;/code&gt;는 함수가 넘겨받는 인자를 미리 알지 못하는 경우에 함수가 넘겨받는 인자를 담는 객체&lt;/a&gt;입니다. &lt;code&gt;delete&lt;/code&gt; 메서드로 뭘 인자로 넘길 지는 모르겠지만 어쨌든 넘겨받은 그대로 &lt;code&gt;Model&lt;/code&gt;클래스의 &lt;code&gt;delete&lt;/code&gt; 메서드로 넘겨줘야 해서 저렇게 받습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;self.image_file.delete()&lt;/code&gt;에서 &lt;code&gt;self.image_file&lt;/code&gt;는 &lt;code&gt;image_file&lt;/code&gt; 모델 필드를 뜻합니다. Python 클래스의 인스턴스 메서드 안에서 속성(attribute)에 접근하려면 &lt;code&gt;self.속성이름&lt;/code&gt;으로 접근하지요. &lt;code&gt;self&lt;/code&gt;는 &lt;code&gt;delete&lt;/code&gt; 인스턴스 메서드에서 첫 번째 인자로 넘겨 받았고요. 인스턴스 밖에서 접근하려면 &lt;code&gt;photo.image_file&lt;/code&gt; 이렇게 접근하겠고요. 이 &lt;code&gt;image_file&lt;/code&gt; 모델 필드는 Django의 모델 필드인 &lt;code&gt;ImageField&lt;/code&gt; 클래스의 인스턴스입니다. &lt;code&gt;ImageField&lt;/code&gt; 클래스로 만든 인스턴스는 &lt;code&gt;delete&lt;/code&gt;라는 인스턴스 메서드를 제공하며, 이름에서 알 수 있듯이 해당 모델 필드에 연결된 파일을 삭제합니다. &lt;code&gt;self.filtered_image_file.delete()&lt;/code&gt;는 무슨 코드인지 예측되지요? 필터가 적용된 이미지 파일을 지우는 겁니다. &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;self.image_file.delete()&lt;/code&gt;에서 &lt;code&gt;self.image_file&lt;/code&gt;는 &lt;code&gt;image_file&lt;/code&gt; 모델 필드를 뜻합니다. Python 클래스의 인스턴스 메서드 안에서 속성(attribute)에 접근하려면 &lt;code&gt;self.속성이름&lt;/code&gt;으로 접근하지요. &lt;code&gt;self&lt;/code&gt;는 &lt;code&gt;delete&lt;/code&gt; 인스턴스 메서드에서 첫 번째 인자로 넘겨 받았고요. 인스턴스 밖에서 접근하려면 &lt;code&gt;photo.image_file&lt;/code&gt; 이렇게 접근하겠고요. 이 &lt;code&gt;image_file&lt;/code&gt; 모델 필드는 Django의 모델 필드인 &lt;code&gt;ImageField&lt;/code&gt; 클래스의 인스턴스입니다. &lt;code&gt;ImageField&lt;/code&gt; 클래스로 만든 인스턴스는 &lt;code&gt;delete&lt;/code&gt;라는 인스턴스 메서드를 제공하며, 이름에서 알 수 있듯이 해당 모델 필드에 연결된 파일을 삭제합니다. &lt;code&gt;self.filtered_image_file.delete()&lt;/code&gt;는 무슨 코드인지 예측되지요? 필터가 적용된 이미지 파일을 지우는 겁니다.&lt;/p&gt;
 
 &lt;p&gt;맨 마지막 줄인 &lt;code&gt;super(Photo, self).delete(*args, **kwargs)&lt;/code&gt;는 &lt;code&gt;Photo&lt;/code&gt; 모델이 상속받은 부모 클래스의 &lt;code&gt;delete&lt;/code&gt; 인스턴스 메서드를 호출합니다. 넘겨받은 인자를 그대로 전달하려고 &lt;code&gt;*args, **kwargs&lt;/code&gt;로 인자를 보내지요. 이 코드가 없으면 첨부된 업로드 파일만 삭제되고 모델 객체는 삭제되지 않습니다. 모델 객체를 지우는 건 &lt;code&gt;Model&lt;/code&gt; 클래스에 있는 &lt;code&gt;delete&lt;/code&gt; 메서드거든요. 만약 &lt;code&gt;Model&lt;/code&gt; 클래스의 &lt;code&gt;delete&lt;/code&gt; 메서드를 사용해서 모델 객체를 삭제하지 않고 여러분이 독자 구현한 코드로 모델 객체를 지우고자 한다면 &lt;code&gt;super(...)&lt;/code&gt; 이 부분을 지우고 직접 구현하면 됩니다.&lt;/p&gt;
 
@@ -2690,7 +2695,7 @@ class Photo(models.Model):
 
 &lt;h4&gt;(1) Django Admin 주소&lt;/h4&gt;
 
-&lt;p&gt;Django에서 제공하는 Admin 기능은 &lt;code&gt;settings.py&lt;/code&gt;에 설정되어 있습니다. &lt;code&gt;INSTALLED_APPS&lt;/code&gt;라는 변수를 찾아 보시면 &lt;code&gt;django.contrib.admin&lt;/code&gt;이라는 줄이 보입니다. 우리가 만든 &lt;code&gt;photo&lt;/code&gt; 앱도 이곳에 추가했지요. &lt;/p&gt;
+&lt;p&gt;Django에서 제공하는 Admin 기능은 &lt;code&gt;settings.py&lt;/code&gt;에 설정되어 있습니다. &lt;code&gt;INSTALLED_APPS&lt;/code&gt;라는 변수를 찾아 보시면 &lt;code&gt;django.contrib.admin&lt;/code&gt;이라는 줄이 보입니다. 우리가 만든 &lt;code&gt;photo&lt;/code&gt; 앱도 이곳에 추가했지요.&lt;/p&gt;
 
 &lt;p&gt;그럼 &lt;code&gt;http://127.0.0.1:8000/admin&lt;/code&gt; 주소(URL)에서 &lt;code&gt;admin&lt;/code&gt; 부분도 어딘가에 미리 설정되어 있는 걸까요? 맞습니다. &lt;code&gt;urls.py&lt;/code&gt;에 기본으로 설정되어 있습니다. &lt;code&gt;pystagram&lt;/code&gt; 패키지(디렉터리)에 있는 &lt;code&gt;urls.py&lt;/code&gt;을 열어 보시면 &lt;code&gt;url(r&amp;#39;^admin/&amp;#39;, include(admin.site.urls)),&lt;/code&gt;이라는 내용이 보일 겁니다. 경로 맨 앞에 &lt;code&gt;admin&lt;/code&gt;이 있는 모든 경로를 &lt;code&gt;admin.site.urls&lt;/code&gt;에 설정되어 있는 경로에 연결(matching)하겠다는 내용입니다. 이건 &lt;code&gt;django.contrib.admin&lt;/code&gt; 패키지에서 &lt;code&gt;sites.py&lt;/code&gt; 파일에 보면 &lt;code&gt;AdminSite&lt;/code&gt; 클래스가 있는데, 그 클래스의 &lt;code&gt;get_urls&lt;/code&gt;라는 인스턴스 메서드를 호출하는 겁니다. 메서드를 프로퍼티화 하는 &lt;code&gt;@property&lt;/code&gt; 장식자(decorator)를 이용하여 &lt;code&gt;urls&lt;/code&gt;를 호출하면 &lt;code&gt;get_urls&lt;/code&gt; 인스턴스 메서드가 반환하는 정보를 던져주는 것이지요.&lt;/p&gt;
 
@@ -2704,7 +2709,7 @@ class Photo(models.Model):
 
 &lt;hr&gt;
 
-&lt;p&gt;이것으로 강좌 4편을 마칩니다. 늦어서 죄송합니다. 요즘 많이 바빠서 연재하기 힘드네요. ㅜㅜ 한 편에 너무 많은 내용을 담느라 연재 주기가 늘어지지 않도록 해보겠습니다. &lt;/p&gt;
+&lt;p&gt;이것으로 강좌 4편을 마칩니다. 늦어서 죄송합니다. 요즘 많이 바빠서 연재하기 힘드네요. ㅜㅜ 한 편에 너무 많은 내용을 담느라 연재 주기가 늘어지지 않도록 해보겠습니다.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/hannal/start_with_django_webframework/tree/04-fullsource/pystagram&quot;&gt;4편까지 진행한 전체 소스 코드&lt;/a&gt;&lt;/li&gt;
@@ -2718,10 +2723,11 @@ class Photo(models.Model):
     <updated>2014-09-15T02:05:48+09:00</updated>
     <id>/2014/9/start_with_django_webframework_03</id>
     <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2015년 4월 26일 21시 10분&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;이 강좌를 연재하는 중에 Django 1.7이 정식 출시됐습니다. 다행히(?) Django를 본격 다루기 전이니 이번 편부터 Django 1.7판을 기준으로 작성하겠습니다. &lt;/p&gt;
+&lt;p&gt;이 강좌를 연재하는 중에 Django 1.7이 정식 출시됐습니다. 다행히(?) Django를 본격 다루기 전이니 이번 편부터 Django 1.7판을 기준으로 작성하겠습니다.&lt;/p&gt;
 
 &lt;h3&gt;1. Django Project와 App&lt;/h3&gt;
 
@@ -2731,7 +2737,7 @@ class Photo(models.Model):
 
 &lt;p&gt;Django는 &lt;a href=&quot;https://docs.djangoproject.com/en/1.6/glossary/#term-project&quot;&gt;Django project&lt;/a&gt; 단위로 만드는데, Python 체계로 보면 Python 패키지를 뜻합니다. Django로 만드는 프로젝트에 사용되는 코드와 Django 설정값이 Python 모듈로 존재하고 모두를 포함하는 Python 패키지로 묶은 것이지요.&lt;/p&gt;
 
-&lt;p&gt;우리가 Pystagram 프로젝트를 Django로 만든다는 건 Pystagram이라는 Python 패키지를 만들고, Pystagram에 들어가는 기능은 Python 모듈로 만든다는 뜻입니다. 그럼 Django를 써서 Pystagram을 만들려면 먼저 Pystagram 디렉터리를 만들어야 겠지요. 이 디렉터리는 Python 패키지니까 초기화 파일인 &lt;code&gt;__init__.py&lt;/code&gt;이 필요합니다. 그리고 Django framework이 참조할 프로젝트 설정 항목은 settings라는 모듈이므로 &lt;code&gt;settings.py&lt;/code&gt;라는 파일로 필요합니다. 웹 주소(URL)로 서비스에 접근하므로 각 접근 주소에 연결될 기능을 설정하는 &lt;code&gt;urls.py&lt;/code&gt;라는 파일도 필요합니다. 이 중에서 &lt;code&gt;settings.py&lt;/code&gt;는 필수 모듈입니다.  &lt;/p&gt;
+&lt;p&gt;우리가 Pystagram 프로젝트를 Django로 만든다는 건 Pystagram이라는 Python 패키지를 만들고, Pystagram에 들어가는 기능은 Python 모듈로 만든다는 뜻입니다. 그럼 Django를 써서 Pystagram을 만들려면 먼저 Pystagram 디렉터리를 만들어야 겠지요. 이 디렉터리는 Python 패키지니까 초기화 파일인 &lt;code&gt;__init__.py&lt;/code&gt;이 필요합니다. 그리고 Django framework이 참조할 프로젝트 설정 항목은 settings라는 모듈이므로 &lt;code&gt;settings.py&lt;/code&gt;라는 파일로 필요합니다. 웹 주소(URL)로 서비스에 접근하므로 각 접근 주소에 연결될 기능을 설정하는 &lt;code&gt;urls.py&lt;/code&gt;라는 파일도 필요합니다. 이 중에서 &lt;code&gt;settings.py&lt;/code&gt;는 필수 모듈입니다.&lt;/p&gt;
 
 &lt;h4&gt;(2) Django project 만들기&lt;/h4&gt;
 
@@ -2740,9 +2746,9 @@ class Photo(models.Model):
 &lt;p&gt;Python 패키지인 Pystagram 디렉터리를 만들고, 여기에 필수 모듈인 &lt;code&gt;settings.py&lt;/code&gt;와 &lt;code&gt;__init__.py&lt;/code&gt;를 만드는 과정을 간편하게 처리하는 프로그램이 &lt;code&gt;django-admin.py&lt;/code&gt;입니다. 이 파일로 Pystagram 프로젝트를 개설하겠습니다. 그 전에 지난 편에서 꾸려놓은 개발 환경을 먼저 써볼까요?&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ workon pystagram
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;virtualenv로 만든 pystagram 가상 환경에 들어가는 겁니다. 지난 편에서 우리는 이 가상 영역에 Django를 설치했지요. &lt;/p&gt;
+&lt;p&gt;virtualenv로 만든 pystagram 가상 환경에 들어가는 겁니다. 지난 편에서 우리는 이 가상 영역에 Django를 설치했지요.&lt;/p&gt;
 
-&lt;p&gt;이번엔 Pystagram 프로젝트를 개설합니다. 여러분이 원하는 아무 곳(디렉터리)에 만들어도 됩니다. 저는 &lt;code&gt;~/Workspace&lt;/code&gt; 안에다 프로그래밍 프로젝트를 넣어두니 이 안에 만들겠습니다. &lt;/p&gt;
+&lt;p&gt;이번엔 Pystagram 프로젝트를 개설합니다. 여러분이 원하는 아무 곳(디렉터리)에 만들어도 됩니다. 저는 &lt;code&gt;~/Workspace&lt;/code&gt; 안에다 프로그래밍 프로젝트를 넣어두니 이 안에 만들겠습니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ django-admin.py startproject pystagram
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code&gt;django-admin.py&lt;/code&gt; 프로그램(script file)에 첫 번째 인자로 &lt;code&gt;startproject&lt;/code&gt;라는 명령어를 넣고 두 번째 인자에 만들 프로젝트 이름을 넣습니다. 그러면 두 번째 인자로 넣은 프로젝트 이름으로 디렉터리가 하나 만들어 집니다.&lt;/p&gt;
@@ -2814,7 +2820,7 @@ Quit the server with CONTROL-C.
 &lt;p&gt;하지만 &lt;code&gt;migrate&lt;/code&gt;와 &lt;code&gt;syncdb&lt;/code&gt;가 똑같은 일을 수행하지는 않습니다. &lt;code&gt;syncdb&lt;/code&gt;는 &lt;code&gt;migrate&lt;/code&gt; 명령어를 수행한 다음에 최고 권한 이용자(super user)를 만드는 일도 합니다. 이 작업은 &lt;code&gt;createsuperuser&lt;/code&gt; 명령어로 합니다. 즉 &lt;code&gt;syncdb&lt;/code&gt; == &lt;code&gt;migrate&lt;/code&gt; + &lt;code&gt;createsuperuser&lt;/code&gt;인 셈이지요. 최고 권한 이용자도 만들겠습니다. 곧 필요하거든요.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ ./manage.py createsuperuser
 Username (leave blank to use &amp;#39;hannal&amp;#39;): hannal
-Email address: 
+Email address:
 Password:
 Password (again):
 Superuser created successfully.
@@ -2856,7 +2862,7 @@ Superuser created successfully.
         tests.py
         views.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;photo&lt;/code&gt; package가 photo app입니다. &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;photo&lt;/code&gt; package가 photo app입니다.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/hannal/start_with_django_webframework/tree/startapp_photo/pystagram&quot;&gt;photo App을 생성한 단계의 전체 소스 코드&lt;/a&gt;&lt;/li&gt;
@@ -2904,7 +2910,7 @@ class Photo(models.Model):
 
 &lt;p&gt;문자열을 다룬다는 점에서 &lt;code&gt;CharField&lt;/code&gt;와 &lt;code&gt;TextField&lt;/code&gt;는 같지만, 실은 전혀 다릅니다. &lt;code&gt;CharField&lt;/code&gt;는 데이터베이스의 &lt;code&gt;VARCHAR&lt;/code&gt;에 대응합니다. Django는 통상 200자 정도를 보장합니다. “보장”이라는 표현을 쓴 이유는 데이터베이스 시스템에 따라 &lt;code&gt;VARCHAR&lt;/code&gt; 제한 길이가 다르기 때문입니다. 그에 반해 &lt;code&gt;TextField&lt;/code&gt;는 이보다 훨씬 긴 문자열을 다룹니다. 이것도 데이터베이스 시스템에 따라 길이 제한이 다른데, SQLite3는 약 1기가 바이트까지 저장하는 &lt;code&gt;text&lt;/code&gt;, PostgreSQL은 길이 제한이 없는 &lt;code&gt;text&lt;/code&gt;, MySQL은 약 4기가 바이트까지 담는 &lt;code&gt;longtext&lt;/code&gt;, Oracle은 약 8~12테라 바이트까지 담는 &lt;code&gt;NCLOB&lt;/code&gt;에 대응합니다&lt;sup id=&quot;fnref3&quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;sup id=&quot;fnref4&quot;&gt;&lt;a href=&quot;#fn4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;. 보통은 긴 문자열을 담는 저러한 필드형에는 데이터베이스 인덱스가 걸리지 않으므로 Django의 &lt;code&gt;TextField&lt;/code&gt; 필드에도 데이터베이스의 인덱스가(필드 옵션 : &lt;code&gt;db_index&lt;/code&gt;) 걸리지 않습니다.&lt;/p&gt;
 
-&lt;p&gt;어쨌든 데이터베이스 시스템에 따라서 &lt;code&gt;TextField&lt;/code&gt; 필드의 길이제한 단위가 무시무시한데, 굳이 저렇게 긴 문자열을 저장하진 않을 겁니다. 안 예쁘잖아요. 최대 길이를 500자로 제한하겠습니다. &lt;code&gt;CharField&lt;/code&gt;와 &lt;code&gt;TextField&lt;/code&gt; 둘 다 &lt;code&gt;max_length&lt;/code&gt;라는 필드 옵션으로 최대 문자열 길이를 제한하며, &lt;code&gt;CharField&lt;/code&gt;는 &lt;code&gt;max_length&lt;/code&gt; 필드 옵션을 반드시 넣어야 합니다. &lt;/p&gt;
+&lt;p&gt;어쨌든 데이터베이스 시스템에 따라서 &lt;code&gt;TextField&lt;/code&gt; 필드의 길이제한 단위가 무시무시한데, 굳이 저렇게 긴 문자열을 저장하진 않을 겁니다. 안 예쁘잖아요. 최대 길이를 500자로 제한하겠습니다. &lt;code&gt;CharField&lt;/code&gt;와 &lt;code&gt;TextField&lt;/code&gt; 둘 다 &lt;code&gt;max_length&lt;/code&gt;라는 필드 옵션으로 최대 문자열 길이를 제한하며, &lt;code&gt;CharField&lt;/code&gt;는 &lt;code&gt;max_length&lt;/code&gt; 필드 옵션을 반드시 넣어야 합니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;created_at&lt;/code&gt;은 Photo 모델이 생성되어 데이터베이스에 저장되는 시각을 담는데, Django에는 날짜를 다루는 &lt;code&gt;DateField&lt;/code&gt;, 시간을 다루는 &lt;code&gt;TimeField&lt;/code&gt;, 그리고 날짜와 시간을 같이 다루는 &lt;code&gt;DateTimeField&lt;/code&gt;가 있습니다. 생성일시 정보를 다루니 &lt;code&gt;DateTimeField&lt;/code&gt;를 쓰겠습니다. 이 필드에는 &lt;code&gt;auto_now&lt;/code&gt; 옵션과 &lt;code&gt;auto_now_add&lt;/code&gt; 옵션이 있는데, 자동으로 현재 시간 정보를 담을 지 여부를 &lt;code&gt;True&lt;/code&gt;와 &lt;code&gt;False&lt;/code&gt;로 지정합니다. &lt;code&gt;auto_now_add&lt;/code&gt;는 객체가 처음 생성될 때, &lt;code&gt;auto_now&lt;/code&gt;는 객체가 저장될 때 자동으로 시간 정보를 담습니다. &lt;code&gt;auto_now_add&lt;/code&gt;만 &lt;code&gt;True&lt;/code&gt;로 설정한다면, 데이터가 처음 저장되는 시간 정보만 잡히고, 이후에 그 데이터를 수정하여 저장하더라도 자동으로 시간 정보가 담기진 않겠지요. 코드로 표현한다면 이런 모습일 겁니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from datetime import datetime
@@ -2942,7 +2948,7 @@ if the_photo.is_created is True:
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h5&gt;데이터베이스에 반영 (migration)&lt;/h5&gt;
 
-&lt;p&gt;Django 1.7 이전 판에서는 &lt;code&gt;manage.py&lt;/code&gt;에 &lt;code&gt;syncdb&lt;/code&gt; 명령으로 우리가 만든 모델을 데이터베이스에 반영했지만, 1.7판부터는 &lt;code&gt;makemigrations&lt;/code&gt;과 &lt;code&gt;migrate&lt;/code&gt; 명령어를 이용합니다. &lt;code&gt;Photo&lt;/code&gt; 모델을 마이그레이션 하려면 &lt;code&gt;settings.py&lt;/code&gt;에 &lt;code&gt;photo&lt;/code&gt; 앱을 추가해야 하니 &lt;code&gt;settings.py&lt;/code&gt;에서 &lt;code&gt;INSTALLED_APPS&lt;/code&gt; 항목을 찾아서 다음과 같이 &lt;code&gt;photo&lt;/code&gt;를 추가합니다. &lt;/p&gt;
+&lt;p&gt;Django 1.7 이전 판에서는 &lt;code&gt;manage.py&lt;/code&gt;에 &lt;code&gt;syncdb&lt;/code&gt; 명령으로 우리가 만든 모델을 데이터베이스에 반영했지만, 1.7판부터는 &lt;code&gt;makemigrations&lt;/code&gt;과 &lt;code&gt;migrate&lt;/code&gt; 명령어를 이용합니다. &lt;code&gt;Photo&lt;/code&gt; 모델을 마이그레이션 하려면 &lt;code&gt;settings.py&lt;/code&gt;에 &lt;code&gt;photo&lt;/code&gt; 앱을 추가해야 하니 &lt;code&gt;settings.py&lt;/code&gt;에서 &lt;code&gt;INSTALLED_APPS&lt;/code&gt; 항목을 찾아서 다음과 같이 &lt;code&gt;photo&lt;/code&gt;를 추가합니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;INSTALLED_APPS = (
     &amp;#39;django.contrib.admin&amp;#39;,
     &amp;#39;django.contrib.auth&amp;#39;,
@@ -2954,7 +2960,7 @@ if the_photo.is_created is True:
 )
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;그 다음에 &lt;code&gt;makemigrations&lt;/code&gt;으로 마이그레이션 작업 내용을 만듭니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ ./manage.py makemigrations 
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ ./manage.py makemigrations
 Migrations for &amp;#39;photo&amp;#39;:
   0001_initial.py:
     - Create model Photo
@@ -3054,6 +3060,7 @@ Running migrations:
     <updated>2014-08-25T00:05:44+09:00</updated>
     <id>/2014/8/start_with_django_webframework_02</id>
     <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2014년 08월 24일 9시 37분&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -3145,7 +3152,7 @@ Running migrations:
 
 &lt;p&gt;그런 뒤 &lt;code&gt;.bashrc&lt;/code&gt; 나 &lt;code&gt;.bash_profile&lt;/code&gt; 파일&lt;sup id=&quot;fnref-3125:4&quot;&gt;&lt;a href=&quot;#fn-3125:4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;에 이 경로를 지정해줍니다. 이 두 파일은 ~/ 경로에 있으며, 없으면 만들면 됩니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;export WORKON_HOME=$HOME/.virtualenvs    
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Workspace
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -3155,7 +3162,7 @@ export PROJECT_HOME=$HOME/Workspace
 
 &lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ source ~/.bashrc
 
-또는 
+또는
 
 $ source ~/.bash_profile
 &lt;/code&gt;&lt;/pre&gt;
@@ -3269,8 +3276,8 @@ except:
 
 &lt;p&gt;&lt;code&gt;sudo&lt;/code&gt;는 필요 없으며, 위 명령어를 실행하면 아마 다음과 같이 뭔가가 출력될 겁니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;New python executable in pystagram/bin/python    
-Installing Setuptools................................done.    
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;New python executable in pystagram/bin/python
+Installing Setuptools................................done.
 Installing Pip.......................................done.
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -3278,7 +3285,7 @@ Installing Pip.......................................done.
 
 &lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ ls $WORKON_HOME
 
-또는 
+또는
 
 $ ls ~/.virtualenvs
 &lt;/code&gt;&lt;/pre&gt;
@@ -3308,13 +3315,13 @@ $ ls ~/.virtualenvs
 
 &lt;p&gt;설치가 잘 됐는지 확인해 보겠습니다. 쉘에서 &lt;code&gt;python&lt;/code&gt;을 실행하면 Python 대화형 쉘이 실행됩니다. Python 대화형 쉘에서 다음 명령어를 입력하여 Django 버전을 확인해 보겠습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;(pystagram)$ python    
-Python 2.7.5 (default, Mar  9 2014, 22:15:05)    
-[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin    
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.    
-]]] import django    
-]]] django.VERSION    
-(1, 6, 6, &#39;final&#39;, 0)    
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;(pystagram)$ python
+Python 2.7.5 (default, Mar  9 2014, 22:15:05)
+[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+]]] import django
+]]] django.VERSION
+(1, 6, 6, &#39;final&#39;, 0)
 ]]]
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -3324,9 +3331,9 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 
 &lt;p&gt;가상 환경 안에서 설치한 Django는 다음 경로에 있습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ ls $WORKON_HOME/pystagram/lib/python2.7/site-packages    
-Django-1.6.6.dist-info    
-django    
+&lt;pre&gt;&lt;code class=&quot;sh&quot;&gt;$ ls $WORKON_HOME/pystagram/lib/python2.7/site-packages
+Django-1.6.6.dist-info
+django
 .
 .
 .
@@ -3448,6 +3455,7 @@ else:
     <updated>2014-08-18T00:01:47+09:00</updated>
     <id>/2014/8/start_with_django_webframework_01</id>
     <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2014년 08월 16일 17시 40분&lt;/li&gt;
 &lt;/ul&gt;
 

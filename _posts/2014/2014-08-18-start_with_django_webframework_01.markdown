@@ -26,6 +26,7 @@ tags:
 permalink: "/2014/8/start_with_django_webframework_01/"
 ---
 <ul>
+<li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
 <li>마지막 갱신일시 : 2014년 08월 16일 17시 40분</li>
 </ul>
 <p>앞으로 우리는 Django를 이용해 <a href="http://www.instagram.com">Instagram</a>과 비슷한 서비스를 만들 겁니다. 비슷한 서비스 중에는 <a href="http://www.kakao.com/story?locale=ko">카카오 스토리</a>가 있지요. Django를 활용하여 만드는 것이지만 이름으로 조합하기 까다로우니 Python을 조합하여 Pystagram이라 이름을 짓도록 하겠습니다.</p>

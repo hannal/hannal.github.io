@@ -22,6 +22,7 @@ tags:
 permalink: "/2015/06/start_with_django_webframework_08/"
 ---
 
+* [날로 먹는 Django 웹프레임워크 강좌 목차](http://blog.hannal.com/category/start-with-django-webframework/)
 * 마지막 갱신일시 : 2015년 6월 7일 7시 19분
 
 이번 편에서는 Django 이용자 인증 체계을 알아보고, 이 인증 체계에서 로그인을 어떻게 처리하는지 살펴 보겠습니다.
@@ -198,7 +199,7 @@ Django가 제공하는 로그인 뷰 함수가 어떤 과정을 거쳐 이용자
 
 - `django.contrib.auth.views.login`
     + `django.contrib.auth.forms.AuthenticationForm`
-        - `django.contrib.auth.authenticate()` 
+        - `django.contrib.auth.authenticate()`
             + `settings.AUTHENTICATION_BACKENDS`에서 인증 기반 하나씩 가져옴
             + `django.contrib.auth.backends.ModelBackend`의 `authenticate()` 메서드로 인증 처리
     + `django.contrib.auth.auth_login` (정확히는 `django.contrib.auth.login`를 `auth_login`으로 import 한 것.)으로 인증 관련 세션 처리
@@ -235,7 +236,7 @@ LOGIN_REDIRECT_URL = '/photo/upload/'
 
 --------
 
-강좌 8편을 마칩니다. 아직은 Django 1.7판을 기준으로 강좌를 진행하고 있는데, 조만간 1.8판을 기준으로 내용을 다듬어야 겠습니다. 
+강좌 8편을 마칩니다. 아직은 Django 1.7판을 기준으로 강좌를 진행하고 있는데, 조만간 1.8판을 기준으로 내용을 다듬어야 겠습니다.
 
 * [8편까지 진행한 전체 소스 코드](https://github.com/hannal/start_with_django_webframework/tree/08-fullsource/pystagram)
 

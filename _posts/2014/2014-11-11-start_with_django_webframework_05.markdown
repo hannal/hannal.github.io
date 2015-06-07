@@ -20,6 +20,8 @@ tags:
 - url dispatch
 permalink: "/2014/11/start_with_django_webframework_05/"
 ---
+
+* [날로 먹는 Django 웹프레임워크 강좌 목차](http://blog.hannal.com/category/start-with-django-webframework/)
 * 마지막 갱신일시 : 2015년 4월 25일 21시 10분
 
 이번 편에서는 인터넷 주소에 접속하여 Photo 모델로 올린 사진 데이터를 가져와서 View 기능을 이용하여 웹 브라우저에 관련 내용을 출력해보겠습니다.
@@ -82,7 +84,7 @@ urlpatterns = patterns('',
 
 `patterns` 함수는 두 종류 인자를 받습니다. 하나는 `prefix`인데, 맨 앞에 있는 아무 내용이 없는 문자형 자료(객체)인 `''`가 `prefix`입니다. `prefix`는 따로 설명하겠습니다. `prefix` 뒤에 나오는 부분은 `url` 함수로 만든 URL 연결자들입니다. 그냥 쭈욱 나열한 것 뿐입니다.
 
-그럼 주소 연결자를 만드는 `url` 함수 부분을 보겠습니다. 이 함수는 총 다섯 개 인자를 받습니다. 
+그럼 주소 연결자를 만드는 `url` 함수 부분을 보겠습니다. 이 함수는 총 다섯 개 인자를 받습니다.
 
 * regex : 주소 패턴 (정규표현식)
 * view : 연결할 View
@@ -160,7 +162,7 @@ urlpatterns += patterns('image.views',
 
 다른 `prefix`를 지정한 `patterns` 함수를 실행하고, 그 결과값을 `urlpatterns`에 덧이으면 됩니다. `urlpatterns`가 `list` 자료형이니 `urlpatterns.extend( ... )` 이렇게 추가해도 됩니다.
 
-기왕 기계가 할 일을 사람이 하지 않고 기계가 하도록 한 김에 좀 더 간결히 줄여보겠습니다. 
+기왕 기계가 할 일을 사람이 하지 않고 기계가 하도록 한 김에 좀 더 간결히 줄여보겠습니다.
 
 ```python
 urlpatterns = patterns('photo.views',
@@ -180,12 +182,12 @@ urlpatterns = patterns('',
 )
 ```
 
-이 정도로 Django의 URL Dispatch 기능의 작동법과 사용법 설명을 마치고, 추가 기능은 필요하면 그때 그때 설명하겠습니다. 아참, `url` 함수가 받는 마지막 인자인 `kwargs`는 부록에서 설명하겠습니다. 
+이 정도로 Django의 URL Dispatch 기능의 작동법과 사용법 설명을 마치고, 추가 기능은 필요하면 그때 그때 설명하겠습니다. 아참, `url` 함수가 받는 마지막 인자인 `kwargs`는 부록에서 설명하겠습니다.
 
 
 #### (4) 개별 사진 보기 View - 2
 
-웹브라우저에서 `/photo/<사진 ID>/`, 예를 들어 `/photo/3`으로 접근하면 “TypeError at /photo/3”이라는 오류가 뜹니다. 내용은 
+웹브라우저에서 `/photo/<사진 ID>/`, 예를 들어 `/photo/3`으로 접근하면 “TypeError at /photo/3”이라는 오류가 뜹니다. 내용은
 “single_photo() got an unexpected keyword argument 'photo_id'”이고요. `single_photo` 함수로 `photo_id`라는 인자를 넘길려는데 `single_photo` 함수가 받지 않아서 그렇습니다. `photo_id`는 `urls.py`에서 `(?P<photo_id>\d+)` 바로 이 부분입니다. 정규표현식 패턴에 해당되는 문자열이 `?P<이름>`에 지정된 `이름`에 저장되어 View 함수의 인자로 넘겨집니다. `/photo/숫자` URL에서 숫자가 `photo_id`라는 이름을 갖는 인자에 저장되어 `single_photo` 함수로 전달됩니다. 그래서 `single_photo` 함수가 이 인자를 받도록 해야 합니다.
 
 ```python
@@ -366,7 +368,7 @@ def single_photo(request, photo_id, hidden=False):
 
 혹시 `views.py` 파일 맨 위에 `# coding: utf-8` 내용을 넣지 않은 채 `views.py` 파일 안에 한글을 직접 입력했다면 `SyntaxError` 오류가 발생합니다. 오류 내용은 `Non-ASCII character '무엇' in file`인데, 파일에 ascii 문자가 아닌 문자가 있다는 뜻입니다. Python 버전 2대를 쓰는 입문자라면 영원히(?) 고통 받는 상황입니다.
 
-이 문제는 Python 모듈(파일)에 ascii 문자의 표현 범위를 벗어나는 한글이나 한자 같은 문자가 포함되면 Python 인터프리터가 “어?! 이 문자 뭐임? 몰라, 무서워. 뱉어”라며 Syntax 예외를 일으켜서 발생합니다. 이 문제를 예방하려면 소스 파일에 ascii 문자만 입력하거나 [소스 파일이 어떤 문자형(charset)으로 작성됐는지 Python 인터프리터에게 알려줘야 합니다](http://legacy.python.org/dev/peps/pep-0263/). 그 알려주는 방법이 소스 파일 상단에 `# coding: utf-8`를 명기한 것이지요. Emacs 같은 편집기를 위해 `# -*- coding: utf-8 -*-` 라고 명기하기도 합니다. 
+이 문제는 Python 모듈(파일)에 ascii 문자의 표현 범위를 벗어나는 한글이나 한자 같은 문자가 포함되면 Python 인터프리터가 “어?! 이 문자 뭐임? 몰라, 무서워. 뱉어”라며 Syntax 예외를 일으켜서 발생합니다. 이 문제를 예방하려면 소스 파일에 ascii 문자만 입력하거나 [소스 파일이 어떤 문자형(charset)으로 작성됐는지 Python 인터프리터에게 알려줘야 합니다](http://legacy.python.org/dev/peps/pep-0263/). 그 알려주는 방법이 소스 파일 상단에 `# coding: utf-8`를 명기한 것이지요. Emacs 같은 편집기를 위해 `# -*- coding: utf-8 -*-` 라고 명기하기도 합니다.
 
 Python 2의 기본 문자형(charset)이 ascii이기 때문에 Python 2를 쓰는 이상 유니코드와 관련된 고통은 감수해야 합니다. :) 아, 이런 문제는 Python 3에선 발생하지 않습니다.
 

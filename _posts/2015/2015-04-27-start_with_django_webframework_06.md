@@ -19,6 +19,7 @@ tags:
 permalink: "/2015/04/start_with_django_webframework_06/"
 ---
 
+* [날로 먹는 Django 웹프레임워크 강좌 목차](http://blog.hannal.com/category/start-with-django-webframework/)
 * 마지막 갱신일시 : 2015년 4월 26일 21시 10분
 
 지난 5회에서 다룬 정적 파일을 Django에서 어떻게 다루는지 자세히 알아 보겠습니다.

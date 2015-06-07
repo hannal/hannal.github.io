@@ -117,6 +117,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h1 class="post-title">2. 개발 환경 꾸리기</h1>
   <span class="post-date">25 Aug 2014</span>
   <ul>
+<li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
 <li>마지막 갱신일시 : 2014년 08월 24일 9시 37분</li>
 </ul>
 
@@ -208,7 +209,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>그런 뒤 <code>.bashrc</code> 나 <code>.bash_profile</code> 파일<sup id="fnref-3125:4"><a href="#fn-3125:4" rel="footnote">4</a></sup>에 이 경로를 지정해줍니다. 이 두 파일은 ~/ 경로에 있으며, 없으면 만들면 됩니다.</p>
 
-<pre><code class="sh">export WORKON_HOME=$HOME/.virtualenvs    
+<pre><code class="sh">export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Workspace
 </code></pre>
 
@@ -218,7 +219,7 @@ export PROJECT_HOME=$HOME/Workspace
 
 <pre><code class="sh">$ source ~/.bashrc
 
-또는 
+또는
 
 $ source ~/.bash_profile
 </code></pre>
@@ -332,8 +333,8 @@ except:
 
 <p><code>sudo</code>는 필요 없으며, 위 명령어를 실행하면 아마 다음과 같이 뭔가가 출력될 겁니다.</p>
 
-<pre><code class="sh">New python executable in pystagram/bin/python    
-Installing Setuptools................................done.    
+<pre><code class="sh">New python executable in pystagram/bin/python
+Installing Setuptools................................done.
 Installing Pip.......................................done.
 </code></pre>
 
@@ -341,7 +342,7 @@ Installing Pip.......................................done.
 
 <pre><code class="sh">$ ls $WORKON_HOME
 
-또는 
+또는
 
 $ ls ~/.virtualenvs
 </code></pre>
@@ -371,13 +372,13 @@ $ ls ~/.virtualenvs
 
 <p>설치가 잘 됐는지 확인해 보겠습니다. 쉘에서 <code>python</code>을 실행하면 Python 대화형 쉘이 실행됩니다. Python 대화형 쉘에서 다음 명령어를 입력하여 Django 버전을 확인해 보겠습니다.</p>
 
-<pre><code class="sh">(pystagram)$ python    
-Python 2.7.5 (default, Mar  9 2014, 22:15:05)    
-[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin    
-Type "help", "copyright", "credits" or "license" for more information.    
-]]] import django    
-]]] django.VERSION    
-(1, 6, 6, 'final', 0)    
+<pre><code class="sh">(pystagram)$ python
+Python 2.7.5 (default, Mar  9 2014, 22:15:05)
+[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+]]] import django
+]]] django.VERSION
+(1, 6, 6, 'final', 0)
 ]]]
 </code></pre>
 
@@ -387,9 +388,9 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 <p>가상 환경 안에서 설치한 Django는 다음 경로에 있습니다.</p>
 
-<pre><code class="sh">$ ls $WORKON_HOME/pystagram/lib/python2.7/site-packages    
-Django-1.6.6.dist-info    
-django    
+<pre><code class="sh">$ ls $WORKON_HOME/pystagram/lib/python2.7/site-packages
+Django-1.6.6.dist-info
+django
 .
 .
 .

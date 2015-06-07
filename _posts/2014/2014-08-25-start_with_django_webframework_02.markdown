@@ -28,6 +28,7 @@ tags:
 permalink: "/2014/8/start_with_django_webframework_02/"
 ---
 <ul>
+<li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
 <li>마지막 갱신일시 : 2014년 08월 24일 9시 37분</li>
 </ul>
 <p>이번 2편에서는 Pystagram을 만드는 데 필요한 개발 도구를 설치하겠습니다. 저는 Mac OS X를 쓰기 때문에 Mac OS X 환경을 기준으로 설명하며, 윈도우나 리눅스 환경용 설명은 웹에 있는 관련 자료로 대신하겠습니다.</p>
@@ -80,14 +81,14 @@ permalink: "/2014/8/start_with_django_webframework_02/"
 <pre><code class="sh">$ mkdir ~/.virtualenvs
 </code></pre>
 <p>그런 뒤 <code>.bashrc</code> 나 <code>.bash_profile</code> 파일<sup id="fnref-3125:4"><a href="#fn-3125:4" rel="footnote">4</a></sup>에 이 경로를 지정해줍니다. 이 두 파일은 ~/ 경로에 있으며, 없으면 만들면 됩니다.</p>
-<pre><code class="sh">export WORKON_HOME=$HOME/.virtualenvs    
+<pre><code class="sh">export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Workspace
 </code></pre>
 <p><code>WORKON_HOME</code>은 virtualenv로 만드는 가상 환경이 저장될 경로를 지정하며, <code>PROJECT_HOME</code>은 우리가 만드는 소스 파일을 담을 작업 공간입니다. 저는 ~/Workspace 에 코딩하는 소스 파일을 두는데, 여러분은 자신의 환경에 맞게 경로를 지정하면 되며, 꼭 <code>PROJECT_HOME</code>을 지정하지 않아도 괜찮습니다.</p>
 <p>이제 위 내용을 실제로 반영하겠습니다. 터미널에서 다음 명령어를 입력하세요.</p>
 <pre><code class="sh">$ source ~/.bashrc
 
-또는 
+또는
 
 $ source ~/.bash_profile
 </code></pre>
@@ -161,14 +162,14 @@ except:
 <pre><code class="sh">$ mkvirtualenv pystagram
 </code></pre>
 <p><code>sudo</code>는 필요 없으며, 위 명령어를 실행하면 아마 다음과 같이 뭔가가 출력될 겁니다.</p>
-<pre><code class="sh">New python executable in pystagram/bin/python    
-Installing Setuptools................................done.    
+<pre><code class="sh">New python executable in pystagram/bin/python
+Installing Setuptools................................done.
 Installing Pip.......................................done.
 </code></pre>
 <p>앞에서 <code>WORKON_HOME</code>으로 지정한 경로에 <code>pystagram</code> 디렉터리가 생성되어 있습니다.</p>
 <pre><code class="sh">$ ls $WORKON_HOME
 
-또는 
+또는
 
 $ ls ~/.virtualenvs
 </code></pre>
@@ -186,21 +187,21 @@ $ ls ~/.virtualenvs
 </code></pre>
 <p>주 시스템에 설치하지 않고 가상 환경에 설치하기 때문에 관리자 권한은 필요 없어서 <code>sudo</code>를 쓰지 않았습니다.</p>
 <p>설치가 잘 됐는지 확인해 보겠습니다. 쉘에서 <code>python</code>을 실행하면 Python 대화형 쉘이 실행됩니다. Python 대화형 쉘에서 다음 명령어를 입력하여 Django 버전을 확인해 보겠습니다.</p>
-<pre><code class="sh">(pystagram)$ python    
-Python 2.7.5 (default, Mar  9 2014, 22:15:05)    
-[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin    
-Type "help", "copyright", "credits" or "license" for more information.    
-]]] import django    
-]]] django.VERSION    
-(1, 6, 6, 'final', 0)    
+<pre><code class="sh">(pystagram)$ python
+Python 2.7.5 (default, Mar  9 2014, 22:15:05)
+[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+]]] import django
+]]] django.VERSION
+(1, 6, 6, 'final', 0)
 ]]]
 </code></pre>
 <p>실제로는 프롬프트 기호가 <code>]]]</code> 대신 <code>&gt;&gt;&gt;</code>가 표시됩니다.</p>
 <p>Python 프롬프트에서 <code>import django</code>를 실행하면 아무런 안내없이 다음 프롬프트(<code>&gt;&gt;&gt;</code>)가 출력되는 경우가 잘 설치된 겁니다. Django가 제대로 설치가 안 됐거나 경로(PATH) 설정에 문제가 있다면 <code>ImportError: No module named django</code>라는 오류가 발생합니다. 하지만 가상 환경 안에서는 이런 문제가 거의 일어나지 않습니다. 설치한 Python 패키지 경로 설정이 이미 잘 되어있기 때문입니다. 만약 virtualenv로 만든 가상 환경에서 벗어나 실제 환경에서 위와 같이 Django를 가져오면(import)하면 무슨 일이 발생할까요? Django를 설치하지 않았기 때문에 <code>ImportError: No module named django</code> 오류가 발생합니다.</p>
 <p>가상 환경 안에서 설치한 Django는 다음 경로에 있습니다.</p>
-<pre><code class="sh">$ ls $WORKON_HOME/pystagram/lib/python2.7/site-packages    
-Django-1.6.6.dist-info    
-django    
+<pre><code class="sh">$ ls $WORKON_HOME/pystagram/lib/python2.7/site-packages
+Django-1.6.6.dist-info
+django
 .
 .
 .

@@ -117,6 +117,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h1 class="post-title">4. Photo 모델로 Admin 영역에서 데이터 다루기</h1>
   <span class="post-date">05 Oct 2014</span>
   <ul>
+<li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
 <li>마지막 갱신일시 : 2015년 4월 26일 21시 10분</li>
 </ul>
 
@@ -152,9 +153,9 @@ site = AdminSite()
 
 <p><img src="/assets/uploads/2014/10/04-add_photo_form_in_admin.png" alt=""></p>
 
-<p>어차피 싹 지우고 다시 데이터는 채워 넣을 거니까 아무 자료나 넣어보세요. 사진이 아닌 파일도 지정해보고 본문(description) 입력란에 아무 내용도 넣지 말고 저장도 해보세요. 또 본문 입력란에 500글자가 넘는 글자를 넣어 보세요. 우리가 뭔가 따로 조치를 취한 게 없는데도 파일이 이미지 파일인지 아닌지, 본문이 채워져 있는지를 검사하고 본문에 500자 이상 입력이 안 되게 제한됩니다. </p>
+<p>어차피 싹 지우고 다시 데이터는 채워 넣을 거니까 아무 자료나 넣어보세요. 사진이 아닌 파일도 지정해보고 본문(description) 입력란에 아무 내용도 넣지 말고 저장도 해보세요. 또 본문 입력란에 500글자가 넘는 글자를 넣어 보세요. 우리가 뭔가 따로 조치를 취한 게 없는데도 파일이 이미지 파일인지 아닌지, 본문이 채워져 있는지를 검사하고 본문에 500자 이상 입력이 안 되게 제한됩니다.</p>
 
-<p>Django의 <code>forms</code> 기능(패키지)이 이런 처리를 하며, 이미지 파일이어야 하고 본문은 반드시 내용이 있어야 한다거나 본문 길이와 같은 검사 항목과 정보를 우리가 만든 <code>Photo</code> 모델에서 참조합니다. <code>image_file</code> 모델 속성을 <code>ImageField</code>라는 필드 타입으로 지정해서 업로드 되는 파일이 이미지 파일인지 검사하는 것이며, <code>description</code> 모델 속성을 최대 길이 500자로 지정한 <code>TextField</code> 필드 타입으로 지정해서 문자열 길이가 500자 이하인지 검사합니다. 생성일시인 <code>created_at</code>은 자동으로 값이 저장되는 옵션을 주어서 입력란으로 등장하지 않았습니다. </p>
+<p>Django의 <code>forms</code> 기능(패키지)이 이런 처리를 하며, 이미지 파일이어야 하고 본문은 반드시 내용이 있어야 한다거나 본문 길이와 같은 검사 항목과 정보를 우리가 만든 <code>Photo</code> 모델에서 참조합니다. <code>image_file</code> 모델 속성을 <code>ImageField</code>라는 필드 타입으로 지정해서 업로드 되는 파일이 이미지 파일인지 검사하는 것이며, <code>description</code> 모델 속성을 최대 길이 500자로 지정한 <code>TextField</code> 필드 타입으로 지정해서 문자열 길이가 500자 이하인지 검사합니다. 생성일시인 <code>created_at</code>은 자동으로 값이 저장되는 옵션을 주어서 입력란으로 등장하지 않았습니다.</p>
 
 <p>몇 가지 실험해보죠. <code>photo</code> 앱의 <code>Photo</code> 모델에서 <code>created_at</code>을 고치겠습니다. <code>auto_now_add</code>와 <code>auto_now</code> 필드 옵션을 모두 제거하겠습니다. 그리고 <code>description</code>의 필드 타입에 <code>blank</code>라는 필드 옵션을 <code>True</code>로 추가 지정하겠습니다. 코드로 보면 이렇습니다.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">class Photo(models.Model):
@@ -204,7 +205,7 @@ Migrations for &#39;photo&#39;:
 <div class="highlight"><pre><code class="language-text" data-lang="text">image_file = models.ImageField(upload_to=&#39;static_files/uploaded&#39;)
 filtered_image_file = models.ImageField(upload_to=&#39;static_files/uploaded&#39;)
 </code></pre></div>
-<p>위와 같이 <code>Photo</code> 모델을 고쳐서 저장한 후 Admin 영역에서 <code>Photo</code> 모델에 데이터를 추가해 보세요. 업로드한 이미지 파일이 <code>static_files/uploaded</code>에 저장되어 있습니다. </p>
+<p>위와 같이 <code>Photo</code> 모델을 고쳐서 저장한 후 Admin 영역에서 <code>Photo</code> 모델에 데이터를 추가해 보세요. 업로드한 이미지 파일이 <code>static_files/uploaded</code>에 저장되어 있습니다.</p>
 
 <p>파일이 저장되는 경로에 자동으로 내용이 채워지는 몇 가지 규칙이 있습니다. 예를 들어, 2014년도에 올라오는 파일은 <code>static_files/uploaded/2014</code>에 넣고, 2015년도에 올라오는 파일은 <code>static_files/uploaded/2015</code>에 넣고자 한다면, 따로 그런 기능을 구현하지 않아도 됩니다. 우리는 네 자리 년도, 두 자리 월, 두 자리 일로 디렉터리를 구분해서 업로드 되는 파일을 저장하겠습니다.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">image_file = models.ImageField(upload_to=&#39;static_files/uploaded/%Y/%m/%d&#39;)
@@ -226,13 +227,13 @@ filtered_image_file = models.ImageField(upload_to=&#39;static_files/uploaded/fil
 
 <p>혹시 Admin 영역에서 추가한 <code>Photo</code> 모델의 객체를 지워보셨나요? Admin 영역에서는 모델 객체를 추가하는 것 뿐만 아니라 기존 모델 객체를 수정하거나 지우는 기능을 기본 제공합니다. 한 번 모델 객체를 지워 보세요.</p>
 
-<p>이상한 점 발견하셨나요? 모델 객체를 지우면 객체 자체는 지워지는데 그 객체에 연결된 파일들, 그러니까 업로드한 두 개 파일은 지워지지 않고 여전히 남아 있습니다. Django의 모델 기능은 모델 객체가 삭제되어도 그 모델 객체의 파일 필드에 연결된 파일을 지우지 않습니다. 그래서 삭제할 모델 객체를 먼져 가져와서 연결된 파일을 일일이 지워준 후에 모델 객체를 지워야 합니다. </p>
+<p>이상한 점 발견하셨나요? 모델 객체를 지우면 객체 자체는 지워지는데 그 객체에 연결된 파일들, 그러니까 업로드한 두 개 파일은 지워지지 않고 여전히 남아 있습니다. Django의 모델 기능은 모델 객체가 삭제되어도 그 모델 객체의 파일 필드에 연결된 파일을 지우지 않습니다. 그래서 삭제할 모델 객체를 먼져 가져와서 연결된 파일을 일일이 지워준 후에 모델 객체를 지워야 합니다.</p>
 
 <p>모델 객체가 삭제될 때 그 모델 객체에 연결된 파일도 자동으로 함께 지우는 기능은 따로 구현해야 합니다. 몇 가지 방법이 있습니다.</p>
 
 <ol>
 <li>모델을 삭제하는 기능이 호출되면 파일 삭제 기능도 실행</li>
-<li>모델이 삭제되는 신호가 감지되면 파일 삭제 기능도 실행 </li>
+<li>모델이 삭제되는 신호가 감지되면 파일 삭제 기능도 실행</li>
 </ol>
 
 <p>2번은 나중에 알아보기로 하고, 이번 편에서는 1번 방법을 구현해 보겠습니다.</p>
@@ -248,7 +249,7 @@ filtered_image_file = models.ImageField(upload_to=&#39;static_files/uploaded/fil
 </code></pre></div>
 <p>먼저 <code>def delete(self, *args, **kwargs):</code>는 특별한 내용은 없습니다. <code>delete</code> 함수는 인스턴스 메서드이므로 첫 번째 인자로 객체 자신을 <code>self</code>라는 이름으로 넘겨 받습니다. <a href="http://stackoverflow.com/questions/3394835/args-and-kwargs"><code>*args</code>와 <code>**kwargs</code>는 함수가 넘겨받는 인자를 미리 알지 못하는 경우에 함수가 넘겨받는 인자를 담는 객체</a>입니다. <code>delete</code> 메서드로 뭘 인자로 넘길 지는 모르겠지만 어쨌든 넘겨받은 그대로 <code>Model</code>클래스의 <code>delete</code> 메서드로 넘겨줘야 해서 저렇게 받습니다.</p>
 
-<p><code>self.image_file.delete()</code>에서 <code>self.image_file</code>는 <code>image_file</code> 모델 필드를 뜻합니다. Python 클래스의 인스턴스 메서드 안에서 속성(attribute)에 접근하려면 <code>self.속성이름</code>으로 접근하지요. <code>self</code>는 <code>delete</code> 인스턴스 메서드에서 첫 번째 인자로 넘겨 받았고요. 인스턴스 밖에서 접근하려면 <code>photo.image_file</code> 이렇게 접근하겠고요. 이 <code>image_file</code> 모델 필드는 Django의 모델 필드인 <code>ImageField</code> 클래스의 인스턴스입니다. <code>ImageField</code> 클래스로 만든 인스턴스는 <code>delete</code>라는 인스턴스 메서드를 제공하며, 이름에서 알 수 있듯이 해당 모델 필드에 연결된 파일을 삭제합니다. <code>self.filtered_image_file.delete()</code>는 무슨 코드인지 예측되지요? 필터가 적용된 이미지 파일을 지우는 겁니다. </p>
+<p><code>self.image_file.delete()</code>에서 <code>self.image_file</code>는 <code>image_file</code> 모델 필드를 뜻합니다. Python 클래스의 인스턴스 메서드 안에서 속성(attribute)에 접근하려면 <code>self.속성이름</code>으로 접근하지요. <code>self</code>는 <code>delete</code> 인스턴스 메서드에서 첫 번째 인자로 넘겨 받았고요. 인스턴스 밖에서 접근하려면 <code>photo.image_file</code> 이렇게 접근하겠고요. 이 <code>image_file</code> 모델 필드는 Django의 모델 필드인 <code>ImageField</code> 클래스의 인스턴스입니다. <code>ImageField</code> 클래스로 만든 인스턴스는 <code>delete</code>라는 인스턴스 메서드를 제공하며, 이름에서 알 수 있듯이 해당 모델 필드에 연결된 파일을 삭제합니다. <code>self.filtered_image_file.delete()</code>는 무슨 코드인지 예측되지요? 필터가 적용된 이미지 파일을 지우는 겁니다.</p>
 
 <p>맨 마지막 줄인 <code>super(Photo, self).delete(*args, **kwargs)</code>는 <code>Photo</code> 모델이 상속받은 부모 클래스의 <code>delete</code> 인스턴스 메서드를 호출합니다. 넘겨받은 인자를 그대로 전달하려고 <code>*args, **kwargs</code>로 인자를 보내지요. 이 코드가 없으면 첨부된 업로드 파일만 삭제되고 모델 객체는 삭제되지 않습니다. 모델 객체를 지우는 건 <code>Model</code> 클래스에 있는 <code>delete</code> 메서드거든요. 만약 <code>Model</code> 클래스의 <code>delete</code> 메서드를 사용해서 모델 객체를 삭제하지 않고 여러분이 독자 구현한 코드로 모델 객체를 지우고자 한다면 <code>super(...)</code> 이 부분을 지우고 직접 구현하면 됩니다.</p>
 
@@ -272,7 +273,7 @@ class Photo(models.Model):
 
 <h4>(1) Django Admin 주소</h4>
 
-<p>Django에서 제공하는 Admin 기능은 <code>settings.py</code>에 설정되어 있습니다. <code>INSTALLED_APPS</code>라는 변수를 찾아 보시면 <code>django.contrib.admin</code>이라는 줄이 보입니다. 우리가 만든 <code>photo</code> 앱도 이곳에 추가했지요. </p>
+<p>Django에서 제공하는 Admin 기능은 <code>settings.py</code>에 설정되어 있습니다. <code>INSTALLED_APPS</code>라는 변수를 찾아 보시면 <code>django.contrib.admin</code>이라는 줄이 보입니다. 우리가 만든 <code>photo</code> 앱도 이곳에 추가했지요.</p>
 
 <p>그럼 <code>http://127.0.0.1:8000/admin</code> 주소(URL)에서 <code>admin</code> 부분도 어딘가에 미리 설정되어 있는 걸까요? 맞습니다. <code>urls.py</code>에 기본으로 설정되어 있습니다. <code>pystagram</code> 패키지(디렉터리)에 있는 <code>urls.py</code>을 열어 보시면 <code>url(r&#39;^admin/&#39;, include(admin.site.urls)),</code>이라는 내용이 보일 겁니다. 경로 맨 앞에 <code>admin</code>이 있는 모든 경로를 <code>admin.site.urls</code>에 설정되어 있는 경로에 연결(matching)하겠다는 내용입니다. 이건 <code>django.contrib.admin</code> 패키지에서 <code>sites.py</code> 파일에 보면 <code>AdminSite</code> 클래스가 있는데, 그 클래스의 <code>get_urls</code>라는 인스턴스 메서드를 호출하는 겁니다. 메서드를 프로퍼티화 하는 <code>@property</code> 장식자(decorator)를 이용하여 <code>urls</code>를 호출하면 <code>get_urls</code> 인스턴스 메서드가 반환하는 정보를 던져주는 것이지요.</p>
 
@@ -286,7 +287,7 @@ class Photo(models.Model):
 
 <hr>
 
-<p>이것으로 강좌 4편을 마칩니다. 늦어서 죄송합니다. 요즘 많이 바빠서 연재하기 힘드네요. ㅜㅜ 한 편에 너무 많은 내용을 담느라 연재 주기가 늘어지지 않도록 해보겠습니다. </p>
+<p>이것으로 강좌 4편을 마칩니다. 늦어서 죄송합니다. 요즘 많이 바빠서 연재하기 힘드네요. ㅜㅜ 한 편에 너무 많은 내용을 담느라 연재 주기가 늘어지지 않도록 해보겠습니다.</p>
 
 <ul>
 <li><a href="https://github.com/hannal/start_with_django_webframework/tree/04-fullsource/pystagram">4편까지 진행한 전체 소스 코드</a></li>

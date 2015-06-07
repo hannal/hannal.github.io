@@ -19,6 +19,7 @@ tags:
 permalink: "/2015/05/start_with_django_webframework_07/"
 ---
 
+* [날로 먹는 Django 웹프레임워크 강좌 목차](http://blog.hannal.com/category/start-with-django-webframework/)
 * 마지막 갱신일시 : 2015년 5월 18일 2시 47분
 
 그동안 우리는 사진 게시물을 Django Admin에서 게시했습니다. 이번엔 사진 게시물을 게시하는 기능을 구현하겠습니다. Django Form을 이용할 것인데, 이번 편에서는 왜 Django Form을 쓰면 좋고, 어떻게 동작하는 지 흐름을 이해하는 내용을 다루겠습니다.
@@ -296,7 +297,7 @@ PhotoEditForm(request.POST, request.FILES)
             new_photo = edit_form.save()
 ```
 
-Django Form은 첫 번째 인자로 넘어온 데이터는 `data` 멤버에, 파일은 `files` 멤버에 할당하는 걸 이용한 것인데, Form 클래스로 인스턴스 객체를 생성해 할당하는 과정에서(`__init__()`) 인자로 전달된 데이터나 파일이 있으면 `is_bound`라는 멤버에 `True`가 할당되고, 이 `is_bound`가 `True`여야만 `is_valid()`를 비롯한 폼 검사를 수행하기 때문입니다. 물론, 
+Django Form은 첫 번째 인자로 넘어온 데이터는 `data` 멤버에, 파일은 `files` 멤버에 할당하는 걸 이용한 것인데, Form 클래스로 인스턴스 객체를 생성해 할당하는 과정에서(`__init__()`) 인자로 전달된 데이터나 파일이 있으면 `is_bound`라는 멤버에 `True`가 할당되고, 이 `is_bound`가 `True`여야만 `is_valid()`를 비롯한 폼 검사를 수행하기 때문입니다. 물론,
 
 ```
     if request.method == "POST":
@@ -396,7 +397,7 @@ Django Model의 `get_absolute_url()` 메서드는 모델의 개별 데이터에 
     {% raw %}{{form.errors.image_file}}{% endraw %}
 {% raw %}{% endif %}{% endraw %}
 
-또는 
+또는
 
 {% raw %}{% if form.image_file.errors %}{% endraw %}
     {% raw %}{{form.image_file.errors}}{% endraw %}

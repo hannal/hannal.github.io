@@ -117,6 +117,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h1 class="post-title">7. 사진 게시물 제출하여 게시하기</h1>
   <span class="post-date">18 May 2015</span>
   <ul>
+<li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
 <li>마지막 갱신일시 : 2015년 5월 18일 2시 47분</li>
 </ul>
 
@@ -352,7 +353,7 @@ def new_photo(request):
         if edit_form.is_valid():
             new_photo = edit_form.save()
 </code></pre></div>
-<p>Django Form은 첫 번째 인자로 넘어온 데이터는 <code>data</code> 멤버에, 파일은 <code>files</code> 멤버에 할당하는 걸 이용한 것인데, Form 클래스로 인스턴스 객체를 생성해 할당하는 과정에서(<code>__init__()</code>) 인자로 전달된 데이터나 파일이 있으면 <code>is_bound</code>라는 멤버에 <code>True</code>가 할당되고, 이 <code>is_bound</code>가 <code>True</code>여야만 <code>is_valid()</code>를 비롯한 폼 검사를 수행하기 때문입니다. 물론, </p>
+<p>Django Form은 첫 번째 인자로 넘어온 데이터는 <code>data</code> 멤버에, 파일은 <code>files</code> 멤버에 할당하는 걸 이용한 것인데, Form 클래스로 인스턴스 객체를 생성해 할당하는 과정에서(<code>__init__()</code>) 인자로 전달된 데이터나 파일이 있으면 <code>is_bound</code>라는 멤버에 <code>True</code>가 할당되고, 이 <code>is_bound</code>가 <code>True</code>여야만 <code>is_valid()</code>를 비롯한 폼 검사를 수행하기 때문입니다. 물론,</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">    if request.method == &quot;POST&quot;:
         edit_form.is_bound = True
         edit_form.data = request.POST
@@ -436,7 +437,7 @@ class Photo(models.Model):
     {{form.errors.image_file}}
 {% endif %}
 
-또는 
+또는
 
 {% if form.image_file.errors %}
     {{form.image_file.errors}}

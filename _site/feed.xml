@@ -6,13 +6,14 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 07 Jun 2015 16:44:14 +0900</pubDate>
-    <lastBuildDate>Sun, 07 Jun 2015 16:44:14 +0900</lastBuildDate>
+    <pubDate>Sun, 07 Jun 2015 23:12:44 +0900</pubDate>
+    <lastBuildDate>Sun, 07 Jun 2015 23:12:44 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
         <title>8. 로그인, 로그아웃 하기</title>
         <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2015년 6월 7일 7시 19분&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -197,7 +198,7 @@
 &lt;li&gt;&lt;code&gt;django.contrib.auth.forms.AuthenticationForm&lt;/code&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;django.contrib.auth.authenticate()&lt;/code&gt; 
+&lt;li&gt;&lt;code&gt;django.contrib.auth.authenticate()&lt;/code&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;settings.AUTHENTICATION_BACKENDS&lt;/code&gt;에서 인증 기반 하나씩 가져옴&lt;/li&gt;
@@ -236,7 +237,7 @@
 
 &lt;hr&gt;
 
-&lt;p&gt;강좌 8편을 마칩니다. 아직은 Django 1.7판을 기준으로 강좌를 진행하고 있는데, 조만간 1.8판을 기준으로 내용을 다듬어야 겠습니다. &lt;/p&gt;
+&lt;p&gt;강좌 8편을 마칩니다. 아직은 Django 1.7판을 기준으로 강좌를 진행하고 있는데, 조만간 1.8판을 기준으로 내용을 다듬어야 겠습니다.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/hannal/start_with_django_webframework/tree/08-fullsource/pystagram&quot;&gt;8편까지 진행한 전체 소스 코드&lt;/a&gt;&lt;/li&gt;
@@ -277,6 +278,7 @@
       <item>
         <title>7. 사진 게시물 제출하여 게시하기</title>
         <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2015년 5월 18일 2시 47분&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -512,7 +514,7 @@ def new_photo(request):
         if edit_form.is_valid():
             new_photo = edit_form.save()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Django Form은 첫 번째 인자로 넘어온 데이터는 &lt;code&gt;data&lt;/code&gt; 멤버에, 파일은 &lt;code&gt;files&lt;/code&gt; 멤버에 할당하는 걸 이용한 것인데, Form 클래스로 인스턴스 객체를 생성해 할당하는 과정에서(&lt;code&gt;__init__()&lt;/code&gt;) 인자로 전달된 데이터나 파일이 있으면 &lt;code&gt;is_bound&lt;/code&gt;라는 멤버에 &lt;code&gt;True&lt;/code&gt;가 할당되고, 이 &lt;code&gt;is_bound&lt;/code&gt;가 &lt;code&gt;True&lt;/code&gt;여야만 &lt;code&gt;is_valid()&lt;/code&gt;를 비롯한 폼 검사를 수행하기 때문입니다. 물론, &lt;/p&gt;
+&lt;p&gt;Django Form은 첫 번째 인자로 넘어온 데이터는 &lt;code&gt;data&lt;/code&gt; 멤버에, 파일은 &lt;code&gt;files&lt;/code&gt; 멤버에 할당하는 걸 이용한 것인데, Form 클래스로 인스턴스 객체를 생성해 할당하는 과정에서(&lt;code&gt;__init__()&lt;/code&gt;) 인자로 전달된 데이터나 파일이 있으면 &lt;code&gt;is_bound&lt;/code&gt;라는 멤버에 &lt;code&gt;True&lt;/code&gt;가 할당되고, 이 &lt;code&gt;is_bound&lt;/code&gt;가 &lt;code&gt;True&lt;/code&gt;여야만 &lt;code&gt;is_valid()&lt;/code&gt;를 비롯한 폼 검사를 수행하기 때문입니다. 물론,&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;    if request.method == &amp;quot;POST&amp;quot;:
         edit_form.is_bound = True
         edit_form.data = request.POST
@@ -596,7 +598,7 @@ class Photo(models.Model):
     {{form.errors.image_file}}
 {% endif %}
 
-또는 
+또는
 
 {% if form.image_file.errors %}
     {{form.image_file.errors}}
@@ -657,6 +659,7 @@ class Photo(models.Model):
       <item>
         <title>6. Django 정적 파일 기능 이해하기</title>
         <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;마지막 갱신일시 : 2015년 4월 26일 21시 10분&lt;/li&gt;
 &lt;/ul&gt;
 
