@@ -10,8 +10,8 @@ author:
   url: ''
 author_login: Kay
 author_email: iam@hannal.net
-date: '2015-06-08 02:45:00 +0900'
-date_gmt: '2015-06-08 11:45:00 +0900'
+date: '2015-06-07 02:45:00 +0900'
+date_gmt: '2015-06-07 11:45:00 +0900'
 categories: [start-with-django-webframework]
 tags:
 - django

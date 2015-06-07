@@ -595,97 +595,62 @@ except:
 
 <p><img src="http://blog.hannal.com/assets/uploads/2008/07/save_the_entry_successfully.png" alt="" title="글 저장 성공 화면" width="433" height="115" class="alignnone size-full wp-image-100" style="border: 1px solid #000;" /></p>
 
-<hr />
-
+<p><hr />
 <p>이렇게 해서 글 저장까지 끝냈다. “10분만에 블로그 만들기 동영상 설명”을 보면 이 정도 기능까지 만들고 블로그를 다 만들었다고 뻥친다. 아주 뻥이라고만 할 수는 없는 것이 스카폴딩 기능(django 라면 admin 기능)을 이용하면 단 몇 분 만에 댓글 달기 기능도 구현할 수 있기 때문에 설명에서 생략했기 때문이다. 그렇게 치면 우리도 7회 만에 블로그 하나 만들었다. ^^</p>
-
 <p>다음 글에서는 댓글 입력과 출력 기능을 만들 것이다. 다음 주까지 마치면 블로그 기능 중 가장 기본이라 할 수 있는 글 쓰기, 글 목록 보기, 글 낱장 보기, 댓글 달기, 댓글 보기까지 다 만들게 된다. 이것 말고도 RSS 기능이나  글 수정 기능도 만들겠지만, 어떤 건 숙제로 나가고 어떤 건 좀 더 나중에 만들 것이다.</p>
-
 <p>예전에 다른 프로그래밍 언어나마 익혀서 다뤄본 적 있는 이라면 이 정도만 되어도 아직 우리가 만들지 않은 기능들을 스스로 만들려고 덤벼들 것이라 생각한다. 자료를 DB에 써넣고 끄집어내는 주요 기능이나 문법 같은 건 이번 글을 통해 상당 수 다뤘기 때문이다. 실제로 강좌도 전회 중 거의 절반쯤 마쳤다(분량으로 치면 거의 2/3). 이전 글과 이번 글은 양이 많아 공부할 때 힘들었겠지만 조금만 더 나아가면 우리나라에서 django 로 블로그 만들 줄 아는 몇 안되는 사람 중 한 명이 되니 좀 더 힘을 내자. :)</p>
-
 <ul>
 <li><a href='http://blog.hannal.com/assets/uploads/2008/07/hannal-cheong_5-2.zip'>이번 글에서 다룬 소스 압축파일</a>
 </li>
 </ul>
-
 <hr />
-
 <h3>파이썬 기초</h3>
-
 <h4>UTF-8 와 len 함수</h4>
-
-<p>혹시 프로그래밍 공부를 조금 해본 이라면 영문은 한 글자가 1바이트(byte) 이고 한글이나 한자 같은 건 2바이트라는 걸 알 것이다. 그러므로 len('hannal') 은 6이 반환되고 len('한날') 은 4가(1글자는 2바이트이므로) 반환된다고 생각할 수 있다.</p>
-
-<p>UTF-8 에선 다르다. UTF-8 에선 영문이든 한글이든 모두 바이트 단위가 아닌 글자 단위로 처리한다. 그래서 len(u'한날') 이라고 하면 4가 아닌 2가 출력된다. 2 바이트가 아니라 2글자가 되는 것이다. (앞에 u 는 유니코드라는 표시이다)</p>
-
+<p>혹시 프로그래밍 공부를 조금 해본 이라면 영문은 한 글자가 1바이트(byte) 이고 한글이나 한자 같은 건 2바이트라는 걸 알 것이다. 그러므로 len(&#39;hannal&#39;) 은 6이 반환되고 len(&#39;한날&#39;) 은 4가(1글자는 2바이트이므로) 반환된다고 생각할 수 있다.</p>
+<p>UTF-8 에선 다르다. UTF-8 에선 영문이든 한글이든 모두 바이트 단위가 아닌 글자 단위로 처리한다. 그래서 len(u&#39;한날&#39;) 이라고 하면 4가 아닌 2가 출력된다. 2 바이트가 아니라 2글자가 되는 것이다. (앞에 u 는 유니코드라는 표시이다)</p>
 <p>그렇다면 UTF-8 문자열을 아스키 문자열로 변환하면 값이 달라질까? 우리는 encode 메소드를 이용해 유니코드 문자열을 아스키로 변환했으니, 이걸 이용해서 확인해보자.</p>
-
-<blockquote><p><code>len(u'한날'.encode('utf-8'))</code></p></blockquote>
-
-<p>유니코드인 한날 문자열(u'한날')을 encode 메소드로 변환한 것인데, 숫자는 4가 아니라 6이 뜬다. UTF-8 에서 한글은 2바이트가 아니라 3바이트이기 때문이다.</p>
-
-<h4>has_key 메소드</h4>
-
-<p>딕셔너리 자료형에서 특정 키가 있는지 확인하는 방법으로 has_key 메소드를 배웠다. 실은 이보다 더 간편한 방법이 있다. 바로 in 이다. 아래 두 코드는 동일하게 작동한다.</p>
-
-<p>1. has_key 메소드 쓰기</p>
-
-<blockquote><pre><code>if dict_var.has_key('hannal'):
-      print 'the key is existed'
+<blockquote><p><code>len(u&#39;한날&#39;.encode(&#39;utf-8&#39;))</code></p></blockquote>
+<p>유니코드인 한날 문자열(u&#39;한날&#39;)을 encode 메소드로 변환한 것인데, 숫자는 4가 아니라 6이 뜬다. UTF-8 에서 한글은 2바이트가 아니라 3바이트이기 때문이다.</p>
+<h4>has<em>key 메소드</h4>
+<p>딕셔너리 자료형에서 특정 키가 있는지 확인하는 방법으로 has</em>key 메소드를 배웠다. 실은 이보다 더 간편한 방법이 있다. 바로 in 이다. 아래 두 코드는 동일하게 작동한다.</p>
+<p>1. has<em>key 메소드 쓰기</p>
+<blockquote><pre><code>if dict</em>var.has<em>key(&#39;hannal&#39;):
+      print &#39;the key is existed&#39;
 </code></pre>
 </blockquote>
-
 <p>2. if 조건문의 in 쓰기</p>
-
-<blockquote><pre><code>if 'hannal' in dict_var:
-      print 'the key is existed'
+<blockquote><pre><code>if &#39;hannal&#39; in dict</em>var:
+      print &#39;the key is existed&#39;
 </code></pre>
 </blockquote>
-
 <p>모양새가 for 문과 비슷하다고 생각했는가? 대단한 눈썰미이다. :)</p>
-
 <h4>람다식와 map 함수</h4>
-
 <p>우리는 위에서</p>
-
 <blockquote><pre><code>tags = []
-split_tags = unicode(request.POST['tags']).split(',')
-for tag in split_tags:
-    tag_list.append(tag.strip())
+split<em>tags = unicode(request.POST[&#39;tags&#39;]).split(&#39;,&#39;)
+for tag in split</em>tags:
+    tag<em>list.append(tag.strip())
 </code></pre>
 </blockquote>
-
 <p>이 4줄을</p>
-
-<blockquote><p><code>tags = map(lambda str: str.strip(), unicode(request.POST['tags']).split(','))</code></p></blockquote>
-
+<blockquote><p><code>tags = map(lambda str: str.strip(), unicode(request.POST[&#39;tags&#39;]).split(&#39;,&#39;))</code></p></blockquote>
 <p>이렇게 한 줄로 줄였다. 여기서 눈에 띄이는 애들이 있는데 바로 map 함수와 lambda(람다)식이다. 람다부터 보자.</p>
-
 <p>람다식은 함수와 거의 똑같다. 함수처럼 인자를 받고, 이를 처리해서 값을 반환한다. 차이점이라면 <strong>람다는 “딱 한 줄”로만 표현</strong>할 수 있다.</p>
-
-<blockquote><pre><code>def a_plus_b(a, b):
+<blockquote><pre><code>def a</em>plus<em>b(a, b):
     return a + b
 </code></pre>
 </blockquote>
-
 <p>위 함수는 인자로 a와 b를 받은 뒤 이 둘을 더해서 그 값을 반환한다. 이를 람다식으로 표현하면</p>
-
 <blockquote><p><code>lambda a, b: a + b</code></p></blockquote>
-
 <p>로 된다. 반환문인 return 도 없다. manage.py shell 이라고 해서 파이썬 명령 프롬프트 상태로 가서 직접 확인해보자.</p>
-
 <blockquote><p><code>&gt;&gt;&gt; lmd = lambda a, b: a + b<br />
 &gt;&gt;&gt; lmd(10, 23)<br />
 33<br />
 </code></p></blockquote>
-
-<p><img src="http://blog.hannal.com/assets/uploads/2008/07/lambda_ex.png" alt="" title="" width="196" height="57" class="alignnone size-full wp-image-101" style="border: 1px solid #000;" /></p>
-
+<p>&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2008/07/lambda</em>ex.png&quot; alt=&quot;&quot; title=&quot;&quot; width=&quot;196&quot; height=&quot;57&quot; class=&quot;alignnone size-full wp-image-101&quot; style=&quot;border: 1px solid #000;&quot; /&gt;</p>
 <p>lambda a, b: a + b 라는 람다식을 lmd 에다 넣고 lmd를 실행할 때 인자로 10과 23을 넣자 이 둘을 더한 값이 반환된다.</p>
-
 <p>아주 간단한 식을 함수처럼 값을 받아다 처리하고 싶은데 함수로 만들자니 거창하고, 그렇다고 재사용 할 일도 없으면 람다식으로 깔끔하고 편하게 처리할 수 있다.</p>
-
-<p>이런 람다식과 함께 쓰면 참 편리하고 강력한 함수가 몇 개 있는데 filter 함수나 map, reduce 같은 함수가 있다. 이들에 대한 설명은 http://turing.cafe24.com/ 에서 연재 중인 <a href="http://turing.cafe24.com/python/35lambda.htm">파이썬 강좌 중 람다 부분을 참고</a>하길 바란다.</p>
+<p>이런 람다식과 함께 쓰면 참 편리하고 강력한 함수가 몇 개 있는데 filter 함수나 map, reduce 같은 함수가 있다. 이들에 대한 설명은 http://turing.cafe24.com/ 에서 연재 중인 <a href="http://turing.cafe24.com/python/35lambda.htm">파이썬 강좌 중 람다 부분을 참고</a>하길 바란다.</p></p>
 
   </div>
   

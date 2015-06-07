@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-06-07T07:22:53+09:00</updated>
+  <updated>2015-06-07T16:44:14+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -14,7 +14,7 @@
   <entry>
     <title>8. 로그인, 로그아웃 하기</title>
     <link href="/2015/06/start_with_django_webframework_08/"/>
-    <updated>2015-06-08T02:45:00+09:00</updated>
+    <updated>2015-06-07T02:45:00+09:00</updated>
     <id>/2015/06/start_with_django_webframework_08</id>
     <content type="html">&lt;ul&gt;
 &lt;li&gt;마지막 갱신일시 : 2015년 6월 7일 7시 19분&lt;/li&gt;
@@ -3405,16 +3405,11 @@ else:
 
 &lt;p&gt;저는 &lt;a href=&quot;http://legacy.python.org/dev/peps/pep-0008/#indentation&quot;&gt;스페이스 네 칸을 탭 한 칸으로 표현하는 소프트탭 방식&lt;/a&gt;을 쓰겠습니다.&lt;/p&gt;
 
-&lt;hr /&gt;
-
+&lt;p&gt;&lt;hr /&gt;
 &lt;p&gt;이것으로 강좌 2편을 마칩니다. 분량이 적을 거라 예상했는데, 왜 설치하고 왜 그렇게 설치하는지 설명하려다 보니 예상보다 길게 썼네요.&lt;/p&gt;
-
 &lt;p&gt;3편에서는 Django로 프로젝트를 만들고 데이터베이스에 데이터도 넣어볼 겁니다. 그럼 3편에서 만나요.&lt;/p&gt;
-
 &lt;p&gt;아참. 9월 초까지 블로그를 분리하고 이전하느라 접속이 잘 안 될 수 있습니다. :)&lt;/p&gt;
-
 &lt;hr /&gt;
-
 &lt;div class=&quot;footnotes&quot;&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
@@ -3443,7 +3438,7 @@ else:
 &lt;p&gt;하지만 Python 3에서는 허용하지 않습니다.&amp;#160;&lt;a href=&quot;#fnref-3125:7&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
 </content>
   </entry>
   
