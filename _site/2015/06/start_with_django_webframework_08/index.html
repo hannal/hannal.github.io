@@ -196,17 +196,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {% csrf_token %}
 &lt;table&gt;
 &lt;tr&gt;
-    &lt;td&gt;&lt;/td&gt;
-    &lt;td&gt;&lt;/td&gt;
+    &lt;td&gt;{{ form.username.label_tag }}&lt;/td&gt;
+    &lt;td&gt;{{ form.username }}&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td&gt;&lt;/td&gt;
-    &lt;td&gt;&lt;/td&gt;
+    &lt;td&gt;{{ form.password.label_tag }}&lt;/td&gt;
+    &lt;td&gt;{{ form.password }}&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 
 &lt;input type=&quot;submit&quot; value=&quot;로그인&quot; /&gt;
-&lt;input type=&quot;hidden&quot; name=&quot;next&quot; value=&quot;&quot; /&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;next&quot; value=&quot;{{ next }}&quot; /&gt;
 &lt;/form&gt;
 
 {% endblock %}

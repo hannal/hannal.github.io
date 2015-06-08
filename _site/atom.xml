@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-06-07T23:12:44+09:00</updated>
+  <updated>2015-06-08T12:16:33+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -96,17 +96,17 @@
 {% csrf_token %}
 &amp;lt;table&amp;gt;
 &amp;lt;tr&amp;gt;
-    &amp;lt;td&amp;gt;&amp;lt;/td&amp;gt;
-    &amp;lt;td&amp;gt;&amp;lt;/td&amp;gt;
+    &amp;lt;td&amp;gt;{{ form.username.label_tag }}&amp;lt;/td&amp;gt;
+    &amp;lt;td&amp;gt;{{ form.username }}&amp;lt;/td&amp;gt;
 &amp;lt;/tr&amp;gt;
 &amp;lt;tr&amp;gt;
-    &amp;lt;td&amp;gt;&amp;lt;/td&amp;gt;
-    &amp;lt;td&amp;gt;&amp;lt;/td&amp;gt;
+    &amp;lt;td&amp;gt;{{ form.password.label_tag }}&amp;lt;/td&amp;gt;
+    &amp;lt;td&amp;gt;{{ form.password }}&amp;lt;/td&amp;gt;
 &amp;lt;/tr&amp;gt;
 &amp;lt;/table&amp;gt;
 
 &amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;로그인&amp;quot; /&amp;gt;
-&amp;lt;input type=&amp;quot;hidden&amp;quot; name=&amp;quot;next&amp;quot; value=&amp;quot;&amp;quot; /&amp;gt;
+&amp;lt;input type=&amp;quot;hidden&amp;quot; name=&amp;quot;next&amp;quot; value=&amp;quot;{{ next }}&amp;quot; /&amp;gt;
 &amp;lt;/form&amp;gt;
 
 {% endblock %}

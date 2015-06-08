@@ -103,17 +103,17 @@ urlpatterns = patterns(
 {% raw %}{% csrf_token %}{% endraw %}
 <table>
 <tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
+    <td>{% raw %}{{ form.username.label_tag }}{% endraw %}</td>
+    <td>{% raw %}{{ form.username }}{% endraw %}</td>
 </tr>
 <tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
+    <td>{% raw %}{{ form.password.label_tag }}{% endraw %}</td>
+    <td>{% raw %}{{ form.password }}{% endraw %}</td>
 </tr>
 </table>
 
 <input type="submit" value="로그인" />
-<input type="hidden" name="next" value="{{ next }}" />
+<input type="hidden" name="next" value="{% raw %}{{ next }}{% endraw %}" />
 </form>
 
 {% raw %}{% endblock %}{% endraw %}
