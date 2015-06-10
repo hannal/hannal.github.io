@@ -6,8 +6,8 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 08 Jun 2015 14:42:13 +0900</pubDate>
-    <lastBuildDate>Mon, 08 Jun 2015 14:42:13 +0900</lastBuildDate>
+    <pubDate>Thu, 11 Jun 2015 04:28:06 +0900</pubDate>
+    <lastBuildDate>Thu, 11 Jun 2015 04:28:06 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -279,7 +279,7 @@
         <title>7. 사진 게시물 제출하여 게시하기</title>
         <description>&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;마지막 갱신일시 : 2015년 5월 18일 2시 47분&lt;/li&gt;
+&lt;li&gt;마지막 갱신일시 : 2015년 6월 11일 4시 25분&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;그동안 우리는 사진 게시물을 Django Admin에서 게시했습니다. 이번엔 사진 게시물을 게시하는 기능을 구현하겠습니다. Django Form을 이용할 것인데, 이번 편에서는 왜 Django Form을 쓰면 좋고, 어떻게 동작하는 지 흐름을 이해하는 내용을 다루겠습니다.&lt;/p&gt;
@@ -459,6 +459,13 @@ def new_photo(request):
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;지난 6회 연재 글에서 다룬 정적(static) 파일 내용이 얼핏 보이네요. 이것도 Django Template을 다루는 연재 글에서 자세히 다루겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;layout.html&lt;/code&gt;은 여러 뷰 템플릿에서 공통으로 사용하므로 앱 디렉터리가 아닌 별도 템플릿 디렉터리를 만들어 배치했습니다. 이 템플릿 디렉터리를 &lt;code&gt;settings.py&lt;/code&gt;에 설정합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, &amp;#39;templates&amp;#39;),
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;참고로 이 설정은 Django 1.8에서는 유효하지 않으며, 추후 템플릿에 대해 자세히 다룰 때 이 설정을 수정하도록 하겠습니다.&lt;/p&gt;
 
 &lt;p&gt;이제 Django의 개발용 내장 웹 서버를 구동하고(&lt;code&gt;python manage.py runserver&lt;/code&gt;) &lt;code&gt;/photo/upload/&lt;/code&gt; URL로 접속하면 사진 게시물을 작성하는 편집 화면이 나옵니다. 그런데 &lt;code&gt;filtered_image_file&lt;/code&gt;은 이미지 필터를 적용하여 가공된 이미지 파일을 담는 모델 필드입니다. 다시 말하면, 사진 게시물을 편집하는 단계에서 이용자가 접근해서는 안 되는 필드입니다. 그래서 화면에 나타나지 않게 감추겠습니다. 방법은 간단합니다. &lt;code&gt;PhotoEditForm&lt;/code&gt; 모델 폼의 메타 클래스에서 폼 필드로 사용할 모델 필드를 지정하면 됩니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class PhotoEditForm(forms.ModelForm):

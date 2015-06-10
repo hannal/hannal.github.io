@@ -20,7 +20,7 @@ permalink: "/2015/05/start_with_django_webframework_07/"
 ---
 
 * [날로 먹는 Django 웹프레임워크 강좌 목차](http://blog.hannal.com/category/start-with-django-webframework/)
-* 마지막 갱신일시 : 2015년 5월 18일 2시 47분
+* 마지막 갱신일시 : 2015년 6월 11일 4시 25분
 
 그동안 우리는 사진 게시물을 Django Admin에서 게시했습니다. 이번엔 사진 게시물을 게시하는 기능을 구현하겠습니다. Django Form을 이용할 것인데, 이번 편에서는 왜 Django Form을 쓰면 좋고, 어떻게 동작하는 지 흐름을 이해하는 내용을 다루겠습니다.
 
@@ -227,6 +227,16 @@ Django Template은 추후 연재에서 자세히 다루겠습니다. 이 `new_ph
 ```
 
 지난 6회 연재 글에서 다룬 정적(static) 파일 내용이 얼핏 보이네요. 이것도 Django Template을 다루는 연재 글에서 자세히 다루겠습니다.
+
+`layout.html`은 여러 뷰 템플릿에서 공통으로 사용하므로 앱 디렉터리가 아닌 별도 템플릿 디렉터리를 만들어 배치했습니다. 이 템플릿 디렉터리를 `settings.py`에 설정합니다.
+
+```
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
+```
+
+참고로 이 설정은 Django 1.8에서는 유효하지 않으며, 추후 템플릿에 대해 자세히 다룰 때 이 설정을 수정하도록 하겠습니다.
 
 이제 Django의 개발용 내장 웹 서버를 구동하고(`python manage.py runserver`) `/photo/upload/` URL로 접속하면 사진 게시물을 작성하는 편집 화면이 나옵니다. 그런데 `filtered_image_file`은 이미지 필터를 적용하여 가공된 이미지 파일을 담는 모델 필드입니다. 다시 말하면, 사진 게시물을 편집하는 단계에서 이용자가 접근해서는 안 되는 필드입니다. 그래서 화면에 나타나지 않게 감추겠습니다. 방법은 간단합니다. `PhotoEditForm` 모델 폼의 메타 클래스에서 폼 필드로 사용할 모델 필드를 지정하면 됩니다.
 
