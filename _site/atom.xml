@@ -3,13 +3,303 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-06-11T04:28:06+09:00</updated>
+  <updated>2015-06-28T01:23:55+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
   </author>
   <rights>copyright_details</rights>
 
+  
+  <entry>
+    <title>9. 로그인한 이용자만 사진 게시물 게시하기</title>
+    <link href="/2015/06/start_with_django_webframework_09/"/>
+    <updated>2015-06-28T01:20:00+09:00</updated>
+    <id>/2015/06/start_with_django_webframework_09</id>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;마지막 갱신일시 : 2015년 6월 28일 1시 20분&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;지난 편에서는 Django 이용자 인증 체계을 알아봤으니 이번 편에서는 인증 기능을 이용하여 로그인한 이용자만 사진 게시물을 게시하는 기능을 만들어 보겠습니다.&lt;/p&gt;
+
+&lt;h3&gt;1. 사진 게시물에 이용자 정보 연결&lt;/h3&gt;
+
+&lt;h4&gt;(1) 기본키 (Primary Key)&lt;/h4&gt;
+
+&lt;p&gt;로그인한 이용자만 사진 게시물을 게시한다면 각 사진 게시물엔 사진을 게시한 이용자 정보를 담아야 합니다. 누가 게시한 사진인지 알아야 하니까요. 이용자 ID(&lt;code&gt;username&lt;/code&gt;)을 문자열로 담아도 되지만, 대개는 고유하며 변하지 않을 정보인 기본키(Primary Key)를 담습니다. &lt;/p&gt;
+
+&lt;p&gt;이용자가 따로 기본키 역할을 하는 모델 필드를 지정하지 않으면 Django는 관례대로 &lt;code&gt;id&lt;/code&gt;라는 모델 필드를 알아서 만들고 이를 기본키로 사용합니다. 사진 모델인 &lt;code&gt;Photo&lt;/code&gt;로 사진 게시물 데이터를 &lt;code&gt;photo01&lt;/code&gt;이라는 인스턴스 객체로 할당하면 이 객체엔 &lt;code&gt;id&lt;/code&gt;라는 멤버 변수가 속성으로 존재하고 이 속성에 정수(&lt;code&gt;int&lt;/code&gt;) 값이 할당되어 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;gt;&amp;gt;&amp;gt; photo01 = Photo.objects.last()
+&amp;gt;&amp;gt;&amp;gt; print(photo01.id)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;모델의 인스턴스 객체엔 &lt;code&gt;pk&lt;/code&gt; 속성도 존재하는데, 이 속성은 기본키를 가리키고 있습니다. 이용자가 &lt;code&gt;id&lt;/code&gt; 모델 필드를 기본키로 하지 않고 &lt;code&gt;uuid&lt;/code&gt;라는 모델 필드를 만들어 이 필드를 기본키로 지정하면 &lt;code&gt;pk&lt;/code&gt;는 이 모델 필드를 가리킵니다. 우리는 각 모델의 기본키로 설정된 모델 필드의 이름이 무엇인지 신경쓰지 않고 &lt;code&gt;pk&lt;/code&gt; 속성을 사용하면 됩니다.&lt;/p&gt;
+
+&lt;h4&gt;(2) 모델 관계 필드 (relationship fields)&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;Photo&lt;/code&gt; 모델로 데이터베이스에 저장할 데이터에 이용자 모델의 기본키 값을 저장하려면 다음과 같이 하면 됩니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Photo(models.Model):
+    user_id = models.IntegerField()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그런 뒤에 &lt;code&gt;Photo&lt;/code&gt; 모델로 데이터를 저장하는 과정에서 이용자의 기본키 값을 &lt;code&gt;user_id&lt;/code&gt;에 할당하면 됩니다. 각 게시물을 게시한 이용자가 누구인지 아니까 각 사진 게시물 정보를 가져오면서 이용자 정보도 함께 가져오면 좋겠군요.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from django.contrib.auth import get_user_model
+User = get_user_model()
+
+class Photo(models.Model):
+    # 중략
+    def get_user(self):
+        return User.objects.get(pk=self.user_id)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 코드들엔 문제가 있습니다. 모델의 기본키 모델 필드가 &lt;code&gt;IntegerField&lt;/code&gt;가 아닌 경우에 제대로 대응하지 못하고, &lt;code&gt;get_user()&lt;/code&gt; 메서드를 호출할 때마다 매번 이용자 모델에서 이용자 데이터를 탐색해 반환하며, 이용자 모델과 연결하는 모델마다 매번 저런 구현을 중복 적용해야 합니다. 이런 문제들에 대응하는 구현체를 만들어야 하는데, Django는 &lt;a href=&quot;https://docs.djangoproject.com/en/1.8/ref/models/fields/#module-django.db.models.fields.related&quot;&gt;관계 모델 필드&lt;/a&gt;로 제공합니다. 총 세 종류입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ForeignKey&lt;/code&gt; : 1 대 다(1 to n) 관계&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;OneToOneField&lt;/code&gt; : 1 대 1 관계&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ManyToManyField&lt;/code&gt; : 다 대 다(n to n) 관계&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이용자와 사진 게시물 관계로 세 관계 필드를 살펴 보겠습니다. &lt;code&gt;OneToOneField&lt;/code&gt;는 이용자는 오직 사진 게시물을 하나만 게시하고 소유합니다. &lt;code&gt;ManyToManyField&lt;/code&gt;는 이용자가 사진 게시물을 여러 개 올릴 수 있는데, 각 사진 게시물을 여러 이용자가 소유하는 게 가능합니다. 1번 사진을 Hannal 이용자 뿐만 아니라 Kay, Yuna 이용자가 소유하는 관계가 맺어지므로 소유한 누구나 사진 게시물을 변경하거나 지울 수 있습니다. 마지막으로 &lt;code&gt;ForeignKey&lt;/code&gt;는 한 이용자가 여러 사진 게시물을 게시하고 소유하는 관계입니다. 우리에게 필요한 모델 관계군요. &lt;code&gt;ForeignKey&lt;/code&gt;에 대한 건 본 편 “2. &lt;code&gt;ForeignKey&lt;/code&gt; 모델 필드”를 참고하시고, 연결부터 해보겠습니다.&lt;/p&gt;
+
+&lt;h4&gt;(3) &lt;code&gt;Photo&lt;/code&gt; 모델에 이용자 기본키 정보 연결하기&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from django.conf import settings
+
+class Photo(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    # 후략
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;ForeignKey&lt;/code&gt; 모델 필드(클래스)는 &lt;code&gt;django.db.models&lt;/code&gt; 모듈에 있어서 다른 모델 필드처럼 &lt;code&gt;models&lt;/code&gt; 객체에서 접근하여 사용하면 됩니다. 첫 번째 인자로 관계 지을 모델을 모델 객체나 경로를 문자열로 전달합니다. &lt;code&gt;settings&lt;/code&gt;의 &lt;code&gt;AUTH_USER_MODEL&lt;/code&gt; 설정 항목은 현재 프로젝트에서 사용하는 인증용 이용자 모델이 위치한 경로를 문자열로 지정하고 있습니다. &lt;a href=&quot;http://blog.hannal.com/2015/06/start_with_django_webframework_08/&quot;&gt;8. 로그인, 로그아웃 하기&lt;/a&gt;편에서 이에 대한 내용을 참조하세요.&lt;/p&gt;
+
+&lt;h5&gt;마이그레이션 수행&lt;/h5&gt;
+
+&lt;p&gt;&lt;code&gt;Photo&lt;/code&gt; 모델이 변경됐으니 데이터베이스에 반영해야 합니다. 마이그레이션을 수행합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ python manage.py makemigrations photo
+You are trying to add a non-nullable field &amp;#39;user&amp;#39; to photo without a default;
+we can&amp;#39;t do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows)
+ 2) Quit, and let me add a default in models.py
+Select an option:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;긴 영어 문장이 나오며 뭔가를 물어 보는데 당황하지 말고 내용을 잘 살펴 보세요. &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;당신은 Null(&lt;code&gt;None&lt;/code&gt;)을 허용하지 않는(non-nullable) &lt;code&gt;user&lt;/code&gt;라는 필드를 추가하려 하는데, 값이 주어지지 않는 경우에 기본으로 저장될 기본값(default)이 없다.&lt;/li&gt;
+&lt;li&gt;데이터베이스가 기존에 저장된 데이터(populate existing rows)에 Null 외 값을 필요로 해서 우린(Django) 이 작업을 바로 수행하지 못한다.&lt;/li&gt;
+&lt;li&gt;그러니 뭔가 조치를 취해달라.
+
+&lt;ol&gt;
+&lt;li&gt;이 자리에서 기본값을 제공해주든&lt;/li&gt;
+&lt;li&gt;마이그레이션 수행 과정에서 빠져 나간 뒤에 &lt;code&gt;models.py&lt;/code&gt;에 기본값 지정 인자(&lt;code&gt;default&lt;/code&gt;)를 추가해달라.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;그 자리에서 기본값을 제공해줄테니 &lt;code&gt;1&lt;/code&gt;을 입력합니다. Django가 뭔가를 요구하네요.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Please enter the default value now, as valid Python
+The datetime module is available, so you can do e.g. datetime.date.today()
+&amp;gt;&amp;gt;&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;기본값으로 유효한 Python의 객체를 입력하라는 말입니다. 일단 &lt;code&gt;1&lt;/code&gt;을 입력합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Migrations for &amp;#39;photo&amp;#39;:
+  0006_photo_user.py:
+    - Add field user to photo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이제야 마이그레이션 수행에 필요한 마이그레이션 작업 파일이 만들어 졌습니다. 두 번째 입력한 &lt;code&gt;1&lt;/code&gt;은 이용자 모델의 기본키 값이 &lt;code&gt;1&lt;/code&gt;을 뜻합니다. 기존에 저장한 사진 게시물의 이용자를 기본키 값이 &lt;code&gt;1&lt;/code&gt;인 이용자로 지정한 것입니다. 만약, 기존에 소유자가 없는 사진 게시물을 위해 별도 이용자를 만들어서 연결하고자 한다면, 그 이용자를 만들어서 그 이용자의 기본키 숫자값을 지정하면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;왜 기본키 값을 넣는지 첫 번째 이유는 앞서 설명을 하였고, 두 번째 이유는 “(2) ForeignKey 모델 필드”에서 설명하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;이제 &lt;code&gt;makemigrations&lt;/code&gt; 명령어로 만든 마이그레이션 작업 내용을 데이터베이스에 반영합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ python manage.py migrate photo
+Operations to perform:
+  Apply all migrations: photo
+Running migrations:
+  Applying photo.0006_photo_user... OK
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2. 로그인한 이용자만 사진 게시물 게시하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Photo&lt;/code&gt; 모델에 이용자 모델 연결을 마쳤으니 이번엔 사진 게시물을 저장하는 과정에 로그인한 이용자 정보를 적용하겠습니다. 간단히 말해서 로그인한 이용자만 사진 게시물을 게시하는 것이지요.&lt;/p&gt;
+
+&lt;h4&gt;(1) 현재 이용자를 사진 게시물에 적용&lt;/h4&gt;
+
+&lt;p&gt;현재 웹 서비스에 연결된(requested) 접속 정보는 &lt;code&gt;request&lt;/code&gt; 객체에 담겨 있습니다. &lt;code&gt;request&lt;/code&gt;는 뷰(view) 함수가 첫 번째 인자로 전달받는 객체입니다. 개별 사진을 보는 &lt;code&gt;single_photo&lt;/code&gt; 뷰 함수는 &lt;code&gt;def single_photo(request, photo_id):&lt;/code&gt;와 같이, 사진 게시물을 새로 저장하는 &lt;code&gt;new_photo&lt;/code&gt; 뷰 함수는 &lt;code&gt;def new_photo(request):&lt;/code&gt;와 같이 첫 번째 인자로 &lt;code&gt;request&lt;/code&gt;를 전달 받습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;reuqest&lt;/code&gt; 객체엔 &lt;code&gt;user&lt;/code&gt; 속성이 존재하는데, 이 속성은 접속한 이용자에 정보가 담겨 있습니다. 로그인한 이용자라면 이용자 모델 클래스로 생성한 인스턴스 객체가, 로그인하지 않은 이용자라면 &lt;code&gt;AnonymousUser&lt;/code&gt; 모델 클래스로 생성한 인스턴스 객체가 할당됩니다. 먼저 코드부터 작성해 보겠습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def new_photo(request):
+    if request.method == &amp;quot;GET&amp;quot;:
+        edit_form = PhotoEditForm()
+    elif request.method == &amp;quot;POST&amp;quot;:
+        edit_form = PhotoEditForm(request.POST, request.FILES)
+
+        if edit_form.is_valid():
+            new_photo = edit_form.save(commit=False)
+            new_photo.user = request.user
+            new_photo.save()
+
+            return redirect(new_photo.get_absolute_url())
+
+    # 후략
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;한 줄은 조금 바뀌었고, 두 줄이 추가됐습니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;if edit_form.is_valid():
+    new_photo = edit_form.save(commit=False)
+    new_photo.user = request.user
+    new_photo.save()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;두 번째 줄 &lt;code&gt;new_photo = edit_form.save(commit=False)&lt;/code&gt;에서 &lt;code&gt;edit_form&lt;/code&gt; 객체는 사진 게시물 생성과 관련된 폼(Form)인 &lt;code&gt;PhotoEditForm&lt;/code&gt; 폼 클래스입니다. 첫 번째 줄에서 &lt;code&gt;is_valid()&lt;/code&gt;로 웹에서 전달받은 자료를 검증한 그 객체입니다. 이 객체가 모델 폼인 경우, 그러니까 &lt;code&gt;ModelForm&lt;/code&gt; 클래스를 상속받아 만든 폼인 경우 &lt;code&gt;save()&lt;/code&gt; 인스턴스 메서드를 포함하고 있는데, 이 메서드는 모델의 &lt;code&gt;save()&lt;/code&gt; 메서드와 동일한 역할을 합니다. 데이터를 모델에 연결된 데이터베이스 테이블에 저장하는 것이지요. 모델의 &lt;code&gt;save()&lt;/code&gt; 메서드와 마찬가지로 저장한 내용이 반영된 모델의 인스턴스 객체를 반환합니다. 즉, &lt;code&gt;edit_form.save()&lt;/code&gt;로부터 반환받은 객체를 할당한 &lt;code&gt;new_photo&lt;/code&gt;는 폼과 관련된 객체가 아니라 &lt;code&gt;PhotoEditForm&lt;/code&gt; 모델 폼 클래스에 연결되어 있는 &lt;code&gt;Photo&lt;/code&gt; 모델로 생성한 인스턴스 객체입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;save()&lt;/code&gt; 메서드에 인자로 전달한 &lt;code&gt;commit&lt;/code&gt;은 실제로 데이터베이스에 반영할 것인지 여부를 정합니다. &lt;code&gt;True&lt;/code&gt;를 전달하면 바로 데이터베이스에 저장하고, &lt;code&gt;False&lt;/code&gt;라고 하면 모델 클래스로 생성한 인스턴스 객체만 반영하고 데이터베이스에 실제로 반영하진 않습니다. 따로 반영 여부를 정해주지 않으면 기본값은 &lt;code&gt;True&lt;/code&gt;이어서 바로 데이터베이스에 반영합니다. 데이터베이스에 저장하지 않을 거면서 뭐하러 &lt;code&gt;save()&lt;/code&gt; 메서드를 호출했으며, &lt;code&gt;save()&lt;/code&gt; 메서드엔 실제로 반영할 것인지 여부를 정하는 &lt;code&gt;commit&lt;/code&gt; 인자가 필요한 이유는 무엇일까요? 답은 그 바로 다음에 나오는 두 줄에 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;new_photo.user = request.user&lt;/code&gt;는 &lt;code&gt;new_photo&lt;/code&gt; 객체의 &lt;code&gt;user&lt;/code&gt; 속성에 현재 로그인한 &lt;code&gt;request.user&lt;/code&gt; 속성을 할당하는 것입니다. &lt;code&gt;PhotoEditForm&lt;/code&gt; 폼 클래스는 웹에서 폼 양식 자료가 담긴 &lt;code&gt;request.POST&lt;/code&gt;와 &lt;code&gt;request.FILES&lt;/code&gt;만 전달 받았지, 현재 이용자 정보가 담긴 &lt;code&gt;request.user&lt;/code&gt;를 전달받은 적이 없습니다. 그래서 &lt;code&gt;save()&lt;/code&gt; 메서드가 반환한 &lt;code&gt;new_photo&lt;/code&gt; 인스턴스 객체의 &lt;code&gt;user&lt;/code&gt;에는 이용자 정보가 없습니다. &lt;code&gt;Photo&lt;/code&gt; 모델에 &lt;code&gt;auth.User&lt;/code&gt;에 있는 이용자 모델을 &lt;code&gt;ForeignKey&lt;/code&gt; 관계로 연결했는데, 뷰 함수에서는 관련 정보를 &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt;에 반영하지 않았습니다.&lt;/p&gt;
+
+&lt;p&gt;만약, &lt;code&gt;edit_form.save()&lt;/code&gt;나 &lt;code&gt;edit_form.save(commit=True)&lt;/code&gt;처럼 바로 데이터베이스에 반영하려고 하면 &lt;code&gt;IntegrityError&lt;/code&gt; 예외 오류가 발생하며, &lt;code&gt;NOT NULL constraint failed: photo_photo.user_id&lt;/code&gt;라 안내 받습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/06/09-IntegrityError.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;겁먹지 말고 오류 안내말을 잘 보세요. 정확히 이해하지 않은 채 추측만 하려는 태도는 안 좋지만, 여러분은 이 강좌 나머지 내용을 그냥 건너뛰지 않을테니 예외 오류 내용을 보고 상황을 추측해 보겠습니다. &lt;code&gt;NOT NULL&lt;/code&gt;, &lt;code&gt;failed&lt;/code&gt;, &lt;code&gt;photo_photo.user_id&lt;/code&gt; 이 세 가지 표현이 눈에 들어오지요? “photo”가 두 번 반복된 &lt;code&gt;photo_photo&lt;/code&gt;는 &lt;code&gt;Photo&lt;/code&gt; 모델과 연관되어 보이고, &lt;code&gt;user_id&lt;/code&gt;는 우리가 만든 적이 없지만 &lt;code&gt;user&lt;/code&gt; 모델 필드와 관련되어 보입니다. &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드에 &lt;code&gt;NOT NULL&lt;/code&gt;과 관련된 문제가 발생하여 진행하던 작업(&lt;code&gt;save()&lt;/code&gt;)이 실패했다는 뜻이군요. &lt;code&gt;NOT NULL&lt;/code&gt;은 &lt;code&gt;NULL&lt;/code&gt;이면 안 된다는 의미니까 &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드에 &lt;code&gt;NULL&lt;/code&gt;이 들어가서 오류가 생긴 겁니다.&lt;/p&gt;
+
+&lt;p&gt;웹페이지의 폼 양식에서 이용자 모델의 기본키 값을 직접 전달하면 안 됩니다. 예를 들어, &lt;code&gt;hannal&lt;/code&gt; 이용자의 기본키 값이 &lt;code&gt;1023&lt;/code&gt;이고 이 값을 웹 폼 양식에서 &lt;code&gt;user_id&lt;/code&gt;로 담아서 서버로 전달한다면, 이용자는 기본키 값 숫자를 고쳐서 마치 다른 이용자가 사진 게시물을 올린 것처럼 왜곡할지도 모릅니다. 이런 정보는 서버에서 알아내서 다뤄야 합니다. 그게 &lt;code&gt;request.user&lt;/code&gt;입니다. 아하, &lt;code&gt;request.user&lt;/code&gt;를 &lt;code&gt;PhotoEditForm&lt;/code&gt; 폼 클래스에 전달하면 되겠구나.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;edit_form = PhotoEditForm(request.POST, request.FILES, request.user)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;request.POST&lt;/code&gt;처럼.&lt;/p&gt;
+
+&lt;p&gt;아닙니다. 그렇게 알아서 동작(magic behaviour)해주지 않고, 그래서도 안 됩니다. 추측해야 하는 코드와 기능은 좋지 않다고 봅니다. 이용자 정보가 필요한 폼 클래스라면 이용자 정보를 따로 전달받도록 처리해야 합니다. Python 클래스는 실행 가능한(callable) 객체이므로 함수처럼 소괄호를 사용하여 실행하고 실행 결과로 인스턴스 객체를 반환 받는데, 인스턴스 초기화를 수행하는 메서드가 &lt;code&gt;__init__()&lt;/code&gt;입니다. 이용자 정보인 &lt;code&gt;request.user&lt;/code&gt;를 인자로 전달 받는 &lt;code&gt;__init__()&lt;/code&gt; 메서드를 &lt;code&gt;PhotoEditForm&lt;/code&gt; 폼 클래스에 만들면 됩니다. 이건 Class based view를 다룰 때 살펴보기로 하고, 이번 편에서는 &lt;code&gt;save()&lt;/code&gt; 메서드에 &lt;code&gt;commit&lt;/code&gt; 인자를 &lt;code&gt;False&lt;/code&gt;로 전달하여 처리합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드는 &lt;code&gt;user = models.ForeignKey(settings.AUTH_USER_MODEL)&lt;/code&gt;로 만들었고, 이 모델 필드는 NULL을 허용하지 않습니다. 데이터베이스 테이블에도 &lt;code&gt;NOT NULL&lt;/code&gt;로 정의되어 있습니다. 그래서 데이터베이스에 실제로 반영하지 말고 우선 모델로 생성한 인스턴스 객체를 &lt;code&gt;edit_form&lt;/code&gt; 객체로부터 받으려고 &lt;code&gt;save(commit=False)&lt;/code&gt; 메서드를 수행했습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;EditPhotoForm&lt;/code&gt;이 반환하는 &lt;code&gt;Photo&lt;/code&gt; 모델의 인스턴스 객체를 &lt;code&gt;new_photo&lt;/code&gt;에 할당받고, 이 객체의 &lt;code&gt;user&lt;/code&gt; 속성에 이용자 정보인 &lt;code&gt;request.user&lt;/code&gt;를 할당합니다. &lt;code&gt;new_photo.user = request.user&lt;/code&gt; 코드입니다. 이제 &lt;code&gt;new_photo.save()&lt;/code&gt;를 수행하여 데이터베이스에 저장합니다. &lt;code&gt;new_photo.save(commit=True)&lt;/code&gt;와 동일합니다.&lt;/p&gt;
+
+&lt;p&gt;이제 로그인한 이용자 정보가 사진 게시물에 반영되어 저장됩니다.&lt;/p&gt;
+
+&lt;h4&gt;(2) &lt;code&gt;new_photo&lt;/code&gt; 뷰 함수에 로그인한 이용자만 접근하도록 제한&lt;/h4&gt;
+
+&lt;p&gt;로그인하지 않은 이용자가 사진 게시물을 저장하려 하면 오류가 발생할 겁니다. 로그인하지 않은 이용자는 이용자 모델로 생성한 인스턴스 객체에 기본키 값이 없을테니 &lt;code&gt;IntegrityError&lt;/code&gt; 예외 오류가 발생할 것 같습니다. 이렇게 예상하셨다면 훌륭합니다. 한 번 시도해보세요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/06/09-anonymous_user_exception.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;실제로 발생하는 예외는 &lt;code&gt;ValueError&lt;/code&gt;가 발생하며, 안내말은 &lt;code&gt;User&lt;/code&gt; 모델 클래스로 만든 인스턴스여야 한다는 내용입니다. 앞서 설명드린 바와 같이 로그인하지 않은 경우 &lt;code&gt;request.user&lt;/code&gt;엔 &lt;code&gt;AnonymousUser&lt;/code&gt; 모델 클래스로 생성한 인스턴스 객체가 할당되어 있습니다. &lt;code&gt;django.contrib.auth.models&lt;/code&gt;에 있는데, 코드를 보면 아시겠지만 껍데기 역할을 할 뿐입니다.&lt;/p&gt;
+
+&lt;p&gt;로그인한 이용자인지 여부는 &lt;code&gt;request.user&lt;/code&gt;의 &lt;code&gt;is_authenticated()&lt;/code&gt; 메서드를 실행하면 &lt;code&gt;bool&lt;/code&gt; 객체를 반환받아 구분합니다. &lt;code&gt;True&lt;/code&gt;이면 로그인한 이용자, &lt;code&gt;False&lt;/code&gt;이면 로그인하지 않은 이용자입니다. 코드도 아주 간단합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from django.conf import settings
+
+def new_photo(request):
+    if not request.user.is_authenticated():
+        return redirect(settings.LOGIN_URL)
+    # 후략
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;로그인하지 않은 이용자가 &lt;code&gt;new_photo&lt;/code&gt; 뷰 함수로 접근하면 &lt;code&gt;settings.LOGIN_URL&lt;/code&gt;에 지정되어 있는 URL로 이동(redirect) 시킵니다. &lt;code&gt;LOGIN_URL&lt;/code&gt;은 &lt;code&gt;global_settings&lt;/code&gt;에 &lt;code&gt;/accounts/login/&lt;/code&gt;으로 기본 지정되어 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;@login_required&lt;/code&gt; 장식자(decorator)를 사용하면 더 명확하고 간결합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from django.contrib.auth.decorators import login_required
+
+@login_required
+def new_photo(request):
+    # 후략
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/06/09-login_required.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;더 친절하게도 로그인한 후 이동할 도착지도 &lt;code&gt;next&lt;/code&gt; 인자로 지정됩니다. 로그인 주소를 &lt;code&gt;settings.LOGIN_URL&lt;/code&gt;에 따로 지정해주면 자동으로 변경한 주소로 이동해 줍니다.&lt;/p&gt;
+
+&lt;h3&gt;3. 모델 관계에 더 자세히 알아보기&lt;/h3&gt;
+
+&lt;p&gt;우리는 이용자 모델을 &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드에 &lt;code&gt;ForeignKey&lt;/code&gt; 관계로 연결했습니다. 그리고 &lt;code&gt;user&lt;/code&gt; 모델 필드에 이용자 모델로 생성한 인스턴스 객체(&lt;code&gt;request.user&lt;/code&gt;)를 할당하지 않자 &lt;code&gt;photo_photo.user_id&lt;/code&gt;에 NULL을 저장하려 해서 저장하지 못했다는 예외 오류도 접했습니다. 이 중에서 &lt;code&gt;user_id&lt;/code&gt; 정체를 살펴 보겠습니다.&lt;/p&gt;
+
+&lt;h4&gt;(1) ForeignKey 모델 필드&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;ForeignKey&lt;/code&gt;, 그러니까 Many to one 관계는 “One”쪽에 “Many”쪽 데이터 여러 개가 연결되는 구조입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/06/09-ManyToOne.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;한 이용자가 여러 게시물을 남기거나, 한 글갈래(category)에 여러 글이 속하는 관계입니다. Django 모델로는 &lt;code&gt;ForeignKey&lt;/code&gt; 모델 필드로 모델 클래스를 지정한 것인데, 이 관계 정보를 데이터베이스엔 어떻게 저장할까요?&lt;/p&gt;
+
+&lt;p&gt;일단 각 모델은 데이터베이스에 Django 앱 이름과 모델 이름을 조합하여 테이블로 만듭니다. &lt;code&gt;photo_photo&lt;/code&gt;는 &lt;code&gt;photo&lt;/code&gt; 앱에 있는 &lt;code&gt;Photo&lt;/code&gt; 모델을 뜻합니다. &lt;code&gt;hello&lt;/code&gt;라는 앱의 &lt;code&gt;Hannal&lt;/code&gt; 모델은 &lt;code&gt;hello_hannal&lt;/code&gt; 테이블을, &lt;code&gt;KayCha&lt;/code&gt; 모델은 &lt;code&gt;hello_kay_cha&lt;/code&gt; 테이블을 만들어 연결합니다. 앞서 발생한 &lt;code&gt;IntegrityError&lt;/code&gt; 예외 오류에서 &lt;code&gt;photo_photo&lt;/code&gt; 정체가 무엇인지 이제 아시겠죠?&lt;/p&gt;
+
+&lt;p&gt;Django의 모델 필드는 데이터베이스의 컬럼(column)이 됩니다. &lt;code&gt;image_file&lt;/code&gt; 모델 필드는 같은 이름을 갖는 테이블 컬럼이 됩니다. 모델 필드형(type)은 테이블 컬럼형을 결정합니다. 그런데 &lt;code&gt;ForeignKey&lt;/code&gt;와 같은 모델 관계 필드는 컬럼 이름이 조금 다릅니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드는 컬럼 이름이 &lt;code&gt;user_id&lt;/code&gt;입니다. &lt;code&gt;user_id&lt;/code&gt; 정체는 &lt;code&gt;user&lt;/code&gt; 모델 필드가 맞습니다. 그런데 &lt;code&gt;user&lt;/code&gt;가 아니라 &lt;code&gt;user_id&lt;/code&gt;인 이유는 무엇일까요? 질문 아니니 대답 안 하셔도 됩니다. :)&lt;/p&gt;
+
+&lt;p&gt;이번 9회 초반에 모델 간 연결은 기본키로 한다고 설명했습니다. Django는 Many쪽이 One쪽을 연결하는 경우, Many쪽 모델 필드 이름에 One쪽의 기본키 이름을 덧붙입니다.&lt;/p&gt;
+
+&lt;p&gt;기본키는 관례에 따라 &lt;code&gt;id&lt;/code&gt;라는 모델 필드가 되며, 모델 필드는 데이터베이스 테이블 컬럼과 이름이 같으므로 테이블 컬럼도 &lt;code&gt;id&lt;/code&gt;입니다. &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드는 이용자 모델을 Many to one으로 가리키는데, 이용자 모델의 기본키인 모델 필드도 &lt;code&gt;id&lt;/code&gt;입니다. &lt;code&gt;Photo&lt;/code&gt; 모델 데이터가 Many쪽이고 이용자 모델이 One쪽이므로, &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드는 이용자 모델 필드의 기본키 모델 필드인 &lt;code&gt;id&lt;/code&gt; 이름을 덧붙여서 &lt;code&gt;user_id&lt;/code&gt;가 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/06/09-foreign_key_db_table_schema.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;만약 기본키 모델 필드 이름이 &lt;code&gt;id&lt;/code&gt;가 아니라 &lt;code&gt;uid&lt;/code&gt;라면 &lt;code&gt;_uid&lt;/code&gt;가 덧붙게 됩니다. Django는 이 데이터베이스 컬럼 값을 참조하여 서로 분리된 모델의 데이터 연결 관계를 알아냅니다.&lt;/p&gt;
+
+&lt;h4&gt;(2) 모델 관계를 나중에 맺기 (lazy relation)&lt;/h4&gt;
+
+&lt;p&gt;모델 관계를 맺을 대상 모델 클래스 객체를 직접 전달해도 됩니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from django.contrib.auth import get_user_model
+User = get_user_model()
+
+class Photo(models.Model):
+    user = models.ForeignKey(User)
+    # 후략
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;models.ForeignKey(User)&lt;/code&gt;는 &lt;code&gt;ForeignKey&lt;/code&gt; 클래스에 &lt;code&gt;User&lt;/code&gt;라는 객체를 첫 번째 인자로 전달하여 호출(call)하고, 모델 필드의 인스턴스 객체를 반환받아 &lt;code&gt;user&lt;/code&gt;에 할당하는 것입니다. Python은 소스 파일 맨 윗 줄부터 아래로 실행하므로 저 구문을 실행하여 모델 필드를 만드는 시점에 실제로 존재하는 &lt;code&gt;User&lt;/code&gt; 객체를 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 관계 맺을 모델이 있는 경로를 문자열로 담아 인자로 전달하는 경우는 언제일까요? 이용자 모델처럼 상황에 따라 연결할 모델이 바뀌는 경우가 있습니다. 지난 편에서 예를 든 것처럼 이용자 모델이 바꾸면 이 모델을 가져오는(&lt;code&gt;import&lt;/code&gt;) 모든 코드에도 영향이 미칩니다. 그러나 &lt;code&gt;settings.AUTH_USER_MODEL&lt;/code&gt;에 이용자 모델이 있는 위치를 지정하고, &lt;code&gt;AUTH_USER_MODEL&lt;/code&gt; 내용을 참조하여 &lt;code&gt;get_user_model()&lt;/code&gt; 함수로 이용자 모델을 가져오면 &lt;a href=&quot;http://blog.dahlia.kr/post/103101756957&quot;&gt;한 의도를 한 구현체로 정리&lt;/a&gt;할 수 있지요.&lt;/p&gt;
+
+&lt;p&gt;관계 맺을 대상 모델이 아직 만들어지기 전에 연결하려는 경우에도 문자열로 지정합니다. A 모델이(from) B 모델을(to) 관계를 맺는다면 다음과 같이 B 모델을 먼저 만들고 그 &lt;strong&gt;이후&lt;/strong&gt;에 A 모델을 만들어야 합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class B(models.Model):
+    pass
+
+class A(models.Model):
+    b = models.ForeignKey(B)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;B 모델은 C 모델을 관계 맺는다면 C 모델을 B 모델에 앞서 만들어야 합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class C(models.Model):
+    pass
+
+class B(models.Model):
+    c = models.ForeignKey(C)
+
+class A(models.Model):
+    b = models.ForeignKey(B)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그런데 C 모델은 A 모델에 관계를 지어야 한다고 가정하겠습니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class C(models.Model):
+    a = models.ForeignKey(A)
+
+class B(models.Model):
+    c = models.ForeignKey(C)
+
+class A(models.Model):
+    b = models.ForeignKey(B)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;문제가 생깁니다. C 모델이 만들어지는 시점에 A라는 객체가 존재하지 않기 때문이죠. A 모델을 C 모델 코드 위로 올리면 안 됩니다. A 모델이 만들어지는 시점에 B 모델이 없기 때문이지요. 이런 경우에, C 모델에서 A 모델을 문자열 인자로 전달하면 됩니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class C(models.Model):
+    a = models.ForeignKey(&amp;#39;A&amp;#39;)
+
+class B(models.Model):
+    c = models.ForeignKey(C)
+
+class A(models.Model):
+    b = models.ForeignKey(B)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;문자열로 관계 맺을 대상 모델을 지정하면 관계 맺을 대상 모델이 만들어졌다는 신호가 오기 전까지 관계를 맺지 않은 채 관계 맺는 연산을 지연시켜 놓습니다. 비유가 아니라 정말로 대상 모델 클래스(예 : &lt;code&gt;A&lt;/code&gt; 모델)가 초기화 되면 모델 신호(&lt;code&gt;ModelSignal&lt;/code&gt;)인 &lt;code&gt;class_prepared&lt;/code&gt;를 일으키고(fire), 대상 모델을 바라보던 모델은(예 : &lt;code&gt;C&lt;/code&gt; 모델) 이 신호을 받고선 비로소 실제 관계를 맺습니다.&lt;/p&gt;
+
+&lt;p&gt;이런 연산 특성을 응용하여 관계 맺을 대상 모델로 자기 자신을 지정하는 것도 가능합니다. 순환 관계(recursive relationship)이라고 하는데, 문자열 &lt;code&gt;&amp;#39;self&amp;#39;&lt;/code&gt;을 지정하면 됩니다. 추후에 기회가 닿으면 순환 관계 모델을 만들어 보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;정리하면, 모델 관계 필드는 관계 맺을 대상을 세 가지 형태로 지정합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;관계 지을 모델 클래스 객체를 직접 인자로 전달&lt;/li&gt;
+&lt;li&gt;관계 지을 모델 클래스 객체가 있는 경로를 문자열로 전달
+
+&lt;ul&gt;
+&lt;li&gt;형식 : &lt;code&gt;Django앱이름.모델이름&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;자기 자신을 가리키는 경우 &lt;code&gt;&amp;#39;self&amp;#39;&lt;/code&gt; 문자열 전달&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;강좌 9편을 마칩니다. 그동안 강좌 연재 소식을 &lt;a href=&quot;https://www.facebook.com/hello.kaycha&quot;&gt;제 페이스북 개인 페이지&lt;/a&gt;, &lt;a href=&quot;https://www.facebook.com/groups/django/&quot;&gt;Django 페이스북 그룹&lt;/a&gt;, 제 페이스북 개인 계정, 제 트위터에서 알려 왔는데요. 10편부터는 제 페이스북 개인 페이지와 트위터에만 알릴 예정입니다. 제 블로그를 구독하지 않고 강좌 연재 소식을 보시려면 제 페이스북 개인 페이지나 트위터를 구독하시길 바랍니다. :)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/hannal/start_with_django_webframework/tree/09-fullsource/pystagram&quot;&gt;9편까지 진행한 전체 소스 코드&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   
   <entry>
     <title>8. 로그인, 로그아웃 하기</title>
@@ -3419,11 +3709,16 @@ else:
 
 &lt;p&gt;저는 &lt;a href=&quot;http://legacy.python.org/dev/peps/pep-0008/#indentation&quot;&gt;스페이스 네 칸을 탭 한 칸으로 표현하는 소프트탭 방식&lt;/a&gt;을 쓰겠습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;hr /&gt;
-&lt;p&gt;이것으로 강좌 2편을 마칩니다. 분량이 적을 거라 예상했는데, 왜 설치하고 왜 그렇게 설치하는지 설명하려다 보니 예상보다 길게 썼네요.&lt;/p&gt;
-&lt;p&gt;3편에서는 Django로 프로젝트를 만들고 데이터베이스에 데이터도 넣어볼 겁니다. 그럼 3편에서 만나요.&lt;/p&gt;
-&lt;p&gt;아참. 9월 초까지 블로그를 분리하고 이전하느라 접속이 잘 안 될 수 있습니다. :)&lt;/p&gt;
 &lt;hr /&gt;
+
+&lt;p&gt;이것으로 강좌 2편을 마칩니다. 분량이 적을 거라 예상했는데, 왜 설치하고 왜 그렇게 설치하는지 설명하려다 보니 예상보다 길게 썼네요.&lt;/p&gt;
+
+&lt;p&gt;3편에서는 Django로 프로젝트를 만들고 데이터베이스에 데이터도 넣어볼 겁니다. 그럼 3편에서 만나요.&lt;/p&gt;
+
+&lt;p&gt;아참. 9월 초까지 블로그를 분리하고 이전하느라 접속이 잘 안 될 수 있습니다. :)&lt;/p&gt;
+
+&lt;hr /&gt;
+
 &lt;div class=&quot;footnotes&quot;&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
@@ -3452,259 +3747,7 @@ else:
 &lt;p&gt;하지만 Python 3에서는 허용하지 않습니다.&amp;#160;&lt;a href=&quot;#fnref-3125:7&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>1. Pystagram 기획</title>
-    <link href="/2014/8/start_with_django_webframework_01/"/>
-    <updated>2014-08-18T00:01:47+09:00</updated>
-    <id>/2014/8/start_with_django_webframework_01</id>
-    <content type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;마지막 갱신일시 : 2014년 08월 16일 17시 40분&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;앞으로 우리는 Django를 이용해 &lt;a href=&quot;http://www.instagram.com&quot;&gt;Instagram&lt;/a&gt;과 비슷한 서비스를 만들 겁니다. 비슷한 서비스 중에는 &lt;a href=&quot;http://www.kakao.com/story?locale=ko&quot;&gt;카카오 스토리&lt;/a&gt;가 있지요. Django를 활용하여 만드는 것이지만 이름으로 조합하기 까다로우니 Python을 조합하여 Pystagram이라 이름을 짓도록 하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;자, 이제 우리가 만들 것을 기획해 볼까요?&lt;/p&gt;
-
-&lt;h3&gt;1. 개요&lt;/h3&gt;
-
-&lt;p&gt;Instagram은 친구 및 가족들과 일상을 사진이나 동영상으로 찍어서 필터를 적용해 빠르고, 멋지고, 재미있게 공유할 수 있는 앱이라고 소개되어 있습니다. Pystagram은 Instagram을 기본으로 삼되 좀 더 단순하게 만들 겁니다. 그리고 쉽고 편하게 올리는 걸 최우선 정책 요소로 삼겠습니다. 이용자는 사진만 올릴 수 있고, 몇 가지 필터를 적용할 수 있습니다. 사진을 다루고 나면 동영상은 여러분이 직접 다룰 수 있게 될 겁니다.&lt;/p&gt;
-
-&lt;h3&gt;2. Pystagram 기능&lt;/h3&gt;
-
-&lt;h4&gt;(1) 사진&lt;/h4&gt;
-
-&lt;p&gt;사진은 Pystagram에서 이용자가 활동하고 다른 사람과 교류하는 핵심 매체입니다. 서비스를 만드는 데 들어간 이미지를 제외한 모든 사진은 이용자가 올린 것이고, 이 사진에 댓글을 달거나 좋다는 표시를 남기지요. 이용자가 사진 관련해서 하는 행동을 기반으로 기능을 정리해 보겠습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;사진 올리기
-&lt;ul&gt;
-&lt;li&gt;필터 적용&lt;/li&gt;
-&lt;li&gt;미리보기 이미지(thumbnail image)&lt;/li&gt;
-&lt;li&gt;사진 자르기, 크기 조절&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/li&gt;
-&lt;li&gt;사진 보기
-&lt;ul&gt;
-&lt;li&gt;좋아요 표시 남기기&lt;/li&gt;
-&lt;li&gt;댓글 남기기, 지우기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;사진 삭제&lt;/li&gt;
-&lt;li&gt;사람 태그 달기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;사진 올리기&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/08/01-instagram_04.png&quot; alt=&quot;인스타그램 사진 올리기 화면&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;가장 기본 행동이죠. 사진은 오직 이용자 자신의 공간에만 올리며, 로그인한 모든 이용자가 사용하는 기능입니다.&lt;/p&gt;
-&lt;p&gt;자신의 공간에만 올린다는 건, 서비스 안에서 사진을 소유한 사람이 누구이며, 그 권한 범위가 어디까지인지 정의한 것입니다. 다른 이용자의 공간에 사진을 올리거나 공용 공간에 사진을 올리지 않는다는 것이지요. 로그인한 모든 이용자가 사용하는 기능이란, 이용자는 서비스를 이용하려면 가입하고 로그인해야 대상을 뜻하며, 이용자라면 누구나 공통되게 사진을 올릴 수 있다는 의미입니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;로그인한 이용자만 사진을 올린다.&lt;/li&gt;
-&lt;li&gt;사진은 이용자의 개인 공간에 올린다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;이용자는 사진을 쉽고 편하게 보정해 올릴 수 있습니다. 쉽고 편하게 하는 것이 중요합니다. 그래서 여러 보정 요소와 수치가 미리 조정된(preset) 필터를 골라서 적용하며, 이용자가 직접 정교하게 보정 요소를 조정하지 못합니다. 필터는 한 번에 하나만 고르도록 하겠습니다. 여러 가지를 중첩하면 사진이 지저분해지기 일쑤이고, 지저분해진 상태를 해제하려고 이전 단계로 돌아가는 식으로 편집 단계나 기능이 들어가면 쉽고 편하게 하겠다는 목표를 잃을 것이기 때문이지요. 그리고 이 목표를 위해 이용자는 사진을 올리는 과정 중에만 필터를 적용하며, 사진을 올리고 나면 더는 편집할 수 없습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;미리 만들어진 필터를 제공하고, 이용자는 필터를 선택해서 사진을 보정한다.&lt;/li&gt;
-&lt;li&gt;사진을 올릴 때에만 보정하며, 이미 올라간 사진은 보정할 수 없다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Instagram은 가로(width) 640픽셀, 세로(height) 640픽셀짜리 정사각형 사진만 표시됩니다. 그런데 사진은 대개 직사각형이므로 정사각형 모양으로 잘라야 하는데, Instagram은 사진을 편집하는 과정 중에 정사각형 틀에 맞추어 사진을 잘라내도록 합니다.&lt;/p&gt;
-&lt;p&gt;우리는 좀 더 단순하게 할 예정입니다. 사진을 축소한 다음에 정사각형으로 잘라내는 거죠. 어쨌든 Pystagram도 정사각형으로 사진을 잘라냅시다. 크기는 Instagram과 같게 640x640으로 하겠습니다. 그런데 이용자가 가로나 세로 길이 중 어느 하나라도 640픽셀보다 작은 사진을 올리면 어떻게 할까요? 이런 사진을 받아들인다면 640픽셀로 사진을 늘려야 하는데, 사진을 늘리면 픽셀이 뭉개져서 썩 예쁘지 않습니다. 예쁘지 않은 사진을 올려서 손해 보는 건 엄밀히 말해 이용자이지만, 물 관리(?) 차원에서 품질이 너무 떨어지는 사진은 걸러내고자 합니다. 멋진 사진은 아니더라도 크기(길이)만은 최소한 지켜야 하는 품질을 제한하는 거죠. 그래서 가로, 세로 중 어느 한 변이라도 640픽셀보다 짧은 사진은 등록할 수 없도록 하겠습니다.&lt;/p&gt;
-&lt;p&gt;이외 더 필요한 기능은 뭐가 있을까요? 미리보기 이미지(Thumbnail image)를 만들어야겠네요. 굉장히 자주 표시(호출)될 테니 최종 결과물 사진이 저장될 때마다 미리보기 이미지도 생성해야 합니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;사진은 가로나 세로 길이 모두 640픽셀 이상이어야 한다.&lt;/li&gt;
-&lt;li&gt;최종 결과물은 640x640 정사각형으로 표시하며, 이 크기에 맞게 비율 축소/확대하거나 자른다. 이용자가 표현할 영역을 지정할 순 없다.&lt;/li&gt;
-&lt;li&gt;최종 결과물 사진을 저장할 때 미리보기 이미지(thumbnail image)를 만들어 저장한다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;자, 마지막으로 사진을 올릴 때 서버에 접근할 URL(Uniform Resource Locator)을 정하겠습니다. 웹과는 달리 모바일에서는 이용자가 사진을 올릴 URL을 알 필요가 없습니다. 입력하기 편하든 어렵든 상관없지요. 대신 우리는 URL을 보면 이게 어떤 작동을 하고 어떤 클래스나 함수와 관련되는지 바로 알아보기 편한 게 좋을 것 같습니다. 주소 그 자체가 자원이나 행동을 표현하는 거지요. 나중에 주소는 다시 다듬기로 하고 일단은 다음가 같은 주소로 접근해서 사진을 올리도록 하겠습니다.&lt;/p&gt;
-&lt;p&gt;protocol://domain/photo/upload/&lt;/p&gt;
-&lt;p&gt;간단히 줄여서 /photo/upload/ 입니다. 이 주소는 나중에 /photo/ 로 바꿀 겁니다. 걱정 마세요. Django에서 URL을 바꾸고 그 URL에 관련된 기능을 연결하는 건 아주 쉽고 간단합니다. 이 주소 하나로 사진 올리는 인터페이스와 사진을 실제로 받아서 처리하는 기능 모두 처리할 겁니다.&lt;/p&gt;
-&lt;h5&gt;사진 보기&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/08/01-instagram_05.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;사진 올리기만큼이나 기본 기능입니다. Pystagram에서 사진을 보는 경로는 크게 두 가지입니다. 하나는 목록으로 여러 사진을 보는 것이고, 다른 하나는 개별 사진을 보는 것입니다. Instagram은 모바일이 기본 영역이고 모바일에서 돌아가는 서비스 내 사진을 인터넷에서 접근하여 보는 것이 보조 기능이어서 개별 사진을 보는 것도 모바일에서 보는 것과 웹에서 보는 것을 구분했습니다. 대신 웹에서 여러 사진을 목록으로 볼 수 없습니다. 그런 페이지를 제공하지 않거든요. 그리고 모바일에서는 개별로 보든 목록 중에 보든 같은 화면인데, 우리도 그렇게 하겠습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;사진은 목록 형식으로 나열하거나 개별 사진만 따로 본다.&lt;/li&gt;
-&lt;li&gt;모바일에서는 목록으로 보든 개별로 보든 동일한 화면 디자인을 따른다.&lt;/li&gt;
-&lt;li&gt;웹에 개별 사진 단위로 게재(공유)할 수 있으며, 별도 화면 디자인을 따른다.&lt;/li&gt;
-&lt;li&gt;웹에서는 개별 사진만 볼 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;각 사진에 표시할 정보를 살펴봅시다. 그다지 많지 않습니다. 먼저 사진을 올릴 때 발생하는 정보로는 최종 결과물 사진, 올린 사람, 작성일시, 사진에 넣은 본문 정도입니다. 사진에 관련된 사람이 누구인지 태그를 달 수도 있는데, 이 태그 거는 건 손도 많이 가고 번거로우니 사진을 편집하고 올리는 과정에서는 빼겠습니다. 쉽고 편하게, 쉽고 편하게. ^^&lt;/p&gt;
-&lt;p&gt;이미 올라간 사진에 이용자가 추가 행동을 하고, 이 내용도 화면에 표시돼야 합니다. 누가 사진에 남겨진 하트(좋아요) 표식을 남겼는지, 댓글은 뭐가 있으며, 관련된 사람으로 태그 걸린 사람은 누구인지, 그리고 이외 행동을 선택하는 버튼도 필요하고요. Instagram은 관련된 위치도 지정할 수 있는데, 이 기능은 일단 빼겠습니다.&lt;/p&gt;
-&lt;p&gt;댓글도 단순하게 가겠습니다. 작성자와 댓글 본문, 작성일시. 댓글 작성자는 자신의 댓글에 한하여, 댓글이 달린 사진의 소유자는 사진에 달린 댓글에 한하여 댓글을 지우는 삭제 버튼이 출력돼야 합니다. 그리고 댓글에 답글을 달면 답글을 받은 사람에게 알려주면 좋겠네요.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;사진을 올릴 때 생성된 정보 : 최종결과물 사진, 작성자, 작성일시, 본문&lt;/li&gt;
-&lt;li&gt;사진에 추가되는 정보 : 좋아요 버튼, 좋아요 표시 남긴 사람, 댓글, 태그 걸린 사람
-&lt;ul&gt;
-&lt;li&gt;댓글 정보 : 작성자, 댓글 본문, 작성일시&lt;/li&gt;
-&lt;li&gt;댓글 관련 행동 : 삭제 버튼, 사용자 지정해서 댓글 달기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;기본 기획은 이 정도로 하고, 필요한 기능이 있으면 나중에 따로 다루도록 하겠습니다. ^^&lt;/p&gt;
-&lt;p&gt;이제 사진 관련 URL을 정하겠습니다. 사진을 목록으로 보는 상황은 따로 기획하기로 하고, 개별 사진을 보고, 그 사진에 댓글을 달거나 좋아요를 누르는 행동을 하는 URL부터 정하지요.&lt;/p&gt;
-&lt;p&gt;개별 사진을 보는 건 /photo/&amp;lt; 사진 ID&amp;gt;/로 하겠습니다. 사진 ID 양옆에 있는 꺾쇠는 가변하는 값을 뜻합니다. 사진 ID가 1일 수도 있고 2일 수도 있으니까요. 사진에 좋아요를 누르는 건 어떻게 할까요? /like/&amp;lt; 사진 ID&amp;gt;/ 라고 해도 나쁘지 않지만, /like/ 문자열 뒤에 숫자만 있으면 이게 사진 ID를 뜻하는 것인지 좋아요 행위 자체를 기록한 좋아요 ID인지 잘 구분되지 않습니다. 우리는 특정 사진(/photo/&amp;lt; 사진 ID&amp;gt;/)에 좋아요 표시를(like) 남기는 것이니 /photo/&amp;lt; 사진 ID&amp;gt;/like/ 으로 좋아요 행위를 일으키는 URL을 하도록 하겠습니다. 행위나 자원을 나타내는 문자열이 있고, 그 문자열의 대상이 되는 값(ID)를 적는 구조이지요.&lt;/p&gt;
-&lt;p&gt;댓글도 마찬가지 규칙을 따르겠습니다. 댓글은 특정 사진에 다는 것이니까 /photo/&amp;lt; 사진 ID&amp;gt;/comment/ 로 하겠습니다. 특정 댓글을 지우려면 어떤 댓글인지 알아야겠지요? 앞서 정한 규칙에 따라 /photo/&amp;lt; 사진 ID&amp;gt;/comment/&amp;lt; 댓글 ID&amp;gt;/delete/ 로 하겠습니다. /comment/&amp;lt; 댓글 ID&amp;gt;/delete/ 로 해도 별 상관없습니다. 이후 강좌에서 이와 관련된 내용을 다루겠습니다.&lt;/p&gt;
-&lt;p&gt;사진에 달린 댓글은 어떻게 가져와야 할까요? /photo/&amp;lt; 사진 ID&amp;gt;/comment/ 이 URL은 특정 댓글을 지칭하는 데 사용하는 주소 규칙입니다. 사진에 달린 댓글은 comment를 복수형으로 취해 /photo/&amp;lt; 사진 ID&amp;gt;/comments/ 로 하겠습니다. s 한 글자 차이라서 구분이 잘 안 간다고요? 일리 있는 지적입니다. 그럼 눈에 확 들어오게 /photo/&amp;lt; 사진 ID&amp;gt;/get&lt;em&gt;comments/ 라고 하겠습니다. 일단은요.&lt;/p&gt;
-&lt;p&gt;태그도 좋아요나 댓글과 별다를 바 없습니다. /photo/&amp;lt; 사진 ID&amp;gt;/tag/ 라고 하겠습니다.&lt;/p&gt;
-&lt;p&gt;개별 사진과 관련된 URL을 정리해 보겠습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;개별 사진 보기 : /photo/&amp;lt; 사진 ID&amp;gt;/&lt;/li&gt;
-&lt;li&gt;사진에 좋아요 누르기 : /photo/&amp;lt; 사진 ID&amp;gt;/like/&lt;/li&gt;
-&lt;li&gt;사진에 댓글 달기 : /photo/&amp;lt; 사진 ID&amp;gt;/comment/
-&lt;ul&gt;
-&lt;li&gt;사진에 달린 댓글 가져오기 : /photo/&amp;lt; 사진 ID&amp;gt;/get&lt;/em&gt;comments/&lt;/li&gt;
-&lt;li&gt;사진에 달린 댓글 지우기 : /photo/&amp;lt; 사진 ID&amp;gt;/comment/&amp;lt; 댓글 ID&amp;gt;/delete/&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;사진에 태그 달기 : /photo/&amp;lt; 사진 ID&amp;gt;/tag/&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;여러 사진 보기&lt;/h5&gt;
-&lt;p&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/08/01-instagram_01.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;사진을 여러 개 나열해서 보는 상황은 어떠한 경우일까요? 우선 이용자가 자신이 올린 사진들을 보는 경우가 있습니다. 내가 구독(following)하는 이용자들이 올린 사진을 보는 경우도 있고, 사람이나 기계가 추려낸 사진들, 가령 인기 사진들도 여러 사진을 보는 경우입니다. 더 다양한 경우가 있겠지만 우리는 이 세 경우만 만들도록 하겠습니다.&lt;/p&gt;
-&lt;p&gt;여러 사진을 보는 이 세 페이지는 오직 모바일에서만 이용할 수 있습니다. 그리고 모바일에서는 개별 사진을 따로 보는 화면 디자인이나 목록으로 나열된 개별 사진의 화면 디자인을 굳이 구분할 필요는 없습니다. 개별 사진 영역을 반복 출력하면 되니까요. 결국 출력되는 사진만 다를 뿐, 화면 디자인 요소는 이 세 페이지가 같습니다. 그렇다면 따로 화면 디자인을 할 필요가 없겠군요. 사진 보기 기획할 때 다 했으니까요. ^^&lt;/p&gt;
-&lt;p&gt;그럼 각 페이지 별 기획을 하겠습니다. 먼저 내가 구독(following)하고 있는 이용자들이 올린 사진을 보는 페이지부터 볼까요. 페이스북이나 트위터를 이용하신다면 타임라인(timeline)이라는 페이지나 기능에 익숙하실 겁니다. 자신의 글이나 사진을 포함해서 친구, 혹은 나와 관련된 컨텐츠를 시간 역순으로 나열하는 컨텐츠 연대표이죠.&lt;/p&gt;
-&lt;p&gt;이용자의 타임라인은 모든 이용자가 이용하는 기능이지만 이용자마다 표시되는 내용이 다른 공간입니다. 누구나 쓰는 공통 기능이며 다른 이용자가 내 타인라인을 볼 수 없으므로 굳이 타임라인 페이지를 URL로 구분할 필요는 없습니다. 그래서 /timeline/이라는 URL을 쓰겠습니다. 타임라인에는 어떤 정보를 표시하면 좋을까요? 자신이 올린 사진, 구독하는(following) 이용자의 사진, 나를 태그한 사진, 나를 언급한 댓글이 있는 사진을 가져와서 출력하면 얼추 그럴싸한 타임라인이 될 것 같습니다. 자세한 건 이 기능을 구현할 때 다루겠습니다.&lt;/p&gt;
-&lt;p&gt;이번엔 선정된 사진을 보는 곳. 뭘 기준으로 선정할까요? 무난하게 정해진 시간 동안 인기를 끈 사진을 가져오는 인기 사진을 가져오도록 하겠습니다. 주소는 모든 이용자가 동일한 내용을 보는 공동 구역이니 그에 어울리는 URL로 정해야겠네요. /popular/로 하겠습니다.&lt;/p&gt;
-&lt;p&gt;마지막으로 이용자가 자신이 올린 사진들을 보는 건 이용자 프로필 페이지에서 다루겠습니다. URL만 먼저 정하자면, /user/&amp;lt; 이용자 ID&amp;gt;/ 로 하겠습니다.&lt;/p&gt;
-&lt;p&gt;그럼 여러 사진을 보는 페이지와 관련된 URL을 정리해 보지요.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;인기 사진 : /popular/&lt;/li&gt;
-&lt;li&gt;이용자 개별 타임라인 : /timeline/&lt;/li&gt;
-&lt;li&gt;특정 이용자가 올린 사진 : /user/&amp;lt; 이용자 ID&amp;gt;/&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;사진 삭제&lt;/h5&gt;
-&lt;p&gt;사진 삭제는 간단합니다. 자신의 사진에 한해서 삭제하며, 개별 사진 영역에서 사진 삭제 버튼을 눌러서 지우면 됩니다. 지울 때 정말 지울 건지 한 번 더 물어보면 좋겠고요.&lt;/p&gt;
-&lt;p&gt;사진을 지우는 URL은 사진에 좋아요 표시를 남기거나 댓글을 남기는 규칙을 따르면 됩니다.&lt;/p&gt;
-&lt;p&gt;/photo/&amp;lt; 사진 ID&amp;gt;/delete/&lt;/p&gt;
-&lt;p&gt;사진을 지우면 사진 파일도 지우고, 사진에 달린 활동들도 지우도록 하겠습니다.&lt;/p&gt;
-&lt;h4&gt;(2) 이용자&lt;/h4&gt;
-&lt;p&gt;이용자 관련 기능은 그다지 많진 않습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;회원 가입과 탈퇴&lt;/li&gt;
-&lt;li&gt;로그인, 로그아웃&lt;/li&gt;
-&lt;li&gt;비밀번호 찾기&lt;/li&gt;
-&lt;li&gt;프로필 보기&lt;/li&gt;
-&lt;li&gt;구독하기 (팔로잉(following) 기능)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;회원 가입&lt;/h5&gt;
-&lt;p&gt;Instagram엔 직접 가입하는 방법과 페이스북으로 연결하여 가입하는 방법으로 회원 가입합니다. Pystagram은 ID와 비밀번호를 입력하여 직접 가입하는 방법을 기본으로 하겠습니다. 페이스북으로 연결하여 가입하는 기능은 직접 구현하진 않고 원리나 방식만 설명할 예정입니다.&lt;/p&gt;
-&lt;p&gt;회원 가입에 필요한 정보는 간단하게 받습니다. 사용할 ID, 비밀번호, 그리고 전자우편 주소. 그외 정보는 가입한 후에 언제든지 입력하도록 합니다. 다만 봇(bot)으로 계정을 막 생성하려는 나쁜 사람도 있으니 &lt;a href=&quot;http://ko.wikipedia.org/wiki/CAPTCHA&quot;&gt;캡챠(Captcha)&lt;/a&gt; 기능을 구현할 필요는 있어 보입니다. 이용자가 회원 가입에 필요한 정보를 제출하면 전자우편 주소가 실제로 존재하는지 확인도 해보겠습니다. 가입 확인 전자우편을 보내는 거죠. 전자우편 주소 확인을 받지 않은 이용자는 로그인만 할 수 있고 나머지 기능은 사용할 수 없도록 권한을 제한합니다.&lt;/p&gt;
-&lt;p&gt;회원 가입 URL은 /accounts/registration/ 을 쓰도록 하겠습니다. 좀 긴데, 의미 전달성이 좋고 이용자가 저 URL을 인지할 일이 없는 데다 Django에서 따로 설정 안 하면 쓰게 되는 기본 주소라서 이 주소로 선택했습니다. ^^&lt;/p&gt;
-&lt;h5&gt;로그인, 로그아웃&lt;/h5&gt;
-&lt;p&gt;특별한 건 없습니다. 이용자가 입력한 아이디와 비밀번호로 로그인을 하고, 로그인한 이용자에 한하여 로그아웃을 합니다.&lt;/p&gt;
-&lt;p&gt;URL은 무난하게 /accounts/login/ 과 /accounts/logout/ 을 쓰도록 하겠습니다. 회원 가입 URL과 관련지은 주소이지요.&lt;/p&gt;
-&lt;h5&gt;비밀번호 찾기&lt;/h5&gt;
-&lt;p&gt;이 기능은 여러분이 직접 구현하셔야 합니다. :) 전자우편 주소 확인하는 기능을 활용하면 아주 간단하게 구현하실 수 있습니다.&lt;/p&gt;
-&lt;h5&gt;프로필 보기&lt;/h5&gt;
-&lt;p&gt;프로필 페이지는 각 이용자의 간단한 소개와 그 이용자가 올린 사진을 나열해 보여주는 곳입니다. 특정 이용자가 올린 사진, 또는 자신이 올린 사진만 보는 곳이기도 하지요. 주소는 앞서 정한 /user/&amp;lt; 이용자 ID&amp;gt;/ 입니다.&lt;/p&gt;
-&lt;p&gt;프로필 페이지에서 간단한 소개 영역에 표시할 정보는 많지 않습니다. 이용자가 입력한 정보, 그리고 이용자가 서비스를 이용하며 발생시킨 정보 정도네요.&lt;/p&gt;
-&lt;p&gt;이용자가 입력한 정보 중 겉으로 드러낼 만한 정보는 이용자 ID와 이용자 프로필 사진 정도입니다.&lt;/p&gt;
-&lt;p&gt;이용자가 서비스를 이용하여 발생한 정보는 이용자가 구독하는(following) 이용자들, 이용자를 구독하는 이용자들(followers), 그리고 이용자가 올린 사진이 있습니다. 이용자가 구독하는 팔로잉 페이지는 /user/&amp;lt; 이용자 ID&amp;gt;/following/, 이용자를 구독하는 팔로워 페이지는 /user/&amp;lt; 이용자 ID&amp;gt;/followers/ 로 URL을 정하겠습니다. 이용자가 올린 사진은 이용자 프로필 페이지에 바로 나열하면 되고요. 하지만 웹에서는 사진을 나열해 표시하지 않기로 했으니 이용자가 올린 사진 중 하나를 무작위로 선택해서 표시하도록 하겠습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;간단한 소개 정보
-&lt;ul&gt;
-&lt;li&gt;이용자 프로필 사진&lt;/li&gt;
-&lt;li&gt;이용자 ID&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;이용자가 사진
-&lt;ul&gt;
-&lt;li&gt;시간 역순으로 나열. 무한 스크롤 방식.&lt;/li&gt;
-&lt;li&gt;웹에서는 이용자가 올린 사진 중 하나를 무작위로 선택해서 표시.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;팔로잉
-&lt;ul&gt;
-&lt;li&gt;팔로잉 수&lt;/li&gt;
-&lt;li&gt;URL : /user/&amp;lt; 이용자 ID&amp;gt;/following/&lt;/li&gt;
-&lt;li&gt;누르면 하위 페이지(팔로잉 페이지)로 이동&lt;/li&gt;
-&lt;li&gt;각 이용자의 프로필 사진과 해당 이용자의 프로필 페이지 이동 UI(링크)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;팔로워
-&lt;ul&gt;
-&lt;li&gt;팔로워 수&lt;/li&gt;
-&lt;li&gt;URL : /user/&amp;lt; 이용자 ID&amp;gt;/followers/&lt;/li&gt;
-&lt;li&gt;이외 내용은 팔로잉과 동일&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5&gt;구독하기 (following)&lt;/h5&gt;
-&lt;p&gt;구독 기능은 구독 대상 이용자가 올리는 사진을 자신의 타임라인에서 편하게 보도록 합니다. 쌍방이 관계를 맺어야 하는 친구 관계와는 달리 구독자가 구독 대상을 구독하면 그만입니다. URL은 /user/&amp;lt; 이용자 ID&amp;gt;/follow/ 로 하겠습니다. 구독과 구독 해제를 작동시키는 URL을 나눌 필요는 없습니다. 구독하고 있지 않은 상태에서 구독 기능을 호출하면 구독 상태로 바꾸고, 구독 중인 상태에서 또 호출하면 구독 상태를 해제하면 되니까요.&lt;/p&gt;
-&lt;h4&gt;(3) 기능 총 정리&lt;/h4&gt;
-&lt;p&gt;지금까지 기획한 기능을 총 정리해보겠습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;사진
-&lt;ul&gt;
-&lt;li&gt;사진 올리기
-&lt;ul&gt;
-&lt;li&gt;필터 적용&lt;/li&gt;
-&lt;li&gt;미리보기 이미지(thumbnail image)&lt;/li&gt;
-&lt;li&gt;사진 자르기, 크기 조절&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;사진 보기
-&lt;ul&gt;
-&lt;li&gt;좋아요 표시 남기기&lt;/li&gt;
-&lt;li&gt;댓글 남기기, 지우기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;사진 삭제&lt;/li&gt;
-&lt;li&gt;사람 태그 달기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;이용자/회원
-&lt;ul&gt;
-&lt;li&gt;회원 가입과 탈퇴&lt;/li&gt;
-&lt;li&gt;로그인, 로그아웃&lt;/li&gt;
-&lt;li&gt;비밀번호 찾기&lt;/li&gt;
-&lt;li&gt;프로필 보기
-&lt;ul&gt;
-&lt;li&gt;간단한 소개&lt;/li&gt;
-&lt;li&gt;팔로잉, 팔로워&lt;/li&gt;
-&lt;li&gt;이용자가 올린 사진&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;구독하기 (팔로잉(following) 기능)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;사진 모아보기
-&lt;ul&gt;
-&lt;li&gt;타임라인 : 친구 사진들 보기&lt;/li&gt;
-&lt;li&gt;인기 사진들 보기&lt;/li&gt;
-&lt;li&gt;특정 이용자의 사진 보기 =&amp;gt; 프로필 보기&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;큼직하게 묶어서 정리했는데 생각보다 많네요. 하지만 Django가 제공하는 기능을 쓰면 무척 쉽게 구현할 수 있습니다.&lt;/p&gt;
-&lt;h4&gt;이외&lt;/h4&gt;
-&lt;p&gt;이외에 필요한 페이지나 기능이 많이 남았습니다. 몇 가지만 이곳에 정리하고, 나머지는 각 기능을 구현하면서 그때 그때 만들겠습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;로그아웃 상태에서 접속한 첫 화면&lt;/li&gt;
-&lt;li&gt;로그인 실패&lt;/li&gt;
-&lt;li&gt;없는 페이지에 접속했을 때 안내하는 페이지 (일명 404 페이지)&lt;/li&gt;
-&lt;li&gt;허용하지 않는 페이지에 접속한 경우 처리
-&lt;ul&gt;
-&lt;li&gt;기획 정책 상 허용하지 않는 경우&lt;/li&gt;
-&lt;li&gt;접근 권한이 없는 경우&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;오류가 발생했을 때 안내하는 페이지&lt;/li&gt;
-&lt;li&gt;관리자 영역&lt;/li&gt;
-&lt;li&gt;존재하는 ID나 전자우편 주소인지 검사&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;3. 페이지 구성&lt;/h3&gt;
-&lt;p&gt;정리한 기능으로 페이지(scene)를 정리해 보겠습니다.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/assets/uploads/2014/08/01-Scene_flow.png&quot;&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2014/08/01-Scene_flow-400x274.png&quot; alt=&quot;페이지 흐름 및 연결도&quot; /&gt;&lt;/a&gt;&lt;br /&gt;
-&amp;lt; 위 이미지는 클릭하면 크게 볼 수 있습니다. &amp;gt;&lt;/p&gt;
-&lt;p&gt;둥근 모서리 사각형은 개별 페이지를 뜻합니다. 이 중에서 파란 바탕색이 적용된 사각형은 상위 페이지입니다. Instagram 모바일 앱으로 예를 들면, 앱 최하단에 있는 버튼들이 이 상위 페이지에 연결된 것인데, 페이지 안내(navigation) UI 등으로 접근하는 페이지이지요. 흰 바탕인 사각형은 이러한 상위 페이지에 속해있는 하위 페이지입니다.&lt;/p&gt;
-&lt;p&gt;직각 모서리 사각형은 기능을 뜻합니다. 기능 중에는 페이지로 연결되기도 하는데, 편의상 기능으로만 표시했습니다. 기능 중 왼쪽에 있는 것은 자신의 영역에서 실행하는 기능이며, 오른쪽은 다른 이용자의 영역에서 혹은 다른 이용자가 내 영역에서 실행하는 기능입니다.&lt;/p&gt;
-&lt;p&gt;펼쳐 놓으니 뭔가 많아 보이지만, 실제로는 페이지 이동이나 기능 사용이 대부분 한두 단계 안에서 이뤄집니다. 이런 간단명료한 흐름이 Instagram의 매력이고, Pystagram도 그런 매력을 따릅니다. 고민 많이 했을 Instagram 개발자의 노고에 박수를 보내 봅니다.&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;이것으로 강좌 첫 회를 마칩니다. 2회에선 Django도 설치하고, 개발 환경을 꾸려볼 겁니다. 내용이 그다지 많진 않을 겁니다. 그럼 강좌 2회에서 뵙겠습니다.&lt;/p&gt;&lt;/p&gt;
+&lt;/div&gt;
 </content>
   </entry>
   

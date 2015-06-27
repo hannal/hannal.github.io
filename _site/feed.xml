@@ -6,9 +6,313 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 11 Jun 2015 04:28:06 +0900</pubDate>
-    <lastBuildDate>Thu, 11 Jun 2015 04:28:06 +0900</lastBuildDate>
+    <pubDate>Sun, 28 Jun 2015 01:23:55 +0900</pubDate>
+    <lastBuildDate>Sun, 28 Jun 2015 01:23:55 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>9. 로그인한 이용자만 사진 게시물 게시하기</title>
+        <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;마지막 갱신일시 : 2015년 6월 28일 1시 20분&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;지난 편에서는 Django 이용자 인증 체계을 알아봤으니 이번 편에서는 인증 기능을 이용하여 로그인한 이용자만 사진 게시물을 게시하는 기능을 만들어 보겠습니다.&lt;/p&gt;
+
+&lt;h3&gt;1. 사진 게시물에 이용자 정보 연결&lt;/h3&gt;
+
+&lt;h4&gt;(1) 기본키 (Primary Key)&lt;/h4&gt;
+
+&lt;p&gt;로그인한 이용자만 사진 게시물을 게시한다면 각 사진 게시물엔 사진을 게시한 이용자 정보를 담아야 합니다. 누가 게시한 사진인지 알아야 하니까요. 이용자 ID(&lt;code&gt;username&lt;/code&gt;)을 문자열로 담아도 되지만, 대개는 고유하며 변하지 않을 정보인 기본키(Primary Key)를 담습니다. &lt;/p&gt;
+
+&lt;p&gt;이용자가 따로 기본키 역할을 하는 모델 필드를 지정하지 않으면 Django는 관례대로 &lt;code&gt;id&lt;/code&gt;라는 모델 필드를 알아서 만들고 이를 기본키로 사용합니다. 사진 모델인 &lt;code&gt;Photo&lt;/code&gt;로 사진 게시물 데이터를 &lt;code&gt;photo01&lt;/code&gt;이라는 인스턴스 객체로 할당하면 이 객체엔 &lt;code&gt;id&lt;/code&gt;라는 멤버 변수가 속성으로 존재하고 이 속성에 정수(&lt;code&gt;int&lt;/code&gt;) 값이 할당되어 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;gt;&amp;gt;&amp;gt; photo01 = Photo.objects.last()
+&amp;gt;&amp;gt;&amp;gt; print(photo01.id)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;모델의 인스턴스 객체엔 &lt;code&gt;pk&lt;/code&gt; 속성도 존재하는데, 이 속성은 기본키를 가리키고 있습니다. 이용자가 &lt;code&gt;id&lt;/code&gt; 모델 필드를 기본키로 하지 않고 &lt;code&gt;uuid&lt;/code&gt;라는 모델 필드를 만들어 이 필드를 기본키로 지정하면 &lt;code&gt;pk&lt;/code&gt;는 이 모델 필드를 가리킵니다. 우리는 각 모델의 기본키로 설정된 모델 필드의 이름이 무엇인지 신경쓰지 않고 &lt;code&gt;pk&lt;/code&gt; 속성을 사용하면 됩니다.&lt;/p&gt;
+
+&lt;h4&gt;(2) 모델 관계 필드 (relationship fields)&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;Photo&lt;/code&gt; 모델로 데이터베이스에 저장할 데이터에 이용자 모델의 기본키 값을 저장하려면 다음과 같이 하면 됩니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class Photo(models.Model):
+    user_id = models.IntegerField()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그런 뒤에 &lt;code&gt;Photo&lt;/code&gt; 모델로 데이터를 저장하는 과정에서 이용자의 기본키 값을 &lt;code&gt;user_id&lt;/code&gt;에 할당하면 됩니다. 각 게시물을 게시한 이용자가 누구인지 아니까 각 사진 게시물 정보를 가져오면서 이용자 정보도 함께 가져오면 좋겠군요.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from django.contrib.auth import get_user_model
+User = get_user_model()
+
+class Photo(models.Model):
+    # 중략
+    def get_user(self):
+        return User.objects.get(pk=self.user_id)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 코드들엔 문제가 있습니다. 모델의 기본키 모델 필드가 &lt;code&gt;IntegerField&lt;/code&gt;가 아닌 경우에 제대로 대응하지 못하고, &lt;code&gt;get_user()&lt;/code&gt; 메서드를 호출할 때마다 매번 이용자 모델에서 이용자 데이터를 탐색해 반환하며, 이용자 모델과 연결하는 모델마다 매번 저런 구현을 중복 적용해야 합니다. 이런 문제들에 대응하는 구현체를 만들어야 하는데, Django는 &lt;a href=&quot;https://docs.djangoproject.com/en/1.8/ref/models/fields/#module-django.db.models.fields.related&quot;&gt;관계 모델 필드&lt;/a&gt;로 제공합니다. 총 세 종류입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ForeignKey&lt;/code&gt; : 1 대 다(1 to n) 관계&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;OneToOneField&lt;/code&gt; : 1 대 1 관계&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ManyToManyField&lt;/code&gt; : 다 대 다(n to n) 관계&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이용자와 사진 게시물 관계로 세 관계 필드를 살펴 보겠습니다. &lt;code&gt;OneToOneField&lt;/code&gt;는 이용자는 오직 사진 게시물을 하나만 게시하고 소유합니다. &lt;code&gt;ManyToManyField&lt;/code&gt;는 이용자가 사진 게시물을 여러 개 올릴 수 있는데, 각 사진 게시물을 여러 이용자가 소유하는 게 가능합니다. 1번 사진을 Hannal 이용자 뿐만 아니라 Kay, Yuna 이용자가 소유하는 관계가 맺어지므로 소유한 누구나 사진 게시물을 변경하거나 지울 수 있습니다. 마지막으로 &lt;code&gt;ForeignKey&lt;/code&gt;는 한 이용자가 여러 사진 게시물을 게시하고 소유하는 관계입니다. 우리에게 필요한 모델 관계군요. &lt;code&gt;ForeignKey&lt;/code&gt;에 대한 건 본 편 “2. &lt;code&gt;ForeignKey&lt;/code&gt; 모델 필드”를 참고하시고, 연결부터 해보겠습니다.&lt;/p&gt;
+
+&lt;h4&gt;(3) &lt;code&gt;Photo&lt;/code&gt; 모델에 이용자 기본키 정보 연결하기&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from django.conf import settings
+
+class Photo(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    # 후략
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;ForeignKey&lt;/code&gt; 모델 필드(클래스)는 &lt;code&gt;django.db.models&lt;/code&gt; 모듈에 있어서 다른 모델 필드처럼 &lt;code&gt;models&lt;/code&gt; 객체에서 접근하여 사용하면 됩니다. 첫 번째 인자로 관계 지을 모델을 모델 객체나 경로를 문자열로 전달합니다. &lt;code&gt;settings&lt;/code&gt;의 &lt;code&gt;AUTH_USER_MODEL&lt;/code&gt; 설정 항목은 현재 프로젝트에서 사용하는 인증용 이용자 모델이 위치한 경로를 문자열로 지정하고 있습니다. &lt;a href=&quot;http://blog.hannal.com/2015/06/start_with_django_webframework_08/&quot;&gt;8. 로그인, 로그아웃 하기&lt;/a&gt;편에서 이에 대한 내용을 참조하세요.&lt;/p&gt;
+
+&lt;h5&gt;마이그레이션 수행&lt;/h5&gt;
+
+&lt;p&gt;&lt;code&gt;Photo&lt;/code&gt; 모델이 변경됐으니 데이터베이스에 반영해야 합니다. 마이그레이션을 수행합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ python manage.py makemigrations photo
+You are trying to add a non-nullable field &amp;#39;user&amp;#39; to photo without a default;
+we can&amp;#39;t do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows)
+ 2) Quit, and let me add a default in models.py
+Select an option:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;긴 영어 문장이 나오며 뭔가를 물어 보는데 당황하지 말고 내용을 잘 살펴 보세요. &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;당신은 Null(&lt;code&gt;None&lt;/code&gt;)을 허용하지 않는(non-nullable) &lt;code&gt;user&lt;/code&gt;라는 필드를 추가하려 하는데, 값이 주어지지 않는 경우에 기본으로 저장될 기본값(default)이 없다.&lt;/li&gt;
+&lt;li&gt;데이터베이스가 기존에 저장된 데이터(populate existing rows)에 Null 외 값을 필요로 해서 우린(Django) 이 작업을 바로 수행하지 못한다.&lt;/li&gt;
+&lt;li&gt;그러니 뭔가 조치를 취해달라.
+
+&lt;ol&gt;
+&lt;li&gt;이 자리에서 기본값을 제공해주든&lt;/li&gt;
+&lt;li&gt;마이그레이션 수행 과정에서 빠져 나간 뒤에 &lt;code&gt;models.py&lt;/code&gt;에 기본값 지정 인자(&lt;code&gt;default&lt;/code&gt;)를 추가해달라.&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;그 자리에서 기본값을 제공해줄테니 &lt;code&gt;1&lt;/code&gt;을 입력합니다. Django가 뭔가를 요구하네요.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Please enter the default value now, as valid Python
+The datetime module is available, so you can do e.g. datetime.date.today()
+&amp;gt;&amp;gt;&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;기본값으로 유효한 Python의 객체를 입력하라는 말입니다. 일단 &lt;code&gt;1&lt;/code&gt;을 입력합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Migrations for &amp;#39;photo&amp;#39;:
+  0006_photo_user.py:
+    - Add field user to photo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이제야 마이그레이션 수행에 필요한 마이그레이션 작업 파일이 만들어 졌습니다. 두 번째 입력한 &lt;code&gt;1&lt;/code&gt;은 이용자 모델의 기본키 값이 &lt;code&gt;1&lt;/code&gt;을 뜻합니다. 기존에 저장한 사진 게시물의 이용자를 기본키 값이 &lt;code&gt;1&lt;/code&gt;인 이용자로 지정한 것입니다. 만약, 기존에 소유자가 없는 사진 게시물을 위해 별도 이용자를 만들어서 연결하고자 한다면, 그 이용자를 만들어서 그 이용자의 기본키 숫자값을 지정하면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;왜 기본키 값을 넣는지 첫 번째 이유는 앞서 설명을 하였고, 두 번째 이유는 “(2) ForeignKey 모델 필드”에서 설명하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;이제 &lt;code&gt;makemigrations&lt;/code&gt; 명령어로 만든 마이그레이션 작업 내용을 데이터베이스에 반영합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ python manage.py migrate photo
+Operations to perform:
+  Apply all migrations: photo
+Running migrations:
+  Applying photo.0006_photo_user... OK
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;2. 로그인한 이용자만 사진 게시물 게시하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Photo&lt;/code&gt; 모델에 이용자 모델 연결을 마쳤으니 이번엔 사진 게시물을 저장하는 과정에 로그인한 이용자 정보를 적용하겠습니다. 간단히 말해서 로그인한 이용자만 사진 게시물을 게시하는 것이지요.&lt;/p&gt;
+
+&lt;h4&gt;(1) 현재 이용자를 사진 게시물에 적용&lt;/h4&gt;
+
+&lt;p&gt;현재 웹 서비스에 연결된(requested) 접속 정보는 &lt;code&gt;request&lt;/code&gt; 객체에 담겨 있습니다. &lt;code&gt;request&lt;/code&gt;는 뷰(view) 함수가 첫 번째 인자로 전달받는 객체입니다. 개별 사진을 보는 &lt;code&gt;single_photo&lt;/code&gt; 뷰 함수는 &lt;code&gt;def single_photo(request, photo_id):&lt;/code&gt;와 같이, 사진 게시물을 새로 저장하는 &lt;code&gt;new_photo&lt;/code&gt; 뷰 함수는 &lt;code&gt;def new_photo(request):&lt;/code&gt;와 같이 첫 번째 인자로 &lt;code&gt;request&lt;/code&gt;를 전달 받습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;reuqest&lt;/code&gt; 객체엔 &lt;code&gt;user&lt;/code&gt; 속성이 존재하는데, 이 속성은 접속한 이용자에 정보가 담겨 있습니다. 로그인한 이용자라면 이용자 모델 클래스로 생성한 인스턴스 객체가, 로그인하지 않은 이용자라면 &lt;code&gt;AnonymousUser&lt;/code&gt; 모델 클래스로 생성한 인스턴스 객체가 할당됩니다. 먼저 코드부터 작성해 보겠습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def new_photo(request):
+    if request.method == &amp;quot;GET&amp;quot;:
+        edit_form = PhotoEditForm()
+    elif request.method == &amp;quot;POST&amp;quot;:
+        edit_form = PhotoEditForm(request.POST, request.FILES)
+
+        if edit_form.is_valid():
+            new_photo = edit_form.save(commit=False)
+            new_photo.user = request.user
+            new_photo.save()
+
+            return redirect(new_photo.get_absolute_url())
+
+    # 후략
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;한 줄은 조금 바뀌었고, 두 줄이 추가됐습니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;if edit_form.is_valid():
+    new_photo = edit_form.save(commit=False)
+    new_photo.user = request.user
+    new_photo.save()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;두 번째 줄 &lt;code&gt;new_photo = edit_form.save(commit=False)&lt;/code&gt;에서 &lt;code&gt;edit_form&lt;/code&gt; 객체는 사진 게시물 생성과 관련된 폼(Form)인 &lt;code&gt;PhotoEditForm&lt;/code&gt; 폼 클래스입니다. 첫 번째 줄에서 &lt;code&gt;is_valid()&lt;/code&gt;로 웹에서 전달받은 자료를 검증한 그 객체입니다. 이 객체가 모델 폼인 경우, 그러니까 &lt;code&gt;ModelForm&lt;/code&gt; 클래스를 상속받아 만든 폼인 경우 &lt;code&gt;save()&lt;/code&gt; 인스턴스 메서드를 포함하고 있는데, 이 메서드는 모델의 &lt;code&gt;save()&lt;/code&gt; 메서드와 동일한 역할을 합니다. 데이터를 모델에 연결된 데이터베이스 테이블에 저장하는 것이지요. 모델의 &lt;code&gt;save()&lt;/code&gt; 메서드와 마찬가지로 저장한 내용이 반영된 모델의 인스턴스 객체를 반환합니다. 즉, &lt;code&gt;edit_form.save()&lt;/code&gt;로부터 반환받은 객체를 할당한 &lt;code&gt;new_photo&lt;/code&gt;는 폼과 관련된 객체가 아니라 &lt;code&gt;PhotoEditForm&lt;/code&gt; 모델 폼 클래스에 연결되어 있는 &lt;code&gt;Photo&lt;/code&gt; 모델로 생성한 인스턴스 객체입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;save()&lt;/code&gt; 메서드에 인자로 전달한 &lt;code&gt;commit&lt;/code&gt;은 실제로 데이터베이스에 반영할 것인지 여부를 정합니다. &lt;code&gt;True&lt;/code&gt;를 전달하면 바로 데이터베이스에 저장하고, &lt;code&gt;False&lt;/code&gt;라고 하면 모델 클래스로 생성한 인스턴스 객체만 반영하고 데이터베이스에 실제로 반영하진 않습니다. 따로 반영 여부를 정해주지 않으면 기본값은 &lt;code&gt;True&lt;/code&gt;이어서 바로 데이터베이스에 반영합니다. 데이터베이스에 저장하지 않을 거면서 뭐하러 &lt;code&gt;save()&lt;/code&gt; 메서드를 호출했으며, &lt;code&gt;save()&lt;/code&gt; 메서드엔 실제로 반영할 것인지 여부를 정하는 &lt;code&gt;commit&lt;/code&gt; 인자가 필요한 이유는 무엇일까요? 답은 그 바로 다음에 나오는 두 줄에 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;new_photo.user = request.user&lt;/code&gt;는 &lt;code&gt;new_photo&lt;/code&gt; 객체의 &lt;code&gt;user&lt;/code&gt; 속성에 현재 로그인한 &lt;code&gt;request.user&lt;/code&gt; 속성을 할당하는 것입니다. &lt;code&gt;PhotoEditForm&lt;/code&gt; 폼 클래스는 웹에서 폼 양식 자료가 담긴 &lt;code&gt;request.POST&lt;/code&gt;와 &lt;code&gt;request.FILES&lt;/code&gt;만 전달 받았지, 현재 이용자 정보가 담긴 &lt;code&gt;request.user&lt;/code&gt;를 전달받은 적이 없습니다. 그래서 &lt;code&gt;save()&lt;/code&gt; 메서드가 반환한 &lt;code&gt;new_photo&lt;/code&gt; 인스턴스 객체의 &lt;code&gt;user&lt;/code&gt;에는 이용자 정보가 없습니다. &lt;code&gt;Photo&lt;/code&gt; 모델에 &lt;code&gt;auth.User&lt;/code&gt;에 있는 이용자 모델을 &lt;code&gt;ForeignKey&lt;/code&gt; 관계로 연결했는데, 뷰 함수에서는 관련 정보를 &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt;에 반영하지 않았습니다.&lt;/p&gt;
+
+&lt;p&gt;만약, &lt;code&gt;edit_form.save()&lt;/code&gt;나 &lt;code&gt;edit_form.save(commit=True)&lt;/code&gt;처럼 바로 데이터베이스에 반영하려고 하면 &lt;code&gt;IntegrityError&lt;/code&gt; 예외 오류가 발생하며, &lt;code&gt;NOT NULL constraint failed: photo_photo.user_id&lt;/code&gt;라 안내 받습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/06/09-IntegrityError.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;겁먹지 말고 오류 안내말을 잘 보세요. 정확히 이해하지 않은 채 추측만 하려는 태도는 안 좋지만, 여러분은 이 강좌 나머지 내용을 그냥 건너뛰지 않을테니 예외 오류 내용을 보고 상황을 추측해 보겠습니다. &lt;code&gt;NOT NULL&lt;/code&gt;, &lt;code&gt;failed&lt;/code&gt;, &lt;code&gt;photo_photo.user_id&lt;/code&gt; 이 세 가지 표현이 눈에 들어오지요? “photo”가 두 번 반복된 &lt;code&gt;photo_photo&lt;/code&gt;는 &lt;code&gt;Photo&lt;/code&gt; 모델과 연관되어 보이고, &lt;code&gt;user_id&lt;/code&gt;는 우리가 만든 적이 없지만 &lt;code&gt;user&lt;/code&gt; 모델 필드와 관련되어 보입니다. &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드에 &lt;code&gt;NOT NULL&lt;/code&gt;과 관련된 문제가 발생하여 진행하던 작업(&lt;code&gt;save()&lt;/code&gt;)이 실패했다는 뜻이군요. &lt;code&gt;NOT NULL&lt;/code&gt;은 &lt;code&gt;NULL&lt;/code&gt;이면 안 된다는 의미니까 &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드에 &lt;code&gt;NULL&lt;/code&gt;이 들어가서 오류가 생긴 겁니다.&lt;/p&gt;
+
+&lt;p&gt;웹페이지의 폼 양식에서 이용자 모델의 기본키 값을 직접 전달하면 안 됩니다. 예를 들어, &lt;code&gt;hannal&lt;/code&gt; 이용자의 기본키 값이 &lt;code&gt;1023&lt;/code&gt;이고 이 값을 웹 폼 양식에서 &lt;code&gt;user_id&lt;/code&gt;로 담아서 서버로 전달한다면, 이용자는 기본키 값 숫자를 고쳐서 마치 다른 이용자가 사진 게시물을 올린 것처럼 왜곡할지도 모릅니다. 이런 정보는 서버에서 알아내서 다뤄야 합니다. 그게 &lt;code&gt;request.user&lt;/code&gt;입니다. 아하, &lt;code&gt;request.user&lt;/code&gt;를 &lt;code&gt;PhotoEditForm&lt;/code&gt; 폼 클래스에 전달하면 되겠구나.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;edit_form = PhotoEditForm(request.POST, request.FILES, request.user)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;request.POST&lt;/code&gt;처럼.&lt;/p&gt;
+
+&lt;p&gt;아닙니다. 그렇게 알아서 동작(magic behaviour)해주지 않고, 그래서도 안 됩니다. 추측해야 하는 코드와 기능은 좋지 않다고 봅니다. 이용자 정보가 필요한 폼 클래스라면 이용자 정보를 따로 전달받도록 처리해야 합니다. Python 클래스는 실행 가능한(callable) 객체이므로 함수처럼 소괄호를 사용하여 실행하고 실행 결과로 인스턴스 객체를 반환 받는데, 인스턴스 초기화를 수행하는 메서드가 &lt;code&gt;__init__()&lt;/code&gt;입니다. 이용자 정보인 &lt;code&gt;request.user&lt;/code&gt;를 인자로 전달 받는 &lt;code&gt;__init__()&lt;/code&gt; 메서드를 &lt;code&gt;PhotoEditForm&lt;/code&gt; 폼 클래스에 만들면 됩니다. 이건 Class based view를 다룰 때 살펴보기로 하고, 이번 편에서는 &lt;code&gt;save()&lt;/code&gt; 메서드에 &lt;code&gt;commit&lt;/code&gt; 인자를 &lt;code&gt;False&lt;/code&gt;로 전달하여 처리합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드는 &lt;code&gt;user = models.ForeignKey(settings.AUTH_USER_MODEL)&lt;/code&gt;로 만들었고, 이 모델 필드는 NULL을 허용하지 않습니다. 데이터베이스 테이블에도 &lt;code&gt;NOT NULL&lt;/code&gt;로 정의되어 있습니다. 그래서 데이터베이스에 실제로 반영하지 말고 우선 모델로 생성한 인스턴스 객체를 &lt;code&gt;edit_form&lt;/code&gt; 객체로부터 받으려고 &lt;code&gt;save(commit=False)&lt;/code&gt; 메서드를 수행했습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;EditPhotoForm&lt;/code&gt;이 반환하는 &lt;code&gt;Photo&lt;/code&gt; 모델의 인스턴스 객체를 &lt;code&gt;new_photo&lt;/code&gt;에 할당받고, 이 객체의 &lt;code&gt;user&lt;/code&gt; 속성에 이용자 정보인 &lt;code&gt;request.user&lt;/code&gt;를 할당합니다. &lt;code&gt;new_photo.user = request.user&lt;/code&gt; 코드입니다. 이제 &lt;code&gt;new_photo.save()&lt;/code&gt;를 수행하여 데이터베이스에 저장합니다. &lt;code&gt;new_photo.save(commit=True)&lt;/code&gt;와 동일합니다.&lt;/p&gt;
+
+&lt;p&gt;이제 로그인한 이용자 정보가 사진 게시물에 반영되어 저장됩니다.&lt;/p&gt;
+
+&lt;h4&gt;(2) &lt;code&gt;new_photo&lt;/code&gt; 뷰 함수에 로그인한 이용자만 접근하도록 제한&lt;/h4&gt;
+
+&lt;p&gt;로그인하지 않은 이용자가 사진 게시물을 저장하려 하면 오류가 발생할 겁니다. 로그인하지 않은 이용자는 이용자 모델로 생성한 인스턴스 객체에 기본키 값이 없을테니 &lt;code&gt;IntegrityError&lt;/code&gt; 예외 오류가 발생할 것 같습니다. 이렇게 예상하셨다면 훌륭합니다. 한 번 시도해보세요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/06/09-anonymous_user_exception.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;실제로 발생하는 예외는 &lt;code&gt;ValueError&lt;/code&gt;가 발생하며, 안내말은 &lt;code&gt;User&lt;/code&gt; 모델 클래스로 만든 인스턴스여야 한다는 내용입니다. 앞서 설명드린 바와 같이 로그인하지 않은 경우 &lt;code&gt;request.user&lt;/code&gt;엔 &lt;code&gt;AnonymousUser&lt;/code&gt; 모델 클래스로 생성한 인스턴스 객체가 할당되어 있습니다. &lt;code&gt;django.contrib.auth.models&lt;/code&gt;에 있는데, 코드를 보면 아시겠지만 껍데기 역할을 할 뿐입니다.&lt;/p&gt;
+
+&lt;p&gt;로그인한 이용자인지 여부는 &lt;code&gt;request.user&lt;/code&gt;의 &lt;code&gt;is_authenticated()&lt;/code&gt; 메서드를 실행하면 &lt;code&gt;bool&lt;/code&gt; 객체를 반환받아 구분합니다. &lt;code&gt;True&lt;/code&gt;이면 로그인한 이용자, &lt;code&gt;False&lt;/code&gt;이면 로그인하지 않은 이용자입니다. 코드도 아주 간단합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from django.conf import settings
+
+def new_photo(request):
+    if not request.user.is_authenticated():
+        return redirect(settings.LOGIN_URL)
+    # 후략
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;로그인하지 않은 이용자가 &lt;code&gt;new_photo&lt;/code&gt; 뷰 함수로 접근하면 &lt;code&gt;settings.LOGIN_URL&lt;/code&gt;에 지정되어 있는 URL로 이동(redirect) 시킵니다. &lt;code&gt;LOGIN_URL&lt;/code&gt;은 &lt;code&gt;global_settings&lt;/code&gt;에 &lt;code&gt;/accounts/login/&lt;/code&gt;으로 기본 지정되어 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;@login_required&lt;/code&gt; 장식자(decorator)를 사용하면 더 명확하고 간결합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from django.contrib.auth.decorators import login_required
+
+@login_required
+def new_photo(request):
+    # 후략
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/06/09-login_required.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;더 친절하게도 로그인한 후 이동할 도착지도 &lt;code&gt;next&lt;/code&gt; 인자로 지정됩니다. 로그인 주소를 &lt;code&gt;settings.LOGIN_URL&lt;/code&gt;에 따로 지정해주면 자동으로 변경한 주소로 이동해 줍니다.&lt;/p&gt;
+
+&lt;h3&gt;3. 모델 관계에 더 자세히 알아보기&lt;/h3&gt;
+
+&lt;p&gt;우리는 이용자 모델을 &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드에 &lt;code&gt;ForeignKey&lt;/code&gt; 관계로 연결했습니다. 그리고 &lt;code&gt;user&lt;/code&gt; 모델 필드에 이용자 모델로 생성한 인스턴스 객체(&lt;code&gt;request.user&lt;/code&gt;)를 할당하지 않자 &lt;code&gt;photo_photo.user_id&lt;/code&gt;에 NULL을 저장하려 해서 저장하지 못했다는 예외 오류도 접했습니다. 이 중에서 &lt;code&gt;user_id&lt;/code&gt; 정체를 살펴 보겠습니다.&lt;/p&gt;
+
+&lt;h4&gt;(1) ForeignKey 모델 필드&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;ForeignKey&lt;/code&gt;, 그러니까 Many to one 관계는 “One”쪽에 “Many”쪽 데이터 여러 개가 연결되는 구조입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/06/09-ManyToOne.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;한 이용자가 여러 게시물을 남기거나, 한 글갈래(category)에 여러 글이 속하는 관계입니다. Django 모델로는 &lt;code&gt;ForeignKey&lt;/code&gt; 모델 필드로 모델 클래스를 지정한 것인데, 이 관계 정보를 데이터베이스엔 어떻게 저장할까요?&lt;/p&gt;
+
+&lt;p&gt;일단 각 모델은 데이터베이스에 Django 앱 이름과 모델 이름을 조합하여 테이블로 만듭니다. &lt;code&gt;photo_photo&lt;/code&gt;는 &lt;code&gt;photo&lt;/code&gt; 앱에 있는 &lt;code&gt;Photo&lt;/code&gt; 모델을 뜻합니다. &lt;code&gt;hello&lt;/code&gt;라는 앱의 &lt;code&gt;Hannal&lt;/code&gt; 모델은 &lt;code&gt;hello_hannal&lt;/code&gt; 테이블을, &lt;code&gt;KayCha&lt;/code&gt; 모델은 &lt;code&gt;hello_kay_cha&lt;/code&gt; 테이블을 만들어 연결합니다. 앞서 발생한 &lt;code&gt;IntegrityError&lt;/code&gt; 예외 오류에서 &lt;code&gt;photo_photo&lt;/code&gt; 정체가 무엇인지 이제 아시겠죠?&lt;/p&gt;
+
+&lt;p&gt;Django의 모델 필드는 데이터베이스의 컬럼(column)이 됩니다. &lt;code&gt;image_file&lt;/code&gt; 모델 필드는 같은 이름을 갖는 테이블 컬럼이 됩니다. 모델 필드형(type)은 테이블 컬럼형을 결정합니다. 그런데 &lt;code&gt;ForeignKey&lt;/code&gt;와 같은 모델 관계 필드는 컬럼 이름이 조금 다릅니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드는 컬럼 이름이 &lt;code&gt;user_id&lt;/code&gt;입니다. &lt;code&gt;user_id&lt;/code&gt; 정체는 &lt;code&gt;user&lt;/code&gt; 모델 필드가 맞습니다. 그런데 &lt;code&gt;user&lt;/code&gt;가 아니라 &lt;code&gt;user_id&lt;/code&gt;인 이유는 무엇일까요? 질문 아니니 대답 안 하셔도 됩니다. :)&lt;/p&gt;
+
+&lt;p&gt;이번 9회 초반에 모델 간 연결은 기본키로 한다고 설명했습니다. Django는 Many쪽이 One쪽을 연결하는 경우, Many쪽 모델 필드 이름에 One쪽의 기본키 이름을 덧붙입니다.&lt;/p&gt;
+
+&lt;p&gt;기본키는 관례에 따라 &lt;code&gt;id&lt;/code&gt;라는 모델 필드가 되며, 모델 필드는 데이터베이스 테이블 컬럼과 이름이 같으므로 테이블 컬럼도 &lt;code&gt;id&lt;/code&gt;입니다. &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드는 이용자 모델을 Many to one으로 가리키는데, 이용자 모델의 기본키인 모델 필드도 &lt;code&gt;id&lt;/code&gt;입니다. &lt;code&gt;Photo&lt;/code&gt; 모델 데이터가 Many쪽이고 이용자 모델이 One쪽이므로, &lt;code&gt;Photo&lt;/code&gt; 모델의 &lt;code&gt;user&lt;/code&gt; 모델 필드는 이용자 모델 필드의 기본키 모델 필드인 &lt;code&gt;id&lt;/code&gt; 이름을 덧붙여서 &lt;code&gt;user_id&lt;/code&gt;가 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/06/09-foreign_key_db_table_schema.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;만약 기본키 모델 필드 이름이 &lt;code&gt;id&lt;/code&gt;가 아니라 &lt;code&gt;uid&lt;/code&gt;라면 &lt;code&gt;_uid&lt;/code&gt;가 덧붙게 됩니다. Django는 이 데이터베이스 컬럼 값을 참조하여 서로 분리된 모델의 데이터 연결 관계를 알아냅니다.&lt;/p&gt;
+
+&lt;h4&gt;(2) 모델 관계를 나중에 맺기 (lazy relation)&lt;/h4&gt;
+
+&lt;p&gt;모델 관계를 맺을 대상 모델 클래스 객체를 직접 전달해도 됩니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from django.contrib.auth import get_user_model
+User = get_user_model()
+
+class Photo(models.Model):
+    user = models.ForeignKey(User)
+    # 후략
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;models.ForeignKey(User)&lt;/code&gt;는 &lt;code&gt;ForeignKey&lt;/code&gt; 클래스에 &lt;code&gt;User&lt;/code&gt;라는 객체를 첫 번째 인자로 전달하여 호출(call)하고, 모델 필드의 인스턴스 객체를 반환받아 &lt;code&gt;user&lt;/code&gt;에 할당하는 것입니다. Python은 소스 파일 맨 윗 줄부터 아래로 실행하므로 저 구문을 실행하여 모델 필드를 만드는 시점에 실제로 존재하는 &lt;code&gt;User&lt;/code&gt; 객체를 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 관계 맺을 모델이 있는 경로를 문자열로 담아 인자로 전달하는 경우는 언제일까요? 이용자 모델처럼 상황에 따라 연결할 모델이 바뀌는 경우가 있습니다. 지난 편에서 예를 든 것처럼 이용자 모델이 바꾸면 이 모델을 가져오는(&lt;code&gt;import&lt;/code&gt;) 모든 코드에도 영향이 미칩니다. 그러나 &lt;code&gt;settings.AUTH_USER_MODEL&lt;/code&gt;에 이용자 모델이 있는 위치를 지정하고, &lt;code&gt;AUTH_USER_MODEL&lt;/code&gt; 내용을 참조하여 &lt;code&gt;get_user_model()&lt;/code&gt; 함수로 이용자 모델을 가져오면 &lt;a href=&quot;http://blog.dahlia.kr/post/103101756957&quot;&gt;한 의도를 한 구현체로 정리&lt;/a&gt;할 수 있지요.&lt;/p&gt;
+
+&lt;p&gt;관계 맺을 대상 모델이 아직 만들어지기 전에 연결하려는 경우에도 문자열로 지정합니다. A 모델이(from) B 모델을(to) 관계를 맺는다면 다음과 같이 B 모델을 먼저 만들고 그 &lt;strong&gt;이후&lt;/strong&gt;에 A 모델을 만들어야 합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class B(models.Model):
+    pass
+
+class A(models.Model):
+    b = models.ForeignKey(B)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;B 모델은 C 모델을 관계 맺는다면 C 모델을 B 모델에 앞서 만들어야 합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class C(models.Model):
+    pass
+
+class B(models.Model):
+    c = models.ForeignKey(C)
+
+class A(models.Model):
+    b = models.ForeignKey(B)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그런데 C 모델은 A 모델에 관계를 지어야 한다고 가정하겠습니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class C(models.Model):
+    a = models.ForeignKey(A)
+
+class B(models.Model):
+    c = models.ForeignKey(C)
+
+class A(models.Model):
+    b = models.ForeignKey(B)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;문제가 생깁니다. C 모델이 만들어지는 시점에 A라는 객체가 존재하지 않기 때문이죠. A 모델을 C 모델 코드 위로 올리면 안 됩니다. A 모델이 만들어지는 시점에 B 모델이 없기 때문이지요. 이런 경우에, C 모델에서 A 모델을 문자열 인자로 전달하면 됩니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class C(models.Model):
+    a = models.ForeignKey(&amp;#39;A&amp;#39;)
+
+class B(models.Model):
+    c = models.ForeignKey(C)
+
+class A(models.Model):
+    b = models.ForeignKey(B)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;문자열로 관계 맺을 대상 모델을 지정하면 관계 맺을 대상 모델이 만들어졌다는 신호가 오기 전까지 관계를 맺지 않은 채 관계 맺는 연산을 지연시켜 놓습니다. 비유가 아니라 정말로 대상 모델 클래스(예 : &lt;code&gt;A&lt;/code&gt; 모델)가 초기화 되면 모델 신호(&lt;code&gt;ModelSignal&lt;/code&gt;)인 &lt;code&gt;class_prepared&lt;/code&gt;를 일으키고(fire), 대상 모델을 바라보던 모델은(예 : &lt;code&gt;C&lt;/code&gt; 모델) 이 신호을 받고선 비로소 실제 관계를 맺습니다.&lt;/p&gt;
+
+&lt;p&gt;이런 연산 특성을 응용하여 관계 맺을 대상 모델로 자기 자신을 지정하는 것도 가능합니다. 순환 관계(recursive relationship)이라고 하는데, 문자열 &lt;code&gt;&amp;#39;self&amp;#39;&lt;/code&gt;을 지정하면 됩니다. 추후에 기회가 닿으면 순환 관계 모델을 만들어 보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;정리하면, 모델 관계 필드는 관계 맺을 대상을 세 가지 형태로 지정합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;관계 지을 모델 클래스 객체를 직접 인자로 전달&lt;/li&gt;
+&lt;li&gt;관계 지을 모델 클래스 객체가 있는 경로를 문자열로 전달
+
+&lt;ul&gt;
+&lt;li&gt;형식 : &lt;code&gt;Django앱이름.모델이름&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;자기 자신을 가리키는 경우 &lt;code&gt;&amp;#39;self&amp;#39;&lt;/code&gt; 문자열 전달&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;강좌 9편을 마칩니다. 그동안 강좌 연재 소식을 &lt;a href=&quot;https://www.facebook.com/hello.kaycha&quot;&gt;제 페이스북 개인 페이지&lt;/a&gt;, &lt;a href=&quot;https://www.facebook.com/groups/django/&quot;&gt;Django 페이스북 그룹&lt;/a&gt;, 제 페이스북 개인 계정, 제 트위터에서 알려 왔는데요. 10편부터는 제 페이스북 개인 페이지와 트위터에만 알릴 예정입니다. 제 블로그를 구독하지 않고 강좌 연재 소식을 보시려면 제 페이스북 개인 페이지나 트위터를 구독하시길 바랍니다. :)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/hannal/start_with_django_webframework/tree/09-fullsource/pystagram&quot;&gt;9편까지 진행한 전체 소스 코드&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 28 Jun 2015 01:20:00 +0900</pubDate>
+        <link>http://blog.hannal.com//2015/06/start_with_django_webframework_09/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2015/06/start_with_django_webframework_09/</guid>
+        
+        <category>django</category>
+        
+        <category>model relationship</category>
+        
+        <category>foreignkey</category>
+        
+        <category>authentication</category>
+        
+        <category>many to one relationship</category>
+        
+        
+        <category>start-with-django-webframework</category>
+        
+      </item>
     
       <item>
         <title>8. 로그인, 로그아웃 하기</title>
@@ -1919,197 +2223,6 @@ end script
         <category>Sentry</category>
         
         <category>Upstart</category>
-        
-        
-        <category>devlife</category>
-        
-      </item>
-    
-      <item>
-        <title>개발 생활 - 2</title>
-        <description>&lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;개발 생활 - 1&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;&lt;code&gt;개발 생활 - 2&lt;/code&gt;&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;개발 생활 - 6&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3&gt;2. 개발 프로젝트&lt;/h3&gt;
-
-&lt;h4&gt;2-2. 연산된 데이터 수집 작업자&lt;/h4&gt;
-
-&lt;h5&gt;개요&lt;/h5&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.rsquare.co.kr&quot;&gt;부동산 다이렉트&lt;/a&gt;의 데이터베이스엔 사무실이나 건물 정보가 많이 등록되어 있다. 각 사무실과 건물을 구성하는 속성도 세세하게 등록되고 관리되어, 많은 검색 조건을 조합해 고객이 원할만한 매물을 검색한다.&lt;/p&gt;
-
-&lt;p&gt;그런데 검색 조건 중에는 별도 연산이 필요한 조건이 있다. 예를 들어, 300평짜리 사무실을 찾는다고 했을 때, 면적만 놓고 보면 다음과 같은 경우가 가능하다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;단일층 : 단일층이 300평인 경우.&lt;/li&gt;
-&lt;li&gt;연층 또는 연속층 : 층이 분할되어도 되지만 층은 연속되어야 하는 경우.&lt;/li&gt;
-&lt;li&gt;복수층 : 여러 층이어도 되고 층이 꼭 연속되지 않아도 되는 경우.&lt;/li&gt;
-&lt;li&gt;분할층 : 한 층을 여러 사무실로 분할하였고, 이 중 1개 이상 사무실이 다른 층과 연속되는 경우.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;복수층이나 연층, 분할층인 경우, 몇 개 층까지 분할이어도 되는지, 즉 2~3개인데 연속층으로 총 300평인 사무실을 찾는 검색 조합도 가능하다.&lt;/p&gt;
-
-&lt;p&gt;내가 두 번째로 맡은 프로젝트는 바로 연층이나 복수층을 빠르고 정확하게 검색하는 기능을 구현하는 것이었다. 이런 검색 기능은 SQL Query만으로 처리하기에는 연산 비용이 크다. 나는 SQL Query만으로 이런 검색을 아주 빠르게 처리하는 방법을 모른다.&lt;/p&gt;
-
-&lt;h5&gt;개발 환경&lt;/h5&gt;
-
-&lt;p&gt;내가 이 프로젝트를 맡겠다고 한 이유는 특정 검색을 위해 미리 계산된 데이터를 구축하고 이 구축한 데이터 안에서 검색하면 쉽고 빠르겠다는 생각이 떠올랐고, 이를 직접 실현하고 싶었기 때문이다. 결자해지.&lt;/p&gt;
-
-&lt;p&gt;사무실이나 빌딩은 분야 특성상 데이터가 생성되거나 수정되는 빈도가 높진 않다. 더구나 부동산 다이렉트는 사람이 일일이 사무실이나 건물을 확인하여 허위 매물을 걸러내기 때문에 데이터 변화 빈도가 아주 높진 않다. 빈도가 높지 않다라는 말은 초 단위로 데이터가 수 백 수 천 개가 쌓이거나 변경되진 않는다는 뜻이다.&lt;/p&gt;
-
-&lt;p&gt;이런 이유로 애초에 개발 언어는 Python으로 결정했다. DBMS 외 부분에서 연산을 Python이 하더라도 충분히 빠르고, 개발 생산성이 좋고, 무엇보다 내게 익숙한 언어이기 때문이다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;언어 : Python 2.7&lt;/li&gt;
-&lt;li&gt;사용 라이브러리, 프레임워크
-
-&lt;ul&gt;
-&lt;li&gt;ORM : &lt;a href=&quot;http://www.sqlalchemy.org/&quot;&gt;SQLAlchemy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;반복 예약 처리 : &lt;a href=&quot;https://pypi.python.org/pypi/schedule&quot;&gt;schedule&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code&gt;schedule&lt;/code&gt;은 Linux나 Unix의 &lt;code&gt;crontab&lt;/code&gt; 역할을 하는 라이브러리이다. &lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;Celery&lt;/a&gt;의 &lt;a href=&quot;http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html&quot;&gt;Periodic Tasks&lt;/a&gt; 기능을 채택할 지 고민하기도 했지만 일정 주기로 작업자를(worker) 호출해 정해진 작업(task)을 수행하는 정도에 쓰기엔 거창하다 생각했다. 직접 구현하기에도 간단한 기능이지만, 많은 사람이 이미 사용하여 검증된 &lt;code&gt;schedule&lt;/code&gt; 라이브러리를 도입했다.&lt;/p&gt;
-
-&lt;h5&gt;개발 과정&lt;/h5&gt;
-
-&lt;p&gt;이 프로젝트는 시작부터 확장성과 이전성(migration)을 고려했다. 이전 가능성은 Python 3로 이전하는 걸 염두에 두는 것이고, 확장성은 연층 검색 뿐만 아니라 다른 검색 조건에 대응하는 작업(task) 처리 구조로 만드는 것이다.&lt;/p&gt;
-
-&lt;p&gt;프로젝트는 검색 편의를 돕는 역할이어서 편의점(convenient store)이라고 이름지었다. 그리고 각 구성물도 편의점과 연관된 용어를 썼다. 로직을 상상할 때 실제 사람이 매장에서 일하는 모습이 떠올라 재밌어서 지루하지도 않고 개념을 다루기에도 좋았다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;매장 : 검색 조건과 관련된 작업을 정의한 모듈(module).
-
-&lt;ul&gt;
-&lt;li&gt;점원 : 검색 데이터를 수집하고 연산하는 작업자(controller).&lt;/li&gt;
-&lt;li&gt;창고 : DB 관련 작업을 처리하는 모델(model).&lt;/li&gt;
-&lt;li&gt;본사 직원 : 검색용 데이터를 쌓은 테이블에서 데이터를 검색하는 SQL Query 인터페이스. API Server용이며 Go 언어로 작성.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;매장 관리자 : 신규 매장이 등록되면 가동하고, 기존 매장이 변동되면 그 내용을 반영하여 재가동하는 프로세스 관리자.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;난 연층 검색을 위한 데이터를 다루는 첫 번째 매장을 만드는 셈인데, 구조도 정해놓은 규칙으로 클래스와 설정 파일 등을 만들어 창고, 본사 직원으로 구성하고, 이 Python 패키지를 매장(&lt;code&gt;store&lt;/code&gt;) 디렉터리에 넣는다. 매장 관리자는 곧 이를 감지하여 메모리에 적재하여 매장을 개장하고 영업을 개시한다. 그래서 코드가 변경되더라도 편의점 프로세서는 중단되지 않고 계속 작업을 처리한다. 즉, 검색봇을 쉽게 추가하고 변경하면서도 무중단 서비스가 가능한 설계를 구상했다.&lt;/p&gt;
-
-&lt;p&gt;이는 반만 구현해냈는데, 병렬 처리를 위한 구조로 만들지 않았기 때문이다. 게다가 신규 매장을 만드는 일 자체가 그 이후 없었기 때문에 결국 필요없는 작업을 하느라 일주일을 써버린 셈이 되었다. 소득이라면 연결과 분리(pluggable) 가능한 모듈을 어떻게 작성하고 구조를 잡아야 하는 지 고민하고 경험하여 다음 프로젝트에 도움이 됐다는 점이다.&lt;/p&gt;
-
-&lt;p&gt;여러 층을 조합하여 면적을 산출하여 DB 테이블에 데이터를 넣는다면, 어떤 조합까지 연산하여 DB에 넣을 것인지 고민해야 한다. 연층은 기본이다. A건물에 3, 4, 6, 8, 9, 10층 사무실이 공실인 경우,&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;3,4층&lt;/li&gt;
-&lt;li&gt;8, 9층&lt;/li&gt;
-&lt;li&gt;9, 10층&lt;/li&gt;
-&lt;li&gt;8, 9, 10층&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이 조합을 뽑아내어 면적 등을 합해야 한다. 하지만, 연속되지 않은 복수층은 난감했다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;3, 6층, 3, 8층, 3, 9층, 3, 10층&lt;/li&gt;
-&lt;li&gt;3, 4, 6층, 3, 4, 8층, 3, 4, 9층, 3, 4, 10층, ...&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;연속되지 않은 복수층은 이와 같이 조합 가능한 경우의 수가 무척 많다. 건물에 사무실이 많은 큰 건물인 경우 수 억 가지 조합이 발생했다. 회사에 등록된 전체 건물을 대상으로 계산해보니 수십 억 건이 넘는 조합이 나왔다. 각 조합이 DB의 항목(&lt;code&gt;row&lt;/code&gt;)이므로 “오, 나도 좀 큰 데이터 좀 다루는 건가!?”하는 시덥잖은 생각이 들기도 했다.&lt;/p&gt;
-
-&lt;p&gt;실제로 갓 완공되어 20여 개 층이 임대 가능한 건물이 있었는데, 이 건물의 20개 사무실에 대해 조합 가능한 경우의 수는 263,644,104가지이다. 그리고, 공실이 30개 이상인 건물도 몇 개 있었다. 이런 경우(case)는 양이 너무 많아 시간이 오래 걸렸다. 느려서 Go언어나 C언어로 짜서 시간을 몇 십배 줄여봤지만, 수에는 어쩔 도리가 없었다. 결국, 연속되지 않은 복수층은 사전에 연산하여(pre-operated) 데이터 테이블에 넣는 방법 대신 매 질의(query) 때마다 연산하기로 했다.&lt;/p&gt;
-
-&lt;p&gt;건물이나 사무실에 변동이 생기면 이를 감지하는 건 &lt;a href=&quot;http://www.mysqltutorial.org/mysql-triggers.aspx&quot;&gt;DBMS의 Trigger&lt;/a&gt; 기능으로 구현하려 했다. 지정한 이벤트가 일어나면 관련 내용을 트럭에 쌓아두고, 점원이 트럭에 쌓인 작업물을 꺼내어 연산하는 식이다. 여기서 트럭이란 Task queue를 의미한다. 하지만, &lt;a href=&quot;http://aws.amazon.com/ko/rds/&quot;&gt;AWS RDS&lt;/a&gt;에서 운영 중인 DB에서는 Trigger가 동작하지 않았다. &lt;a href=&quot;https://techtavern.wordpress.com/2013/06/17/mysql-triggers-and-amazon-rds/&quot;&gt;MySQL, Triggers and Amazon RDS&lt;/a&gt; 글에 따르면 가능하긴 한데, 내키진 않았다. 마침 그 시기에 데이터베이스와 관련된 문제, 다분히 사람의 실수로 큰 문제가 생길 뻔한 상황을 겪어서 운영 중인 데이터베이스에 안전한 설정이라도 변화를 주기 부담스러웠다.&lt;/p&gt;
-
-&lt;p&gt;그래서 일정 시간마다 정보가 변경된 사무실을 검색하고, 있으면 그 사무실이 속한 건물의 검색 대상인 사무실들을 모두 가져와 연층을 연산하는 방식으로 구현 방법을 바꿨다. 건물에 속한 검색 대상 사무실을 모두 가져오는 이유는, 기존엔 연층 조합인 사무실인데 이 사무실이 계약되어 더이상 공실이 아닌 경우, 이 사무실과 연층으로 연결된 조합을 끊어야 하기 때문이다. 만약, 3, 4, 5층, 4, 5층 조합이 있는데 4층이 빠지면, 이 두 조합은 더이상 유효하지 않다.&lt;/p&gt;
-
-&lt;p&gt;조합을 찾는 알고리즘은 Python에 이미 내장되어 있다. &lt;code&gt;itertools&lt;/code&gt; 모듈에 여러 함수가 있는데, 그 중에서 &lt;a href=&quot;https://docs.python.org/2/library/itertools.html#itertools.combinations&quot;&gt;combinations&lt;/a&gt;를 사용하면 건물에 속한 사무실을 조합 가능한 모든 경우를 한 줄로 산출해낸다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from itertools import combinations
-
-_combinated = combinations((&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c&amp;#39;, &amp;#39;d&amp;#39;,), 2)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이 코드를 수행하면 &lt;code&gt;_combinated&lt;/code&gt;엔 &lt;code&gt;[(&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;), (&amp;#39;a&amp;#39;, &amp;#39;c&amp;#39;), (&amp;#39;a&amp;#39;, &amp;#39;d&amp;#39;), (&amp;#39;b&amp;#39;, &amp;#39;c&amp;#39;), (&amp;#39;b&amp;#39;, &amp;#39;d&amp;#39;), (&amp;#39;c&amp;#39;, &amp;#39;d&amp;#39;)]&lt;/code&gt;이 이터레이션 객체로 할당된다. 편하긴 했는데, 같은 기능을 하는 코드를 Go언어와 C언어로 짤 때엔 알고리즘을 직접 구현해야 했다. 재밌긴 했지만, 알고리즘 문제(issue)는 어딘가 알고리즘스러운(?) 코드로 짜고 싶은 욕심이 생겨서 스트레스를 받게 된다. 왜냐하면 알고리즘 자체가 모든 걸 해결해주는 은총알이 아니기 때문이다.&lt;/p&gt;
-
-&lt;p&gt;이 조합(&lt;code&gt;combinations&lt;/code&gt;)은 연속 여부와는 관계없이 조합하는 경우이다. 즉, 연층과 연속하지 않은 복수층 모두를 포함한다. 여기에서 연속층 조합은 따로 연산해야 한다. 그리고, 사무실이 언제나 한 층에 하나만 있진 않아서 다음과 같은 조합도 염두에 둬야 한다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;3층 전체&lt;/li&gt;
-&lt;li&gt;401호, 402호, 403호, 405호&lt;/li&gt;
-&lt;li&gt;501호&lt;/li&gt;
-&lt;li&gt;6층 전체&lt;/li&gt;
-&lt;li&gt;8층 전체&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이 경우, 단순히 4, 5, 6층이 아니라 401호, 5, 6층이나 401, 402호, 5층과 같은 조합도 연층으로 연산해야 한다. 그리고, 지하는 층 숫자가 -1, -2와 같이 음수로 입력이 되어 있어서, 지하 1층, 1층, 2층과 같은 연속층은 층 숫자만으로는 연속되지 않는다. -1, 1, 2가 되기 때문이다.&lt;/p&gt;
-
-&lt;p&gt;이런 저런 예외 상황을 고려하니 기존에 알려진 &lt;a href=&quot;http://ghebook.blogspot.kr/2010/10/permutation-combination.html&quot;&gt;순열(順列, permutation)과 조합(組合, combination)&lt;/a&gt; 알고리즘으로는 내게 필요한 조합을 도출할 수 없었다. 촌철살인 같은 알고리즘으로 멋지게 문제를 해결하고 싶었지만 결국 2중 for문으로 일일이 조합을 연산하여 해결했다.&lt;/p&gt;
-
-&lt;p&gt;Python으로 검색용 사전 연산된 데이터를 탐색하고 구축하는 기능을 구현한 후, Go 언어로 작성된 API Server가 해당 DB 테이블에서 데이터를 질의(query)하는, 실제 검색하는 코드를 작성하는 단계로 넘어갔다. 수행은 다음 단계로 진행한다.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;연층 데이터 테이블에서 요청받은 연층 조건에 해당하는 건물을 찾는다.&lt;/li&gt;
-&lt;li&gt;이 건물 목록을 대상으로 다른 검색 조건으로 검색한다. (예 : 보증금, 임대료, 24시간 개방 여부 등)&lt;/li&gt;
-&lt;li&gt;클라이언트에게 반환할 건물 항목마다 해당 건물의 연층 데이터를 추가한다.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;JSON&lt;/code&gt;으로 반환한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;연층, 즉 사무실 연속 연결 관계를 미리 연산하여 각 조합을 DB 테이블에 넣어두었으니 당연히 1번 과정은 빠르게 처리돼서(평균 0.01 이하) 기존 검색 수행 속도에 별 영향을 주지 않았다. 만족스러웠다.&lt;/p&gt;
-
-&lt;p&gt;약 한 달 동안 개발했다. 1주일은 분석하고 조사하는 데, 1주일은 Python으로 개발하는 데, 10여일은 테이블 구조를 변경하고 재구축하는 삽질하는 데, 나머지 며칠은 Go 코드 작성하는 데 썼다. 이후 한 차례 정도 고생하고, 자잘하게 손 보는 일은 있었지만, 대체로 사고없이 동작하고 있다.&lt;/p&gt;
-
-&lt;h5&gt;우여곡절&lt;/h5&gt;
-
-&lt;p&gt;미리 연산한 데이터를 구축하는 기능을 만들다보니 데이터 집합을 재구성하는 데 시간이 많이 소요되는 문제가 몇 번 있었다. 조합 하나를 처리하는 데 0.5초가 소요되는데, 순수 연산 시간 자체는 얼마 안 걸리고 대부분 DB I/O에 시간이 소요된다. 사무실이나 건물에 변동이 생겨서 해당 건에 대해서만 연층 정보를 DB에 반영하는 건 양이 많지 않아서 몇 초에서 몇 분 안에 처리가 끝나지만, 전체 연층 조합을 처음 구성하는 초기화 또는 전체 재구성을 하는 경우엔 시간이 너무 오래 걸렸다. 실제로 사소한 산술 오류가 생기거나 테이블 구조가 변경되어 전체 데이터를 재구성하는 경우가 몇 번 있었는데, 그때마다 몇 시간씩 재구성이 끝날 때까지 기다려야 했다.&lt;/p&gt;
-
-&lt;p&gt;DB Commit 시기를 조정해보며 어떡해서든 DB I/O 시간을 줄이려 했지만, 병렬 처리를 하지 않는 이상 어쩔 수 없었다. 더도 말고 CPU Core 수만큼만 병렬 처리해도 시간은 크게 단축됐다. 하지만, 이번에도 나는 코드를 병렬 수행을 염두에 두지 않고 작성했다. 정확한 계산을 하려고 각 연산 과정을 잠가서(locked) 수행했고, SQLAlchemy도 처음 사용하다보니 세션이 꼬여서 DB 연결에 문제가 발생하기도 했다. 이 일을 계기로 동시성과 병렬성 문제를 직접 체험하였고, 이론으로 접하던 상황이나 해결책을 좀 더 이해하게 되었다. 역시 게임 규칙에 걸려서 얻어 맞으면 곧바로 게임 규칙을, 적어도 내게 고통을 야기하는 게임 규칙만큼은 빠르게 이해하는 법이다.&lt;/p&gt;
-
-&lt;p&gt;연속되지 않은 복수층을 검색하는 기능은 예상보다 힘들고 어려웠다. DB에 모든 조합을 넣기엔 양이 너무 많아서 그때 그때 연산을 하려 했는데,&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;산술 연산이 생각보다 까다롭고&lt;/li&gt;
-&lt;li&gt;이 산술 연산을 SQL Query문으로 표현하는 것이 어려웠다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;예를 들어, 두 개에서 여덟 개 층으로 250~400평에 해당하는 건물을 찾는다고 가정해보자. 32평씩 여덟 개 층 조합도 조건을 만족하고, 200평 두 개 층도 조건을 만족한다. 즉, 최소, 최대 층 개수와 최소, 최대 면적을 이용하면 된다.&lt;/p&gt;
-
-&lt;p&gt;문제는 여기에 다른 조건이 추가되는 것이다. 이 조건에서 월 고정비가 2,000~3,500만원을 추가하면 연산이 복잡해진다. 실제로는 여기에 그치지 않고 보증금 조건도 추가된다. 조합이 다(many) 대 다(many) 대 다(many)로 연결되는데, 각 요소가 교집합(AND)이 아니라 차집합 연산도 필요하다. 교집합으로만 연산하면 검색 결과가 아주 적어지는데, 최대면적/최소층개수, 최소면적/최대층개수 등 그룹 중 어느 하나라도 조건을 만족하지 않으면 연관된 조건 전체가 성립되지 않기 때문이다. 즉, A건물이 32평씩 여덟 개 층이 있고 200평 두 개는 없으면 이 건물은 검색 대상이 돼야 하는데, 모든 조건을 교집합으로 연산하면 A건물은 검색 대상에서 빠지는 것이다. 그렇다고 이 둘을 합집합(OR)으로 연산해서도 안 된다. 보증금이나 월 고정비와 같은 다른 조건식과 조합할 때 조합 경우의 수가 너무 많아져서 연산하는 데 시간이 오래(몇 배에서 몇 십 배) 걸린다.&lt;/p&gt;
-
-&lt;p&gt;이를 의사(pseudo) 코드로 작성했을 땐 비교적 간단하게 답을 찾았다. 문제는 SQL Query로 표현하는 것이었다. 몇 시간을 끙끙댔지만 결국 제대로 동작하는 Query문을 작성하지 못했다. 다행히 동료 개발자가 한 시간도 안 되어 문제를 해결해 주었다. &lt;code&gt;Union&lt;/code&gt;을 사용했는데, 생각보다 빠르게 수행되었다.&lt;/p&gt;
-
-&lt;p&gt;여러 검색 조건이 조합된 복수층 검색을 구현할 때 겪은 어려움 중 하나는 검색 결과가 유효한 것인지를 판단하기 어렵다는 점이었다. SQL Query문을 조금 고치자 검색된 데이터가 달라졌는데, 매번 일일이 제대로 검색된 것인지 데이터를 확인할 수는 없었다. 하지만, 제대로 된 테스트 케이스를 만들지 않아서 “할 수는 없는” 그 일을 실제로 해야만 했다. 면적 조건은 만족하고 보증금 조건도 만족하고 월 고정비도 만족하는 것 같은데, 자세히 살펴보니 월 고정비에서 몇 만원 차이로 조건을 만족시키지 않는 경우가 있다. 이는 암산으로 유효한 결과인지 검증해서는 안 된다는 걸 뜻한다. 그렇다고 하나 하나 계산기를 두드리기엔 사람은 너무 느리다.&lt;/p&gt;
-
-&lt;p&gt;검색된 결과에서 조건에 해당하지 않는 데이터를 찾는 건 그래도 낫다. 검색 결과에 포함되지 않는 수많은 데이터는 막막하다. 검색 결과에 포함돼야 하는데, 포함되지 않은 경우 대체 어떻게 이 사실을 알아내야 할까? 테스트 시나리오를 만들어서 검색될 수 밖에 없는 데이터를 대상으로 검색 조건을 돌리는 것이다.&lt;/p&gt;
-
-&lt;p&gt;테스트 케이스를 작성하지 않아 고통이 증폭되고, 도저히 견딜 수 없겠다 싶은 시점 직전에 모든 문제를 해결했다. 아마 느리디 느리고 부정확한 사람의 연산 능력으로 검색 결과 데이터를 검증하는 일을 몇 번 더 했더라면 진행하던 일을 중단하고 테스트 케이스부터 작성했을 것이다.&lt;/p&gt;
-
-&lt;h5&gt;정리&lt;/h5&gt;
-
-&lt;p&gt;목표치는 모두 달성했다. 이 프로젝트 이후 나는 Python 3에 정착하였고, Python 2.7용으로 작성한 소스도 비교적 간단히 Python 3용 코드로 전환된다. 불필요한 사양이 좀 있긴 하지만, 어쨌든 확장성과 유연성이 있는 설계와 구조로 동작한다.&lt;/p&gt;
-
-&lt;p&gt;이번 프로젝트를 진행하면서 전업 프로그래머가 된 이래 비로소 내가 하고 싶은 일과 만들고 싶은 일을 어떻게 해야할 지 방향을 잡았다. 이 프로젝트를 마치고 나는 곧바로 수학 공부를 중등 과정부터 다시 시작했으며, 알고리즘과 데이터 구조, 프로그램 구조 공부를 시작했다. 비동기와 병렬성, 그리고 데이터 처리도 물론 내가 공부할 분야이지만, 일단은 좀 더 여유를 두고 파기로 했다.&lt;/p&gt;
-
-&lt;p&gt;기능에 대한 유닛 테스트가 필요하다는 건 생각만 했지 실제로는 잘 실천하지 않았는데, 데이터를 다루면서 유닛 테스트가 반드시 필요하다는 걸 절실히 느꼈다. 데이터 연산에 사소한 연산 변화를 주더라도 예측을 크게 벗어나는 경우가 많았고, 이를 사람이 직관으로 검증하는 건 효율이 대단히 떨어진다.&lt;/p&gt;
-
-&lt;p&gt;기계가 할 일을 사람이 해서는 안 된다. 기계가 할 일은 기계가 잘 하도록 맡겨 두고, 사람은 사람이 잘하는 일에 집중해야 한다.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 22 Feb 2015 21:00:00 +0900</pubDate>
-        <link>http://blog.hannal.com//2015/02/devlife-s1-02/</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2015/02/devlife-s1-02/</guid>
-        
-        <category>Python</category>
-        
-        <category>데이터 처리</category>
-        
-        <category>SQLAlchemy</category>
-        
-        <category>AWS RDS</category>
-        
-        <category>병렬 처리</category>
-        
-        <category>유닛 테스트</category>
-        
-        <category>검색</category>
-        
-        <category>선처리 데이터</category>
         
         
         <category>devlife</category>
