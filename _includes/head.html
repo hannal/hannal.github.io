@@ -14,6 +14,11 @@
       {{ page.title }} &middot; {{ site.title }}
     {% endif %}
   </title>
+  <meta property="og:title" content="{% if page.title == "Home" %}{{ site.title }} &middot; {{ site.tagline }}{% else %}{{ page.title }} &middot; {{ site.title }}{% endif %}" />
+  <meta property="og:site_name" content="Kay on the rails"/>
+  <meta property="og:url" content="http://blog.hannal.com{% if page.title != "Home" %}{{ page.url }}{% endif %}" />
+  <meta property="fb:app_id" content="308847979152210" />
+  <meta property="og:type" content="article" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="{{ site.baseurl }}public/css/poole.css">
