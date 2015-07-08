@@ -6,9 +6,215 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 02 Jul 2015 21:34:23 +0900</pubDate>
-    <lastBuildDate>Thu, 02 Jul 2015 21:34:23 +0900</lastBuildDate>
+    <pubDate>Thu, 09 Jul 2015 02:30:36 +0900</pubDate>
+    <lastBuildDate>Thu, 09 Jul 2015 02:30:36 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Celery의 Subtask 기능을 이용하여 Chord와 Chain로 작업 분산해서 다루기</title>
+        <description>&lt;h3&gt;웹페이지 긁어오기&lt;/h3&gt;
+
+&lt;p&gt;Python으로 웹페이지 열 곳을 긁어와서 하나로 합쳐 보겠습니다. Python HTTP library인 &lt;a href=&quot;http://docs.python-requests.org/en/latest/&quot;&gt;requests&lt;/a&gt;를 쓰면 아주 간단합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;import requests
+
+def fetch_page_by_url(url):
+    res = requests.get(url.format(i))
+
+    if int(res.status_code / 100) == 2:
+        return res.text
+
+merged_text = []
+for i in range(0, 10):
+    result = fetch_page_by_url(&amp;#39;http://localhost:8000/{}.html&amp;#39;.format(i))
+
+    if result is not None:
+        merged_text.append(result)
+
+do_something(merged_text.join(&amp;#39;&amp;#39;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Celery를 이용해 비동기 방식으로 긁어오기&lt;/h3&gt;
+
+&lt;p&gt;차례대로 긁어오니 열 개 페이지를 모두 가져오기 전까지는 결과를(&lt;code&gt;do_something(merged_text.join(&amp;#39;&amp;#39;))&lt;/code&gt;) 확인하지 못합니다. &lt;a href=&quot;https://docs.python.org/3/library/multiprocessing.html&quot;&gt;multiprocessing&lt;/a&gt;을 이용해 여러 프로세스로 동시성을 확보해도 되지만, 분산 작업 큐 시스템인 &lt;a href=&quot;http://celery.readthedocs.org/en/latest/&quot;&gt;Celery&lt;/a&gt;로 쉽고 간편하게 비동기 처리하기도 합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from celery import Celery
+
+app = Celery(__name__)
+
+@app.task
+def fetch_page_by_url(url):
+    res = requests.get(url.format(i))
+
+    if int(res.status_code / 100) == 2:
+        return res.text
+
+merged_text = []
+for i in range(0, 10):
+    result = fetch_page_by_url.apply_async(
+        &amp;#39;http://localhost:8000/{}.html&amp;#39;.format(i)
+    )
+
+    if result is not None:
+        merged_text.append(result)
+
+do_something(merged_text.join(&amp;#39;&amp;#39;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 코드에는 문제가 있습니다. Celery 작업 수행 객체로 장식된(decorated) &lt;code&gt;fetch_page_by_url&lt;/code&gt; 객체의 &lt;code&gt;apply_async()&lt;/code&gt; 메서드를&lt;sup id=&quot;fnref1&quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 이용하여 &lt;strong&gt;비동기&lt;/strong&gt;로 작업을 수행하는데, 이 메서드가 반환하는 객체는 &lt;code&gt;res.text&lt;/code&gt;가 아니라 Celery 결과 작업을 다루는 객체입니다. 게다가 비동기로 작업을 수행하고 바로 프로그램 수행 제어권을 호출자에게 반환하므로 &lt;code&gt;fetch_page_by_url.apply_async(...)&lt;/code&gt; 호출이 되자마자 바로 다음 구문을 수행하는데, 웹 페이지를 가져오는 작업이 끝났는지 여부는 알지 못 합니다.&lt;/p&gt;
+
+&lt;p&gt;이 문제를 피하려면 &lt;code&gt;get()&lt;/code&gt; 메서드를 이용합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;    if result.get() is not None:
+        merged_text.append(result)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;get()&lt;/code&gt; 메서드는 비동기로 수행하는 작업 객체(&lt;code&gt;fetch_page_by_url()&lt;/code&gt;)가 작업을 마치고 값을 반환하기를 &lt;strong&gt;동기식&lt;/strong&gt;으로 기다려서 반환합니다. 어?! 이렇게 할 거라면 굳이 Celery를 쓸 필요가 없지요. Celery에게 여러 작업을 맡겨서 비동기로 처리하고, 비동기로 처리한 결과를 받아다 뭔가를 하려면 다른 방법을 써야 합니다. 이 글에서는 &lt;code&gt;chain&lt;/code&gt;와 &lt;code&gt;chord&lt;/code&gt;을 사용하겠습니다.&lt;/p&gt;
+
+&lt;h3&gt;chain 기능&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;chain&lt;/code&gt; 기능은 이름에서 전해지듯이 작업을 체인처럼 줄줄이 수행합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from celery import chain
+
+@app.task
+def fetch_page_by_url(url, append_text=None):
+    res = requests.get(url.format(i))
+
+    if int(res.status_code / 100) == 2:
+        if append_text is None
+            return res.text
+        else:
+            res.text + append_text
+
+tasks = []
+for i in range(0, 10):
+    tasks.append(
+        fetch_page_by_url.subtask(
+            &amp;#39;http://localhost:8000/{}.html&amp;#39;.format(i)
+        )
+    )
+
+result = chain(tasks)()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;subtask()&lt;/code&gt;는 Celery 작업 객체를 하위 작업으로 수행하는 메서드입니다&lt;sup id=&quot;fnref2&quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. &lt;code&gt;fetch_page_by_url&lt;/code&gt; 객체를 하위 작업으로 수행하는 작업 열 개를 담아 &lt;code&gt;chain()&lt;/code&gt;에 전달하면 &lt;code&gt;chain()&lt;/code&gt;은 순서대로 작업을 수행합니다. 각 작업이 반환하는 객체는 다음 작업자에게 인자로 전달합니다. 첫 번째 &lt;code&gt;fetch_page_by_url()&lt;/code&gt; 함수가 반환하는 웹페이지 문자열을 두 번째 &lt;code&gt;fetch_page_by_url()&lt;/code&gt;는 두 번째 인자로 받는 것이죠. 그래서 두 번째 &lt;code&gt;fetch_page_by_url()&lt;/code&gt;부터는 앞 작업자가 반환하는 결과를 넘겨 받는 것이지요.&lt;/p&gt;
+
+&lt;p&gt;다른 예를 들어 보겠습니다. 숫자 두 개를 인자로 전달하면 두 숫자를 더하는 작업자를 쓰겠습니다.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;첫 번째 셈은 1 + 1 입니다.&lt;/li&gt;
+&lt;li&gt;두 번째 셈은 첫 번째 덧셈 결과를 받아서 10을 더합니다.&lt;/li&gt;
+&lt;li&gt;세 번째 셈은 두 번째 덧셈 결과를 받아서 100을 더합니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이걸 &lt;code&gt;chain()&lt;/code&gt;을 이용하면 다음과 같습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;do_chain_tasks = chain(add.s(1, 1), add.s(10), add.s(100))
+do_chain_tasks()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;chain()&lt;/code&gt;도 바로 작업을 수행하는 게 아니라 Celery 작업 객체를 반환하며&lt;sup id=&quot;fnref3&quot;&gt;&lt;a href=&quot;#fn3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;, 이 작업 객체를 실행해야 합니다. 바로 위 코드는 &lt;code&gt;chain(...)()&lt;/code&gt;라는 구문을 나눈 것입니다.&lt;/p&gt;
+
+&lt;p&gt;재밌는 점은 Celery는 비트 연산으로도 &lt;code&gt;chain()&lt;/code&gt; 작업 객체를 만들어 준다는 점입니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;(
+    fetch_page_by_url.s(&amp;#39;http://localhost:8000/0.html&amp;#39;) |
+    fetch_page_by_url.s(&amp;#39;http://localhost:8000/1.html&amp;#39;) |
+    fetch_page_by_url.s(&amp;#39;http://localhost:8000/2.html&amp;#39;) |
+    fetch_page_by_url.s(&amp;#39;http://localhost:8000/3.html&amp;#39;)
+).apply_async()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;참 꼼꼼하게 만들어 놨어요. :)&lt;/p&gt;
+
+&lt;h3&gt;chord 기능&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;chain()&lt;/code&gt;을 이용해 비동기로 열 개 작업을 수행하고 그 결과를 합쳤는데, 아쉬운 마음이 듭니다. 전체 작업 자체는 분명 비동기로 시작한 게 맞지만, 웹페이지를 긁어오는 작업도 동시에 분산해서 처리하면 더 효율이 좋을 겁니다. &lt;code&gt;chord()&lt;/code&gt;는 하위 작업을 동시에 수행하고, 각 작업자가 반환하는 값을 callback 실행 객체로 전달해줍니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from collections import MutableSequence
+from celery import chord
+
+@app.task
+def fetch_page_by_url(url):
+    res = requests.get(url.format(i))
+
+    if int(res.status_code / 100) == 2:
+        return res.text
+
+@app.task
+def merge_text(texts):
+    assert(isinstance(texts, MutableSequence))
+    return texts.join(&amp;#39;&amp;#39;)
+
+tasks = []
+for i in range(0, 10):
+    tasks.append(
+        fetch_page_by_url.s(&amp;#39;http://localhost:8000/{}.html&amp;#39;.format(i))
+    )
+
+do_chain_tasks = chord(tasks)
+do_chain_tasks(merge_text.s())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;fetch_page_by_url()&lt;/code&gt; 함수가 원래대로(?) 돌아왔고, &lt;code&gt;merge_text()&lt;/code&gt; 함수가 새로 추가됐습니다. &lt;code&gt;merge_text()&lt;/code&gt;는 전달받은 인자 &lt;code&gt;texts&lt;/code&gt;를 합치는 일을 하는데, &lt;code&gt;fetch_page_by_url()&lt;/code&gt;가 반환하는 문자열을 담은 리스트형(&lt;code&gt;list&lt;/code&gt;) 객체입니다. 맨 처음에 비동기로 작성한 코드에서 웹페이지 문자열을 리스트로 담은 &lt;code&gt;merged_text&lt;/code&gt;와 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;chord()&lt;/code&gt;는 각 작업자(&lt;code&gt;fetch_page_by_url()&lt;/code&gt;)가 반환하는 값을 리스트형으로 모아서 callback 객체에게 인자로 전달합니다. &lt;code&gt;chord()&lt;/code&gt;로 만든 Celery 작업 객체로 callback 객체를 전달할 때 인자를 지정하지 않아도 됩니다. 알아서 넣어 줍니다.&lt;/p&gt;
+
+&lt;p&gt;근데 이 코드엔 사소하다면 사소하고 심각하다면 심각한 문제가 있습니다. 작업들을 비동기로 수행하다보니 웹페이지 문자열이 우리가 원하는 순서대로 담겨져 &lt;code&gt;merge_text()&lt;/code&gt;로 전달된다는 보장이 없습니다. 작업이 먼저 끝나는 순서대로 결과가 담기니 0 - 1 - 2 - 3 ... 순서가 될 지 9 - 4 - 7 - 1 순서가 될 지는 아무도 모릅니다.&lt;/p&gt;
+
+&lt;p&gt;여러 해결책이 있겠지만, 각 작업자마다 순번을 주고, &lt;code&gt;merge_text()&lt;/code&gt;는 이 순번대로 문자열을 합치면 되겠네요.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;@app.task
+def fetch_page_by_url(url, num):
+    res = requests.get(url.format(i))
+
+    if int(res.status_code / 100) == 2:
+        return res.text, num
+
+@app.task
+def merge_text(texts):
+    assert(isinstance(texts, MutableSequence))
+    texts.sort(key=lambda x: x[1])
+    return texts.join(&amp;#39;&amp;#39;)
+
+tasks = []
+for i in range(0, 10):
+    tasks.append(
+        fetch_page_by_url.s(
+            &amp;#39;http://localhost:8000/{}.html&amp;#39;.format(i), i
+        )
+    )
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;각 &lt;code&gt;fetch_page_by_url()&lt;/code&gt;에 두 번째 인자로 순번(&lt;code&gt;i&lt;/code&gt;)을 전달하고, &lt;code&gt;fetch_page_by_url()&lt;/code&gt;는 받은 순번을 웹페이지 문자열과 함께 그대로 반환합니다. &lt;code&gt;merge_text()&lt;/code&gt;가 전달받은 &lt;code&gt;texts&lt;/code&gt;엔 각 &lt;code&gt;fetch_page_by_url()&lt;/code&gt; 결과가 &lt;code&gt;[(문자열, 0), (문자열, 3), ...]&lt;/code&gt; 형태로 담깁니다. 그래서 각 항목의 두 번째(&lt;code&gt;[1]&lt;/code&gt;) 값으로 정렬하고 나서 한 문자열로 합친 것입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://celery.readthedocs.org/en/latest/userguide/canvas.html#the-primitives&quot;&gt;Canvas: Designing Workflows : The primitives&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://celery.readthedocs.org/en/latest/userguide/tasks.html#avoid-launching-synchronous-subtasks&quot;&gt;Tasks : Avoid launching synchronous subtasks&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+
+&lt;li id=&quot;fn1&quot;&gt;
+&lt;p&gt;대개는 &lt;code&gt;delay()&lt;/code&gt;라는 메서드로 줄여서 수행합니다.&amp;nbsp;&lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn2&quot;&gt;
+&lt;p&gt;대개는 &lt;code&gt;s()&lt;/code&gt;로 줄인 메서드 이름을 씁니다.&amp;nbsp;&lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li id=&quot;fn3&quot;&gt;
+&lt;p&gt;&lt;code&gt;chain&lt;/code&gt;과 &lt;code&gt;chord&lt;/code&gt;는 함수처럼 생겼지만 클래스입니다.&amp;nbsp;&lt;a href=&quot;#fnref3&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 08 Jul 2015 17:25:00 +0900</pubDate>
+        <link>http://blog.hannal.com//2015/07/celery_chord_and_chain/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2015/07/celery_chord_and_chain/</guid>
+        
+        <category>python</category>
+        
+        <category>celery</category>
+        
+        <category>asynchronous</category>
+        
+        <category>distributed</category>
+        
+        
+        <category>devlife</category>
+        
+      </item>
     
       <item>
         <title>9. 로그인한 이용자만 사진 게시물 게시하기</title>
@@ -1975,240 +2181,6 @@ hello_func(1, 2, &amp;#39;3&amp;#39;, &amp;#39;a&amp;#39;)
         <pubDate>Mon, 09 Mar 2015 04:33:40 +0900</pubDate>
         <link>http://blog.hannal.com//2015/03/devlife-s1-04/</link>
         <guid isPermaLink="true">http://blog.hannal.com//2015/03/devlife-s1-04/</guid>
-        
-        <category>Python</category>
-        
-        <category>SMTP</category>
-        
-        <category>Jinja2</category>
-        
-        <category>Celery</category>
-        
-        <category>Mailjet</category>
-        
-        <category>Sentry</category>
-        
-        <category>Upstart</category>
-        
-        
-        <category>devlife</category>
-        
-      </item>
-    
-      <item>
-        <title>개발 생활 - 3</title>
-        <description>&lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;개발 생활 - 1&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;&lt;code&gt;개발 생활 - 3&lt;/code&gt;&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;개발 생활 - 6&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3&gt;2. 개발 프로젝트&lt;/h3&gt;
-
-&lt;h4&gt;2-3. 전자우편 알림 서버&lt;/h4&gt;
-
-&lt;h5&gt;개요&lt;/h5&gt;
-
-&lt;p&gt;전자우편 알림 서버는 특정 사건(event)이 발생하면 관련된 사람에게 그 사건에 대해 알리는 역할을 한다. 가령, K와 C영업인이 한날이라는 고객을 담당하고 있는데, C담당자가 고객과 영업 관련 일정을 잡을 경우, K담당자에게도 이에 대한 내용을 전자우편으로 안내하는 것이다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;요구사항
-
-&lt;ol&gt;
-&lt;li&gt;사건이나 상황(event)이 발생하면, 이와 관련된 담당자나 팀에 즉시 전자우편으로 그 내용을 보낸다.&lt;/li&gt;
-&lt;li&gt;비밀번호 찾기 등 고객 홈페이지에서 발생하는 안내나 통지 행위도 처리한다.&lt;/li&gt;
-&lt;li&gt;여러 상황에 처한 고객에게 상황에 맞는 전자우편을 자동으로 보낸다.
-
-&lt;ul&gt;
-&lt;li&gt;예) 특정 기간 이상 접속하지 않은 고객에게 서비스 이용 안내와 매물을 추천&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;li&gt;내가 정한 추가 목표치
-
-&lt;ul&gt;
-&lt;li&gt;Python 3로 작성한다.&lt;/li&gt;
-&lt;li&gt;프로그래밍 언어나 라이브러리, 프레임워크를 이전(migration)할 가능성을 염두에 두고 구조를 짠다.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-0008/&quot;&gt;PEP 8&lt;/a&gt;을 최대한 지킨다.&lt;/li&gt;
-&lt;li&gt;병렬로 작업(알림 처리)을 수행한다.&lt;/li&gt;
-&lt;li&gt;Unittest를 작성한다.&lt;/li&gt;
-&lt;li&gt;오류 내역을 효율성 있게 관리한다.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5&gt;개발 환경&lt;/h5&gt;
-
-&lt;ul&gt;
-&lt;li&gt;언어 : Python 3.4, Go 1.3&lt;/li&gt;
-&lt;li&gt;사용 라이브러리, 프레임워크
-
-&lt;ul&gt;
-&lt;li&gt;ORM : &lt;a href=&quot;http://www.sqlalchemy.org/&quot;&gt;SQLAlchemy&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;반복 예약과 분산 처리 : &lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;Celery&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;템플릿 : &lt;a href=&quot;http://jinja.pocoo.org/&quot;&gt;Jinja2&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;오류 내역 관리 : &lt;a href=&quot;http://www.getsentry.com&quot;&gt;Sentry&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;PEP 8 검사 : &lt;a href=&quot;https://pypi.python.org/pypi/flake8&quot;&gt;Flake 8&lt;/a&gt;, &lt;a href=&quot;https://github.com/SublimeLinter/SublimeLinter3&quot;&gt;SublimeLinter&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;HTTP 처리 : &lt;a href=&quot;http://docs.python-requests.org/en/latest/&quot;&gt;Requests&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5&gt;개발 과정&lt;/h5&gt;
-
-&lt;p&gt;먼저 이름부터 붙였다. Mailer라는 비공식 이름이 통용되었지만 좀 더 일상과 대중에 친숙한 단어인 postman이라 프로젝트 이름을 붙였다. 보이지 않는 곳에서 나대지 않고 조용히 일하는 느낌이 들도록 머릿글자도 소문자로 표기했다.&lt;/p&gt;
-
-&lt;p&gt;작동 흐름은 간단했다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;알림 전자우편
-
-&lt;ol&gt;
-&lt;li&gt;전자우편 발송 요청(request)을 API Server가 받으면 각 요청을 발송 대기함에 쌓음.&lt;/li&gt;
-&lt;li&gt;발송 작업자(worker)가 대기함에 있는 발송 대상을 가지고 와서 전자우편 발송 서비스에 전달.&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;li&gt;개인 또는 그룹을 대상으로 하는 소식지(newsletter)
-
-&lt;ol&gt;
-&lt;li&gt;일정 주기 마다 소식지 주제 별 수신자를 수집(build).
-
-&lt;ul&gt;
-&lt;li&gt;예) 가입 후 일정 기간 동안 로그인을 안 한 이용자들에게 서비스 안내 전자우편 발송.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;수신자 그룹을 전자우편 발송 서비스에 생성.&lt;/li&gt;
-&lt;li&gt;생성한 수신자 그룹으로 전자우편 발송.&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;SMTP 서버를 직접 구축하진 않기로 했다. 개발팀에서 프로그래머는 개발과 운영, 관리를 수행하고 있는데다 여러 개 제품이 이미 운영되고 있었기 때문에 되도록 관리할 대상을 줄여야 했기 때문이다. 그래서 전자우편 발송 서비스를 이용하기로 하고, 몇 개 업체를 검토한 끝에 &lt;a href=&quot;https://www.mailjet.com&quot;&gt;Mailjet&lt;/a&gt;을 이용하기로 결정했다. API도 잘 만들어져 있고, SMTP를 제공하며, 이미 쓰고 있는 지인이 소개해주어 무료 서비스를 사용해봤는데 기대만큼 만족스러웠다.&lt;/p&gt;
-
-&lt;p&gt;또한, 고객 지원도 아주 빠르고 친절했다. 예를 들어, 무료 서비스는 한 달에 발송 가능한 전자우편 개수가 무척 적게 제한되어 있는데, 이 개수를 모르던 나는 몇 백 개째부터는 전자우편이 발송이 안 되고 대기 상태에 머물러있자 이것 저것 설정을 변경하며 방황하고 있었다. 그러자 놀랍게도 몇 십 분 후에 대시보드 페이지에 도움이 필요하느냐는 안내 버튼이 출력되었고, 이 버튼을 눌러 실시간 대화를 나누어 문제를 파악하고 처리할 수 있었다. 그때가 한국 시간으로 14~15시 경이었기에 꽤 놀랐다. 비용도 한 달에 30,000건 발송하는 정도는 한 달에 약 9 USD이면 되는 수준이라 바로 유료 전환했다.&lt;/p&gt;
-
-&lt;p&gt;postman 프로젝트는 여러 차례 구조를 세웠다 무너뜨리며 설계를 되풀이했다. 그렇다고 해서 처음부터 크게 구조를 잡은 건 아니고, 1차 버전은 특정 상황(event)이 발생하면 담당자에게 이에 대해 개별 전자우편을 보내어 알리는 기능만 개발하는 범위여서 확장하거나 변경될 여지를 두고 구조를 잡았다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;발송부(sender)
-
-&lt;ul&gt;
-&lt;li&gt;발송 서버에 연결하는 API&lt;/li&gt;
-&lt;li&gt;일정 시간 마다 발송 대기함에서 대기 작업물 처리자(periodic worker)&lt;/li&gt;
-&lt;li&gt;각 전자우편에 지정된 템플릿으로 전자우편 제목과 본문을 만드는 서식부&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;발송 대기함에 쌓는 기능부&lt;/li&gt;
-&lt;li&gt;수신자 구성부(builder)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Mailjet에서 &lt;code&gt;REST API&lt;/code&gt;로 개별 전자우편을 발송하는 API를 제공했지만, 발송 서버에 연결하는 부분은 SMTP로 처리하였다. 이 방식이 HTTP로 연결하여 요청하는 것보다 좀 더 빨랐다. 쌓인 전자우편을 여러 개 보내야 하는 경우가 생기는데, HTTP/1.x는 매 요청마다 Mailjet 서버에 연결하고 끊기를 되풀이한다. 그에 반해 SMTP는 연결을 유지한다.&lt;/p&gt;
-
-&lt;p&gt;Python으로 SMTP는 &lt;code&gt;smtplib&lt;/code&gt; 모듈을 이용하여 간단하게 다룬다. 다만, 웹에 있는 대부분 예제는 Python 2용이어서 Python 3.4에서는 문제가 발생하는데, 원인은 패키지나 모듈 배치가 바뀐 탓이다. 다행히 Python 공식 문서에 &lt;a href=&quot;https://docs.python.org/3/library/email-examples.html&quot;&gt;email: Examples&lt;/a&gt;라는 문서에 아주 자세한 예제가 나와있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;편의점 프로젝트&lt;/a&gt;과는 달리 postman 프로젝트는 &lt;code&gt;Celery&lt;/code&gt;를 이용하여 일정 시간마다 지정한 작업이 진행되도록 하였다. &lt;a href=&quot;http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html&quot;&gt;Periodic Tasks&lt;/a&gt;를 이용했는데, &lt;code&gt;periodic_task&lt;/code&gt;라는 장식자(&lt;code&gt;decorator&lt;/code&gt;)를 사용했다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from datetime import timedelta
-
-from celery.decorators import periodic_task
-
-notify_staff_settings = {
-    &amp;#39;notify_staff&amp;#39;: {
-        &amp;#39;run_every&amp;#39;: timedelta(minutes=1),
-    },
-}
-
-@periodic_task(**notify_staff_settings)
-def notify_staff():
-    pass
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;템플릿 엔진인 &lt;code&gt;Jinja2&lt;/code&gt;는 &lt;a href=&quot;http://www.djangoproject.com&quot;&gt;Django&lt;/a&gt;의 템플릿 문법과 유사하고, &lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;제안서를 PDF로 만드는 문서 서버&lt;/a&gt;를 만들면서 다뤄서 친숙했다. 다만, 템플릿 전체가 아니라 블록 단위로 내용을 가져오려고 하는 부분은 문서에 예제가 자세히 나오지 않아서 조금 애먹었다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;{% block subject %}
-[공실] {{ building.name }}에 새로운 공실
-{% endblock %}
-
-{% block body %}
-  {{ building.id }} - {{ product.id }}
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-{% endblock %}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이런 템플릿이 있는 경우, 전자우편 제목은 &lt;code&gt;subject&lt;/code&gt; 블록에 있는 내용을, 본문은 &lt;code&gt;body&lt;/code&gt; 블로에 있는 내용을 사용하는 것이다. 템플릿에서 전자우편 제목과 본문을 만들면 알림 전자우편 제목이나 본문 형식(format)이 바뀌어도 Python 애플리케이션 코드는 변동되지 않으므로 애플리케이션 서버를 재가동하지 않아도 되고, 템플릿이 읽히는 다음 작업 시기에 곧바로 변동 내역이 반영된다는 장점이 있다.&lt;/p&gt;
-
-&lt;p&gt;Jinja에서 템플릿을 렌더링하면 템플릿 컨텍스트(변수나 필터 등)가 반영된 최종 결과물 문자열이 반환된다. 나는 이걸 &lt;code&gt;subject&lt;/code&gt; 블록 따로, &lt;code&gt;body&lt;/code&gt; 블록 따로 다루고 싶었고, 당연히(?) Jinja로 이런 처리가 가능하다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from jinja2 import (
-    Environment,
-    FileSystemLoader,
-)
-
-_template_engine = Environment(
-    loader=FileSystemLoader(settings.TEMPLATE_PATH),
-    trim_blocks=True,
-)
-
-_template = _template_engine.get_template(&amp;#39;test.html&amp;#39;)
-_context = _template.new_context({
-    &amp;#39;title&amp;#39;: &amp;#39;Hello world&amp;#39;,
-})
-
-email_subject = &amp;#39;&amp;#39;.join(_template.blocks[&amp;#39;subject&amp;#39;](_context))
-email_body = &amp;#39;&amp;#39;.join(_template.blocks[&amp;#39;body&amp;#39;](_context))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;오류 내역은 벼르고 별렀던 &lt;code&gt;Sentry&lt;/code&gt;를 도입하여 관리했다. 그동안은 로그를 쌓거나 출력하여 문제를 추적했는데, 로그가 쌓이면 문제를 추적하기 불편했고, &lt;code&gt;traceback&lt;/code&gt; 정보가 제대로 나오지 않아 문제 파악도 힘들었다. Sentry 역시 전자우편 발송 서버와 마찬가지로 실 서버는 Sentry 회사가 제공하는 서비스를 이용하고, 개발 중에는 내 작업 PC에 직접 설치하여 관리했다. 사용법도 간단하다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from raven import Client as RavenClient
-
-raven_client = RavenClient(SENTRY_APIKEY)
-
-@raven_client.capture_exceptions
-def notify_staff():
-    pass
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h5&gt;우여곡절&lt;/h5&gt;
-
-&lt;p&gt;Mailjet에서 제공하는 &lt;code&gt;REST API&lt;/code&gt;로 개별 전자우편을 발송하는 과정에서 적지않은 시행착오를 겪었다. REST API를 다루려고 &lt;code&gt;Requests&lt;/code&gt; 라이브러리를 사용했는데 자꾸 요청이 Mailjet 서버로부터 거절되었다. &lt;code&gt;Curl&lt;/code&gt;을 이용하면 잘 작동하였다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;curl -X POST --user &amp;quot;$MJ_APIKEY_PUBLIC:$MJ_APIKEY_PRIVATE&amp;quot; \
-    https://api.mailjet.com/v3/send/message \
-    -F from=&amp;#39;Miss Mailjet &amp;lt;ms.mailjet@example.com&amp;gt;&amp;#39; \
-    -F to=mr.mailjet@example.com \
-    -F subject=&amp;#39;Hello World!&amp;#39; \
-    -F text=&amp;#39;Greetings from Mailjet.&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이는 HTTP에서 &lt;code&gt;Post&lt;/code&gt; 방식으로 데이터를 보낼 때 컨텐트 타입을 &lt;code&gt;multipart/form-data&lt;/code&gt;로 보내는 &lt;a href=&quot;https://www.ietf.org/rfc/rfc2388.txt&quot;&gt;RFC 2388&lt;/a&gt;를 따르는 것이며, 이를 Requests 라이브러리를 이용하여 다음과 같이 처리한다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;_res = requests.post(
-    &amp;#39;https://api.mailjet.com/v3/send/message&amp;#39;,
-    auth=(
-        &amp;#39;$MJ_APIKEY_PUBLIC&amp;#39;,
-        &amp;#39;$MJ_APIKEY_PRIVATE&amp;#39;
-    ),
-    data={
-        &amp;#39;from&amp;#39;: &amp;#39;Miss Mailjet &amp;lt;ms.mailjet@example.com&amp;gt;&amp;#39;,
-        &amp;#39;to&amp;#39;: &amp;#39;mr.mailjet@example.com&amp;#39;,
-        &amp;#39;subject&amp;#39;: &amp;#39;Hello World!&amp;#39;,
-        &amp;#39;text&amp;#39;: &amp;#39;Greetings from Mailjet.&amp;#39;,
-    },
-)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;하지만, 무슨 이유에서인지 Mailjet쪽에서 발송을 거절했다. &lt;a href=&quot;http://www.getpostman.com/&quot;&gt;Postman&lt;/a&gt;이라는 HTTP 클라이언트로 보내도 잘 작동했는데, 유독 Requests로는 실패했다. 그래서 HTTP Header를 하나씩 까보니 Requests는 파일을 첨부하면 Curl 등 다른 소프트웨어와는 미묘하게 다른 HTTP Header를 만든다는 걸 발견했고, Mailjet은 이런 요청은 거부하는 민감한 동작을 했다. 어차피 SMTP를 이용해 보낼 계획이어서 SMTP로 직접 발송하여 문제는 해결했지만, 찝찝한 마음이 남았다. 현재는(2015년 3월 기준) 문제없이 발송된다.&lt;/p&gt;
-
-&lt;p&gt;Celery를 사용하는 인터페이스 부분을 추상화하는 과정도 뜻대로 되지 않은 부분이 많았다. 언제든지 Celery를 걷어내고 다른 라이브러리를 사용해도 문제가 없도록 패키지와 모듈 구성을 구성하였는데, 문제가 발생했을 때 문제를 추적하기 불편하였고 추상화 한 것에 비해 실제 Celery를 사용하는 부분 인터페이스가 많지 않았다. 결국은 Celery 인터페이스 이름만 바꾼 것에 가까운 반쪽짜리 추상화가 되고 말았다. 어설픈 추상화는 안 하느니만 못 하다.&lt;/p&gt;
-
-&lt;p&gt;Python 3를 사용하는 데엔 별다른 시행착오를 겪지 않았다. Python 3 기능을 그다지 깊게 사용하지 않기도 했지만, 지난 프로젝트부터 Python 3를 대비하고 준비한 게 도움이 됐다. 그리고, postman 프로젝트에 사용한 외부 라이브러리도 모두 Python 3를 지원했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://spoqa.github.io/2012/08/03/about-python-coding-convention.html&quot;&gt;PEP 8&lt;/a&gt;을 도입하는 것도 무난했다. PEP 8 검사에 사용한 Flake8의 Sublime Text용 부가기능(plugin)이 Sublime Text 2에서 잘 작동하지 않아 엉겁결에 Sublime Text 3로 이전한 것 빼고는 별달리 어렵거나 힘든 상황은 맞이하지 않았다. &lt;a href=&quot;https://www.python.org/dev/peps/pep-0008/#maximum-line-length&quot;&gt;한 줄을 80열 미만으로 코드를 작성하는 것&lt;/a&gt;을 제외하면.&lt;/p&gt;
-
-&lt;p&gt;Unittest는 만족스럽게 사용하진 못 했다. 딸 출산이 임박한 시기에 이르자 마음이 급해져 다시 원래 개발하던 방식으로 돌아가고 말았던 것이다. 결국 Unittest를 쓰지 않아 겪는 불편을 개발 막바지에 그대로 다시 겪었다.&lt;/p&gt;
-
-&lt;p&gt;Linux에서 프로세스를 관리하는 &lt;code&gt;upstart&lt;/code&gt;용 프로세스 구동 스크립트를 작성하는 데 꽤 고생했다. 그동안 Linux의 init을 쓰거나 Python용 프로세스 관리 도구인 &lt;a href=&quot;http://supervisord.org/&quot;&gt;Supervisor&lt;/a&gt;를 써왔는데, &lt;a href=&quot;http://www.codeok.net/%EC%84%9C%EB%B2%84%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EB%A5%BC%20%EA%B4%80%EB%A6%AC%ED%95%98%EB%8A%94%20%EC%98%AC%EB%B0%94%EB%A5%B8%20%EB%B0%A9%EB%B2%95&quot;&gt;서버 프로세스를 관리하는 올바른 방법&lt;/a&gt;에 대한 글을 읽고 upstart를 사용하기로 했다. 그런데 AWS AMI에서 돌아가는 upstart는 상당히 오래된 버전이어서 웹에서 참고한 자료가 별 도움이 되지 않았다. 가령, &lt;code&gt;uid&lt;/code&gt;나 &lt;code&gt;gid&lt;/code&gt;, &lt;code&gt;chdir&lt;/code&gt; 같은 명령어가 동작하지 않았다. 워낙 간단한 스크립트여서 무작정 시도했는데, 동작하지 않아 결국 로그를 찍으며 문제를 해결했다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;script
-  exec &amp;gt;/tmp/postman_sender.log 2&amp;gt;&amp;amp;1
-  exec sudo -u ec2-user /bin/sh -c &amp;quot;/.../postman_run.sh&amp;quot;
-end script
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h5&gt;정리&lt;/h5&gt;
-
-&lt;p&gt;postman 프로젝트는 코딩보다는 설계와 추상화, 그리고 외부 도구 연계에 시간을 많이 썼다. 그동안 Celery나 SQLAlchemy 등 도구의 단편만 다뤘는데, 이번 프로젝트를 진행하면서 좀 더 깊게 들여다보고 시험해 보았다.&lt;/p&gt;
-
-&lt;p&gt;이번 프로젝트는 여러 모로 무척 바빠서 공부를 많이 하지 못 했다. 이 프로젝트에 사용한 기술의 하부 영역을 더 이해하려고 리눅스 시스템 프로그래밍(C언어)과 Python twisted를 공부하였지만, 다소 지지부진하게 진도가 나갔다.&lt;/p&gt;
-
-&lt;p&gt;Go 언어로 작성한 코드는 Go 언어에 좀 더 친숙해진 정도 성과를 거두었다. 워낙 간단한 코드이기 때문이다. 나중에 시간을 내어 발송할 전자우편을 구성(build)하는 부분과 발송 부분을 분리하여 발송 부분을 Go 언어로 재작성하면 좋을 것 같다.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 04 Mar 2015 22:05:40 +0900</pubDate>
-        <link>http://blog.hannal.com//2015/03/devlife-s1-03/</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2015/03/devlife-s1-03/</guid>
         
         <category>Python</category>
         
