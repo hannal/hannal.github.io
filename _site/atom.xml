@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-07-09T02:30:36+09:00</updated>
+  <updated>2015-07-09T02:36:59+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -29,7 +29,9 @@ def fetch_page_by_url(url):
 
 merged_text = []
 for i in range(0, 10):
-    result = fetch_page_by_url(&amp;#39;http://localhost:8000/{}.html&amp;#39;.format(i))
+    result = fetch_page_by_url(
+        &amp;#39;http://localhost:8000/{}.html&amp;#39;.format(i)
+    )
 
     if result is not None:
         merged_text.append(result)

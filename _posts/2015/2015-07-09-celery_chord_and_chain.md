@@ -36,7 +36,9 @@ def fetch_page_by_url(url):
 
 merged_text = []
 for i in range(0, 10):
-    result = fetch_page_by_url('http://localhost:8000/{}.html'.format(i))
+    result = fetch_page_by_url(
+        'http://localhost:8000/{}.html'.format(i)
+    )
 
     if result is not None:
         merged_text.append(result)
