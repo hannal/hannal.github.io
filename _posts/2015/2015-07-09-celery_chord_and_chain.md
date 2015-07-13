@@ -29,7 +29,7 @@ Python으로 웹페이지 열 곳을 긁어와서 하나로 합쳐 보겠습니�
 import requests
 
 def fetch_page_by_url(url):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text
@@ -57,7 +57,7 @@ app = Celery(__name__)
 
 @app.task
 def fetch_page_by_url(url):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text
@@ -94,7 +94,7 @@ from celery import chain
 
 @app.task
 def fetch_page_by_url(url, append_text=None):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         if append_text is None
@@ -153,7 +153,7 @@ from celery import chord
 
 @app.task
 def fetch_page_by_url(url):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text
@@ -184,7 +184,7 @@ do_chain_tasks(merge_text.s())
 ```
 @app.task
 def fetch_page_by_url(url, num):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text, num

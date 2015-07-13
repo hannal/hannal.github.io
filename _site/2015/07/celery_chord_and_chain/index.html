@@ -128,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="highlight"><pre><code class="language-text" data-lang="text">import requests
 
 def fetch_page_by_url(url):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text
@@ -153,7 +153,7 @@ app = Celery(__name__)
 
 @app.task
 def fetch_page_by_url(url):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text
@@ -184,7 +184,7 @@ do_something(merged_text.join(&#39;&#39;))
 
 @app.task
 def fetch_page_by_url(url, append_text=None):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         if append_text is None
@@ -236,7 +236,7 @@ from celery import chord
 
 @app.task
 def fetch_page_by_url(url):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text
@@ -264,7 +264,7 @@ do_chain_tasks(merge_text.s())
 <p>여러 해결책이 있겠지만, 각 작업자마다 순번을 주고, <code>merge_text()</code>는 이 순번대로 문자열을 합치면 되겠네요.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">@app.task
 def fetch_page_by_url(url, num):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text, num

@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2015-07-09T02:36:59+09:00</updated>
+  <updated>2015-07-13T21:35:41+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -22,7 +22,7 @@
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;import requests
 
 def fetch_page_by_url(url):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text
@@ -47,7 +47,7 @@ app = Celery(__name__)
 
 @app.task
 def fetch_page_by_url(url):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text
@@ -78,7 +78,7 @@ do_something(merged_text.join(&amp;#39;&amp;#39;))
 
 @app.task
 def fetch_page_by_url(url, append_text=None):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         if append_text is None
@@ -130,7 +130,7 @@ from celery import chord
 
 @app.task
 def fetch_page_by_url(url):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text
@@ -158,7 +158,7 @@ do_chain_tasks(merge_text.s())
 &lt;p&gt;여러 해결책이 있겠지만, 각 작업자마다 순번을 주고, &lt;code&gt;merge_text()&lt;/code&gt;는 이 순번대로 문자열을 합치면 되겠네요.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;@app.task
 def fetch_page_by_url(url, num):
-    res = requests.get(url.format(i))
+    res = requests.get(url)
 
     if int(res.status_code / 100) == 2:
         return res.text, num
