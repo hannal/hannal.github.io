@@ -123,6 +123,467 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2008/8/07-python_django_lecture/">
+        이) RSS 기능, 로그인 기능 (7편) - django 강좌
+      </a>
+    </h1>
+
+    <span class="post-date">04 Aug 2008</span>
+
+    <p>어느 덧 “<strong>날로 먹는 Django 웹 프로그래밍 강좌</strong>”에서 기능 구현을 하는 마지막 글이다. 이번 글에서는 RSS 기능과 로그인을 위한 세션 처리 기능을 만들 것이다. 어려울 것 하나 없으니 부담갖지 말고, 깔끔하게 기능 구현을 마무리 지어보자.</p>
+
+<h3>RSS 기능</h3>
+
+<p>django에서 RSS 기능을 구현하는 방법은 크게 두 가지이다. 저차원(low-level)으로 직접 RSS 기능을 구현하는 방법이 첫 번째이고, 두 번째는 보다 다양한 RSS 기능을 구현할 때 거치게 되는 귀찮은 작업 몇 개를 간편하게 해주는 고차원(high-level) 방식이다. 수준이나 능력 차이가 아니라 좀 더 사람에게 편의를 제공하는지에 따라 나눈 것이다. 고차원 방법은 저차원 방법을 기반으로 하므로 저차원 방법부터 알아보자.</p>
+
+<h4>저차원 방법으로 RSS 구현하기</h4>
+
+<p>RSS 를 제공하려면 RSS 주소가 필요하다. /blog/feed/ 라는 주소를 쓰기로 하고, 여기로 접속하면 views.py 에서 rssfeed 라는 함수가 적절한 처리를 하도록 하자.</p>
+
+<p>우선 urls.py 에는</p>
+
+<blockquote><p><code>(r'^blog/feed/$', 'hannal.blog.views.rssfeed'),</code></p></blockquote>
+
+<p>이렇게 한다. 그런 뒤 views.py 에는 rssfeed 라는 함수를 만든다.</p>
+
+<blockquote><pre><code>def rssfeed(request):
+    pass
+</code></pre>
+</blockquote>
+
+<p>이제 RSS에 필요한 xml 자료형을 쉽게 만드는데 필요한 모듈을 가져와야 한다. django에는 있는 utils 엔 <strong>feedgenerator</strong> 라는 모듈이 있다(/django/utils/feedgenerator.py). 이것이 RSS 자료 제공(Feeding)에 필요한 xml 자료를 만들어준다. 이 모듈은 rssfeed 함수에서만 쓸테니 이 함수 안에서 가져오자(import).</p>
+
+<blockquote><pre><code>def rssfeed(request):
+    from django.utils import feedgenerator
+    pass
+</code></pre>
+</blockquote>
+
+<p>RSS 같은 자료형에는 크게 RSS 0.91, RSS 2.01, Atom  등이 있다. 거의 비슷한데 RSS 2 가 많이 쓰이니 RSS 2 형식으로 xml 을 만들자(django 에서 atom 으로 하는 방법도 사실상 동일하다).</p>
+
+<blockquote><pre><code>fd = feedgenerator.Rss201rev2Feed(
+     title = u'my blog rss',
+     link = u'/blog/feed/',
+     description = u'this is a rss of my blog'
+)</code></pre>
+</blockquote>
+
+<p>feedgenerator 클래스에 있는 Rss201rev2Feed 라는 메소드를 이용해서 객체를 만든 뒤 fd 에 넣는다. RSS 2.01 형태로 자료형을 만드는 메소드이다. <strong>title 은 RSS 제목, link 는 RSS 주소, description 은 RSS 설명</strong>이다. 적당히 원하는 내용으로 쓰면 된다.</p>
+
+<div style="border: 1px dahsed #666; padding: 3px; background-color: #dfdfff;">* 2010년 11월 28일 추가 참고사항 : <a href="http://blog.hannal.com/07-python_django_lecture/comment-page-1/#comment-866">django 판이 올라감에 따라 패치 적용</a>해야 합니다.</div>
+
+<p>이제 최근 글 5개를 가져와서 xml 에 넣을 차례이다.</p>
+
+<blockquote><pre><code>for entry in Entries.objects.all().order_by('-created')[:5]:
+    fd.add_item(
+        title = entry.Title,
+        link = u'/blog/entry/%d/' % entry.id,
+        description = entry.Content,
+        pubdate = entry.created,
+        categories = (entry.Category.Title,)
+    )</code></pre>
+</blockquote>
+
+<p>for 반복문 내용은 굳이 설명하지 않아도 알 것이다. 그럼 fdd.add_item 부분을 보자.</p>
+
+<p>위에서 Rss201rev2Feed 메소드를 통해 만든 fd 객체엔 <strong>add_item 메소드가 상속되어 있다</strong>. 이 메소드는 이름에서 알 수 있듯이 RSS의 item 요소(element)를 추가해준다. RSS의 xml 내용을 보면 글 내용이 item 요소로 반복되는데, 바로 그 item 요소이다.</p>
+
+<p><a href="http://www.djangoproject.com/documentation/syndication_feeds/#the-low-level-framework">add_item 메소드로는 여러 인자를 넘겨 받는다</a>.</p>
+
+<p>주요 인자만 살펴보자면</p>
+
+<ul>
+<li>title : 글 제목</li>
+<li>link : 글 낱장 주소</li>
+<li>description : 글 본문</li>
+<li>pubdate : 글 작성일시</li>
+<li>comments : 댓글 볼 수 있는 주소</li>
+<li>categories : 글 갈래들 (낱개가 아니라 여러 개이다)</li>
+</ul>
+
+<p>들을 들 수 있다. 이 중 <strong>categories 는 글 하나에 글 갈래가 여러 개 달릴 수 있기 때문에 tuple 자료형으로</strong> 글 갈래를 보내줘야 한다.</p>
+
+<p>위 for 반복문에 보면 title 에는 글 제목인 entry.Title 을, link 엔 글 낱장주소인 /blog/entry/숫자 를 u'/blog/entry/%d/' % entry.id 이렇게 만들어서, description 엔 글 본문인 entry.Content 을, pubdata 엔 글 작성일시인 entry.created 를, 마지막으로 categories 엔 글 갈래 이름인 entry.Category.Title 를 넣는데 중요한 건 categories 는 글 갈래를 여러 개 넣을 수 있게 되어 있어서 tuple 자료형이나 list 자료형으로 넣어줘야 해서 (entry.Category.Title,) 이렇게 넣어줬다. 만약 (entry.Category.Title) 이렇게 쉼표를 빼먹으면 tuple 자료형이 아닌 일반 문자열로 인식을 해서 categories 엔 글 갈래 이름이 글자 하나 하나로 쪼개져서 들어갈 것이다. 앞서 말을 하고선 또 말을 반복하는 이유는 실수하기 쉬운 부분이기 때문이다.</p>
+
+<p>이걸로 준비는 끝났다. 정말 간단하다. 이제 이걸 화면에 뿌려주면 그만이다.</p>
+
+<blockquote><p><code>return HttpResponse(fd.writeString('utf-8'), mimetype='application/rss+xml')</code></p></blockquote>
+
+<p>fd 객체에 있는 <strong>writeString 메소드</strong>로 fd 에 있는 자료를 문자열로 출력하여 HttpResponse 로 보내준다. 만일 <strong>파일로 저장하고 싶다면 파일 객체 지시자(file pointer)를 인자로 필요로 하는 write 메소드를 이용</strong>하면 된다.</p>
+
+<p>fd 객체에 있는 자료를 문자열로 출력할 때엔 자료가 utf-8 이므로 utf-8 라고 인자를 넣어줬다. 그리고 이 RSS의 HTTP 자료 형식은 <strong>application/rss+xml</strong> 이므로 이 내용을 HTTP 헤더에 넣도록 하기 위해 HttpResponse 에 <strong>mimetype 이라는 인자</strong>를 넣었다. 지난 글에서 ajax 접근 요청에 대해서 json 이라는 javascript 자료형으로 값을 반환했는데 이때에도 엄밀히 말해서 mimetype 을 지정해줘야 했다(text/javascript 같은 걸로).</p>
+
+<p>이제 웹브라우저에서 /blog/feed/ 에 접근을 해보자. RSS 내용이 잘 뜬다.</p>
+
+<h4>고차원 방법으로 RSS 구현하기</h4>
+
+<h5>주소 설정</h5>
+
+<p>고차원이라 아주 간편하게 구현할 수 있을 것 같지만, 실은 좀 더 설정을 해야 한다. 우선 주소 규칙을 추가하자. 주소는 아까 만든 /feed 를 좀 더 쓸 것인데, /blog/feed/rss/ 로 접근하면 RSS 방식으로 자료를 가져와서 출력하고, /blog/feed/atom/ 으로 접근하면 ATOM 방식으로 자료를 가져와서 출력할 것이다. 물론, 고차원 방법으로. 흐흐.</p>
+
+<blockquote><p><code>(r'^blog/feed/(?P&lt;url&gt;.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),</code></p></blockquote>
+
+<p>앞에 주소 체계는 익숙한데, 뒤에 붙은 django.contrib.syndication.views.feed 과 {'feed_dict': feeds} 이건 익숙하지 않다.</p>
+
+<p><strong>django.contrib.syndication.views.feed 는 RSS 같은 자료 생성을 고차원으로 하는 모듈</strong>이다. 저 주소 체계로 접근하면 관련 내용을 django.contrib.syndication.views.feed 여기로 던져주는 것이고, 인자값으로 url 을<strong><code>(?P&lt;url&gt;.*)</code></strong> 받는 것이다. 넘겨 받을 인자값이 하나 더 있는데 바로 <strong>feed_dict</strong> 이다. 이건 인자로 넘겨 받는 url과 관련된 것이다. 우리는 /blog/feed/rss/ 나 /blog/feed/atom/ 으로 접근한다고 가정했으므로 rss 와 atom 을 url 인자값으로 넘겨준다. 이때, <strong>url 인자값으로 넘겨받은 값(rss 나 atom)에 대응하는 클래스를 이어주는 것</strong>이다. 이 이어주는 자료를 dictionary(dict) 자료형으로 넘겨줘야 하는데, 나는 feeds 라는 변수에 담은 것이다. 그럼 feeds 변수를 만들어야 한다는 말인가? 맞다.</p>
+
+<blockquote><p><code>feeds = {'rss': RssFeed, 'atom': AtomFeed}</code></p></blockquote>
+
+<p>위 feeds 변수를 urlpatterns = patterns('', 이 위에 넣자. 적어도</p>
+
+<blockquote><p><code>(r'^blog/feed/(?P&lt;url&gt;.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),</code></p></blockquote>
+
+<p>이 부분 보다는 위에 있어야 한다. :)</p>
+
+<p>이번엔 feeds 변수를 보자. feeds 변수는 dictionary 자료형으로써, 키로는 rss (feeds['rss'])와 atom (feeds['atom'])이 있다. 이 각 키에는 RssFeed 와 AtomFeed 라는 개체가 연결되어 있는데, 얘가 참 뜬금없이 등장했다. feeds 처럼 위에서 만든 것도 아니고, 그렇다고 어디에서 가져온(import) 것도 아니고. 즉, 이 두 녀석을 urls.py 안에 만들든 따로 파일로 만들든 만들어야 한다. 따로 feeds.py 파일로 만들어서 두 개체를 클래스 객체로 만들어보자.</p>
+
+<h5>RSS 클래스 만들기</h5>
+
+<p>우선 views.py 와 models.py 파일이 있는 blog 디렉토리 안에 feeds.py 파일을 만든다. 그리고 RssFeed 클래스와 AtomFeed 클래스를 만들면 되는데, 이 두 클래스는 <strong>django.contrib.syndication.feeds 에 있는 Feed 라는 객체를 상속 받아야 한다</strong>. 우리가 models.py 에서 모델을 만들 때 models.Model 객체를 상속시켰듯이 Feed 객체를 상속시켜야 고차원(쓸 수록 느끼지만 참 마음에 안드는 표현이다) 구현이 가능하다. 그러므로</p>
+
+<blockquote><p><code>from django.contrib.syndication.feeds import Feed</code></p></blockquote>
+
+<p>이렇게 이 객체를 먼저 가져온 뒤</p>
+
+<blockquote><pre><code>class RssFeed(Feed):
+    pass
+
+class AtomFeed(Feed):
+    pass</code></pre>
+</blockquote>
+
+<p>이렇게 두 객체를 초기화 한다. 그런 뒤 잠시 urls.py 로 되돌아가자. 왜냐하면 만든 두 객체가 urls.py 가 아닌 feeds.py 에 있으므로, urls.py 에서 feeds 라는 변수에 지정한 두 객체를 urls.py로 가져와야(import) 하기 때문이다.</p>
+
+<blockquote><p><code>from hannal.blog.feeds import RssFeed, AtomFeed</code></p></blockquote>
+
+<p>위 코드는 당연히</p>
+
+<blockquote><p><code>feeds = {'rss': RssFeed, 'atom': AtomFeed}</code></p></blockquote>
+
+<p>이 코드 위에 있어야 한다.</p>
+
+<p>이제 준비는 끝났다. 고차원스럽게(-_-; ) RSS 를 구현하러 feeds.py 로 돌아가자.</p>
+
+<p>먼저 RssFeed 클래스. 우리가 저차원으로 RSS 구현했을 때 RSS 이름이나 주소, 설명을 넣었다. 거의 같은 방법으로 이들을 정하면 되는데, RssFeed 클래스 안에 프로퍼티로 title, link, description 을 정의하면 된다.</p>
+
+<blockquote><pre><code>class RssFeed(Feed):
+    title = 'my blog rss'
+    link = '/blog/feed/'
+    description ='this is a rss of my blog'</code></pre>
+</blockquote>
+
+<p>그런 뒤, RssFeed 클래스가 글을 가져오는 기능을 할 메소드를 만들어야 하는데, 그 메소드는 <strong>items</strong> 라는 이름으로 만들면 django 가 자동으로 해당 메소드를 실행한다.</p>
+
+<blockquote><pre><code>def items(self):
+    return Entries.objects.order_by('-created')[:5]</code></pre>
+</blockquote>
+
+<p>잠깐. Entries 라는 모델 객체를 쓰고 있다. 그러므로 이 객체를 가져와야(import) 한다.</p>
+
+<blockquote><p><code>from hannal.blog.models import Entries</code></p></blockquote>
+
+<p>이 코드를 feeds.py 위에 추가한다. 이로써 기능 구현은 끝났다. 아니, 거의 끝났다.</p>
+
+<h5>link 요소(element) 만들기</h5>
+
+<p><strong>django는 각 글(item)의 xml 요소(element) 중 title, description, link 는 기본 요소로 쓴다</strong>. 그리고, 이 셋은 다른 RSS xml 요소와는 조금 다르게 다룬다.</p>
+
+<p>먼저 각 글의 낱장주소 값을 담는 link. django 는 link 정보를 가져올 때 두 가지 방법을 취한다.</p>
+
+<ul>
+<li>모델에 있는 get_absolute_url 메소드로 자료(글) 낱장주소를 얻거나</li>
+<li>RSS 클래스(RssFeed)에 있는 item_link 메소드로 얻는다.</li>
+</ul>
+
+<p>먼저 item_link 메소드를 만들어 나타내보자.</p>
+
+<blockquote><pre><code>def item_link(self, item):
+    return '/blog/entry/%d/' % item.id</code></pre>
+</blockquote>
+
+<p>item_link 는 인자를 두 개 받는다. 우선 클래스에 속한 메소드이므로 객체 자기 자신을 가리키는 self 를 받는다. 그리고 item 을 받는데, 이는 items 메소드로 자료들을 넘겨받은 뒤, for 반복문으로 빙빙돌며 자료를 하나씩 꺼내어 넘기는 것과 같다. 예를 들자면</p>
+
+<blockquote><pre><code>for item in items():
+    item_link(self, item)</code></pre>
+</blockquote>
+
+<p>이런 흐름이라고 볼 수 있다. 이렇게 넘겨받은 item(글 객체)를 이용해 글 낱장주소를 문자열로 반환하면 된다. 왜냐하면 우리는 글 낱장 주소를 “/blog/entry/글일련번호” 꼴이기 때문이다.</p>
+
+<p>사실 위와 같이 주소를 반환하면 안된다. URL 에서 도메인 같은 접속할 서버 주소가 없기 때문이다. 그러므로 제대로 한다면</p>
+
+<blockquote><pre><code>def item_link(self, item):
+    return 'http://localhost:8000/blog/entry/%d/' % item.id</code></pre>
+</blockquote>
+
+<p>이런 식으로 서버 주소(도메인이든 ip주소든)를 써야 한다. 다만 이 강좌는 내부(localhost)에서만 돌리며 소스 간결함과 설명을 위해 /blog/entry 식으로 한 것 뿐이다.</p>
+
+<p>어쨌든 item 으로 글 객체를 넘겨 받았으니, 글 낱장주소에 쓸 글 일련번호인 id, 즉 item.id 를 이용해 주소를 완성해서 반환(return)하면 된다.</p>
+
+<p>두 번째 방법은 <strong>모델에 get_absolute_url 메소드를 이용하는 것</strong>이다. 이 방법이 두고 두고 편하므로 권할 만하다.</p>
+
+<p>먼저 models.py 파일에서 글 정보 모델인 Entries 모델을 보자. 거기에 보면 아마도</p>
+
+<blockquote><pre><code>class Admin:
+    pass</code></pre>
+</blockquote>
+
+<p>이와 같이 django admin 영역을 위한 코드가 있을텐데 그 위든 아래든 다음과 같이 get_absolute_url 메소드를 넣자.</p>
+
+<blockquote><pre><code>def get_absolute_url(self):
+    return '/blog/entry/%d/' % self.id</code></pre>
+</blockquote>
+
+<p>item_link 메소드와 별 다를 바 없는 구조이다. get_absolute_url 메소드가 Entries 클래스의 메소드이므로 자기 자신을 가리키는 self 를 인자로 넘겨받았고, 낱장주소로 쓸 문자열을 반환받는 것이다. 이렇게 하면 글 낱장 읽기, 그러니까 views.py 에서 read 함수가 가져다 출력하는 read.html 에서 글 제목에 연결한 글 낱장주소를 일일이</p>
+
+<blockquote><p><code>&lt;a href="/blog/entry/"&gt;</code></p></blockquote>
+
+<p>라고 적을 필요 없이</p>
+
+<blockquote><p><code>&lt;a href=""&gt;</code></p></blockquote>
+
+<p>라고 써주면 된다. 글 낱장 주소를 바꿀 때 마다 낱장주소를 쓴 파일을 하나 하나 찾아서 고치지 않아도 되니 참으로 편하다. 이런 get_absolute_url 메소드도 직접 주소를 문자열로 만들 필요 없이 urls.py 에 있는 주소를 알아내어 urls.py 에서 주소 체계를 바꾸면 자동으로 해당 내용이 반영되게 할 수도 있다. 다만, 여기서는 이 방법을 다루진 않겠으니 이 방법을 알고 싶은 이는 <a href="http://www.djangoproject.com/documentation/url_dispatch/#reverse">공식 문서에 있는 reverse 유틸리티</a>를 참조하길 바란다.</p>
+
+<p>모델에 get_absolute_url 메소드를 만들어주면 feeds.py 에서 item_link 메소드를 쓰지 않아도 된다. 다만 <strong>우선순위가 item_link 메소드 호출이 모델에 있는 get_absolute_url 메소드 호출 보다 높으므로 혼란을 피하기 위해 두 방법을 동시에 쓰지 않는 것이 좋다</strong>.</p>
+
+<h5>title과 description 요소(element) 만들기</h5>
+
+<p>link 요소에서 진을 다 뺀 기분이다. 다행히 title 과 description 요소는 훨씬 간단하다. django 가 알아서 이런 저런 처리를 해주기 때문이다. 우리는 단지 파일 두 개만 만들면 그만이다. title 과 description 요소는 템플릿 디렉토리(폴더)에 feeds 라는 디렉토리를 만든 뒤 그 안에 각 요소에 대응하는 템플릿 파일을 만들기만 하면 된다.</p>
+
+<p>지금 우리는 /blog/feed/rss/ 로 접근했을 때 작동할 RssFeed 클래스를 만들고 있다. /blog/feed/ 뒤에 붙는 주소가 rss 이면 RssFeed 클래스, atom 이면 AtomFeed 클래스를 쓰는 것인데, <strong>바로 이 rss 와 atom 을 slug 라고 한다</strong>(여기서만 쓰는 용어는 아니다). 템플릿 디렉토리에 파일을 만들 때 바로 이 slug 를 파일 이름에 쓴다.</p>
+
+<p>현재 rss 슬러그에 대한 처리를 하고 있으니 templates 디렉토리에 feeds 라는 디렉토리를 만들고, 그 안에 <strong>rss_title.html</strong> 을 만들자 ( templates/feeds/rss_title.html ). 그리고 그 안에</p>
+
+<blockquote><p><code></code></p></blockquote>
+
+<p>라고 써넣는다. 같은 디렉토리에 <strong>rss_description.html</strong> 파일을 만들고 그 안에는</p>
+
+<blockquote><p><code></code></p></blockquote>
+
+<p>라고 써넣는다. read.html 템플릿 파일을 떠올린다면 눈에 익은 치환자와 구조이다. read.html 에선 current_entry 라는 치환자를 쓰므로</p>
+
+<blockquote><p><code></code></p></blockquote>
+
+<p>이런 식으로 썼을 뿐이다.</p>
+
+<p>이제 정말 끝났다. 소스를 저장한 뒤에 /blog/feed/rss/ 로 접근하면 잘 뜬다. 어떤 식으로 저 템플릿 파일이 쓰이는지 모르겠다면 rss_title.html 파일을 연 뒤</p>
+
+<blockquote><p><code> [[까르르르르륵]]</code></p></blockquote>
+
+<p>이렇게 바꾼 뒤 다시 저 주소로 접근해보자. 글 제목에 방금 덧붙인 문자열이 붙어있다.</p>
+
+<p>저차원 방법에서 구현한 것처럼 그냥 글 제목이나 본문을 덧붙이면 되지 왜 이렇게 귀찮게 템플릿 파일을 거치게 했을까? 여러 이유가 있겠지만, 한 가지 상황을 가정하는 걸로 이 방식이 편하다는 걸 알 수 있다. RSS 주소가 바뀌어서 관련 공지를 덧붙이거나 RSS 글 본문(description)란에 자신의 얼굴 사진을 덧붙이고 싶다고 가정해보자. 이럴 때 소스 코드를 건드릴 필요 없이 템플릿 파일만 고치면 쉽지 않을까?</p>
+
+<h5>나머지 RSS 요소 넣기</h5>
+
+<p>이제 글 작성일시와 글 갈래도 RSS 에 넣어보자. 위에서 item_link 메소드로 글 낱장주소를 넣은 것처럼 관련 메소드를 만들면 된다.</p>
+
+<p>우선 <strong>글 작성일시는 item_pubdate 메소드</strong>가 맡고 있다.</p>
+
+<blockquote><pre><code>def item_pubdate(self, item):
+    return item.created</code></pre>
+</blockquote>
+
+<p>그리고 글 갈래는 item_categories 메소드가 맡고 있다.</p>
+
+<blockquote><pre><code>def item_categories(self, item):
+    return (item.Category.Title,)</code></pre>
+</blockquote>
+
+<p>위에서 이미 설명한 바와 같이, 글 갈래는 여러 개가 들어갈 수 있으므로 tuple 자료형으로 값을 넘겨줘야 한다.</p>
+
+<p>자, 이제 RssFeed 클래스는 이렇게 생겼을 것이다.</p>
+
+<blockquote><pre><code>class RssFeed(Feed):
+    title = 'my blog rss'
+    link = '/blog/feed/'
+    description ='this is a rss of my blog'
+
+    def item_link(self, item):
+        return '/blog/entry/%d/' % item.id
+
+    def item_pubdate(self, item):
+        return item.created
+
+    def item_categories(self, item):
+        return (item.Category.Title,)
+
+    def items(self):
+        return Entries.objects.order_by('-created')[:5]</code></pre>
+</blockquote>
+
+<h5>AtomFeed 클래스 만들기</h5>
+
+<p>저차원 방법으로 RSS 기능 구현할 때 RSS 2.01 이든 Atom 이든 django 에서 구현하는 방법은 다를 바 없다고 한 말이 기억났으면 좋겠다. 이 말을 기억한다면 AtomFeed 클래스는 RssFeed 처럼 필요한 기능을 모두 구현할 필요 없이 아주 쉽게 구현할 수 있기 때문이다.</p>
+
+<p>현재 AtomFeed 클래스는</p>
+
+<blockquote><pre><code>class AtomFeed(Feed):
+    pass</code></pre>
+</blockquote>
+
+<p>이렇게 생겼다. 근데 구현은 RSS 2.01 이든 Atom 이든 같다. 그럼 굳이 AtomFeed 에서 복잡하게 메소드니 뭐니 추가할 필요 없이 RssFeed 클래스 내용을 베껴오면 쉬울 것이다. 그걸 할 수 있게 RssFeed 내용을 상속 받게 하면 된다.</p>
+
+<blockquote><pre><code>class AtomFeed(RssFeed):
+    pass</code></pre>
+</blockquote>
+
+<p>RssFeed 는 이미 Feed 클래스를 상속 받고 있으므로 AtomFeed 클래스가 RssFeed 클래스를 상속 받으면 Feed 클래스도 쓸 수 있는 셈이다. 그리고 RssFeed 에서 정의한 프로퍼티(RSS 이름이나 설명 등)나 메소드(item_link 니 뭐니)도 함께 상속 받는다.</p>
+
+<p>필요한 내용은 상속 받는 걸로 끝냈으니 놀고 먹자(^^). 다만, <strong>RssFeed 클래스와 완전히 같으면 안되니 RssFeed 와 AtomFeed 를 구분할 프로퍼티 내용을 따로 정의</strong>해주면 된다.</p>
+
+<p>먼저 <strong>feed_type 이라는 프로퍼티</strong>가 있다. 이름에서 알 수 있듯이 feed_type 을 정의한다. 이 값을 따로 정의하지 않으면 기본으로 Rss201rev2Feed 가 들어가서 RSS 2.01 방식이 된다. AtomFeed 는 Atom 1 방식이므로</p>
+
+<blockquote><p><code>feed_type = Atom1Feed</code></p></blockquote>
+
+<p>이렇게 해준다. 아, 또 뜬금없이 Atom1Feed 가 나왔다. 우린 이런거 만든 적도 없으니 어딘가에서 가져와야(import) 한다. django.utils.feedgenerator 여기에 있으니 feeds.py 파일 속 위에</p>
+
+<blockquote><p><code>from django.utils.feedgenerator import Atom1Feed</code></p></blockquote>
+
+<p>라고 해주면 된다.</p>
+
+<p>이로써 다 된 것 같은데 두 가지 프로퍼티를 더 정의해줘야 한다. 바로 title과 description 요소를 위한 템플릿 지정이다. RssFeed 는 슬러그가 rss 이므로 자동으로 rss_title.html 과 rss_description.html 을 가져다 썼다. <strong>AtomFeed 도 마찬가지여서 atom_title.html 과 atom_description.html 을 가져다 쓰려 한다</strong>. 딱히 RssFeed 와 다르게 할 생각이 없으므로 AtomFeed 도 rss_title.html 과 rss_description.html 을 가져다 쓰게 하자.</p>
+
+<blockquote><pre><code>title_template = 'feeds/rss_title.html'
+description_template = 'feeds/rss_description.html'</code></pre>
+</blockquote>
+
+<p>굳이 설명 안해도 이해할 수 있을 것이다.</p>
+
+<p>이로써 AtomFeed 클래스는</p>
+
+<blockquote><pre><code>class AtomFeed(RssFeed):
+    feed_type = Atom1Feed
+    title_template = 'feeds/rss_title.html'
+    description_template = 'feeds/rss_description.html'</code></pre>
+</blockquote>
+
+<p>이렇게 생겼다.</p>
+
+<p>이제 /blog/feed/ 는 저차원 방법으로 RSS 가 작동하고, /blog/feed/rss/ 와 /blog/feed/atom/ 은 고차원 방법으로 RSS 가 작동한다.</p>
+
+<h3>로그인 기능</h3>
+
+<h4>세션 다루기</h4>
+
+<p>드디어 마지막 기능이다. 이번 기능 구현은 숙제도 담고 있다.</p>
+
+<p><strong>로그인 기능은 보통 서버 세션 기능과 웹브라우저 쿠키 기능을 함께 이용</strong>한다. django 역시 이들 기능을 다룰 수 있는 기능을 제공한다. 바로 request 객체를 통하면 된다.</p>
+
+<p>늘 그랬듯이 로그인과 로그아웃을 처리할 주소 규칙을 urls.py 에 넣자. 로그인은 /login , 로그아웃은 /logout 주소로 처리하자.</p>
+
+<blockquote><pre><code>(r'login/$', 'hannal.blog.views.login'),
+(r'logout/$', 'hannal.blog.views.logout'),</code></pre>
+</blockquote>
+
+<p>그런 뒤 views.py 안에 login 과 logout 함수를 만들자.</p>
+
+<blockquote><pre><code>def login(request):
+    request.session['blog_login_sess'] = 'hannal'
+    return HttpResponse('[%s] logged in successfully' % request.session['blog_login_sess'])</code></pre>
+</blockquote>
+
+<p>먼저 로그인 함수. 간단하다. 넘겨받은 request 객체에 있는 session 프로퍼티에 세션 이름을 키(key)값으로 넣고, 그 세션에 저장될 내용을 넣어주면 된다. 여기서는 blog_login_sess 라고 세션키 이름을 지었다.</p>
+
+<p>로그아웃도 간단하다.</p>
+
+<blockquote><pre><code>def logout(request):
+    del request.session['blog_login_sess']
+    return HttpResponse('logged out successfully')</code></pre>
+</blockquote>
+
+<p>그런데 위 내용은 사실 세션 기능이 작동하고 있는 것은 아니다. 실제 기능으로써(functionality) 자동하게 하려면 따로 설정을 해야 한다.</p>
+
+<h4>세션 설정</h4>
+
+<p>세션에 대한 설정은 settings.py 에서 한다. 먼저 세션 기능을 쓸 수 있게 하려면 <strong>MIDDLEWARE_CLASSES</strong> 에 사용할 미들웨어를 등록해야 한다.</p>
+
+<p>별도 설정을 안했다면</p>
+
+<blockquote><pre><code>MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.doc.XViewMiddleware',
+)</code></pre>
+</blockquote>
+
+<p>이런 모양새일텐데 맨 위에</p>
+
+<blockquote><p><code>'django.contrib.sessions.middleware.SessionMiddleware',</code></p></blockquote>
+
+<p>이런 코드를 넣어서</p>
+
+<blockquote><pre><code>MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.doc.XViewMiddleware',
+)</code></pre>
+</blockquote>
+
+<p>이렇게 만든다. 이번엔 우리가 만든 blog 어플리케이션을 등록했듯이 세션 어플리케이션도 INSTALLED_APPS 에 등록해야 하는데, 아마 이미 기본으로 들어가 있을 것이다.</p>
+
+<blockquote><p><code>'django.contrib.sessions',</code></p></blockquote>
+
+<p>이 코드가 들어가 있으면 된다. 근데 위 내용은 django 0.96에 해당되는 내용으로 0.97부터는 상황에 따라서 꼭 하지 않아도 괜찮다.</p>
+
+<p>이제 세션 기능은 작동한다. 좀 더 <a href="http://www.djangoproject.com/documentation/sessions/#settings">세밀한 세션 설정은 django 공식 문서에</a> 잘 나와있으니 한 가지만 언급하고 내용을 마치려 한다.</p>
+
+<h4>브라우저가 닫히면 세션도 지우기</h4>
+
+<p>요즘은 이용자가 로그인한 상태에서 웹브라우저를 닫아도 접속을 유지시켜 주는 것이 유행이지만, 그래도 아직은 웹브라우저가 닫히면 로그인 정보를 지워서 접속을 끊어주는 것이 예전부터 지금까지 많은 곳에서 제공하는 사용성이다. 우리도 이 기능, 그러니까 웹 브라우저가 닫히면 로그인이 끊기는 기능을 구현해보자.</p>
+
+<p>서버는 이용자가 웹브라우저를 닫았는지 열어놨는지 알 수 없다. 이용자가 어떤 행위를 하기 전까지는 말이다. 그러므로 서버 세션 정보만으로는 이용자가 웹브라우저를 닫았는지 알아내어 로그인 정보를 끊어야 할 지 말아야 할 지 알아낼 방법이 없다.</p>
+
+<p>쿠키는 다르다. <strong>쿠키는 웹브라우저가 관리하는 정보</strong>이다. 쿠키는 만료일시(expired time)를 가질 수 있는데, 만약 <strong>쿠키 만료일시 값이 없으면 웹브라우저가 닫힐 때 해당 쿠키도 함께 사라진다</strong>. 만료일시가 3시간 뒤라면 웹브라우저가 닫혀도 해당 쿠키는 남아있다.</p>
+
+<p>그렇다면 쿠키와 세션 정보를 어찌 잘 조화하면 이용자가 웹브라우저를 닫으면 로그인도 끊을 수 있지 않을까? 위에서 로그인 기능을 설명할 때 서버 세션 기능과 웹브라우저 쿠키 기능을 이용한다는 말이 바로 이런 상황을 뜻한 것이다.</p>
+
+<p>작동법은 간단하다. 로그인을 하면 로그인 정보는 서버가 세션으로 들고 있고, 로그인을 했다는 표시 정도만 웹브라우저 쿠키로 들게 한다. 이 쿠키가 살아있다면 이용자는 웹브라우저를 닫지 않은 것이다. 그리고 쿠키가 없다면 웹브라우저를 닫은 이후이므로 서버 세션을 지워서 로그인을 끊으면 된다. 이용자가 로그아웃을 하면 해당 쿠키도 지우고 로그인 세션 정보를 지우면 된다.</p>
+
+<p>이용자가 웹브라우저에 있는 쿠키 정보를 조작해도 상관 없다. 어차피 해당 쿠키는 웹브라우저를 닫았었는지 닫은 적이 없는지만 구분하는 쓰임새로 쓸 뿐, 실제 로그인 정보는 서버 세션으로 들고 있기 때문이다.</p>
+
+<p>자, 이제 이런 내용을 소스 코드로 반영해보자. 말은 쉬운데 왠지 처리가 귀찮을 것 같다. 이 귀찮은 상황을 django 에서는 딱 한 줄로 처리해주는데, settings.py 에 <strong>SESSION_EXPIRE_AT_BROWSER_CLOSE</strong> 라는 변수를 통하기만 하면 된다.</p>
+
+<p>이 변수는 이름에서 알 수 있듯이 웹브라우저가 닫힐 때 세션도 만료시킬 것인지를 설정한다. <strong>True 라고 하면 웹브라우저가 닫힐 때 쿠키와 세션을 만료</strong>시킨다. 즉 로그인도 끊기는 셈이다.</p>
+
+<blockquote><p><code>SESSION_EXPIRE_AT_BROWSER_CLOSE = True</code></p></blockquote>
+
+<p><strong>False 라고 하면 웹브라우저가 열려있든 닫혔든 상관없이 세션은 살아있다</strong>. 즉, 기본값으로 지정된 만료시간이나 이용자가 따로 지정한 만료시간을 넘기지만 않았다면 웹브라우저를 몇 번을 닫고 다시 열든 세션 정보는 살아있다. 따로 이 변수를 설정하지 않으면 기본으로 False 로 작동한다.</p>
+
+<p>이 변수의 작동원리는 간단하다. django는 이용자가 서버에 접근할 때 쿠키를 발생시켜서 서버에 접근한 세션 정보를 들게 한다. 그런 뒤 접근이 있을 때 마다 쿠키가 살아있는지 만료되었는지 확인한다. 세션 만료시점은 이 세션과 이어져있는 쿠키 만료시점을 따른다.</p>
+
+<p>이 변수가 True 이면 쿠키 만료 시점을 지정하지 않는데, 쿠키 만료 시점이 없으면 위에서 말했듯이 웹브라우저가 닫힐 때 쿠키가 삭제된다. 그래서 이용자 쿠키가 만료되었는지(웹브라우저가 닫히면 만료됨) 확인해서 만료된 경우 세션 정보도 만료시킬 수 있는 것이다. 이 변수가 False 이면 쿠키는 SESSION_COOKIE_AGE 변수에 담긴 기간만큼 지속되며(만료기간) 이 기간은 따로 설정하지 않을 경우 2주가 된다. 쿠키 만료기간이 있으면 웹브라우저가 닫혀도 해당 쿠키가 살아있으므로 웹브라우저를 열고 닫고 상관없이 쿠키가 살아있는 동안엔 그 쿠키와 이어진 세션 역시 살아있게 된다.</p>
+
+<h4>로그인 기능 숙제</h4>
+
+<p>이 강좌에서 여러분이 받는 마지막 숙제이다. :)</p>
+
+<ul>
+<li>이용자가 어딜 가든 로그인이 되어 있는지 확인하고, 로그인이 되어 있지 않으면 로그인을 할 수 있는 곳(/login_page/)으로 보내주자. 어딘가로 보내주려면 HttpRedirect 객체를 쓰면 되며, 이 객체는 HttpResponse 객체가 있는 곳에 있다.</li>
+<li>로그인을 할 때엔 계정(id)과 비밀번호를 받아야 한다.</li>
+<li>서버에서 비밀번호를 비교할 때엔 md5 모듈을 이용해야 한다. (댓글 쓰기 기능 만들 때 한 번 다뤘다)</li>
+<li>웹브라우저가 닫히면 로그인도 끊어야 한다.</li>
+<li>로그인이 되어 있어야만 글쓰기 화면이 나타나고, 글을 쓸 수 있다.</li>
+</ul>
+
+<p>구현해보자. :)</p>
+
+<hr />
+
+<p>드디어 이 강좌에서 기능 구현은 모두 마쳤다. 여기까지 함께한 여러분이 자랑스럽다. 진심으로 축하한다. 장담은 할 수 없지만, 아마도 여기까지 숙제 꼬박 꼬박하며 강좌를 진행한 이라면 파이썬과 django로 뭔가를 만드는 것이 두려운 단계는 벗어 났으리라 생각한다. 비록 앞으로도 계속 실수하고 벽에 부딪히겠지만, 이 정도까지 해낸 이라면 스스로 인터넷에서 자료를 찾으며 문제를 해결할 기본 소양을 갖췄다고 할 수 있다.</p>
+
+<p>다음 글은 이 강좌를 마치는 글로 강좌 후기와 앞으로 여러분이 어떻게 했으면 좋을지 생각을 정리해 담으려 한다.</p>
+
+<ul>
+<li><a href='http://blog.hannal.com/assets/uploads/2008/08/hannal-yi_7.zip'>이번 글에서 다룬 소스 압축파일</a></li>
+</ul>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2008/8/use_superduper_when_your_disk_cannot_be_partitioned/">
         부트캠프로 파티션을 나눌 수 없을 때
       </a>
@@ -191,936 +652,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>윈도우즈를 능숙히 쓰는 사람 중에는 "고스트"라는 무른모를 이용해서 윈도우즈 설치하고 최소한으로 꾸린 환경을 백업한 뒤, 쉽고 빠르게 윈도우즈를 재설치하는 효과를 누렸다. SuperDuper!는 그런 강력한 기능도 제공하면서, 타임머신 못지 않은 백업 성능을 보여준다. 타임머신 보다 다소 불친절해보이고 불편해보이지만, 직관성 높고 간결한 기능 구성으로 어렵지 않게 다룰 수 있다. 약 28 달러를 지불하면 정식 이용이 가능한데, 이번에 큰 도움을 받고 강한 인상을 받았기에 기꺼이 28 달러를 들여서 구입할 생각이다.</p>
 
 <p>추천! 별 다섯 개.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2008/7/06-python_django_lecture/">
-        년) 템플릿 작업과 Ajax 작업 (6편) - django 강좌
-      </a>
-    </h1>
-
-    <span class="post-date">29 Jul 2008</span>
-
-    <p>여태껏 django 와 파이썬을 공부해왔는데, 이런 쪽을 이용자 눈에 보이지 않는 서비스 뒤에서 작동하는 영역이라 해서 back-end (뒷단) 영역이라고 한다. 이번 글에서는 이용자 눈과 손에 바로 닿아 있는 front-end (앞단) 영역을 다룬다. 지난 글에서는 대충 뼈대 위주로 html 파일을 만들었는데, 이번엔 html 과 css, javascript 를 제대로 붙이는 것이다.</p>
-
-<h3>HTML, XHTML</h3>
-
-<p>요즘 많이 쓰이는 HTTP 문서 방식은 html 4.01 과 xhtml 1.0 이다. html 이 뭔지는 익히 알테니 xhtml 을 중심으로 간단히 알아보자.</p>
-
-<p>xhtml 은 html 에 xml의 성격과 요소를 더한 언어이다. 좀 더 정확히는 <strong>xhtml 1.0 은 html 4.01 규격에 xml 요소를 더하였고, 문서 안에 있는 자료의 의미론으로는 두 규격 차이는 거의 없이 비슷</strong>하다.</p>
-
-<p>xml 은 차세대 자료 규격으로 각광받고 있고, 이미 많은 곳에서 활발히 쓰이고 있는 언어이다. 사람이 알아보기 쉬운점(...이 장점이라고 여러 사람이 말하는데 난 전혀 동의하지 않는다), 확장성이 좋은 점, 서식/수식과 자료(data)가 깔끔하게 분리되어 있다는 점, 자료 구조가 표준화 되어있어 기종이나 환경을 타지 않고 쉽게 자료를 쓸 수 있다는 점이 특징이다.</p>
-
-<p>이런 xml 기능을 웹 화면에 쓸 일은 사실 거의 없다. 이 말은 xhtml 기능을 써야만 하는 경우도 별로 없고 xhtml을 제대로 쓰는 경우도 많지 않다. 그런데도 왜 이 강좌에서는 초기에 html 4.01 대신 xhtml 1.0 쓰자고 했을까? 앞으로 xml 이 많이 쓰일 가능성이 크기도 하지만 좀 더 양식화/구조화 된 문서 구조이기도 하다. xhtml 이 html 보다 문법이 더 엄격하기 때문이 아니라 xhtml 이 xml 문법을 따르기 때문이다. 무엇보다 xhtml 1.0과 html 4.01 은 거의 차이가 없을 정도로 웹브라우저 호환성을 따를 수 있으니, 그러니까 html 4.01 대신 xhtml 1.0 을 써도 무방할 것이니 xhtml 1.0을 쓰기로 한 것이다.</p>
-
-<p>더 많은 내용은 <a href="http://blog.wystan.net/2007/05/24/xhtml-vs-html">wystan님께서 쓰신 xhtml 과 html 글</a>에서 얻을 수 있으며, 많은 도움을 받을 수 있다.</p>
-
-<p>이외 css 와 javascript 는 작성한 html 를 꾸밀 때 마다 설명을 할 것이다.</p>
-
-<h3>글 목록 화면 html 제대로 꾸미기</h3>
-
-<p>미리 말하지만 여기서는 공부를 위해 겉모양은 별 신경을 안쓸 것이다. 결코 본인의 디자인 감각이 떨어져서 그런 것이 아니다. ^^</p>
-
-<p>아무튼 우선 list.html 을 다음과 같이 바꿨다.</p>
-
-<blockquote><pre><code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;link rel="stylesheet" href="/media/css/style.css" type="text/css" media="all" /&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-
-&lt;h1&gt;&lt;/h1&gt;
-
-&lt;div id="content"&gt;
-    &#123;&#37; for entry in entries &#37;&#125;
-
-    &lt;div class="post_entry"&gt;
-        &lt;h3 id="post_" class="post_title"&gt;&lt;a href="/blog/entry/"&gt;&lt;/a&gt;&lt;/h3&gt;
-
-        &lt;p class="post_info"&gt;글 갈래 : [  ] / &lt;a href="/blog/entry/"&gt;&lt;/a&gt;&lt;/p&gt;
-
-        &lt;div class="content_box"&gt;&lt;/div&gt;
-
-        &lt;ul class="post_meta"&gt;
-            &lt;li&gt;꼬리표 : &#123;&#37; for tag in entry.Tags.all &#37;&#125;
-            &lt;span&gt;&lt;/span&gt;
-            &#123;&#37; endfor &#37;&#125;&lt;/li&gt;
-            &lt;li&gt;&lt;a href="/blog/get_comments/"&gt;댓글 ()&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-
-    &lt;/div&gt;
-
-    &#123;&#37; endfor &#37;&#125;
-&lt;/div&gt;
-
-
-
-&lt;div id="sidebar"&gt;&lt;/div&gt;
-
-
-&lt;/body&gt;
-
-&lt;/html&gt;
-</code></pre>
-</blockquote>
-
-<p>맨 위에 &lt;!DOCTYPE 로 시작하는 부분은 DOCTYPE 을 선언하는 것이다. 지금 열고 있는 문서가 xhtml 라는 걸 선언하고 이 문서의 DTD 선언도 하고 있다. <strong>흔히 사람들은 이 부분을 가볍게 여겨서 무시하고 선언하지 않는 사람도 있는데 많이 중요</strong>하다. html/xhtml 문서를 가장 작게 만들 때 꼭 들어가야 하는 요소이기도 하다. 자세한 건 후니님께서 쓰신 <a href="http://hooney.net/2007/08/21/438/">HTML 에서 문서 형식(Doctype) 지정의 중요성</a> 글을 읽자. 꼭 읽자.</p>
-
-<p>다음엔 &lt;html 로  시작하는 부분이 있는데 보통 &lt;html&gt; 이라고 쓰는 부분이다. 뒤에 붙은  <strong>xmlns="http://www.w3.org/1999/xhtml"</strong> 은 xml 문서의 네임 스페이스(name space)를 쓴 것이다. 자세한 건 <a href="http://www.cadvance.org/doc/xml/xml_doc/xml_namespace.asp">XML namespace</a> 문서를 참조하자.</p>
-
-<p>이젠 head 태그를 열어서 안에다 이 문서가 UTF-8 라는 걸 메타 태그로 선언하고, css 파일을 문서에 포함시키고 있다. 여기서 잠깐. 이 바깥 css 파일을 html 문서 안에 적용하는 방법은 또 하나 더 있다.</p>
-
-<p>&lt;style type="text/css"&gt;<br />
-    @import url(/media/css/style.css);<br />
-&lt;/style&gt;</p>
-
-<p>이렇게 하는 것인데 뭐가 다를까? 다른 점이 많지만 <strong>가장 크게 중요한 다른 점은 link 는 html 요소(element)이므로 html 문서단에서 처리되고, import 는 style sheet 요소(기능)</strong>이다. link 태그는 css 파일을 연결하는 것 말고도 다른 쓰임새가 더 있지만 import 는 오직 바깥 css 파일을 포함시키는 쓰임새만 있다. <strong>이런 차이 탓에 웹브라우저에 따라 처리 우선순위가 다를 수 있다</strong>. 예를 들면, <a href="http://html.nhndesign.com/guidelines/css/#section4">인터넷 익스플로러에서는 link 태그 처리 우선순위가 이미지 파일 처리 우선순위보다 높고, style sheet import 기능은 이미지 파일 처리 우선순위 보다 낮다</a>고 한다. 몰라도 별 지장은 없지만, 혹 앞단(front-end)을 깊게 파고들어 공부하고 싶은 이라면 &lt;link&gt; 태그로 바깥 css 파일을 가져와 적용하는 것과 위와 같이 하는 것이 어떻게 다른지 더 알아보길 권한다. :)</p>
-
-<p>다음으로 볼 부분은 /media/css 이다. django 에서 어떤 url 을 쓰려면 urls.py 에 정의해야 하는데 우리는 urls.py 에 이런 주소를 넣은 적이 없다. 이미 urls.py 에 주소 체계 넣는 법을 익혔으니 간단하게 처리할 수 있을 것이다. 과연? 그렇지 않다. 이 부분은 조금 다른 설정이 필요하다.</p>
-
-<p>urls.py 에 주소 체계를 넣을 때 다음과 같은 구조이다.</p>
-
-<blockquote><p>(주소규칙, 연결할 함수)</p></blockquote>
-
-<p>그럼 /media 는 어떻게 해야할까? /media 뒤에 붙는 내용이 뭐든 상관 없이 /media 아래에 css 나 javascript 파일을 둔다고 하면</p>
-
-<blockquote><p><code>r'^media/(?P&lt;path&gt;.*)$'</code></p></blockquote>
-
-<p>이런 식으로 정규표현식을 써야 한다. 그럼 이걸 어디다 넘긴다? print_media 라는 함수를 만들고 거기서 저 path 로 넘어온 파일을 가져와서 출력해야 할까. 그것도 일일이 css 인지 javascript 인지 이미지 파일인지 구분을 해서? 그렇다면</p>
-
-<blockquote><p><code>r'^media/(?P&lt;path&gt;.*)$', 'hannal.blog.views.print_media'</code></p></blockquote>
-
-<p>이런 비슷한 모양새가 될 것이다. 맞다. 그래도 된다. 하지만, 이런 걸 굳이 우리가 만들지 않고 django 에서 제공하는 기능을 쓰면 간편하다.</p>
-
-<blockquote><p><code>(r'^media/(?P&lt;path&gt;.*)$', 'django.views.static.serve', {'document_root': ROOT_PATH+'/media'}),</code></p></blockquote>
-
-<p>바로 <strong>django.views.static.serve</strong> 라는 부분으로써, django.views.static 에 있는 serve 라는 함수이다. <a href="http://www.djangoproject.com/documentation/static_files/">django.views.static.serve 는 위와 같이 고정된 파일을 출력할 때 쓴다</a>. 해당 파일이 서버에 있는지 확인해서 있으면 출력하고 없으면 urls.py를 참조해서 처리하게 하면 되지, 뭐하러 이렇게 고정된 파일에 접근할 곳을 지정할까 싶겠지만 django 에선 이런 처리를 기본으로 해주지 않는다. 왜냐하면 이런 설정은 웹서버 설정을 따르면 그만이기 때문이다. 예를 들면, 아파치 웹서버라면 rewrite rules 에서 지정하면 된다. 그래서 django 에서는 이를 기본 기능처럼 자동으로 처리하지 않고 이용자가 선택 하게 별도 기능으로 빼놨다.</p>
-
-<p>settings.py 에도 관련 설정을 해야 한다. 실은 안해도 출력이 되긴 된다. settings.py 안에 보면 MEDIA_ROOT 변수와 MEDIA_URL 변수, 그리고 ADMIN_MEDIA_PREFIX 변수가 있다.</p>
-
-<p>MEDIA_ROOT 는 매체 파일이 있는 절대 경로이다.</p>
-
-<blockquote><p><code>MEDIA_ROOT = ROOT_PATH + '/media/'</code></p></blockquote>
-
-<p>이렇게 지정하면 된다. ROOT_PATH 는 settings.py 파일 맨 위에 저번에 지정했다.</p>
-
-<p>MEDIA_URL 은 웹 경로(url)을 뜻하는데</p>
-
-<blockquote><p><code>MEDIA_URL = '/media/'</code></p></blockquote>
-
-<p>라고 해두자. http://localhost:8000/media/ 이렇게 실제 웹 주소까지 쓰는 것이 좋다.</p>
-
-<p><strong>ADMIN_MEDIA_PREFIX 가 중요한데, 절대로 MEDIA_URL 과 같아서는 안된다</strong>. 이는 django admin 영역에서 사용할 각종 매체 파일이 있는 웹 경로에 쓰이는데, 이 경로가 MEDIA_URL 과 같으면, 웹에서 해당 파일이 존재하지 않는다는 오류가 발생한다. MEDIA_URL 과 똑같지만 않다면 무어라 쓰든 상관없다.</p>
-
-<blockquote><p><code>ADMIN_MEDIA_PREFIX = '/media/admin/'</code></p></blockquote>
-
-<p>적절하게 위와 같이 하자. 그러면 urls.py 상관없이 admin 영역 매체 파일은 위 경로에서 접근해서 가져온다. 이게 가능한 이유는 /django/core/servers/basehttp.py 안에 있는 AdminMediaHandler 클래스가 이런 일을 대신 해주기 때문이다.</p>
-
-<p>앞으로 /media 안에 css, javascript 파일 등을 둘 것이니, urls.py 과 settings.py 파일이 있는 디렉토리(폴더)에 media 라는 디렉토리를 만들자. 그리고 그 안에 css 라는 디렉토리를 만들고, css 디렉토리에 style.css 파일을 만들어 다음 내용을 넣자.</p>
-
-<blockquote><pre><code>body {
-    background-color: #fff;
-    font-size: 0.9em;
-}
-a {
-    text-decoration: none;
-    color: #449;
-}
-    a:hover {
-        color: #944;
-    }
-
-#content {
-    width: 700px;
-}
-
-.post_entry {
-    border: 1px solid #000;
-    margin: 10px 0 10px;
-    color: #666;
-    padding: 10px;
-}
-
-
-.post_title {
-    margin: 0 0 5px 0;
-    background-color: #eaeaea;
-    padding: 2px 3px;
-}
-    .post_title a {
-        color: #558;
-        text-decoration: none;
-    }
-    .post_title a:hover {
-        color: #855;
-    }
-
-.post_info {
-    margin: 0;
-    border-bottom: 2px solid #999;
-    font-size: 0.8em;
-}
-
-.content_box {
-    margin: 20px 0;
-    padding: 0 2em;
-}
-
-.post_meta {
-    font-size: 0.8em;
-    color: #757575;
-    margin: 10px 0 0 10px;
-    padding: 0;
-}
-    .post_meta li {
-        display: inline;
-        margin-right: 30px;
-    }
-</code></pre>
-</blockquote>
-
-<p>위 내용들을 저장한 뒤 블로그 글 목록 화면을 보자.</p>
-
-<p><img src="http://blog.hannal.com/assets/uploads/2008/07/blog_list_with_css.png" alt="" title="css 를 적용한 블로그 글 목록 화면" width="386" height="450" class="alignnone size-full wp-image-138" /></p>
-
-<h4>html 공통 부분 뽑아내기</h4>
-
-<p>&lt;html&gt; 이나 &lt;head&gt; 같은 윗쪽 부분과  나 &lt;/head&gt;&lt;/html&gt; 같은 아랫쪽 부분은 list.html 뿐 아니라 read.html 에도 쓰고 write.html 에도 쓴다. 그리고 이러한 윗쪽 부분이나 아랫쪽 부분을 바꿀 경우, 이 세 파일에도 똑같이 반영되어야 할 것이다.</p>
-
-<p>이렇게 일일이 파일 세 곳을 고치면 귀찮다. 글 낱장 읽기 기능을 만들 때 댓글 영역을 comments.html 로 빼낸 것처럼 html 윗쪽과 아랫쪽을 header.html 과 footer.html 로 빼낸 뒤, list.html, read.html, write.html 에서 포함시키게 해보자.</p>
-
-<p>우선 header.html 파일과 footer.html 파일은 템플릿 파일이 있는 폴더(/templates) 안에 layout 이라는 폴더를 하나 더 만든 뒤 그곳에 넣자.</p>
-
-<p>먼저 header.html 는 다음과 같이 넣는다.</p>
-
-<blockquote><pre><code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-
-&lt;head&gt;
-    &lt;title&gt;&lt;/title&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;link rel="stylesheet" href="/media/css/style.css" type="text/css" media="all" /&gt;
-&lt;/head&gt;
-
-&lt;body&gt;</code></pre>
-</blockquote>
-
-<p>그리고 footer.html 은</p>
-
-<blockquote><pre>&lt;/body&gt;
-
-&lt;/html&gt;</pre>
-</blockquote>
-
-<p>이라고 넣는다. 그리고 list.html 에서 위 html 코드를 지운다. 다음엔 list.html 파일 안 맨 위에</p>
-
-<blockquote><p><code>&#123;&#37; include 'layout/header.html' &#37;&#125;</code></p></blockquote>
-
-<p>를 넣고, 맨 아래엔</p>
-
-<blockquote><p><code>&#123;&#37; include 'layout/footer.html' &#37;&#125;</code></p></blockquote>
-
-<p>를 넣는다. 이런 코드를 read.html 와 write.html 에도 넣으면 된다.</p>
-
-<h3>댓글을 ajax 로 가져오기</h3>
-
-<h4>댓글 가져와 출력하기</h4>
-
-<p>이번엔 댓글을 ajax 로 가져와 보자. html 코드 중간에 보면 댓글 출력하는 부분에 주소 연결(link)가 되어 있다.</p>
-
-<blockquote><p><code>&lt;li&gt;&lt;a href="/blog/get_comments/"&gt;댓글 ()&lt;/a&gt;&lt;/li&gt;</code></p></blockquote>
-
-<p>이제 척하면 척이다. “/blog/get_comments/글번호” 주소 체계를 urls.py 에 넣자.</p>
-
-<blockquote><p><code>(r'^blog/get_comments/(?P&lt;entry_id&gt;d+)/$', 'hannal.blog.views.get_comments'),</code></p></blockquote>
-
-<p>그리고 views.py 에 get_comments 함수를 만들면 되는데</p>
-
-<blockquote><pre><code>def get_comments(request, entry_id=None):
-    comments = Comments.objects.filter(Entry=entry_id).order_by('created')
-    pass
-</code></pre>
-</blockquote>
-
-<p>일단 이렇게 간단하게 기본 틀을 짰다. 여기서 잠깐 고민. 가져온 댓글을 어떻게 보내줘야 할까. 가져온 댓글 자료형 그대로 보내주고 javascript 로 화면에 맞게 html 을 만드는 게 좋을까, 아니면 서버에서 댓글 목록 화면을 다 만든 뒤에 이걸 통채로 화면에 끼워 넣는 게 좋을까. 사람 취향이겠지만 경험상 후자 방식이 더 편하더라.</p>
-
-<p>후자 방식으로 하면 아주 간단하게 마무리 할 수 있다.</p>
-
-<blockquote><pre><code>tpl = loader.get_template('comments.html')
-ctx = Context({
-    'comments':comments
-})
-return HttpResponse(tpl.render(ctx))</code></pre>
-</blockquote>
-
-<p>을 추가하면 된다. comments.html 은 글 낱장 읽기(read.html)를 만들 때 만들었다. 그래서</p>
-
-<blockquote><pre><code>def get_comments(request, entry_id=None):
-    comments = Comments.objects.filter(Entry=entry_id).order_by('created')
-
-    tpl = loader.get_template('comments.html')
-    ctx = Context({
-        'comments':comments
-    })
-    return HttpResponse(tpl.render(ctx))</code></pre>
-</blockquote>
-
-<p>이렇게 된다.</p>
-
-<h4>ajax 방식 구분에 따라 출력 화면 다르게 하기</h4>
-
-<p>이번엔 comments.html 을 어떤 방식으로 가져왔는지 구분하는 기능을 넣어보자.</p>
-
-<p>comments.html 을 가져와 출력하는 접근 방식은 크게 세 가지이다.</p>
-
-<ul>
-<li>read.html 처럼 다른 템플릿 파일에서 포함시키기</li>
-<li>ajax 로 get_comments 함수를 통해 comments.html 만 가져오기</li>
-<li>get_comments 함수를 통해 comments.html 를 가져오되 ajax 가 아닌 보통 웹 접근(get method) 방식으로 접근하기</li>
-</ul>
-
-<p>문제가 되는 부분은 세 번째이다. 예상 밖 문제가 생겨서 javascript 가 작동하지 않을 경우 적어도 서비스가 아주 응답이 없거나 오류가 발생하는 상황은 피해야 한다. 단지 잠깐 네트워크에 문제가 생겨서 javascript 파일을 제대로 가져오지 못했을 뿐인데, 이 때문에 이용자가 아무 일도 할 수 없어 서비스 신뢰도가 떨어지면 얼마나 억울한가. 이외에도 이용자가 순순히 ajax(javascript)로 접근하지 않을 가능성도 감안하면 위 세 가지 방식 중 세 번째 방식도 신경 써야 한다.</p>
-
-<p>무슨 말이 하고 싶어 이렇게 길게 뜸을 들이는 것이냐면 <strong>request 객체에 있는 is_ajax() 라는 메소드</strong>를 설명하기 위해서이다. 이용자가 서버에 접속할 때 접속 방식이 ajax 인지 아닌지를 구분해서 그에 맞는 대응을 하는데 필요한 메소드가 is_ajax 이다. 잠깐. request 객체는 어디서 튀어 나온 녀석일까? 우리가 views.py 에서 함수를 만들 때 request 를 인자로 받은 걸 기억할 것이다. 바로 그 request 이다.</p>
-
-<p>사용법은 간단하다. <strong>request.is_ajax() 로 메소드를 호출하면 이용자 접속/접근 방식이 ajax 이면 true (참), 아니면 false (거짓)을 반환</strong>한다.</p>
-
-<p>그런데 문제가 하나 있다. 이 메소드는 django 0.97 이상부터 쓸 수 있다. 0.96 엔 아직 추가되지 않은 메소드이므로 별도 처리를 해야 한다. 우선 is_ajax 라는 함수를 views.py 안에 만들자.</p>
-
-<blockquote <pre><code>def is_ajax(request):
-    if dir(request).count('is_ajax') > 0:
-        return request.is_ajax()
-    else:
-        return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'</code></blockquote>
-
-request 객체를 인자로 넘겨 받은 뒤, 이 객체에 is_ajax 라는 요소가 있는지 확인한다. 있으면 1이 반환되므로 request 의 is_ajax 메소드를 실행시켜 그 결과값을 반환한다. 만약, 없으면(0이면) request 객체에서 http meta 정보 중 HTTP_X_REQUESTED_WITH 를 가져온 뒤 이 값이 XMLHttpRequest 인지 확인한다. 동일하면 ajax 로 요청을 한 것이다. 실제로 request.is_ajax 메소드는 작동이 <code>request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'</code> 이것과 동일하다. 그러므로 if 조건문을 걸 필요 없이
-
-<blockquote <pre><code>def is_ajax(request):
-    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'</code></blockquote>
-
-이렇게 하는 것이 낫다. 하지만, 공부 차원에서 위와 같이 if 조건문으로 상황을 구분했다.
-
-따로 is_ajax 함수를 만들지 않고 request 객체에 is_ajax 라는 메소드를 추가해서 django 0.96판에서도 request.is_ajax() 로 쓰는 방법도 있다.
-
-<blockquote><pre><code>import new
-request.is_ajax = new.instancemethod(lambda request: request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest', request, request.__class__)</code></pre>
-</blockquote>
-
-<p>이렇게 하면 기존에 is_ajax 메소드가 없던 request 에 is_ajax 메소드가 추가된다. 하지만 그다지 권장하고 싶진 않으니 위와 같이 별도 is_ajax 함수를 만든 뒤 request.is_ajax 라고 쓰는 대신 is_ajax(request) 라고 쓰자.</p>
-
-<blockquote><pre><code>if is_ajax(request):
-    # ajax 요청입니다.
-else:
-    # ajax 요청이 아닙니다.</code></pre>
-</blockquote>
-
-<p>이런 식이다.</p>
-
-<p>ajax 방식으로 “/blog/get_comments/숫자” 주소로 접근하면 댓글 목록만 반환하고, ajax 가 아닌 방식으로 접근하면 완성된 html, 그러니까 header.html 과 footer.html 을 포함시켜서 댓글 목록을 출력하도록 하자.</p>
-
-<blockquote><pre><code>if is_ajax(request):
-    with_layout = False
-else:
-    with_layout = True</code></pre>
-</blockquote>
-
-<p>먼저 get_comments 함수 (def get_comments)에 위와 같이 ajax 상황을 구분한다. with_layout 변수는 comments.html 템플릿 파일에서 쓸 치환자인데, 이 값이 True 이면 header.html 와 footer.html 을 가져오고, False 이면 가져오지 않게 하는 데 쓴다.</p>
-
-<p>다음엔 comments.html 파일 맨 위에</p>
-
-<blockquote><p><code>&#123;&#37; if with_layout &#37;&#125;&#123;&#37; include 'layout/header.html' &#37;&#125;&#123;&#37; endif &#37;&#125;</code></p></blockquote>
-
-<p>이렇게 해서 with_layout 변수(치환자)가 True 이면 layout/header.html 을 가져오게 하고, 맨 아래엔</p>
-
-<blockquote><pre><code>&#123;&#37; if with_layout &#37;&#125;
-    &#123;&#37; include 'layout/footer.html' &#37;&#125;
-&#123;&#37; endif &#37;&#125;</code></pre>
-</blockquote>
-
-<p>같은 작동을 하되 layout/footer.html 을 가져오게 한다. header.html 가져오는 부분은 if조건 치환문과 include 치환문을 공백없이 붙여 쓴 이유는 header.html 파일 맨 위에 있는 DOCTYPE 선언 부분을 html 문서 맨 위와 앞에 넣어야 하기 때문이다. 만약</p>
-
-<blockquote><pre><code>&#123;&#37; if with_layout &#37;&#125;
-    &#123;&#37; include 'layout/header.html' &#37;&#125;
-&#123;&#37; endif &#37;&#125;</code></pre>
-</blockquote>
-
-<p>라고 하면 html 문은</p>
-
-<blockquote><pre><code>
-    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</code></pre>
-</blockquote>
-
-<p>이렇게 출력되기 때문이다. 앞에 공백이 들어가면 안되므로 신경 쓰자.</p>
-
-<p>이번엔 댓글 작성 폼(form)을 comments.html 안에 넣자. 지난 글에서는 read.html 에서 comments.html 과 comment_form.html 을 각 각 include 치환문으로 가져왔지만, 이번 글부터는 comment_form.html 을 comments.html 안에 넣는다. 여러분을 귀찮게 하기 위함보다는 include 치환문을 설명하려다 보니 그렇게 됐다. ^^; 어쨌든</p>
-
-<blockquote><p><code>&#123;&#37; include 'comment_form.html' &#37;&#125;</code></p></blockquote>
-
-<p>이 내용을 comments.html 에서 footer.html 를 include 할 지 말 지 판단하는 if조건 치환문 위에 넣는다. 그러면 comments.html 문은 이렇게 생겼을 것이다.</p>
-
-<blockquote><pre><code>&#123;&#37; if with_layout &#37;&#125;&#123;&#37; include 'layout/header.html' &#37;&#125;&#123;&#37; endif &#37;&#125;
-
-    &#123;&#37; if comments|length &#37;&#125;
-    &lt;ul&gt;
-    &#123;&#37; for comment in comments &#37;&#125;
-        &lt;li&gt;님이 에 남긴 댓글
-        &lt;p&gt;&lt;/p&gt;&lt;/li&gt;
-    &#123;&#37; endfor &#37;&#125;
-    &lt;/ul&gt;
-    &#123;&#37; else &#37;&#125;
-    댓글이 없습니다.
-    &#123;&#37; endif &#37;&#125;
-
-    &#123;&#37; include 'comment_form.html' &#37;&#125;
-
-&#123;&#37; if with_layout &#37;&#125;
-    &#123;&#37; include 'layout/footer.html' &#37;&#125;
-&#123;&#37; endif &#37;&#125;</code></pre>
-</blockquote>
-
-<p>그런 뒤 read.html 에서</p>
-
-<blockquote><p><code>&#123;&#37; include 'comment_form.html' &#37;&#125; </code></p></blockquote>
-
-<p>이 부분을 지우자. comments.html 에 포함됐기 때문이다.</p>
-
-<p>이제 상황에 따라(ajax 접근인지 아닌지) comments.html 파일은 다르게 출력된다.</p>
-
-<h4>ajax 작동을 위한 html 기반 작업</h4>
-
-<p>javascript 코드를 작성하기 전에 javascript 기능을 위한 html 기반 마무리를 하자. list.html 파일을 살짝 고치면 된다.</p>
-
-<blockquote><p><code>&lt;li&gt;&lt;a href="/blog/get_comments//"&gt;댓글 ()&lt;/a&gt;&lt;/li&gt;</code></p></blockquote>
-
-<p>이렇게 된 부분을</p>
-
-<blockquote><p><code>&lt;li&gt;&lt;a href="/blog/get_comments//" onclick="toggle_comment_box(this.href, ''); return false;"&gt;댓글 ()&lt;/a&gt;&lt;/li&gt;</code></p></blockquote>
-
-<p>이렇게 고친다. onclick 어쩌고 저쩌고 내용을 추가한 것이다. 이번엔</p>
-
-<blockquote><p><code>&lt;div id="comment_box_" style="display: none;"&gt;&lt;/div&gt;</code></p></blockquote>
-
-<p>이 내용을 아래에 추가한다. 아마 댓글 수를 출력하는 근처 html 은 이렇게 생겼을 것이다.</p>
-
-<blockquote><pre><code> &lt;li&gt;&lt;a href="/blog/get_comments//" onclick="toggle_comment_box(this.href, ''); return false;"&gt;댓글 ()&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div id="comment_box_" style="display: none;"&gt;&lt;/div&gt;</code></pre>
-</blockquote>
-
-<p>하나씩 살펴보자. onclick 부분은 댓글 (숫자) 이 부분을 클릭했을 때 실행할 javascript 내용을 써넣은 것이다. <strong>on click 을 뜻하는 말로 click 이 일어난 상황을 뜻하며 이런 “상황”을 이벤트(event)라고 부른다</strong>. 이런 이벤트는 여러 종류가 있는데 일단 onclick 만 알아두자.</p>
-
-<p>onclick 이벤트 부분을</p>
-
-<blockquote><p><code>onclick="alert('hello world'); return false;"</code></p></blockquote>
-
-<p>이렇게 바꾼 뒤 마우스로 클릭하면 hello world 라는 문자열을 담은 돌출창(pop-up window)이 뜬다.</p>
-
-<p><strong>return false; 는 return false; 앞부분까지만 일을 처리하고 여기서 작동을 중단시키는 역할</strong>을 한다. 만약 return false; 를 지우거나 return true; 라고 하면, return false; 앞에 있는 javascript 내용을 실행한 뒤에 a 태그(앵커)로 연결(link)한 주소로 화면 이동을 할 것이다. <strong>javascript 내용만 실행한 뒤 굳이 a 태그로 지정한 주소로 이동할 필요가 없으니 return false; 로 작동을 끝내자</strong>.</p>
-
-<p>toggle_comment_box 이라는 javascript 함수는 우리가 top.js 에서 만들 것이다. 인자 두 개를 넘기면 이 인자 두 개로 적절한 일을 할 것이다. 첫 번째 인자는 댓글을 가져올 주소(/blog/get_comments/글일련번호(숫자))이다. 이 주소는 a 태그에서 href 에 있다.</p>
-
-<blockquote><p><code>&lt;a href="/blog/get_comments//" onclick="..."&gt;</code></p></blockquote>
-
-<p>이렇게 말이다. 그래서 this.href 라고 값을 넘겼다.</p>
-
-<blockquote><p><code>toggle_comment_box(this.href, ...);</code></p></blockquote>
-
-<p><strong>this 는 객체 자기 자신을 가리키는 javascript 표현(keyword)</strong>이다. a 태그에 있는 href 라는 속성은 javascript 에서는 a 태그라는 객체에 있는 href 라는 프로퍼티처럼 다룬다.</p>
-
-<ul>
-<li>a 태그 = a 태그로 만들어진 객체(element)</li>
-<li>href 속성 = 이 객체에 있는 href 라는 프로퍼티</li>
-<li>this = a 태그 객체 안에서는 자기 자신을 가리킴</li>
-</ul>
-
-<p>두 번째 인자는 어떤 글인지를 구분하기 위한 글 번호이다.</p>
-
-<blockquote><p><code>&lt;div id="comment_box_" style="display: none;"&gt;&lt;/div&gt;</code></p></blockquote>
-
-<p>이런 내용을 추가했는데, 이 상자는 ajax 로 가져온 댓글 목록 내용을 넣을 공간이다. 글 목록 화면에는 글이 여러 개 출력되므로 이런 상자도 여러 개이다. 이 상자를 각 각 구분해서 댓글 목록 내용을 넣으려고 글 일련번호(id)로 각 상자를 구분하고 있다. 10번 글이라면 comment_box_10 이라는 div(division) 상자의 id 가 되고, 1023번 글이라면 comment_box_1023 이 된다. 그리고 우리는 javascript 에서 10이나 1023 같은 글 일련번호를 넘겨줘서 저러한 상자를 구분하는 것이다.</p>
-
-<h4>prototype.js 를 이용하여 ajax 로 댓글 가져오기</h4>
-
-<p>이제 javascript 작업을 할 차례이다. 우리는 javascript framework 로 prototype 을 쓰기로 했으니 이 라이브러리를 가져다 쓰고, 우리가 직접 만든 javascript 도 가져와야 한다.</p>
-
-<p>먼저 header.html 부터 고치자.</p>
-
-<blockquote><p><code>&lt;script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"&gt;&lt;/script&gt;<br />
-&lt;script type="text/javascript" src="/media/js/top.js"&gt;&lt;/script&gt;</code></p></blockquote>
-<p>prototype.js 는 <a href="http://www.prototypejs.org">prototype 공식 누리집</a>에서 직접 받아다 포함시켜도 되지만, 여기서는 편의상 <a href="http://code.google.com/apis/ajaxlibs/">google AJAX Libraries API</a> 에서 제공하는 prototype.js 를 바로 접근해서 가져왔다. 이에 대한 내용은 likejazz님이 쓰신 “<a href="http://www.likejazz.com/archives/311">구글 AJAX Libraries API</a>” 글을 참조 바란다.</p>
-<p>우리가 직접 작성할 top.js 는 media 디렉토리 안에 있는 js 디렉토리 안에 있다. 지금까지는 media 디렉토리에 css 디렉토리가 있었는데 이번에 js 디렉토리를 만들고 그 안에 top.js 파일을 만들자.</p>
-<p>그런 뒤 아래 내용을 넣는다.</p>
-<blockquote><pre><code>var toggle_comment_box = function(url, entry_id) {
-    var el = $('comment_box_'+entry_id);
-
-    if ( el.visible() == true ) {
-        el.hide();
-    }
-    else {
-        var ajax = new Ajax.Updater(el, url);
-        el.show();
-    }
-}</code></pre>
-</blockquote>
-
-<p>toggle_comment_box 는 list.html 에서 onclick 이벤트가 일어났을 때 실행시킬 함수로 지정했었다. 그 함수를 만든 것이다.</p>
-
-<p>우선 var toggle_comment_box 는 toggle_comment_box 라는 객체(변수)를 선언하는 것이다. <strong>이 객체에 넣을 값을 function 이라는 자료형으로 넣으려고</strong></p>
-
-<blockquote><p><code>function(url, entry_id) { ... }</code></p></blockquote>
-
-<p>이렇게 한 것이다.</p>
-
-<p>javascript 에는 자료형이 총 7개가 있다.</p>
-
-<ul>
-<li>Number (숫자)</li>
-<li>String (문자, 문자열)</li>
-<li>Boolean (부울린. 참과 거짓)</li>
-<li>Function (함수)</li>
-<li>Object (객체)</li>
-<li>Null (없음)</li>
-<li>Undefined (선언되지 않음)</li>
-</ul>
-
-<p>정말이다. Array 자료형 같은 것도 있는 것 같은데 이런 것이 위 목록에 없어서 믿기지 않는다면 javascript 에서</p>
-
-<blockquote><p><code>alert(typeof Array);</code></p></blockquote>
-
-<p>라고 하면 function 라고 뜬다. javascript 를 앞으로 자주 쓸 것이라면 위 7가지는 외워두자.</p>
-
-<p><strong>주의해야 할 점은 우리가 흔히 표현하는 객체라는 표현과 위에 나온 Objects (객체)는 구분을 해야 하는 점</strong>이다. javascript 에서는 (거의) 모든 것을 객체로 취급하는데 이 객체의 자료형 중엔 Number 나 String 형이 있듯이 Object 라는 자료형도 있기 때문이다(이 글에선 구분을 위해서 Object 자료형을 뜻할 땐 Object 라고 쓰겠음). 어쨌든 Function 이라는 자료형을 toggle_comment_box 라는 객체에 넣는 것이</p>
-
-<blockquote><p><code>var toggle_comment_box = function( ... ) { ... }</code></p></blockquote>
-
-<p>이 코드이다. 이제 함수 안을 하나씩 뜯어보자.</p>
-
-<blockquote><p><code>var el = $('comment_box_'+entry_id);</code></p></blockquote>
-
-<p>이것은 우리가 쓰기로 한 <strong>prototype.js 에 있는 $ 라는 함수</strong>를 쓴 모습이다. <strong>$ 함수는 html 문서 안에 있는 요소(element)를 골라서 javascript 객체에 담을 수 있게 해준다</strong>. javascript 에는 getElementById 라는 함수가 이 역할을 한다. document 라는 객체에 있는 메소드로써</p>
-
-<blockquote><p><code>var el = document.getElementById('comment_box_'+entry_id);</code></p></blockquote>
-
-<p>이렇게 해도 된다. 그런데 굳이 prototype.js 에 있는 $ 함수를 쓴 이유는 prototype.js 에 있는 <a href="http://prototypejs.org/api/element">Element 객체</a>가 아주 편하고 강력한데 이 Element 객체 기능들을 $ 함수가 포함시키기, 즉 <strong>상속</strong> 받아 놓기 때문이다. Element 객체 뿐 아니라 Form 객체 등 자주 쓰는 prototype.js 의 객체들에 있는 메소드들을 함께 상속 받는다.</p>
-
-<p>잠시 파이썬과 django 를 떠올려보자. models.py 안에서 모델을 만들 때 django 에서 제공하는 모델 각종 기능들을 상속 받아서 이를 편하게 활용했다. 예를 들면, Entries 라는 모델 클래스를 만들면 django 에 있는 모델 기능들이 Entries 에 달라붙어(상속되어)</p>
-
-<blockquote><p><code>new_entry = Entries(...)<br />
-new_entry.save()</code></p></blockquote>
-<p>위와 같이 save 같은 메소드를 쓸 수 있었다. prototype.js 의 $ 함수도 마찬가지이다. $ 함수로 html 요소(element)를 선택하면, 이 객체에 prototype.js 에 있는 Element 객체도 상속시킨다. 그래서 javascript 에 기본 내장된 getElementById 대신 써서 좀 더 편리함을 누리는 것이다. 그럼 prototype.js 에 있는 편리한 Element 객체 기능은 무엇이 있을까? 바로 다음 줄에 나온다. 어쨌든</p>
-<blockquote><p><code>var el = $('comment_box_'+entry_id);</code></p></blockquote>
-<p>이건 저 이름을 가진 html element 를 가져와서 el 라는 변수(객체)에 담은 것이다. el 은 element 를 줄인 이름으로 여러분 마음에 들지 않으면 적당한 걸로 바꿔도 된다. 만약 10번 글에 있는 댓글 (숫자)를 클릭했다면</p>
-<blockquote><p><code>var el = $('comment_box_'+10);</code></p></blockquote>
-<p>과 같은 코드가 된다. 'comment_box_'+10 는 comment_box_ 문자열에 10 을 덧붙인 것으로 comment_box_10 과 같다. 이후부터는 10번 글의 댓글을 가져오는 상황으로 가정한다.</p>
-<blockquote><pre><code>if ( el.visible() == true ) {
-    el.hide();
-}
-else {
-    var ajax = new Ajax.Updater(el, url);
-    el.show();
-}</code></pre>
-</blockquote>
-
-<p>위 코드에서 visible 이라는 메소드가 바로 prototype.js 에 있는 Element 객체의 메소드이다. <strong>visible 메소드는 해당 element 가 현재 출력을 한 상태인지 아닌지 확인해서 출력 상태이면 true 를, 그렇지 않으면 false 를 반환</strong>한다. el.visible() 이란 el 이라는 element 가 현재 출력 상태인지 확인하는 것으로</p>
-
-<blockquote><p><code>if ( Element.visible('comment_box_10') == true )</code></p></blockquote>
-
-<p>라고 한 것과 동일하다. Element 객체에 있는 visible 메소드를 실행한 것인데, 위에서 설명했다시피 $ 함수로 html element 를 선택하면 Element 객체도 상속 받기 때문에 el.visible 이라고 쓸 수 있는 것이다. 즉,</p>
-
-<ul>
-<li>el.visible()</li>
-<li>$('comment_box_10').visible()</li>
-<li>Element.visible('comment_box_10')</li>
-</ul>
-
-<p>모두 동일한 작동을 한다. <small>(여담인데, 난 visible 이라는 이름을 참 싫어한다. is_visible 이라는 이름이 visible 이라는 이름 보다 좀 더 직관성이 높기 때문이다)</small></p>
-
-<p>우리는 list.html 에서 댓글을 가져와서 출력할 상자( <code>&lt;div id="comment_box_" style="display: none;"&gt;&lt;/div&gt;</code> )를 출력하지 않았다. <strong>style="display: none;"</strong> 이라고 했기 때문이다. 그러므로 위 if 조건문은 false 가 된다. 그래서 else 블럭 안에 있는 내용을 실행한다. 바로</p>
-
-<blockquote><pre><code>else {
-    var ajax = new Ajax.Updater(el, url);
-    el.show();
-}
-</code></pre>
-</blockquote>
-
-<p>이 부분 말이다. 우선 show 메소드부터 보자면, <strong>show 메소드는 해당 element 를 출력 상태로 바꿔준다</strong>. comment_box_10 이런 이름(id)을 가진 element(<code>&lt;div id='comment_box_10' ...&gt;</code>)이 출력하지 않은 상태(display: none)이므로 이를 show 메소드로 상태를 바꿔주면 출력 상태가 된다. 반대 기능을 하는 메소드는 위 javascript 바로 위에 있고 이름에서도 추측할 수 있듯이 <strong>hide 메소드</strong>이다.</p>
-
-<p>이번엔</p>
-
-<blockquote><p><code>var ajax = new Ajax.Updater(el, url);</code></p></blockquote>
-
-<p>이 부분을 보자. Ajax 는 prototype.js 에 있는 ajax를 처리하는 객체이다. 근데 앞에 new 는 뭘까? <strong>new 연산자(operator)는 Function 자료형으로 객체의 인스턴스(instance)를 생성</strong>할 때 쓴다. 자세한 설명은 <a href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Operators:Special_Operators:new_Operator">MDC에 있는 new Operator 문서</a>를 참조 바란다.</p>
-
-<p>위 코드에서 <strong>new 를 하지 않고 Ajax.Updater 를 바로 실행하려고 하면 Ajax.Updater 가 아닌 Ajax.Updater 에 담겨있는 내용 자체를 실행</strong>하려 한다. 그래서 new 를 통해 Ajax.Updater 인스턴스를 생성하여 실행하는 것이다. 자세한 내용을 많이 생략해서 설명이 막연한데 prototype.js 에 보면 prototype.js의 Class 라는 객체에 있는 create 메소드로 만든 객체들(Ajax, Hash, Template, PeriodicalExecuter 등)은 new 로 인스턴스를 할당한다고 보면 된다. 이 강좌를 쓰는 본인 능력이 부족해서 쉬운 설명을 하지 못해 결국 자세한 설명을 포기하여 참 미안스럽다.</p>
-
-<p>어쨌든 Ajax.Updater 는 new 연산자를 써야 하므로</p>
-
-<blockquote><p><code>var ajax = Ajax.Updater(el, url);</code></p></blockquote>
-
-<p>이렇게 하면 작동하지 않는다(오류 남). prototype.js 에서 어떤 건 new 를 쓰고 어떤 건 안써도 되는지 모르겠다면 prototype.js 에 있는 공식 문서를 참고하면 된다. 물론, javascript 의 new 연산자에 대한 이해도를 먼저 높이는 것이 중요하다.</p>
-
-<p>Ajax.Updater 객체는 지정한 html element 에 지정한 url 로 접근하여 받은 내용을 반영하는 역할을 한다. el 은  comment_box_10 이름을 가진 html element 이고, url 은 list.html 에서 댓글(숫자)를 누를 때 넘겨 받은 주소인 /blog/get_comments/10 이다. 이 주소를 ajax 방식으로 접근하여 받은 내용은 header.html 와 footer.html 를 포함하지 않은 채 댓글 목록을 html 내용으로 갖는 comments.html 이고, 이 내용을 comment_box_10 이름을 가진 html element 안에 반영한다. 추가가 아니라 반영이다. 기존에 이미 문자열이 있으면 이 내용은 무시하고 새로 받은 내용으로 덮어씌운다.</p>
-
-<p>이 기능은 Ajax.Request 라는 객체로도 구현할 수 있다.</p>
-
-<blockquote><pre><code>var ajax = new Ajax.Request(url, {
-            onSuccess: function(req) {
-                el.update(req.responseText);
-            }
-    });</code></pre>
-</blockquote>
-
-<p>이렇게 말이다. 작동은 동일하지만 훨씬 복잡하다. 그래서 <strong>단지 서버로부터 ajax 로 html 내용을 받아다 특정 html element 에 반영만 할 것이라면 Ajax.Updater 객체를 권한다</strong>. 훨씬 간결하니 말이다.</p>
-
-<p>이제 서버로부터 댓글 목록을 가져와서 댓글 목록 상자에 반영하고 출력 상태로(el.show()) 바꿨다. 이 상태에서 “댓글 (숫자)”를 클릭하면 당연히(?) toggle_comment_box 함수가 실행된다. 그런데 현재 이 element 는(el) 출력 상태이므로</p>
-
-<blockquote><p><code>if ( el.visible() == true ) {</code></p></blockquote>
-
-<p>이 조건문이 참이 되므로</p>
-
-<blockquote><p>el.hide();</p></blockquote>
-
-<p>만 실행하고 끝난다. 댓글 상자를 닫는데 굳이 서버에 접속해서 댓글 목록을 가져올 필요가 없기 때문이다.</p>
-
-<p>이제 글 목록에서 댓글을 ajax 방식으로 가져오는 기능까지 만들었다. 물론 꽤 효율이 떨어지는 방식이다. 이용자가 “댓글 (숫자)” 부분을 계속 눌러대면 1/2 만큼 서버로에 접속해서 댓글 목록을 가져오기 때문이다. (댓글 상자 열 때만 접속하므로 1/2) 좀 더 효율성 있는 방법은 여러분이 스스로 고민해서 만들어 보길 바란다. :) 이는 기획 관점도 필요하므로 어떻게 하는 것이 나을지 고민을 하면 개발 감각이나 기획 감각 늘리는 데 많은 도움이 된다.</p>
-
-<h3>글 읽기 화면에서 ajax 방식으로 댓글 달기</h3>
-
-<h4>read.html 보완</h4>
-
-<p>드디어 이 글에서 만들 마지막 기능이다. read.html 파일을 열어서 <code>&#123;&#37; include 'layout/header.html' &#37;&#125;</code> 과 <code>&#123;&#37; include 'layout/footer.html' &#37;&#125;</code> 를 추가하자. 방법은 list.html 에 한 것과 같다. 물론, 위에서 이미 말했듯이 read.html 안에서 <code>&#123;&#37; include 'comment_form.html' &#37;&#125;</code> 은 빼야 한다. 이것 뿐만 아니라 html 내용도 list.html 을 참조해서 read.html 도 바꾸자. 난 다음과 같이 read.html 를 만들었다.</p>
-
-<blockquote><pre><code>&#123;&#37; include 'layout/header.html' &#37;&#125;
-
-&lt;h1&gt;&lt;/h1&gt;
-
-&lt;div id="content"&gt;
-
-    &lt;div class="post_entry"&gt;
-        &lt;h3 id="post_" class="post_title"&gt;&lt;a href="/blog/entry/"&gt;&lt;/a&gt;&lt;/h3&gt;
-
-        &lt;p class="post_info"&gt;글 갈래 : [  ] / &lt;a href="/blog/entry/"&gt;&lt;/a&gt;&lt;/p&gt;
-
-        &lt;div class="content_box"&gt;&lt;/div&gt;
-
-        &lt;ul class="post_meta"&gt;
-            &lt;li&gt;꼬리표 : &#123;&#37; for tag in current_entry.Tags.all &#37;&#125;
-            &lt;span&gt;&lt;/span&gt;
-            &#123;&#37; endfor &#37;&#125;&lt;/li&gt;
-            &lt;li&gt;댓글 ()&lt;/li&gt;
-        &lt;/ul&gt;
-
-        &lt;div id="comment_box_" style="display: block;"&gt;
-        &#123;&#37; include 'comments.html' &#37;&#125;
-        &lt;/div&gt;
-
-    &lt;/div&gt;
-
-
-    &lt;ul&gt;
-        &#123;&#37; if prev_entry &#37;&#125;
-        &lt;li&gt;&lt;a href="/blog/entry/"&gt;이전 글 ()&lt;/a&gt;&lt;/li&gt;
-        &#123;&#37; endif &#37;&#125;
-
-        &#123;&#37; if next_entry &#37;&#125;
-        &lt;li&gt;&lt;a href="/blog/entry/"&gt;다음 글 ()&lt;/a&gt;&lt;/li&gt;
-        &#123;&#37; endif &#37;&#125;
-    &lt;/ul&gt;
-
-&lt;/div&gt;
-
-&#123;&#37; include 'layout/footer.html' &#37;&#125;</code></pre>
-</blockquote>
-
-<p>list.html 과 조금씩 다른데, 우리가 신경 쓸 부분은 댓글 목록 상자 html 태그이다.</p>
-
-<blockquote><p><code>&lt;div id="comment_box_" style="display: block;"&gt;<br />
-&#123;&#37; include 'comments.html' &#37;&#125;<br />
-&lt;/div&gt;</code></p></blockquote>
-<p>list.html 에서는 display: none 으로 했다면 이젠 block 으로 해서 출력 상태로 바꾸었고, 그 내용도 ajax 방식이 아닌 comments.html 을 가져와서 html 내용으로 붙박아 넣었다.</p>
-<h4>comment_form.html 에 ajax 기능 추가</h4>
-<p>comment_form.html 에 보면 form html 태그로 댓글 작성 폼을 짰다. 그 중 form 태그 부분에도 onclick 과 같은 이벤트를 설정해야 한다.</p>
-<blockquote><p><code>&lt;form method="post" action="/blog/add/comment/" onsubmit="add_comment(this); return false;"&gt;</code></p></blockquote>
-<p><strong>onsubmit 라는 이벤트가 추가 됐는데 이는 폼 영역에서 submit 이 일어날 경우</strong> 실행할 javascript 내용을 썼다. 물론 javascript 내용만 실행하고 html form 실행은 하지 않을 것이므로 return false; 도 써놨다. <strong>add_comment 함수는 form html 요소(element) 자체를(this) 인자값으로</strong> 받는다. 댓글 상자 펼칠 때는 this.href 라 하여 a 태그 자기 자신(this) 중 href 프로퍼티를 인자로 넘겼다면, 이번엔 form 태그 자기 자신(this)을 통채로 넘긴 것이다.</p>
-<p>add_comment 함수는 이렇게 생겼다.</p>
-<blockquote><pre><code>var add_comment = function(form_el) {
-    var form_el = $(form_el);
-
-    var ajax = new Ajax.Request(form_el.action, {
-                method: form_el.method,
-                parameters: form_el.serialize(),
-                onSuccess: function(req) {
-                    if ( req.responseText.isJSON() == true ) {
-                        var _result = req.responseText.evalJSON(true);
-                        $('comment_box_'+_result['entry_id']).update(_result['msg']);
-                    }
-                    else {
-                        alert(req.responseText);
-                    }
-                },
-                onFailure: function(req) {
-                }
-    });
-}</code></pre>
-</blockquote>
-
-<p>좀 더 복잡한데 차근 차근 살펴보자.</p>
-
-<blockquote><p><code>var form_el = $(form_el);</code></p></blockquote>
-
-<p>이건 form html 요소를 인자로 넘겨 받을 때 prototype.js 의 $ 함수를 이용해 prototype.js 의 Element 객체 등을 상속시켜 편리한 기능들(메소드)을 쓰려는 것이다. 파이어폭스(Firefox)나 사파리(Safari) 같은 웹브라우저에선 prototype.js 가 자동으로 필요한 객체의 메소드들을 form html 태그 등에 덧붙여 확장시켜 주므로 위와 같은 코드가 필요없지만, <strong>인터넷 익스플로러(Internet Explorer)에선 자동으로 확장시켜주지 못해서 위와 같이 별도 코드를 썼다</strong>. 즉 인터넷 익스플로러를 위한 코드이다.</p>
-
-<p>다음은 Ajax.Request 를 볼 차례인데 이것의 꼴을 먼저 보자.</p>
-
-<blockquote><p><code>Ajax.Request(주소, 옵션);</code></p></blockquote>
-
-<p>참 간단하다. 위 코드가 복잡해보이지만 하나 하나 뜯어보면 간단하다.</p>
-
-<p>우선 주소는 form html 태그에 보면 action 이라는 속성으로 줬다.</p>
-
-<blockquote><p><code>&lt;form method="post" action="/blog/add/comment/" ...&gt;</code></p></blockquote>
-
-<p>이 중 바로 <code>action="/blog/add/comment/"</code> 이 부분이다. 위에서 this.href 를 썼듯이 this.action 하면 /blog/add/comment/ 이 내용을 갖고 있는데, 우리는 this 를 인자로 넘긴 뒤 form_el 로 받았으므로 form_el.action 으로 써서 댓글을 입력할 주소를 넣었다.</p>
-
-<blockquote><p><code>var ajax = new Ajax.Request(form_el.action</code></p></blockquote>
-
-<p>이렇게 말이다. 아참, Ajax.Request 역시 Ajax.Updater 와 마찬가지로 new 를 이용해야 한다.</p>
-
-<p>다음엔 옵션을 하나 하나 살펴보자. 내용이 긴데 기본 모양새는</p>
-
-<blockquote><p><code>var ajax = new Ajax.Request(form_el.action, {});</code></p></blockquote>
-
-<p>와 같다. 이 {} 내용이 길어지므로 개행을 한 것이다. 옵션의 첫 번째 내용은 method 이다. 값을 get method 로 보낼 것인지 post method 로 보낼 것인지 정하는 것인데 이것 역시 form action 값을 따오듯이 form 태그에 있는 method 값을 따르면 된다.</p>
-
-<blockquote><pre><code>{
-    method: form_el.method
-}
-</code></pre>
-</blockquote>
-
-<p>물론 이런 방식이 마음에 들지 않아 직접 방식을 get 이나 post 라 지정하고 싶다면</p>
-
-<blockquote><p><code>method: 'post'</code></p></blockquote>
-
-<p>이런 식으로 짜면 된다.</p>
-
-<p>이번엔 parameters 이다. <strong>parameters는 서버로 보낼 값을 URL이나(get method) http 요청 본문(request body)에(post method) 붙여 보낼 때 쓴다</strong>. 우리는 form 태그 안에 있는 모든 내용을 담아 보낼 것인데, 편리하게 form_el.serialize() 로 값을 만들어 담았다.</p>
-
-<blockquote><p><code>parameters: form_el.serialize()</code></p></blockquote>
-
-<p>serialize 메소드는 prototype.js 에 있는 Form 객체에 있는 메소드로써 form 자료를 문자열로 주욱 풀어쓰는 데 쓴다. 예를 들어, 글쓴이는 “hannal”, 비밀번호는 “1234”, 댓글 본문은 “hello django” 라고 쓴 폼 내용을 위와 같이 serialize 하면</p>
-
-<blockquote><p><code>entry_id=1&name=hannal&password=1234&content=hello%20django%20</code></p></blockquote>
-
-<p>이런 문자열이 나온다. hello%20 에서 %20은 공백 문자를 뜻한다. 이런 실험은 <a href="http://prototypejs.org/api/form/serialize">prototype.js 공식 문서 중 serialize 부분</a>에 있는 실험기로 편하게 확인해볼 수 있다.</p>
-
-<p>serialize 메소드는 prototype.js 의 Form 객체에 있는 메소드이며 prototype.js 의 Element 객체에는 없다. 그러나 $ 함수는 Element 객체 뿐 아니라 Form 객체의 메소드들도 상속시키기 때문에 $ 함수로 html 요소(element)를 가져오면 위와 같이 serialize 함수를 쓸 수 있다.</p>
-
-<blockquote><pre><code>{
-    method: form_el.method,
-    parameters: form_el.serialize()
-}</code></pre>
-</blockquote>
-
-<p>이제 ajax 로 값을 서버로 보냈을 때 문제 없이 잘 보내고 응답을 받았을 때, 즉 <strong>성공한 상황을 처리할 행동을 지정</strong>할 차례이다. <strong>이런 상황은 onSuccess 로 지정하며 위 method, parameters 와는 달리 함수 자료형</strong>이어야 한다.</p>
-
-<blockquote><p><code>onSuccess: function() { }</code></p></blockquote>
-
-<p>그리고 prototype.js 은 자동으로 서버로부터 받은 결과물을 서버 인자로 넘겨주므로, 그 인자를 넘겨 받을 수 있는 인자 이름을 써넣는다.</p>
-
-<blockquote><p><code>onSuccess: function(req) { }</code></p></blockquote>
-
-<p>난 request 라는 이름을 줄여 쓴 req 를 즐겨 쓰며, 어떤 이는 transport 를 줄여 쓴 tran 을 쓰기도 한다. 편한 이름을 쓰면 된다.</p>
-
-<blockquote><pre><code>{
-    method: form_el.method,
-    parameters: form_el.serialize()
-    onSuccess: function(req) { }
-}</code></pre>
-</blockquote>
-
-<p>이렇게 하면 댓글 폼 내용을 서버에(/blog/add_comment/) ajax 방식으로 보낸다. 아직 서버는 ajax 방식으로 접근한 상황을 처리하지 않으니 javascript 작업은 여기서 잠깐 멈추고 위에서 한 것처럼 ajax 상황을 추가해 보완하자.</p>
-
-<h4>views.py 의 add_comment 함수에 ajax 방식용 응답 추가</h4>
-
-<p>views.py 에서 add_comment 함수 끝부분을 보면</p>
-
-<blockquote><pre><code>new_cmt.save()
-entry.Comments += 1
-entry.save()
-
-return HttpResponse('댓글 잘 매달았다, 얼쑤.')</code></pre>
-</blockquote>
-
-<p>이런 부분이 있다. 여기에 ajax 방식을 구분하는 코드를 넣으면 된다. 우선 댓글이 잘 저장된 이후에 구분을 하면 되므로 entry.save() 아래에서 해당 코드를 넣으면 된다.</p>
-
-<blockquote><p><code>if is_ajax(request):</code></p></blockquote>
-
-<p>우선 ajax 방식으로 접속 요청을 한 것인지 구분을 하고,</p>
-
-<blockquote><p><code>return HttpResponse(...)</code></p></blockquote>
-
-<p>그에 맞는 결과 내용을 반환한다. 우리가 웹브라우저로 반환할 정보는 두 가지이다. 댓글이 달린 글 번호와 댓글 목록 html 내용이다. 글 번호는 entry_id, 댓글 목록 html 내용은 msg 라는 이름으로 반환하자. 어떻게 해야 이 값을 구분해서 javascript 로 넘겨줄 수 있을까. 파이썬 변수를 javascript 로 그대로 넘겨준다고 해서 javascript 가 받아들일 수는 없는데 말이다.</p>
-
-<p>이런 상황을 해결하는 방법은 다양하다. 예를 들면,</p>
-
-<blockquote><p><code>entry_id=10//////msg=내용</code></p></blockquote>
-
-<p>이렇게 문자열로 serialize 하여 보낸 뒤, javascript 에서는 ////// 로 문자열을 쪼개서</p>
-
-<blockquote><p>entry_id=10<br />
-msg=내용
-</p></blockquote>
-<p>으로 나누고, 이를 다시 = 로 쪼개서 entry_id 가 10이고, msg 는 “내용”이라는 문자열로 구분하는 것이다. 마치 get method 방식으로 주소(URL)에 <code>?who=hannal&msg=hello</code> 이렇게 보내면 & 과 = 으로 문자열을 쪼개듯이 말이다.</p>
-<p>이렇게 <strong>서버가 클라이언트(웹서버)로 보내는 값을 문자열로 serializing 하고, 클라이언트는 미리 약속한 방법으로 이걸 해제(unserializing)하는 방법 중 javascript 를 위한 방법으로 각광 받고 인기 있는 방식이 json 방식</strong>이다.</p>
-<p>서버 변수를 json 방식으로 serializing 하면 javascript 가 쓸 수 있는 문자열로 만들어 준다. 즉, entry_id=10//////msg=내용  이런 문자열을 우리가 직접 만드는 대신 json 방식으로 만들면</p>
-<blockquote><p><code>{"entry_id": 10, "msg":"안녕"}</code></p></blockquote>
-<p>이렇게 javascript 가 이해할 수 있는 javascript code 로 만들어 준다. 이 javascript code 를 받아다 실행하면(evaluate) 마치 javascript 에서 위 코드를 실행한 것과 같은 효과가 일어난다. 굳이 문자열을 쪼개고 담는 귀찮은 작업을 할 필요가 없으니 참 편하다.</p>
-<p>django는 json 으로 값을 만들어주는 기능을 제공한다. <strong>simplejson 이라는 파이썬용 외부 모듈</strong>을(파이썬에서 기본 제공하는 모듈 아님) 이용한다. <strong>django가 모델을 통해 DB에서 가져온 값을 serialize 하려면 django.core 에 있는 serializers 모듈을 이용</strong>한다. 그런 뒤 이 객체(모듈)에 있는 serialize 메소드를 통해 xml 이나 json 으로 serialize 할 수 있으며</p>
-<blockquote><p><code>serializers.serialize('json', comments)</code></p></blockquote>
-<p>이런 모양새이다. 하지만, 우리는 모델을 통해 DB에서 넘겨 받은 객체를 풀어내는 것이 아니라 우리가 entry_id 와 msg 라는 이름으로 값을 만들어 serialize 해야 하며, 위와 같은 방식으로는 할 수 없다. 위 객체와 메소드는 django 모델용이라고 보면 된다. 그래서 <strong>django가 이용하는 simplejson 모듈을 직접 가져와서(import) serialize 해야 한다</strong>.</p>
-<p>simplejson 은 django.utils (django/utils/)에 있으니</p>
-<blockquote><p><code>from django.utils import simplejson</code></p></blockquote>
-<p>라고 읽어오면 되며, 위 코드를 views.py 맨 위에 넣자. 다른 곳에선 simplejson 을 쓰지 않고 오직 댓글 입력 후 결과값 반환할 때만 쓸 것이라면 if is_ajax(request): 안에다 넣어도 된다.</p>
-<blockquote><pre><code>return_data = {
-    'entry_id':entry.id,
-    'msg':'hello world'
-}</code></pre>
-</blockquote>
-
-<p>우선 파이썬의 <strong>dictionary 자료형</strong>으로 값을 만들었다. entry.id 는 예전에 add_comment 함수에서 댓글 입력할 때 생성된 객체이다. entry 는 댓글을 입력할 글이고, entry.id 는 그 글의 id 이다. 즉 entry_id 에 글 번호를 넣었고 msg 엔 hello world 라는 문자열을 넣었다.</p>
-
-<p>이걸 simplejson 을 이용해서 json 으로 serializing 하려면</p>
-
-<blockquote><p><code>simplejson.dumps(return_data)</code></p></blockquote>
-
-<p>이렇게 하면 된다. simplejson 객체에 있는 dumps 메소드로 return_data 를 serializing 한 것이다. 이는</p>
-
-<blockquote><p><code>{"msg": "hello world", "entry_id": 1}</code></p></blockquote>
-
-<p>이런 식으로 json serializing 된다.</p>
-
-<h4>get_comments 보완</h4>
-
-<p>자, 그럼 댓글 목록을 html 로 가져와서 msg 에 담아보자. 이건 get_comments 함수로 이미 구현을 했다. 이걸 add_comment 함수 안에서도 쓰면 get_comments 함수와 같은 기능을 하는 코드를 또 작성할 필요가 없다.</p>
-
-<p>그러려면 get_comments 함수를 조금 고쳐야 한다. 왜냐하면 get_comments 는 ajax 방식이나 직접 웹에서 접근했을 때 이를 HttpResponse 으로 결과 화면을 반환하는데, <strong>add_comment 함수에서 우리가 필요한 반환값은 HttpResponse 로 가공된 내용이 아니라 템플릿까지만 입힌 내용</strong>이기 때문이다. 즉</p>
-
-<blockquote><p><code>return HttpResponse(tpl.render(ctx))</code></p></blockquote>
-
-<p>여기서 tpl.render(ctx) 이 부분만 필요하다. 그러므로 get_comments 함수를 실행하는 방식에 따라 반환값을 tpl.render(ctx) 를 할 지 HttpResponse 에 담아서 할 지 결정하면 된다. 이를 <strong>is_inner 라는 함수 인자로 구분</strong>하고, 이 값이 True 이면 다른 함수 안에서 호출된 것이므로 tpl.render(ctx) 만 반환하고, 그렇지 않으면 함수를 직접 실행한 것이므로 HttpResponse 에 담아 반환하자.</p>
-
-<blockquote><p><code>def get_comments(request, entry_id=None, is_inner=False):</code></p></blockquote>
-
-<p>우선 <strong>is_inner 라는 인자를 넣고 따로 값이 없을 경우 기본값으로는 False 를 넣는다</strong>. 그런 뒤 맨 마지막 return HttpResponse(...) 부분을</p>
-
-<blockquote><pre><code>if is_inner == True:
-    return tpl.render(ctx)
-else:
-    return HttpResponse(tpl.render(ctx))</code></pre>
-</blockquote>
-
-<p>이렇게 바꿔준다. 이제 다시 add_comment 함수 안에서 return_data 변수 부분으로 돌아가자.</p>
-
-<p>거기에서 'msg':'hello world' 부분을</p>
-
-<blockquote><p><code>'msg':get_comments(request, entry.id, True)</code></p></blockquote>
-
-<p>이렇게 바꾸면 된다. get_comments 함수를 실행하되 is_inner 인자를 True 로 넘긴 것이다. 그러면 get_comments 함수에선 tpl.render(ctx) 만 넘긴다.</p>
-
-<h4>댓글 입력 후 결과 내용 반환</h4>
-
-<p>다 됐다. 반환할 결과물은 return_data 에 있고 이는 simplejson.dumps 로 json 형태로 만들었다. 이걸 HttpResponse 로 반환하기만 하면 된다.</p>
-
-<blockquote><p><code>return HttpResponse(simplejson.dumps(return_data))</code></p></blockquote>
-
-<p>add_comment 함수에서 entry.save() 아래는 이런 비슷한 모양일 것이다.</p>
-
-<blockquote><pre><code>if is_ajax(request):
-    return_data = {
-        'entry_id':entry.id,
-        'msg':get_comments(request, entry.id, True)
-    }
-    return HttpResponse(simplejson.dumps(return_data))
-else:
-    return HttpResponse('댓글 잘 매달았다, 얼쑤.')</code></pre>
-</blockquote>
-
-<p>이제 다시 javascript 부분으로 돌아가자. 댓글 입력 요청이 제대로 이뤄지면 onSuccess 에 연결한 함수가 실행된다. 아직까지는 function(req) { } 이렇게 해서 아무 일도 안했다. 이젠 서버로부터 json 방식으로 결과를 받으니 이를 처리하면 된다.</p>
-
-<p>prototype.js 의 Ajax 객체는 서버로부터 넘겨 받는 정보를 req 로 받았고(여러분이 req가 아닌 tran 이나 req_server 같은 이름으로 함수 인자를 받았다면 그 이름일 것이다), 여기엔 다양한 정보가 들어가 있는데 <strong>서버로부터 받은 문자열은 “responseText” 라는 프로퍼티에 들어가 있다</strong>. 이외 어떤 프로퍼티가 있는지는 <a href="http://prototypejs.org/api/ajax/response">공식 문서에서 Ajax.Response 부분</a>에 잘 나와있다. 아직 우리는 responseText 만 만질 것이다.</p>
-
-<p>서버로부터 넘겨 받은 문자열(req.responseText)이 json 데이터인지 확인해야 하는데, prototype.js은 자동으로 문자열 자료형(String type)에 <strong><a href="http://prototypejs.org/api/string/isJSON">isJSON 메소드</a></strong>를 매달아놨다. 만약 json 이면 true 를 반환하고 아니면 false 를 반환한다.</p>
-
-<p>코드로 표현하면</p>
-
-<blockquote><p><code>if ( req.responseText.isJSON() == true ) {<br />
-}<br />
-else {<br />
-}</code></p></blockquote>
-<p>라고 할 수 있다. 우리가 views.py 에서 add_comment 함수의 출력물 반환을 할 때 댓글이 제대로 입력되고 그 요청이 ajax 일 때만 json 으로 값을 반환하고, 그 외엔 일반 문자열을 반환한다. 그러므로 서버에서 댓글이 제대로 안달린 경우엔 서버에서 받은 문자열이 일반 문자열이므로 이걸 그대로 출력하면 댓글이 제대로 저장되지 않았다는 뜻이기도 하다. 그래서 req.responseText 가 json 값이 아니면 따로 할 일 없이 서버로부터 문자열을 그대로 출력하면 된다.</p>
-<blockquote><pre><code>if ( req.responseText.isJSON() == true ) {
-}
-else {
-    alert(req.responseText);
-}</code></pre>
-</blockquote>
-
-<p>이번엔 넘겨받은 값이 json 인 경우, 즉 ajax 방식으로 댓글을 제대로 남겼을 경우를 처리하면 된다. 가장 먼저 해야 할 일은 넘겨받은 json 문자열을 javascript 로 실행해서 javascript 객체나 값으로 변환해야 한다. 이는 javascript 에 있는 eval 이라는 함수를 쓰면 되는데, prototype.js 에서 제공하는 <a href="http://prototypejs.org/api/string/evalJSON">evalJSON 메소드</a>를 쓰는 것이 낫다. 이 메소드는 isJSON 문자열과 마찬가지로 prototype.js 이 String 자료형에 자동으로 매달아놓은 메소드인데, 문자열을 javascript 로 실행한다. javascript 에 있는 <strong>eval 함수와 다른 점은 문자열이 javascript 로 올바른지 검수한다는(sanitize) 점이다. 즉 eval 함수보다는 한결 안전</strong>하다.</p>
-
-<p>넘겨받은 json 문자열을 evalJSON 메소드로 실행할 때 만들어지는 값은 _result 라는 변수에 담자. 그러면</p>
-
-<blockquote><p><code>var _result = req.responseText.evalJSON(true);</code></p></blockquote>
-
-<p>이렇게 하면 된다. 서버로부터 <code>{"msg": "...", "entry_id": 숫자}</code> 이렇게 받았으므로, 위 코드 이후부터는 <code>_result['entry_id']</code> 나 <code>_result['msg']</code> 로 다룰 수 있다. 우리가 화면에 출력할 내용은 <code>_result['msg']</code> 이므로 이걸 html 에서 comment_box_숫자 를 id 로 갖는 html element 에 <code>_result['msg']</code> 를 반영하면 된다. 이런 일은 prototype.js 의 Element 객체에서 update 메소드가 한다. 이건 이미 ajax방식으로 댓글 목록 가져와 출력할 때 써봤다. 코드로 구현을 해보면</p>
-
-<blockquote><p><code>$('comment_box_'+_result['entry_id']).update(_result['msg']);</code></p></blockquote>
-
-<p>이렇게 하면 된다. 이제는 댓글을 쓰면 서버로부터 댓글 목록 html을 받아서 댓글 출력할 상자 안에 반영한다.</p>
-
-<h4>한 번 댓글 쓰면 다음부터는 댓글이 안달린다</h4>
-
-<p>위 코드엔 오류(bug)가 하나 있다. 댓글을 한 번 쓰고 나면 그 다음부터는 “댓글 달 글을 지정해야 한다우.” 라는 경고창이 뜨며 댓글이 달리지 않는다. ajax 방식으로 댓글을 가져온 뒤에 댓글을 달아도 마찬가지이다.</p>
-
-<p>이건 여러분들이 해결해야 할 <strong>숙제</strong>이다. 물론 이번에도 문제를 해결할 도움말은 있다.</p>
-
-<ul>
-<li>댓글이 달릴 글은 comment_form.html 에서 entry_id 라는 input 에  값으로 넣어서 알아낸다.</li>
-<li>comment_form.html 은 comments.html 에서 가져와 포함시킨다.</li>
-<li>ajax 방식으로 댓글을 가져오거나 ajax 방식으로 댓글을 달면, 댓글 목록 html 을 위한 comments.html 파일은 views.py 에서 get_comments 함수에서 가져와 처리한다.</li>
-<li>get_comments 함수에선 댓글을 속한 글 정보를 가져오지 않는다. read 함수에선 글 정보를 가져와서 current_entry 에 담는데 말이다.</li>
-</ul>
-
-<p>이 정도면 충분하다고 본다. 이 강좌에서 바꾼 소스에는 위 문제를 해결한 코드가 반영되어 있다. 즉 답이 들어가 있다. 위 도움말을 잘 참조하여 문제를 해결해보고, 답과 비교해보자.</p>
-
-<p><hr />
-<p>이번 글을 통해 여러분은 xhtml 과 css, 그리고 prototype.js 을 간단하게나마 익혔다. 더 깊게 파고들고 능숙해지려면 더 많이 다루고 문서도 봐야 한다. 여기서는 매우 조금만, 그 조금도 아주 부실하게 설명을 했기 때문이다.</p>
-<p>또, 위 코드는 효율성이 다소 떨어진다. 다소 경직된 구조라서 확장성이 부족하며, 다소 서버나 클라이언트의 자원을 낭비하는 경향도 있다. 효율 보다는 개념 이해를 위한 설명에 맞추어 그러하니 여러분들이 이리 저리 고민하며 좀 더 최적화 하길 권한다. 이 구조에 익숙해지거나 지향한다면 앞으로 두고 두고 고생할 것이다. ^^</p>
-<ul>
-<li><a href='http://blog.hannal.com/assets/uploads/2008/07/hannal-nyeon_6.zip'>이번 글에서 다룬 소스 압축파일</a></li>
-</ul>
-<hr />
-<h3>javascript, html, css 작업 편하게 하는 데 아주 좋은 도구, firebug</h3>
-<p>javascript 작업이나 html 에 css 를 입히는 작업을 하다 보면 답답할 때가 많다. 이 javascript code 가 현재 어떤 값을 갖고 있는지 확인하기도 불편하고, 특정 부분의 style 정보가 어떠한지 확인하기도 까다롭다. 이런 작업을 하는 데 아주 큰 도움을 주는 도구가 바로 <a href="http://getfirebug.com/">firebug</a> 이다.</p>
-<p><strong>firebug 는 웹브라우저인 firefox (파이어폭스) 전용 부가기능</strong>이다. 이를 설치하면 웹브라우저 오른쪽 아래 끝을 보면 바퀴벌레처럼 생긴 아이콘이 있다. 그걸 누르면 firebug 공간이 나타난다.</p>
-<p><img src="http://blog.hannal.com/assets/uploads/2008/07/blog_list_before_show_comments.png" alt="" title="글 목록 화면에서 댓글 상자 열기 전 화면" width="383" height="433" class="alignnone size-full wp-image-142" style="border: 1px solid #000;" /></p>
-<p>위 그림은 글 목록 화면이다. 맨 윗 글의 “댓글 (2)”을 누르면 서버로부터 ajax 방식으로 댓글 목록을 가져온 뒤 글 상자가 열어서 댓글 목록을 나타낸다. 이때 ajax 방식으로 서버에 요청을 보내는 내역을 firebug 에서 볼 수 있다.</p>
-<p><img src="http://blog.hannal.com/assets/uploads/2008/07/blog_list_after_show_comments.png" alt="" title="글 목록 화면에서 댓글 상자 연 후 화면" width="445" height="471" class="alignnone size-full wp-image-143" style="border: 1px solid #000;" /></p>
-<p>저 보낸 내역을 클릭하면 서버로부터 보낸 내용이나 받은 내용을 확인할 수 있다.</p>
-<p>이외에도 Inspect (검사)를 누른 뒤 웹브라우저 화면에 마우스로 이곳 저곳을 다니며 클릭해보자. 클릭한 그 부분을 firebug 화면에서 html 코드를 볼 수 있으며, 그 부분에 css 의 style 정보가 어떻게 적용되었는지, 그 html element 가 어떤 코드의 하위에 있는지 볼 수 있다. 정말 끝내준다!</p>
-<p>이외에도 우리가 javascript 변수에 어떤 값이 들었는지 확인할 때 종종 alert 함수를 띄우는데, 이것 대신 console.log 함수를 권한다. 간단하다.</p>
-<blockquote><p><code>var hannal = &#39;hannal is a good man&#39;;<br />
-console.log(hannal);</code></p></blockquote>
-<p>이렇게 화면 firebug 콘솔 창에 hannal 자료형이 무엇인지, 그 안에 어떤 값인지 알 수 있다.</p></p>
 
   </div>
   

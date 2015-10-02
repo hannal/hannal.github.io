@@ -13,7 +13,7 @@ paginate: 2
 #markdown: kramdown
 markdown: redcarpet
 redcarpet:
-    extensions: [footnotes]
+    extensions: [footnotes, tables]
 highlighter: pygments
 #highlighter: rouge
 #highlighter: rdiscount

@@ -123,6 +123,82 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2005/7/wp_rss_euc-kr/">
+        Wordpress에서 euc-kr RSS 지원하기
+      </a>
+    </h1>
+
+    <span class="post-date">02 Jul 2005</span>
+
+    <h3>개요</h3>
+
+<p>워드프레스의 문자형을 UTF-8로 지정할 경우, euc-kr로 RSS를 지원할 수 없습니다. 때문에 RSS 구독자가 사용하는 RSS 구독기가 euc-kr을 지원하지 못하는 경우 워드프레스를 사용하는 이용자 블로그의 RSS를 볼 수 없습니다.<br />
+이 글은 워드프레스에서 문자형을 UTF-8로 사용하는 이용자가 euc-kr형 RSS를 제공할 수 있는 방법을 제공합니다.<br />
+이 방법은 그다지 좋은 방법은 아니고 약간의 꽁수로 처리합니다. 더 좋은 방법이 있다면 그 방법으로 하시기를 권합니다.<br />
+마지막으로 본 확장 기능 도구(plugin)는 <strong>iconv</strong> 함수를 사용합니다. 만일, 서버가 iconv 함수를 지원하지 않을 경우, euc-kr을 지원하지 못할 겁니다.</p>
+
+<h3>저작권</h3>
+
+<p>본 확장 기능 도구는 저작권이 없으며, 마음껏 고치고 재배포 할 수 있으며, 상업 목적을 위해 사용할 수 있습니다. 또한, 재배포 할 시 본 파일의 제작자 이름만 고쳐서 자신이 만든 것이라고 주장하셔도 괜찮습니다.</p>
+
+<h3>확장기 내려 받기</h3>
+
+<p>내려 받기 : <a href="http://blog.hannal.com/wp-content/old_uploads/archive/wp_rss_euc-kr/wp_for_euc_kr_rss2_20050702.zip" alt="워드프레스용 euc-kr RSS 지원 확장 기능 파일 내려 받기">20050702판 확장 기능 도구 내려 받기</a></p>
+
+<h3>사용 방법</h3>
+
+<ol>
+<li>압축 파일의 압축을 워드프레스가 설치된 곳에 풉니다.</li>
+<li>압축 파일의 압축을 워드프레스가 설치된 곳에 풀면, hannal_merong.php 라는 파일이 index.php가 있는 곳에, createRewriteRules.php 파일은 ./wp-content/plugins 에 생성됩니다.</li>
+<li>워드프레스 관리자 영역에 접근한 뒤, 플러그인 관리 영역으로 가십시오. Hannal's Rewrite Rules 라는 확장기(Plugin)이 추가되어 있는데, 이것을 <strong>사용할 수 있게</strong> 활성화하십시오.</li>
+<li>'설정(option)' 관리 영역에 가신 뒤 '변하지 않는 링크 (Permalink)'에 방문하십시오. 방문하면 <strong>.htaccess</strong> 파일이 재생성됩니다.</li>
+</ol>
+
+<p>이제 '<strong>http://블로그위치</strong>/index.xml'로 접근하면 euc-kr로 된 RSS가 제공됩니다.</p>
+
+<h3>활용하기</h3>
+
+<p><strong>1. 파일 이름 바꾸기</strong><br />
+본 확장기는 <strong>hannal_merong.php</strong> 라는 실제 RSS 접근 파일과 <strong>createRewriteRules.php</strong> 라는 Rewrite Rules에 문법 추가 기능을 하는 파일로 구성되어 있습니다. euc-kr로 처리되는 RSS 파일인 index.xml 은 실제로 존재하는 파일이 아닌 가상 파일입니다.<br />
+이 중에서 hannal_merong.php 과 index.xml 은 파일 이름을 이용자가 원하는대로 변경할 수 있습니다.<br />
+createRewriteRules.php 을 Ascii 문서 편집기에서 열면</p>
+
+<blockquote><p>
+$feed_file_name = '<font color="red">index.xml</font>'; // feed file name<br />
+define('REAL_FILE_NAME', '<font color="red">hannal_merong.php</font>'); // feed processor file name
+</p></blockquote>
+
+<p>라는 부분이 있습니다. index.xml는 외부에서 접근하는 파일 이름입니다. euc-kr_rss.xml 로 이름을 원하신다면 index.xml를 euc-kr_rss.xml 로 바꾸면 됩니다. 가상 파일 이름이므로 실제 파일 이름을 찾아 변경하실 필요는 없습니다.<br />
+hannal_merong.php 는 RSS 를 출력할 실제 파일입니다. 이 파일 이름이 마음에 들지 않는다면, 원하시는 파일 이름으로 변경하시면 됩니다. 단, hannal_merong.php는 실제 파일이므로 반드시 hannal_merong.php 이라는 파일 이름도 동일하게 변경하셔야만 합니다.<br />
+이제 '관리자 영역'의 '설정' 영역에 가신 뒤 '변하지 않는 링크'에 방문하여, .htaccess 파일을 재생성하시면, euc-kr로 된 RSS 파일 이름이 변경됩니다.</p>
+
+<p>만일, 사용하고 계신 서버가 Rewrite Rules(.htaccess) 기능을 제공하지 않는다면, euc-kr 로 된 RSS는 hannal_merong.php 가 됩니다. 이런 경우, '관리자 영역'의 '플러그인'에 있는 '<strong>Hannal's Rewrite Rules</strong>' 확장기는 사용하실 필요가 없습니다. RSS 파일인 hannal_merong.php의 파일 이름을 변경해도, 특별히 설정을 건드릴 필요가 없습니다.</p>
+
+<p><strong>2. Atom 등 다른 Feed 방법을 euc-kr로 하기</strong><br />
+이 확장기는 RSS 2를 기본으로 사용합니다. ATOM이나 RSS 0.92 등을 사용하시려 한다면 hannal_merong.php 파일 내용을 고치면 됩니다.<br />
+파일을 문서 편집기에서 열면</p>
+
+<blockquote><p>
+ob_start();</p>
+<p>require('<font color="red">wp-rss2.php</font>');</p>
+<p>$str = ob_get_contents();
+</p></blockquote>
+
+<p>라는 부분이 있는데, 여기서 wp-rss2.php 라고 쓰여진 부분을 아래를 참고해서 고치면 됩니다.</p>
+
+<ul>
+<li>ATOM : wp-atom.php</li>
+<li>RSS 0.92 : wp-rss.php</li>
+<li>XML : wp-rdf.php</li>
+</ul>
+
+<p><strong>3. Wordpress 2.0에서도 작동되게 하기</strong><br />
+<a href="http://prozac.pe.kr/bythelake/?p=194">http://prozac.pe.kr/bythelake/?p=194</a> 참조.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2005/6/online_game_earning/">
         온라인 게임의 부분유료화와 정액제
       </a>
@@ -142,27 +218,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>시장은 급격히 변화하고 있다. 기업 대 이용자 관계에서 부분유료화 수익 시장이 급격히 커지고 있으며, 기업 대 기업(쉽게 말해서 퍼블리셔와 PC방) 관계에서 정통이라고 할 수 있었던 정액제도 점차 흔들리고 있다. 그 첫 타자가 CCR이고, 다음 타자가 요즘 물의를 빗고 있는 넥슨이다. 이런 급격한 변화는 부분유료화 형태를 띄고 있으며, 앞으로 지금보다 더 성숙되고 발전된 부분유료화 수익 방법이 대세가 될 것이다. 물론, 게임 회사들이 엄한 미련을 버리고, 부분유료화의 수익율을 바르게 올리기 위해 고민을 많이 하면 할수록 부분유료화 수익 방법의 성숙도와 완성도는 빨리 높아질 것이다.</p>
 
-<p><hr width="70%" align="left" />
-<p><a name="more_1">참고 1</a> : 실제 사례이며, 이런 정보는 업체 기밀이므로 게임 이름과 회사 이름을 언급하지 않았다. 내가 알 수 있는건 내가 개발한 게임이기 때문이다. 굳이어느 회사의 어느 게임인지 알려고 하지 말자. 덜덜덜. orz</p></p>
+<hr width="70%" align="left" />
 
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2005/6/80-90_korean_song/">
-        지나간 대중가요를 다시 듣다
-      </a>
-    </h1>
-
-    <span class="post-date">30 Jun 2005</span>
-
-    <p>요즘 새삼스레 영턱스 클럽의 '정', 임창정의 'Love affair', 터보의 'Love forever'과 '회상', 룰라의 '날개 잃은 천사', '천상유애', 변진섭의 '너에게로 또다시', '희망사항', 녹색지대의 '그래 늦지 않았어', '가을의 전설', '사랑을 할꺼야', 모자이크의 '자유시대', 황규영의 '나는 문제 없어', 김건모의 '핑계', '잘못된 만남', R.ef의 '찬란한 사람', '심연', 지누션의 '말해줘', 산울림 전집, N.EX.T 1~2집,  박남정의 '사랑의 불시착', 이상은의 '담다디', 최성수의 '풀잎사랑', 김세영의 '밤의 길목에서', 박정운의 '먼 훗날에', '오늘같은 밤이면', Mr.2의 '하얀겨울', 김광석 전집, 지누의 '엉뚱한 상상', 015B 6집, 현진영의 '흐린 기억 속에 그대', 홍서범의 '김삿갓'과 '구인광고', 김준선의 '아라비안 나이트' 등을 듣고 있다. New kids on the block의 'Step by Step'과 'Tonight'을 덤으로 들으며.</p>
-
-<p>요즘 대중가요 상당 수는 내가 아예 알아듣지 못하는 경우가 많다. 내가 불렀을 때 다른 사람들이 못알아듣는 경우가 많다. 게다가 노래말에 반말도 무척 많다. 괜히 발끈해서 기피했고, 몇 년 전부터는 노래방에서 노래를 부르기 위해 목차책을 뒤적일 때 앞장부터  펼치기 시작했다. 윤도현이 새로운 노래를 간간히 발표하여 뒷장부터 펼치는 영광을 안는 경우도 있지만, 감히 "나는 노래방에서 노래 책자를 앞장부터 펼친다!"고 일반화할 수는 없다. 몇 년 전, 노래방에서 노래 목차 책을 어디부터 펴느냐에 따라 오빠와 아저씨로 구분 짓는다는 흥미끌기 글을 보고 책자를 뒷장부터 펴기 위해 열심히 최신 가요를 <b>익히던</b> 때도 있었지만, 더이상 따라잡을 수도 없을 뿐더러 부질 없는 짓임을 깨달은 뒤로는 마음 편하게 대중 가요를 부른다.</p>
-
-<p>몇 년 전에 유행했던 가요들 중에서도 못알아듣는 노래들이 있다. 게다가 들으면 묘하게 기분 나쁜 노래들도 있다. 그럼에도 요즘 다시 듣는 이유는 일종의 향수(鄕愁)랄까? Dream Theater의 새 음악들(Octavarium)이나 Fatboy slim, 혹은 사물놀이를 비롯한 국악을 듣다보니 수시로 예전 가요들이 머리에서 맴돈다. 예전 가요 상당 수가 요즘 즐겨 듣는 곡이나 노래보다 여러 면에서 부족하지만 귀는 참 정감있게 들린다.</p>
-
-<p>정감있다고 계속 듣기엔 지루해지는 감이 없잖아 있다. 그래서 평소 즐겨 듣던 음악들 사이 사이에 감초처럼 껴놨다. 한 시간 단위로. 한 시간 동안 열심히 토론을 하거나 토의를 한 뒤에 따스한 숭늉 한 그릇 들이키는 기분이다. Renaissance나 양방언 곡 다음에 유행했던 가요들이 나오면 이유 모를 재미 마저 느낀다. 가요 재발견! 얼쑤.</p>
+<p><a name="more_1">참고 1</a> : 실제 사례이며, 이런 정보는 업체 기밀이므로 게임 이름과 회사 이름을 언급하지 않았다. 내가 알 수 있는건 내가 개발한 게임이기 때문이다. 굳이어느 회사의 어느 게임인지 알려고 하지 말자. 덜덜덜. orz</p>
 
   </div>
   
