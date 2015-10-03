@@ -473,44 +473,28 @@ Superuser created successfully.</p></blockquote>
 
 <p>이 계정은 나중에 쓸 일이 있다. 미리 알아봐야 머리만 아프니 언제 어떻게 쓰일지는 비밀로 하련다. :)</p>
 
-<hr />
-
+<p><hr />
 <h3>파이썬 상식</h3>
-
 <h4>소스 파일 인코딩</h4>
-
 <p>이번 글부터는 글을 마치기 전에 파이썬 문법이나 상식들을 한 두 개씩 다룰 예정이다. 이번 글에선 파이썬 소스 파일 안에서 한글 쓰는 방법을 알아보려 한다. 잉? 소스 파일에 한글 쓰는 방법이 따로 있다고?  그렇다. 만일 별도 처리를 해주지 않으면 주석이든 뭐든 소스 코드에 한글이 들어가면 오류가 발생할 것이다.</p>
-
 <p>해결 방법은 간단하다. 파이썬 소스 파일 맨 윗 줄에</p>
-
-<blockquote><p># -*- coding: utf-8 -*-</p></blockquote>
-
+<blockquote><p># -<em>- coding: utf-8 -</em>-</p></blockquote>
 <p>이 줄을 써넣으면 된다. 그런 뒤 <strong>소스 파일을 저장할 때 UTF-8 로</strong> 해야 한다. 우리는 문자들을 utf-8로 다룰 것이므로 소스 파일도 utf-8 로 저장하고, 한글(정확히 말하면 한글이나 일본어 같은 2bytes 문자)가 들어간 파이썬 소스 파일 맨 윗 줄에 저 줄을 써넣으면 된다.</p>
-
 <p>왜 그런지는 <a href="http://python.kr/viewtopic.php?t=22395">장혜식님께서 잘 설명</a>하셨다.</p>
-
 <h4>튜플 자료형 주의점</h4>
-
-<p>위 INSTALLED_APPS 라는 변수는 <strong>튜플(tuple)이라는 자료형</strong>으로 값을 담고 있는 것인데, <strong>튜플 자료형 구성자는 쉼표</strong>이다. 단지 어디서부터 어디까지를 묶어서 튜플로 표시하는지 <strong>명확하기 구분하기 위해 괄호를 쓴 것 뿐</strong>이다. 그렇기 때문에</p>
-
+<p>위 INSTALLED<em>APPS 라는 변수는 <strong>튜플(tuple)이라는 자료형</strong>으로 값을 담고 있는 것인데, <strong>튜플 자료형 구성자는 쉼표</strong>이다. 단지 어디서부터 어디까지를 묶어서 튜플로 표시하는지 <strong>명확하기 구분하기 위해 괄호를 쓴 것 뿐</strong>이다. 그렇기 때문에</p>
 <ul>
 <li>(1,) 은 튜플 자료형이지만</li>
 <li>(1) 은 그냥 숫자(int) 자료형</li>
 </ul>
-
-<p>인 차이가 있다. 위 INSTALLED_APPS 도 hannal.blog 위에 있는 네 개를 지우고 hannal.blog 만 남긴답시고</p>
-
-<blockquote><p>INSTALLED_APPS = ('hannal.blog')</p></blockquote>
-
-<p>이렇게 하면 <strong>INSTALLED_APPS 변수는 튜플이 아니라 일반 문자형이 돼버린다</strong>.</p>
-
-<blockquote><p>INSTALLED_APPS = ('hannal.blog'<strong>,</strong>)</p></blockquote>
-
+<p>인 차이가 있다. 위 INSTALLED</em>APPS 도 hannal.blog 위에 있는 네 개를 지우고 hannal.blog 만 남긴답시고</p>
+<blockquote><p>INSTALLED<em>APPS = (&#39;hannal.blog&#39;)</p></blockquote>
+<p>이렇게 하면 <strong>INSTALLED</em>APPS 변수는 튜플이 아니라 일반 문자형이 돼버린다</strong>.</p>
+<blockquote><p>INSTALLED<em>APPS = (&#39;hannal.blog&#39;<strong>,</strong>)</p></blockquote>
 <p>이렇게 쉼표를 찍어줘야 튜플이 된다. 이런 <strong>쉼표 실수를 막기 위해 튜플 자료형을 쓸 때는 언제나 구분자인 쉼표를 뒤에 넣는 습관을 들이는 것이 좋다</strong>.</p>
-
-<p><hr />드디어 데이터 모델링까지 마쳤다. 실은 이 과정에서 몇 가지 더 알아볼 것도 있고 추가할 모델도(이용자 정보 같은 것) 있다. django 에서 제공하는 쓸만한 모델 관련 기능들은 차츰 알아갈 것이며, 이용자 모델은 나중에 숙제로 나갈 예정이다. 아직은 스스로 숙제를 풀지 못할 수 있어도 숙제로 나갈 때쯤이면 스스로 풀 수 있을 것이다.</p>
+<hr />드디어 데이터 모델링까지 마쳤다. 실은 이 과정에서 몇 가지 더 알아볼 것도 있고 추가할 모델도(이용자 정보 같은 것) 있다. django 에서 제공하는 쓸만한 모델 관련 기능들은 차츰 알아갈 것이며, 이용자 모델은 나중에 숙제로 나갈 예정이다. 아직은 스스로 숙제를 풀지 못할 수 있어도 숙제로 나갈 때쯤이면 스스로 풀 수 있을 것이다.</p>
 <p>다음 글에선 실제로 눈에 보이는 작업들을 할 예정인데 바로 컨트롤러(django 에선 view) 제작이다. 컨트롤러 과정은 총 3회에 걸쳐 다룰만큼 양이 많지만, 차근 차근 따라하다 보면 큰 어려움 없이 따라올 수 있을 것이다.</p>
-<hr />이번 <a href="http://blog.hannal.com/assets/uploads/2008/07/python-django_mi_4-2_source.zip">“미) 파이썬 기초 문법과 데이터 모델링 (4편 2/2)” 글에서 작성한 소스 파일</a>을 내려 받고 싶다면 연결한 주소를 클릭하세요. python-django<em>mi</em>4-2_source.zip 파일을 받을 수 있습니다.</p></p>
+<hr />이번 &lt;a href=&quot;http://blog.hannal.com/assets/uploads/2008/07/python-django</em>mi<em>4-2</em>source.zip&quot;&gt;“미) 파이썬 기초 문법과 데이터 모델링 (4편 2/2)” 글에서 작성한 소스 파일</a>을 내려 받고 싶다면 연결한 주소를 클릭하세요. python-django<em>mi</em>4-2_source.zip 파일을 받을 수 있습니다.</p></p>
 
 </div>
 

@@ -132,7 +132,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <ul>
 <li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
-<li>마지막 갱신일시 : 2015년 4월 25일 21시 10분</li>
+<li>마지막 갱신일시 : 2015년 9월 26일 21시 10분</li>
 </ul>
 
 <p>이번 편에서는 인터넷 주소에 접속하여 Photo 모델로 올린 사진 데이터를 가져와서 View 기능을 이용하여 웹 브라우저에 관련 내용을 출력해보겠습니다.</p>
@@ -193,7 +193,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p><code>patterns</code> 함수는 두 종류 인자를 받습니다. 하나는 <code>prefix</code>인데, 맨 앞에 있는 아무 내용이 없는 문자형 자료(객체)인 <code>&#39;&#39;</code>가 <code>prefix</code>입니다. <code>prefix</code>는 따로 설명하겠습니다. <code>prefix</code> 뒤에 나오는 부분은 <code>url</code> 함수로 만든 URL 연결자들입니다. 그냥 쭈욱 나열한 것 뿐입니다.</p>
 
-<p>그럼 주소 연결자를 만드는 <code>url</code> 함수 부분을 보겠습니다. 이 함수는 총 다섯 개 인자를 받습니다.</p>
+<p>그럼 주소 연결자를 만드는 <code>url</code> 함수 부분을 보겠습니다. 이 함수는 총 다섯 개 인자를 받습니다. </p>
 
 <ul>
 <li>regex : 주소 패턴 (정규표현식)</li>
@@ -263,7 +263,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </code></pre></div>
 <p>다른 <code>prefix</code>를 지정한 <code>patterns</code> 함수를 실행하고, 그 결과값을 <code>urlpatterns</code>에 덧이으면 됩니다. <code>urlpatterns</code>가 <code>list</code> 자료형이니 <code>urlpatterns.extend( ... )</code> 이렇게 추가해도 됩니다.</p>
 
-<p>기왕 기계가 할 일을 사람이 하지 않고 기계가 하도록 한 김에 좀 더 간결히 줄여보겠습니다.</p>
+<p>기왕 기계가 할 일을 사람이 하지 않고 기계가 하도록 한 김에 좀 더 간결히 줄여보겠습니다. </p>
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;photo.views&#39;</span><span class="p">,</span>
     <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^photo/(?P&lt;photo_id&gt;\d+)$&#39;</span><span class="p">,</span> <span class="s">&#39;single_photo&#39;</span><span class="p">)</span>
 <span class="p">),</span>
@@ -277,11 +277,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>이 정도로 Django의 URL Dispatch 기능의 작동법과 사용법 설명을 마치고, 추가 기능은 필요하면 그때 그때 설명하겠습니다. 아참, <code>url</code> 함수가 받는 마지막 인자인 <code>kwargs</code>는 부록에서 설명하겠습니다.</p>
+<p>이 정도로 Django의 URL Dispatch 기능의 작동법과 사용법 설명을 마치고, 추가 기능은 필요하면 그때 그때 설명하겠습니다. 아참, <code>url</code> 함수가 받는 마지막 인자인 <code>kwargs</code>는 부록에서 설명하겠습니다. </p>
 
 <h4>(4) 개별 사진 보기 View - 2</h4>
 
-<p>웹브라우저에서 <code>/photo/&lt;사진 ID&gt;/</code>, 예를 들어 <code>/photo/3</code>으로 접근하면 “TypeError at /photo/3”이라는 오류가 뜹니다. 내용은
+<p>웹브라우저에서 <code>/photo/&lt;사진 ID&gt;/</code>, 예를 들어 <code>/photo/3</code>으로 접근하면 “TypeError at /photo/3”이라는 오류가 뜹니다. 내용은 
 “single<em>photo() got an unexpected keyword argument &#39;photo</em>id&#39;”이고요. <code>single_photo</code> 함수로 <code>photo_id</code>라는 인자를 넘길려는데 <code>single_photo</code> 함수가 받지 않아서 그렇습니다. <code>photo_id</code>는 <code>urls.py</code>에서 <code>(?P&lt;photo_id&gt;\d+)</code> 바로 이 부분입니다. 정규표현식 패턴에 해당되는 문자열이 <code>?P&lt;이름&gt;</code>에 지정된 <code>이름</code>에 저장되어 View 함수의 인자로 넘겨집니다. <code>/photo/숫자</code> URL에서 숫자가 <code>photo_id</code>라는 이름을 갖는 인자에 저장되어 <code>single_photo</code> 함수로 전달됩니다. 그래서 <code>single_photo</code> 함수가 이 인자를 받도록 해야 합니다.</p>
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">single_photo</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">photo_id</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&#39;{0}번...{0}번 사진을 보여 드릴게요.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">photo_id</span><span class="p">))</span>
@@ -387,6 +387,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </code></pre></div>
 <p>업로드된 파일은 <code>static_files</code> 라는 URL을 따르므로 <code>urls.py</code>에도 이와 관련된 내용을 등록해야 합니다. 원리는 이렇습니다. <code>static_files</code> 뒤에 나오는 경로를 받은 뒤 지정된 경로에 있는 이미지 파일을 읽어온 후 웹브라우저에 보내는 겁니다. 경로에 없으면 <code>404</code> 오류를 일으키고요. 아, 생각만 해도 귀찮습니다. 다행히 Django엔 이런 걸 처리해주는 기능이 이미 있습니다. <code>django.conf.urls.static</code> 모듈에 있는 <code>static</code> 함수지요. <code>urls.py</code> 맨 아래에 다음 줄을 추가해보세요.</p>
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.conf.urls.static</span> <span class="kn">import</span> <span class="n">static</span>
+
 <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">static</span><span class="p">(</span><span class="s">&#39;static_files&#39;</span><span class="p">,</span> <span class="n">document_root</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">)</span>
 </code></pre></div>
 <p>자, 끝났습니다. 이제 다시 웹브라우저에서 개별 사진 URL로 접근해보세요.</p>
@@ -419,13 +421,61 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="highlight"><pre><code class="language-python" data-lang="python">    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">loader</span><span class="o">.</span><span class="n">render_to_string</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
         <span class="o">**</span><span class="n">httpresponse_kwargs</span><span class="p">)</span>
 </code></pre></div>
+<p>Python 2의 기본 문자형(charset)이 ascii이기 때문에 Python 2를 쓰는 이상 유니코드와 관련된 고통은 감수해야 합니다. :) 아, 이런 문제는 Python 3에선 발생하지 않습니다.</p>
+
 <h4>(3) 소스 파일에 한글을 입력하니 오류가 떠요!</h4>
 
 <p>혹시 <code>views.py</code> 파일 맨 위에 <code># coding: utf-8</code> 내용을 넣지 않은 채 <code>views.py</code> 파일 안에 한글을 직접 입력했다면 <code>SyntaxError</code> 오류가 발생합니다. 오류 내용은 <code>Non-ASCII character &#39;무엇&#39; in file</code>인데, 파일에 ascii 문자가 아닌 문자가 있다는 뜻입니다. Python 버전 2대를 쓰는 입문자라면 영원히(?) 고통 받는 상황입니다.</p>
 
-<p>이 문제는 Python 모듈(파일)에 ascii 문자의 표현 범위를 벗어나는 한글이나 한자 같은 문자가 포함되면 Python 인터프리터가 “어?! 이 문자 뭐임? 몰라, 무서워. 뱉어”라며 Syntax 예외를 일으켜서 발생합니다. 이 문제를 예방하려면 소스 파일에 ascii 문자만 입력하거나 <a href="http://legacy.python.org/dev/peps/pep-0263/">소스 파일이 어떤 문자형(charset)으로 작성됐는지 Python 인터프리터에게 알려줘야 합니다</a>. 그 알려주는 방법이 소스 파일 상단에 <code># coding: utf-8</code>를 명기한 것이지요. Emacs 같은 편집기를 위해 <code># -*- coding: utf-8 -*-</code> 라고 명기하기도 합니다.</p>
+<p>이 문제는 Python 모듈(파일)에 ascii 문자의 표현 범위를 벗어나는 한글이나 한자 같은 문자가 포함되면 Python 인터프리터가 “어?! 이 문자 뭐임? 몰라, 무서워. 뱉어”라며 Syntax 예외를 일으켜서 발생합니다. 이 문제를 예방하려면 소스 파일에 ascii 문자만 입력하거나 <a href="http://legacy.python.org/dev/peps/pep-0263/">소스 파일이 어떤 문자형(charset)으로 작성됐는지 Python 인터프리터에게 알려줘야 합니다</a>. 그 알려주는 방법이 소스 파일 상단에 <code># coding: utf-8</code>를 명기한 것이지요. Emacs 같은 편집기를 위해 <code># -*- coding: utf-8 -*-</code> 라고 명기하기도 합니다. </p>
 
-<p>Python 2의 기본 문자형(charset)이 ascii이기 때문에 Python 2를 쓰는 이상 유니코드와 관련된 고통은 감수해야 합니다. :) 아, 이런 문제는 Python 3에선 발생하지 않습니다.</p>
+<h4>(4) Django 1.8에서 urls.py 변화</h4>
+
+<p>Django 1.8부터 공식 문서에서는 <code>patterns</code> 함수를 더이상 사용하지 않고 리스트 객체로 바로 URL 패턴을 담습니다.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">urlpatterns = patterns(&#39;&#39;,
+    url( ... ),
+)
+</code></pre></div>
+<p>1.7판까지만 해도 본 강좌에서도 설명한 것처럼 이렇게 URL 패턴을 만들어 등록해왔는데, 1.8판부터는 다음과 같이 다룹니다.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">urlpatterns = [
+    url( ... ),
+]
+</code></pre></div>
+<p><code>patterns()</code> 함수가 반환하는 객체로 리스트형이며 이 함수는 여전히 존재하지만, 공식 문서에서 <code>patterns()</code> 함수를 사용하는 예제를 뺀 것을 보면 이젠 이 함수 사용을 권장하지 않나 봅니다. 이에 따라 본 강좌에서 만든 <code>urls.py</code> 내용을 다음과 같이 변경합니다.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">from django.conf.urls import include, url
+from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
+
+urlpatterns = [
+    url(
+        r&#39;^photo/(?P&lt;photo_id&gt;\d+)/$&#39;,
+        &#39;photo.views.single_photo&#39;,
+        name=&#39;view_single_photo&#39;
+    ),
+    url(r&#39;^photo/upload/$&#39;, &#39;photo.views.new_photo&#39;, name=&#39;new_photo&#39;),
+    url(r&#39;^admin/&#39;, include(admin.site.urls)),
+    url(
+        r&#39;^accounts/login/&#39;,
+        &#39;django.contrib.auth.views.login&#39;,
+        name=&#39;login&#39;,
+        kwargs={
+            &#39;template_name&#39;: &#39;login.html&#39;
+        }
+    ),
+    url(
+        r&#39;^accounts/logout/&#39;,
+        &#39;django.contrib.auth.views.logout&#39;,
+        name=&#39;logout&#39;
+    ),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )
+</code></pre></div>
+<p>추측컨데, <code>url()</code> 함수에 <code>name</code> 인자, <code>include()</code> 함수에 <code>namespace</code> 인자를 이용해 URL 패턴에 이름공간과 이름을 부여하고, 이 이름공간 경로로 URL 패턴을 찾는 걸 권장할 것으로 보입니다. 이에 대해서는 별도 편에서 자세히 다루겠습니다.</p>
 
 <hr>
 
