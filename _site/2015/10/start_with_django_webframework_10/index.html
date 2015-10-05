@@ -221,7 +221,7 @@ profile page
 
 <p>하지만, 이 글 내용 그대로 수행했다면 반갑지 않은 화면이 나타납니다.</p>
 
-<p><img src="/assets/uploads/2015/10//assets/uploads/2015/10/10-not_exist_template_file_error.png" alt=""></p>
+<p><img src="/assets/uploads/2015/10/10-not_exist_template_file_error.png" alt=""></p>
 
 <p><code>profile.html</code> 템플릿 파일이 존재하지 않는다는 내용입니다. 이 파일이 분명히 있는데 저 오류가 발생한다면 <code>settings.py</code>에 <code>INSTALLED_APPS</code> 설정에 우리가 새로 생성한 <code>profiles</code> 앱을 추가하지 않아서 그렇습니다. <code>profile.html</code> 템플릿 파일은 <strong><code>profiles</code> 앱 디렉터리</strong>의 <code>templates</code> 디렉터리에 있습니다. 앱 디렉터리에 있다는 의미는 Django가 앱 디렉터리라는 걸 인식해야 한다는 의미입니다. 그래서 <code>INSTALLED_APPS</code>에 추가하는 것입니다. <code>settings.py</code>의 <code>INSTALLED_APPS</code> 항목에 <code>&#39;profiles&#39;</code> 문자열을 추가하면 됩니다.</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">INSTALLED_APPS = (
