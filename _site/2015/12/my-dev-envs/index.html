@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <script src="//cdn.optimizely.com/js/3144930209.js"></script>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="icon" type="image/png" href="http://blog.hannal.com/favicon.ico" />
+  <link rel="alternate" type="application/rss+xml" title="Kay on the rails RSS Feed" href="http://blog.hannal.coom/feed.xml" />
+  <title>
+    
+      내 개발 환경. &middot; Kay on the rails
+    
+  </title>
+  <meta property="og:title" content="내 개발 환경. &middot; Kay on the rails" />
+  <meta property="og:site_name" content="Kay on the rails"/>
+  <meta property="og:url" content="http://blog.hannal.com/2015/12/my-dev-envs/" />
+  <meta property="fb:app_id" content="308847979152210" />
+  <meta property="og:type" content="article" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-33535239-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KS9HDB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KS9HDB');</script>
+<!-- End Google Tag Manager -->
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=308847979152210&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/devlife/">개발 생활</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2015. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">내 개발 환경.</h1>
+  <span class="post-date">18 Dec 2015</span>
+  <p>프로그래밍 입문자, 또는 새로 프로그래밍이나 도구에 입문하는 사람과 얘기를 나누다 보면 다른 사람, 기왕이면 그 언어나 도구에 익숙한 사람이 사용하는 개발 환경을 무척 궁금해 한다는 걸 느꼈다. 그냥 공식 홈페이지에 있는 걸 내려 받아서 설치하면 되는 거 아닌가? 생각하며 관련 자료를 찾아보니 사람들은 공식 홈페이지에 소개되지 않은 방법으로 개발 환경을 꾸린다는 걸 발견하면 더 혼란이 빠져서 아예 입문 자체를 부담스러워 하는 사람도 많다.</p>
+
+<p>그래서 내가 쓰는 개발 환경을 정리해 본다.</p>
+
+<h3>공통 환경</h3>
+
+<h4>PC</h4>
+
+<ul>
+<li>Macbook Pro 13인치 (2015년 early)</li>
+<li>Macbook Pro 15인치 (2014년 early)</li>
+<li>iMac 20인치 (2011년 mid)</li>
+</ul>
+
+<h4>운영체제</h4>
+
+<ul>
+<li>주 환경 : OS X. 내가 주로 활동하는 분야는 윈도우 보다는 리눅스나 OS X에서 개발하기 더 편하다.</li>
+<li>보조 환경 : Ubuntu. 주로 실 서버에 올리기 전에 시험 동작하려고 사용하거나 라즈베리 파이용 뭔가를 만들 때 쓰는 환경이지만, 집에 있는 리눅스 박스가 저사양이라서 평소엔 잘 안 쓴다.</li>
+<li>쉘(shell) : bash를 주로 써왔지만, 2015년 11월부터 zsh을 쓰고 있다. <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>을 쓰고 설정은 기본값으로 쓰고 있으며, plugin만 git, virtualenv, virtualenvwrapper를 설정했다.</li>
+<li>터미널은 OS X에 기본 내장된 것을 사용한다.</li>
+<li>맥 패키지는 <a href="http://brew.sh">Homebrew</a>로 관리한다.</li>
+<li>파일, 디렉터리 구조는 <a href="http://mama.indstate.edu/users/ice/tree/">tree</a>을 쓴다. OS X는 <code>brew install tree</code>.</li>
+<li>원격에 있는 파일은 <a href="https://www.gnu.org/software/wget/">wget</a>로 받는다. OS X는 <code>brew install wget</code>.</li>
+</ul>
+
+<h4>글꼴</h4>
+
+<p><a href="http://sourcefoundry.org/hack/">Hack</a>을 사용한다.</p>
+
+<h4>VCS client</h4>
+
+<ul>
+<li><a href="https://git-scm.com/">git</a> : 기본 클라이언트를 터미널에서 쓴다.</li>
+<li><a href="https://www.sourcetreeapp.com/">sourcetree</a> : 커밋이 복잡하게 꼬였을 때 쓰지만, 느려서 가끔 쓴다.</li>
+<li><a href="https://github.com/karan/joe">joe</a> : <code>.gitignore</code> 파일을 다룰 때 쓴다.</li>
+</ul>
+
+<h3>Python</h3>
+
+<h4>에디터</h4>
+
+<ul>
+<li><a href="https://www.jetbrains.com/pycharm/">PyCharm</a> : 2015년 11월부터 쓰고 있다. 아직 익숙하지 않다.</li>
+<li><a href="http://www.sublimetext.com/">Sublime text 3</a> : 평소에 주로 써왔는데, 최근엔 조금씩 빈도를 줄이고 있다.
+
+<ul>
+<li>SublimeLinter + Python Flake8 lint : 코드 검사기는 <a href="https://flake8.readthedocs.org">Flake8</a>을 SublimeLinter에 연동해 쓴다.</li>
+</ul></li>
+<li>VIM : 급히 간단히 편집할 때 쓴다.</li>
+</ul>
+
+<h4>Python 관련</h4>
+
+<ul>
+<li>Python 3, 2.7 : 최근엔 3 버전으로 시작하는 프로젝트가 늘고 있지만, 아직은 2.7로 동작하는 게 더 많다.</li>
+<li>PyPy : 실 사용 환경에서 사용하고 있긴 한데, 여전히 제한되게 쓰고 있다.</li>
+<li>virtualenv/virtualenvwrapper : 주로 사용하는 Python 환경 격리 도구.</li>
+</ul>
+
+<h3>Golang</h3>
+
+<h4>에디터</h4>
+
+<ul>
+<li><a href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a> : 2015년 11월부터 쓰고 있다. 느려서 답답한데, 편하긴 하다. golang 정식 plugin이 출시되었다.</li>
+<li><a href="http://www.sublimetext.com/">Sublime text 3</a>
+
+<ul>
+<li>plugin : Goimports, GoSublime, SublimeLinter-contrib-golint</li>
+</ul></li>
+</ul>
+
+<h3>문서와 자료</h3>
+
+<h4>편집</h4>
+
+<ul>
+<li>markdown : 로컬에서 문서를 작성하는 경우엔 대부분 markdown으로 작성한다. 편집은 <a href="https://atom.io/">Atom</a>으로 하는데, 한글이 많으면 어느 에디터든 무척 느려지기 때문에 코딩 할 땐 사용하지 않는 Atom을 markdown 문서 편집용으로 쓴다.</li>
+<li>google drive : 다른 사람과 협업하거나 공유해야 하는 경우에 사용한다. 주로 google docs, spreadsheet.</li>
+<li>dropbox paper : 베타판부터 쓰고 있긴 한데, dropbox의 최근 선택과 집중 행보를 보자니 오래 유지 안 하고 종료할 것 같아서 이젠 별로 사용하지 않는다.</li>
+</ul>
+
+<h4>자료 관리</h4>
+
+<ul>
+<li>웹 스크래핑 : 모바일 환경에선 <a href="https://getpocket.com/">pocket</a>, PC 환경에선 pocket과 <a href="http://www.devontechnologies.com/products/devonthink/overview.html">devonthink</a>로 스크랩한다. evernote + clearly를 썼는데, 갈수록 구려져서 안 쓴다.</li>
+<li>PDF : devonthink에 담아서 관리하며, dropbox에도 올려서 모바일 환경에서 접근한다.</li>
+<li>bookmark : 구글 크롬에 북마크한다. 구글 계정 동기화를 해놔서 내가 사용하는 장비 모두와 북마크 동기화가 늘 되어 있다.</li>
+</ul>
+
+<h3>이외</h3>
+
+<ul>
+<li>Google chrome : 느리고 뚱뚱하지만, 구글 계정 연동이 편해서 여전히 쓴다.</li>
+<li>이외 도구는 가장 기본 설정대로 사용한다.
+
+<ul>
+<li>R Studio, Apache spark, React, Jupyter, ...</li>
+</ul></li>
+</ul>
+
+</div>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="hannal">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-like" data-href="http://blog.hannal.com/2015/12/my-dev-envs/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  var disqus_url = 'http://blog.hannal.com/2015/12/my-dev-envs/';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2015/10/start_with_django_webframework_10/">
+            10. 이용자가 올린 사진 목록 보기
+            <small>02 Oct 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/07/celery_chord_and_chain/">
+            Celery의 Subtask 기능을 이용하여 Chord와 Chain로 작업 분산해서 다루기
+            <small>08 Jul 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/06/start_with_django_webframework_09/">
+            9. 로그인한 이용자만 사진 게시물 게시하기
+            <small>28 Jun 2015</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

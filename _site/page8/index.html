@@ -123,6 +123,148 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2015/02/devlife-s1-01/">
+        개발 생활 - 1
+      </a>
+    </h1>
+
+    <span class="post-date">18 Feb 2015</span>
+
+    <p>지난 8월 중순부터 취미로 하던 프로그래밍을 전업으로 하고 있다. 그동안 세 개 제품을 투입(release)했고, 하나는 비공개 시험 운영 중이며, 약 두 달 동안 강의를 하기도 했다. 지난 6개월을 돌이켜 본다.</p>
+
+<ol>
+<li><a href="http://blog.hannal.com/2015/02/devlife-s1-01/"><code>개발 생활 - 1</code></a> : PDF 문서 생성 서버</li>
+<li><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">개발 생활 - 2</a> : 연산된 데이터 수집 작업자</li>
+<li><a href="http://blog.hannal.com/2015/03/devlife-s1-03/">개발 생활 - 3</a> : 전자우편 알림 서버</li>
+<li><a href="http://blog.hannal.com/2015/03/devlife-s1-04/">개발 생활 - 4</a> : Python과 Django 강의</li>
+<li><a href="http://blog.hannal.com/2015/03/devlife-s1-05/">개발 생활 - 5</a> : 공부 자료</li>
+<li><a href="http://blog.hannal.com/2015/03/devlife-s1-06/">개발 생활 - 6</a> : 앞으로 계획</li>
+</ol>
+
+<h3>1. 전업 결심</h3>
+
+<p>2014년 7월에 프로그래머로 전직을 결심했지만 막막하기만 했다. 여러 언어와 도구, 분야를 검토한 끝에 Python을 주 프로그래밍 언어로, 관심을 두고 꾸준히 다룰 언어로는 Go 언어를 정했다. 기준은 내가 하고 싶고 만들고 싶은 것에 필요하고 내 취향이나 성향에 맞는 지 여부이며, 급여 등은 판단 기준에 넣지 않았다.</p>
+
+<p>그러다 8월 중순에 <a href="http://www.rsquare.co.kr">부동산 다이렉트</a>라는 회사에 서버 프로그래머로 합류했다.</p>
+
+<h3>2. 개발 프로젝트</h3>
+
+<h4>2-1. PDF 문서 생성 서버</h4>
+
+<h5>개요</h5>
+
+<p>이 프로젝트는 서버에 저장된 데이터를 제안서로 만들고, 이 제안서를 PDF 문서로 생성하는 기능을 만드는 것이었다. 기존에 Go 언어로 만들어 사용하는 서버가 있었는데 다음 요구사항을 구현해야 했고, 이 기능 구현을 내가 맡은 것이다.</p>
+
+<ul>
+<li>요구사항
+
+<ul>
+<li>여러 제안서를(PDF 파일) 하나로 묶어서 PDF 파일 하나로 만든다.</li>
+<li>DB에서 직접 데이터를 가져오던 기존 방식 대신 API Server에서 REST API로 데이터를 가져온다.</li>
+</ul></li>
+<li>내가 정한 추가 목표치
+
+<ul>
+<li>웹 페이지에서 PDF 생성 버튼을 누르면 응답 화면을 먼저 보여주고, PDF 생성이 완료되면 따로 알려주어 사용성을 높인다.</li>
+<li>유연하고 빠르게 제안서 양식에 변화를 주어 생산성을 높인다.</li>
+<li>3주 안에 개발을 끝낸다.</li>
+</ul></li>
+</ul>
+
+<h5>개발 환경</h5>
+
+<p>제안서는 꽤 복잡한 구조(layout)였고 Google Map API도 사용해서 Javascript를 처리해야 했다. <a href="http://wkhtmltopdf.org/">wkhtmltopdf</a>는 이런 복잡한 HTML를 PDF로 변환하는 데 가장 적합한 도구이다. Webkit 렌더러를 이용하여 웹브라우저가 HTML를 렌더링하는 방식으로 HTML 문서를 출력하고 이 문서를 PDF로 변환하기 때문에 우리에게 필요한 기능을 모두 제공했고, 이미 개발팀에서 사용하고 있기도 했다.</p>
+
+<p>하지만, wkhtmltopdf엔 PDF 파일들을 하나로 합치는 기능이 없다. 여러 도구를 살펴봤는데 <a href="http://www.python.org">Python</a>용 라이브러리인 PyPDF 2가 적합했다. 그리고 내가 정한 추가 목표치를 달성하는 데에도 Python이 가장 적합했다. 그래서 PDF 문서 생성 서버는 Python을 이용해 새로 만들기로 결정했다.</p>
+
+<ul>
+<li>언어 : Python 2.7</li>
+<li>사용 라이브러리, 프레임워크
+
+<ul>
+<li>웹 프레임워크 : <a href="http://flask.pocoo.org/">Flask</a></li>
+<li>PDF 병합 : <a href="http://mstamy2.github.io/PyPDF2/">PyPDF 2</a></li>
+<li>백그라운드 처리 : <a href="http://www.celeryproject.org/">Celery</a></li>
+<li>웹 소켓 : <a href="http://www.gevent.org/">gevent</a></li>
+</ul></li>
+</ul>
+
+<h5>개발 과정</h5>
+
+<p>막상 개발에 착수하자 시작부터 문제에 봉착했다. PyPDF 2는 wkhtmltopdf로 만든 PDF를 두 개 이상 병합하려 하면 <code>__WKANCHOR__</code> 관련 오류가 발생하였다. wkhtmltopdf로 만든 PDF에 형성한 앵커의 ID가 PDF 마다 동일하게 만들어져서 이를 합칠 때 중복되어서(고유하지 않아서) 발생하는 문제 같다. wkhtmltopdf나 PyPDF 2 소스를 고쳐서 문제를 해결하려 했으나 시간이 여의치 않았다. 나는 여러 제안서를 HTML 문서 하나로 합치고, 이 합친 HTML 문서를 PDF로 변환하기로 했다. wkhtmltopdf에 여러 HTML 문서를 PDF 문서 하나로 병합해 생성하는 기능이 있긴 했으나, 결과물인 PDF 외양(layout)이 깨지는 문제가 발생하였다. 그리고, 백 개가 넘는 제안서를 하나로 합치는 상황을 터미널 콘솔에서 테스트하기 번거로웠다. 그래서 아예 하나로 합쳐진 HTML을 만드는 방법을 골랐다.</p>
+
+<p>API Server에서 제공하는 REST API로 데이터를 가져오는 건 <a href="https://github.com/jcgregorio/httplib2">httplib2</a>를 이용했다. 대세인 HTTP 라이브러리인 <a href="http://docs.python-requests.org/">Requests</a>를 사용하려 했으나 <code>HTTPS</code> 통신이 잘 되질 않았다. 구현을 마친 나중에 안 사실이지만 이 문제는 HTTPS 인증서를 내가 잘못 사용해서 발생한 문제였다.</p>
+
+<p>API Server에서 가져온 데이터를 어떻게 구조화 할까 고민하다 <a href="https://www.djangoproject.com/">Django</a>의 ORM을 흉내 내기로 했다. Django의 Model은 다음과 같이 데이터를 데이터베이스에서 가져온다.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">building = Building.objects.get(id=3, status=&#39;open&#39;)
+
+print building.name
+</code></pre></div>
+<p>내가 만든 건 이런 모양이다.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">building = Building.filter(id=3, {&#39;status&#39;: &#39;open&#39;})
+
+print building.name
+</code></pre></div>
+<p>데이터베이스를 사용하지 않고 오직 REST API로 데이터를 가져오기 때문에 굳이 ORM처럼 만들 필요는 없었다. 데이터 모델 스키마는 API Server의 문서에 잘 나와 있기 때문에 문서 서버에서 모델을 정의하지 않아도 무방했다. Django ORM을 분석하면서 많이 배우긴 했지만 프로젝트 관리 관점에서 보면 초과 사양으로 보였다. 하지만, 자잘한 수정 사항이 매우 빈번하게 발생하자 그 나름대로 기준과 일관성이 있는 인터페이스 덕에 유연하게 대응할 수 있었다.</p>
+
+<p>1차 요구사항을 구현하고 나서 사용성을 높이는 단계로 넘어갔다. PDF 생성은 적지 않은 시간이 소요되기 때문에 이용자가 웹 페이지에서 PDF 생성 버튼을 누르면 한참 기다려야 했다. 만약 100장짜리 제안서를 PDF로 생성하는 경우 30~40분을 기다려야 하며, HTTP/1.x 특성상 연결이 끊기거나(Timeout) 연결에 문제가 생길 가능성이 높아진다. 그래서 PDF 생성은 백그라운드에서 별도 작업자가 처리하고, 생성이 완료되면 푸시로 이용자에게 알려주는 기능을 구현하기로 했다.</p>
+
+<p>Celery를 이용해 백그라운드로 처리하는 기능은 구현하긴 쉬웠다. 하지만, PyPDF 2의 PDF 병합 문제로 병합할 개별 PDF 문서를 분산해서 처리하지 않았기 때문에 비동기로 백그라운드에서 PDF 를 생성하는 역할로만 활용했다.</p>
+
+<p>웹 브라우저가 웹 소켓을 열어 웹 소켓 서버와 연결을 유지하고, PDF 생성이 완료되면 서버가 클라이언트인 웹 브라우저로 푸시 알림으 보내는 기능도 간단히 구현했다. gevent 라이브러리를 사용하는 <a href="https://pypi.python.org/pypi/gevent-websocket/">gevent-websocket</a> 라이브러리를 이용하여 웹 소켓 서버를 만들었다. 처음엔 직접 구현하고 있었는데 때마침 열린 <a href="http://www.pycon.kr/2014">PYCON Korea 2014</a>에서 정민영님이 발표한 <a href="http://www.pycon.kr/2014/program/3">제약을 넘어 : Gevent</a>를 듣고 gevent와 gevent-websocket을 도입했다. 무척 간단했다.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">from gevent import monkey
+monkey.patch_all()
+
+from geventwebsocket import (
+    WebSocketServer,
+    WebSocketApplication,
+    Resource,
+)
+
+class TaskChecker(WebSocketApplication):
+    # 작업 class
+    pass
+
+notifier_host = &#39;localhost&#39;
+notifier_port = 9999
+
+WebSocketServer(
+    (notifier_host, notifier_port),
+    Resource({&#39;/&#39;: TaskChecker})
+).serve_forever()
+</code></pre></div>
+<p>서버가 백그라운드에서 PDF를 생성하는 긴긴 시간 동안 이용자는 자신이 받을 제안서 PDF를 웹 화면으로 먼저 접하게 된다. 미리보기(preview) 역할을 하는 셈이다. 이용자에겐 별다른 기능이 없지만, 실제로는 제안서 HTML을 만드는 중요 역할을 한다. 이 웹 서버는 Flask를 이용해 만들었다. 내겐 Django가 더 익숙했지만, 경량 프레임워크이면서도 문서 서버의 웹 서버에 필요한 기능은 충분히 포함하고 있었고, Flask에 기본 탑재된 템플릿 엔진인 <code>jinja2</code>의 문법이 Django의 템플릿 문법과 거의 동일해서 금방 적응했다.</p>
+
+<p>Flask는 참 좋은 프레임워크이다. PDF 생성과 병합하는 기능을 분석하고 구현하는 데 예상보다 많은 시간을 써서 시간에 쫓기는 상황이다보니 Flask 문서를 거의 읽지 않고 <a href="http://www.stackoverflow.com">Stackoverflow</a>를 전전하며 개발했는데, 대부분 코드에서 기대하는 바가 의도하는 대로, 그리고 예상하는 대로 동작하였다. 구조도 명료해서 Flask 내부를 들여다 보기에도 좋았다.</p>
+
+<h5>우여곡절</h5>
+
+<p>이용자가 웹 브라우저에서 웹 소켓으로 푸시 알림 서버에 연결하면 이 알림 서버는 Redis 서버에 접속하여 Celery가 진행하고 있는 작업 상태를 추적한다. 작업이 끝나면(<code>celery.AsyncResult(id=task_id).status == &#39;SUCCESS&#39;</code>) 푸시 알림 서버는 해당 작업(PDF 생성)에 대한 알림을 요청한 클라이언트들에게 생성된 PDF 파일을 내려 받는 URL을 반환한다. 웹 브라우저는 이 URL을 받으면 화면에 PDF 다운로드 버튼을 출력하고, 이용자는 이 버튼을 눌러 제안서 PDF를 받는 것이다.</p>
+
+<p>그래서 백그라운드 작업 처리 부분과 푸시 알림 서버를 연계해야 했는데, 테스트가 까다로웠다. 동시성이나 병렬성에 익숙하지 않다보니 지극히 직렬성 사고를 하여 코드나 로직을 직렬성을 전제로 작성했는데, 동기식 직렬성을 전제로 작성한 코드로 비동기 상황을 테스트 하려다 보니 상황을 재현하고 발생한 문제를 추적하기 용이하지 않았다. 작은 코드 변화만으로 작동 순서가 달라져 문제가 발생하기도 했다.</p>
+
+<p>wkhtmltopdf가 만든 PDF가 HTML 문서와 다르게 만들어지는 문제도 해결하기 참 까다로웠다. wkhtmltopdf이 Webkit을 사용하긴 하지만, Webkit을 사용하는 구글 크롬이나 애플 사파리과는 다르게 작동하는 부분이 꽤 많았다. 렌더러 버전 차이도 있고, 웹 브라우저 벤더마다 따로 맞춘 설정(customized)이 문제였다.</p>
+
+<p>글자 간격이나 틀(layout)이 틀어지는 건 그나마 간단했다. <a href="http://blog.hannal.com/2014/9/letter_overlap_problem_on_wkhtmltopdf/">HTML DOM 요소들이 미쳐 날뛰듯이 뒤엉키는 문제</a>는 해결하기 무척 힘들고 어려웠다. 이 문제가 오직 wkhtmltopdf로 생성한 PDF에서만 발생했고, HTML 문서와는 달리 PDF 문서는 요소를 검사(inspect)할 마땅한 방법이 없었기 때문이다. HTML과 CSS의 여러 속성과 항목을 하나하나 고치고 wkhtmltopdf로 PDF를 생성해 결과 화면을 보며 문제 원인을 추적해야 했다. 디버깅 할 때 중단점(breaking point)을 찍고선 진행 과정을 한 단계씩 추적하듯이, wkhtmltopdf가 PDF 문서를 생성하는 과정을 하나 하나 추적할 수 있었다면 얼마나 좋았을까. 또 다른 어려운 점은 이런 문제는 구글링을 해도 딱히 자료가 없다는 점이다.</p>
+
+<p>몇 몇 문제는 도저히 재현되지도 파악되지도 않아서 wkhtmltopdf 컴파일 설정을 바꿔서 wkhtmltopdf를 다르게 빌드해보기도 했다. 몇 가지 문제는 <a href="http://natepinchot.com/2014/01/31/building-static-wkhtmltopdf/">wkhtmltopdf에 QT 패치</a>를 해서 해결하기도 했다. wkhtmltopdf는 상당히 덩치가 큰 소프트웨어여서 컴파일하고 빌드하는 데 시간이 많이 든다. 인텔 i5 (2.2GHz quad core), 램 8기가, SSD 사양인 맥북 프로에서도 Clean build를 마치는 데 40여 분이 소요됐고, 이보다 훨씬 사양이 낮은 실 서비스 서버에서는 네 시간에서 다섯 시간이 소요됐다. 개발 중이어서 서비스 서버 사양을 <a href="http://aws.amazon.com/ko/ec2/instance-types/#t2">AWS t2.micro</a>로 낮게 설정했기 때문이다. 힘들게 개발 환경인 Mac OS X에서 wkhtmltopdf 컴파일 설정을 맞췄는데, Redhat 계열 Linux인 AMI에서는 다르게 동작해서 다시 컴파일을 하기도 했다.</p>
+
+<p>마지막으로 고생했던 점은 Go로 작성된 기존 문서 서버 코드를 분석하며 새 버전을 만든 점이다. 당시 개발팀은 중요 일정을 맞추려고 밤낮으로 고생하고 있었다. 그에 비해 나는 비교적 일정과 구현에 대해 배려받고 있었고, 기능만 놓고 보면 내가 맡은 부분은 중요도가 높진 않았다. 그래서, 가능한 한 다른 개발자를 방해하지 않고 기존 코드를 보며 알아서 해결하려 노력했다. 이미 운영 중인 문서 서버의 Go 소스 코드를 몇 번이고 읽으며 의도를 이해하려 했지만, 기존 문서 서버는 DB에 직접 연결하여 데이터를 다루는 등 동작 방식이 전혀 다른데다 객체 지향 언어가 아닌 Go로 작성된 코드여서 Python으로 코드를 작성하는 데 혼란을 야기했다. 즉, 맥락 전환(context switching)에 비용이 많이 든 것인데, 당시엔 전혀 염두에 두지 않았던 상황이다.</p>
+
+<p>코드로는 의도나 목적을 이해하여 초기 구현은 빨리 마쳤다. 기존 것과 동일하게 동작하면 됐기 때문이다. 하지만, 나는 새로 만드는 버전을 맡은 것이고, 새 버전의 제안서는 기존 제안서와 꽤 달랐다. 이런 문제들은 출시(release)하고나서 운영할 때 유지보수에 혼란을 일으키는 요소가 된다. 정확한 기능의 의도와 목적을 이해하지 않은 상태에서 구조와 설계를 잡고 구현했기 때문이다. 다행히 초과 사양으로 구현하느라 일정 초기에 고생스러웠던 추상화 부분들, 그리고 기획자의 꼼꼼한 지원 덕에 서비스 적용(release) 후 유지보수에 큰 난관이 일어나진 않았다.</p>
+
+<h5>정리</h5>
+
+<p>목표로 했던 것보다 2주 더 걸린 5주 만에 개발을 마쳤다. Python 2.7을 사용한 걸 제외하면, 사용한 라이브러리나 프레임워크 등 대부분을 처음 사용하는 경우였다. 도구 뿐만 아니라 개발 메카니즘이나 구성도 생소했다. 이용자가 실제로 접하는 기능과 동작은 단순하기 그지 없는데, 실제 구현은 까다로운 부분도 많았다.</p>
+
+<p>당시엔 밤엔 공부하고 실험하고 출근하면 밤에 쌓은 자산을 적용하여 구현하는, 말 그대로 주경야독 시기를 혹독하게 보냈다. 과의욕 상태에서 불필요한 설계를 하거나 구현하여 고생을 자초하기도 했다.</p>
+
+<p>많이 학습하고 부족한 부분을 찾은 과정이었다.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2015/02/working_remotely/">
         원격근무를 시작하다. 일주일 중간 소감.
       </a>
@@ -189,25 +331,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>일이 더 잘되는 것도 좋다. 긴밀한 소통이 필요한 경우도 분명 오겠지만, 그런 상황 대부분은 내 역량이 부족해서 일어난다고 예상하고 있다. 그동안 해온 동기화 된 소통은 최소화 할 여지가 많아 보인다.</p>
 
 <p>급여를 열 배 정도 더 받는 게 아닌 이상, 집에서 원격으로 일하는 게 좋을 것 같다. 앞으로 약 한 달 동안 원격근무를 해보고나서 진지하게 그 이후를 고민해봐야 겠다.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2015/01/hello_2015/">
-        2015년을 맞이하며
-      </a>
-    </h1>
-
-    <span class="post-date">01 Jan 2015</span>
-
-    <p>삶에 방향이 있다면, 위가 아래로 아래가 위로 자리를 옮기기도 하고 흐르는 방향이 바뀌기도 하고 겉과 속이 뒤집히기도 한 2014년을 보냈습니다. </p>
-
-<p>2009년 창업한 이래 기고, 걷고, 달리고, 넘어지고, 다시 일어나며 사업을 해오다 배가 뒤집힌 사고를, 그리고 그 사고가 사건으로 변하는 모습을 지켜보며 여정을 중단하였습니다. 그때쯤 5번 디스크가 척추에서 탈출하려는 시도를 벌여 몇 달 고생하였고, 여전히 치료를 받고 있긴 하지만 그래도 건강한 몸이 참 소중하다며 지난 시간을 돌이킬 여유가 생겼습니다. 그리고, 또 그때쯤 우아를 잉태하였는데, 잘 안 움직이는 저와 아내와는 달리 아주 활달하게 태동하여 한 달여 남은 출산을 기대하고 있습니다.</p>
-
-<p>앞으로 뭘 할 지 고민하는데 자꾸 도피성, 회피성 계획만 잡길래 다 집어치우고, 한두 달 정도 쉬면서 게임도 하고, 멍 때리기도 하고, 이런 저런 장난감을 갖고 놀기도 하고, 공부도 했습니다. 큰 방향으로 가닥을 잡을 때쯤, 주변에서 많이 챙겨주시고 도와주셔서 여름부터는 조직에 합류하여 프로그래머로 일하고 있습니다. 주로 Python을 쓰며 Go도 다루고 있는데, 데이터를 다루는 일과 하드웨어를 다루는 일에 관심을 두고 공부하고 일하며 앞으로 뭘 할 지에 대해 조금 더 세세하게 가닥을 다듬어가고 있습니다.</p>
-
-<p>그동안 도와주셔서 고맙습니다. 저는 그동안 살아온 삶과 다른 삶을 열어 새로이 여정을 나아가고 있습니다. 정말 힘들고 어려운 전환기에 도와주신 분들이 계셔서 전환할 수 있었습니다. 고맙습니다. 이 인연에 감사하며 소중히 이어가겠습니다.</p>
 
   </div>
   

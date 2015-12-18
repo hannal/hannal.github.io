@@ -6,9 +6,130 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 03 Oct 2015 22:08:15 +0900</pubDate>
-    <lastBuildDate>Sat, 03 Oct 2015 22:08:15 +0900</lastBuildDate>
+    <pubDate>Fri, 18 Dec 2015 23:55:54 +0900</pubDate>
+    <lastBuildDate>Fri, 18 Dec 2015 23:55:54 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>내 개발 환경.</title>
+        <description>&lt;p&gt;프로그래밍 입문자, 또는 새로 프로그래밍이나 도구에 입문하는 사람과 얘기를 나누다 보면 다른 사람, 기왕이면 그 언어나 도구에 익숙한 사람이 사용하는 개발 환경을 무척 궁금해 한다는 걸 느꼈다. 그냥 공식 홈페이지에 있는 걸 내려 받아서 설치하면 되는 거 아닌가? 생각하며 관련 자료를 찾아보니 사람들은 공식 홈페이지에 소개되지 않은 방법으로 개발 환경을 꾸린다는 걸 발견하면 더 혼란이 빠져서 아예 입문 자체를 부담스러워 하는 사람도 많다.&lt;/p&gt;
+
+&lt;p&gt;그래서 내가 쓰는 개발 환경을 정리해 본다.&lt;/p&gt;
+
+&lt;h3&gt;공통 환경&lt;/h3&gt;
+
+&lt;h4&gt;PC&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Macbook Pro 13인치 (2015년 early)&lt;/li&gt;
+&lt;li&gt;Macbook Pro 15인치 (2014년 early)&lt;/li&gt;
+&lt;li&gt;iMac 20인치 (2011년 mid)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;운영체제&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;주 환경 : OS X. 내가 주로 활동하는 분야는 윈도우 보다는 리눅스나 OS X에서 개발하기 더 편하다.&lt;/li&gt;
+&lt;li&gt;보조 환경 : Ubuntu. 주로 실 서버에 올리기 전에 시험 동작하려고 사용하거나 라즈베리 파이용 뭔가를 만들 때 쓰는 환경이지만, 집에 있는 리눅스 박스가 저사양이라서 평소엔 잘 안 쓴다.&lt;/li&gt;
+&lt;li&gt;쉘(shell) : bash를 주로 써왔지만, 2015년 11월부터 zsh을 쓰고 있다. &lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh&quot;&gt;oh-my-zsh&lt;/a&gt;을 쓰고 설정은 기본값으로 쓰고 있으며, plugin만 git, virtualenv, virtualenvwrapper를 설정했다.&lt;/li&gt;
+&lt;li&gt;터미널은 OS X에 기본 내장된 것을 사용한다.&lt;/li&gt;
+&lt;li&gt;맥 패키지는 &lt;a href=&quot;http://brew.sh&quot;&gt;Homebrew&lt;/a&gt;로 관리한다.&lt;/li&gt;
+&lt;li&gt;파일, 디렉터리 구조는 &lt;a href=&quot;http://mama.indstate.edu/users/ice/tree/&quot;&gt;tree&lt;/a&gt;을 쓴다. OS X는 &lt;code&gt;brew install tree&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;원격에 있는 파일은 &lt;a href=&quot;https://www.gnu.org/software/wget/&quot;&gt;wget&lt;/a&gt;로 받는다. OS X는 &lt;code&gt;brew install wget&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;글꼴&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://sourcefoundry.org/hack/&quot;&gt;Hack&lt;/a&gt;을 사용한다.&lt;/p&gt;
+
+&lt;h4&gt;VCS client&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://git-scm.com/&quot;&gt;git&lt;/a&gt; : 기본 클라이언트를 터미널에서 쓴다.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.sourcetreeapp.com/&quot;&gt;sourcetree&lt;/a&gt; : 커밋이 복잡하게 꼬였을 때 쓰지만, 느려서 가끔 쓴다.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/karan/joe&quot;&gt;joe&lt;/a&gt; : &lt;code&gt;.gitignore&lt;/code&gt; 파일을 다룰 때 쓴다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Python&lt;/h3&gt;
+
+&lt;h4&gt;에디터&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.jetbrains.com/pycharm/&quot;&gt;PyCharm&lt;/a&gt; : 2015년 11월부터 쓰고 있다. 아직 익숙하지 않다.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.sublimetext.com/&quot;&gt;Sublime text 3&lt;/a&gt; : 평소에 주로 써왔는데, 최근엔 조금씩 빈도를 줄이고 있다.
+
+&lt;ul&gt;
+&lt;li&gt;SublimeLinter + Python Flake8 lint : 코드 검사기는 &lt;a href=&quot;https://flake8.readthedocs.org&quot;&gt;Flake8&lt;/a&gt;을 SublimeLinter에 연동해 쓴다.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;VIM : 급히 간단히 편집할 때 쓴다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Python 관련&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Python 3, 2.7 : 최근엔 3 버전으로 시작하는 프로젝트가 늘고 있지만, 아직은 2.7로 동작하는 게 더 많다.&lt;/li&gt;
+&lt;li&gt;PyPy : 실 사용 환경에서 사용하고 있긴 한데, 여전히 제한되게 쓰고 있다.&lt;/li&gt;
+&lt;li&gt;virtualenv/virtualenvwrapper : 주로 사용하는 Python 환경 격리 도구.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Golang&lt;/h3&gt;
+
+&lt;h4&gt;에디터&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.jetbrains.com/idea/&quot;&gt;IntelliJ IDEA&lt;/a&gt; : 2015년 11월부터 쓰고 있다. 느려서 답답한데, 편하긴 하다. golang 정식 plugin이 출시되었다.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.sublimetext.com/&quot;&gt;Sublime text 3&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;plugin : Goimports, GoSublime, SublimeLinter-contrib-golint&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;문서와 자료&lt;/h3&gt;
+
+&lt;h4&gt;편집&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;markdown : 로컬에서 문서를 작성하는 경우엔 대부분 markdown으로 작성한다. 편집은 &lt;a href=&quot;https://atom.io/&quot;&gt;Atom&lt;/a&gt;으로 하는데, 한글이 많으면 어느 에디터든 무척 느려지기 때문에 코딩 할 땐 사용하지 않는 Atom을 markdown 문서 편집용으로 쓴다.&lt;/li&gt;
+&lt;li&gt;google drive : 다른 사람과 협업하거나 공유해야 하는 경우에 사용한다. 주로 google docs, spreadsheet.&lt;/li&gt;
+&lt;li&gt;dropbox paper : 베타판부터 쓰고 있긴 한데, dropbox의 최근 선택과 집중 행보를 보자니 오래 유지 안 하고 종료할 것 같아서 이젠 별로 사용하지 않는다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;자료 관리&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;웹 스크래핑 : 모바일 환경에선 &lt;a href=&quot;https://getpocket.com/&quot;&gt;pocket&lt;/a&gt;, PC 환경에선 pocket과 &lt;a href=&quot;http://www.devontechnologies.com/products/devonthink/overview.html&quot;&gt;devonthink&lt;/a&gt;로 스크랩한다. evernote + clearly를 썼는데, 갈수록 구려져서 안 쓴다.&lt;/li&gt;
+&lt;li&gt;PDF : devonthink에 담아서 관리하며, dropbox에도 올려서 모바일 환경에서 접근한다.&lt;/li&gt;
+&lt;li&gt;bookmark : 구글 크롬에 북마크한다. 구글 계정 동기화를 해놔서 내가 사용하는 장비 모두와 북마크 동기화가 늘 되어 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;이외&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Google chrome : 느리고 뚱뚱하지만, 구글 계정 연동이 편해서 여전히 쓴다.&lt;/li&gt;
+&lt;li&gt;이외 도구는 가장 기본 설정대로 사용한다.
+
+&lt;ul&gt;
+&lt;li&gt;R Studio, Apache spark, React, Jupyter, ...&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 18 Dec 2015 14:45:00 +0900</pubDate>
+        <link>http://blog.hannal.com//2015/12/my-dev-envs/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2015/12/my-dev-envs/</guid>
+        
+        <category>python</category>
+        
+        <category>golang</category>
+        
+        <category>개발환경</category>
+        
+        <category>os X</category>
+        
+        
+        <category>devlife</category>
+        
+      </item>
     
       <item>
         <title>10. 이용자가 올린 사진 목록 보기</title>
@@ -111,7 +232,7 @@ profile page
 
 &lt;p&gt;하지만, 이 글 내용 그대로 수행했다면 반갑지 않은 화면이 나타납니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/10//assets/uploads/2015/10/10-not_exist_template_file_error.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2015/10/10-not_exist_template_file_error.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;profile.html&lt;/code&gt; 템플릿 파일이 존재하지 않는다는 내용입니다. 이 파일이 분명히 있는데 저 오류가 발생한다면 &lt;code&gt;settings.py&lt;/code&gt;에 &lt;code&gt;INSTALLED_APPS&lt;/code&gt; 설정에 우리가 새로 생성한 &lt;code&gt;profiles&lt;/code&gt; 앱을 추가하지 않아서 그렇습니다. &lt;code&gt;profile.html&lt;/code&gt; 템플릿 파일은 &lt;strong&gt;&lt;code&gt;profiles&lt;/code&gt; 앱 디렉터리&lt;/strong&gt;의 &lt;code&gt;templates&lt;/code&gt; 디렉터리에 있습니다. 앱 디렉터리에 있다는 의미는 Django가 앱 디렉터리라는 걸 인식해야 한다는 의미입니다. 그래서 &lt;code&gt;INSTALLED_APPS&lt;/code&gt;에 추가하는 것입니다. &lt;code&gt;settings.py&lt;/code&gt;의 &lt;code&gt;INSTALLED_APPS&lt;/code&gt; 항목에 &lt;code&gt;&amp;#39;profiles&amp;#39;&lt;/code&gt; 문자열을 추가하면 됩니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;INSTALLED_APPS = (
@@ -2328,205 +2449,6 @@ hello_func(1, 2, &amp;#39;3&amp;#39;, &amp;#39;a&amp;#39;)
         <category>Sentry</category>
         
         <category>Upstart</category>
-        
-        
-        <category>devlife</category>
-        
-      </item>
-    
-      <item>
-        <title>개발 생활 - 5</title>
-        <description>&lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;개발 생활 - 1&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;&lt;code&gt;개발 생활 - 5&lt;/code&gt;&lt;/a&gt; : 공부 자료&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;개발 생활 - 6&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3&gt;4. 공부 자료&lt;/h3&gt;
-
-&lt;h4&gt;개요&lt;/h4&gt;
-
-&lt;p&gt;2014년 7월부터 2015년 2월까지 지낸 개발 생활 중 공부하거나 참고한 자료를 정리했다. 미처 따로 기록하지 못 한 자료는 기재하지 않았다.&lt;/p&gt;
-
-&lt;p&gt;일부는 부분 참고를 했고, 일부는 여전히 공부하느라 참고하고 있다.&lt;/p&gt;
-
-&lt;h4&gt;책&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;파이썬 완벽 가이드
-
-&lt;ul&gt;
-&lt;li&gt;ISBN : 9788966260256&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;파이썬 인 프랙티스
-
-&lt;ul&gt;
-&lt;li&gt;ISBN : 9788998139650&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;실전 파이썬 프로그래밍
-
-&lt;ul&gt;
-&lt;li&gt;ISBN : 9788966261246&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Linux System Programming
-
-&lt;ul&gt;
-&lt;li&gt;ISBN : 9788968481482&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;열혈강의 파이썬
-
-&lt;ul&gt;
-&lt;li&gt;ISBN : 9788989345770&lt;/li&gt;
-&lt;li&gt;강의 준비할 때 참고&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Python Network Programming
-
-&lt;ul&gt;
-&lt;li&gt;ISBN : 9781430230038&lt;/li&gt;
-&lt;li&gt;웹 소켓 서버와 전자우편 알림 서버 개발에 참고&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;트위스티드
-
-&lt;ul&gt;
-&lt;li&gt;ISBN : 9788966261154&lt;/li&gt;
-&lt;li&gt;비동기 처리 학습&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Programming in Python 3, 2nd Edition
-
-&lt;ul&gt;
-&lt;li&gt;ISBN : 9780321680563&lt;/li&gt;
-&lt;li&gt;Python 3 준비하기 위해 부분 참고&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4&gt;웹 자료&lt;/h4&gt;
-
-&lt;h5&gt;Python&lt;/h5&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://docs.python.org&quot;&gt;Python 공식 문서&lt;/a&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://docs.python.org/3/library/asyncio-task.html&quot;&gt;Tasks and coroutines&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.flowdas.com/thinkpython/&quot;&gt;Think Python&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://legacy.python.org/dev/peps/pep-0008/&quot;&gt;PEP 8&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.eairship.kr/271&quot;&gt;금지된 엑시노아의 비공정 - 파이썬 강좌&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.flowdas.com/blog/asyncio-python-tulip/&quot;&gt;asyncio - Python Tulip&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://medium.com/@cookatrice/why-python-is-slow-looking-under-the-hood-7126baf936d7&quot;&gt;파이썬은 왜 느릴까요? 내부 원리를 살펴 봅시다.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.pycon.kr/2014/program/2&quot;&gt;위대한 dict 이해하고 사용하기&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.python.org/doc/essays/list2str/&quot;&gt;Python Patterns - An Optimization Anecdote&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://openlook.org/wp/?p=801&quot;&gt;파이썬을 두루 이해하는 데 도움 되는(?) 퀴즈&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.dabeaz.com/generators/index.html&quot;&gt;Generator Tricks for Systems Programmers&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.cafepy.com/article/python_types_and_objects/python_types_and_objects.html&quot;&gt;Python Types and Objects&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://techspot.zzzeek.org/2015/02/15/asynchronous-python-and-databases/&quot;&gt;Asynchronous Python and Databases&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://docs.python-guide.org/&quot;&gt;The Hitchhiker’s Guide to Python!&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5&gt;Python 관련 frameworks나 libraries&lt;/h5&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Django
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://docs.djangoproject.com&quot;&gt;Django 공식 문서&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://medium.com/cs-math/11-things-i-wish-i-knew-about-django-development-before-i-started-my-company-f29f6080c131&quot;&gt;11 Things I Wish I Knew About Django Development Before I Started My Company&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.looah.com/article/view/2025&quot;&gt;2014년에 Django로 개발하면서 실수한 부분&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.etianen.com/blog/2013/06/08/django-querysets/&quot;&gt;Using Django querysets effectively&lt;/a&gt;
-
-&lt;ul&gt;
-&lt;li&gt;번역 : &lt;a href=&quot;http://raccoonyy.github.io/using-django-querysets-effectively-translate/&quot;&gt;Django에서 쿼리셋 효과적으로 사용하기&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.michelepasin.org/blog/2010/07/20/the-power-of-djangos-q-objects/&quot;&gt;The power of django’s Q objects&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;gevent
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.gevent.org/contents.html&quot;&gt;gevent 공식 문서&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://sdiehl.github.io/gevent-tutorial/&quot;&gt;gevent tutorial&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.pycon.kr/2014/program/3&quot;&gt;제약을 넘어 : Gevent&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.pythonisito.com/2011/07/gevent-zeromq-websockets-and-flot-ftw.html&quot;&gt;Gevent, ZeroMQ, WebSockets, and Flot FTW!&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.miguelgrinberg.com/post/easy-websockets-with-flask-and-gevent/page/9&quot;&gt;Easy WebSockets with Flask and Gevent&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Celery
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://celery.readthedocs.org/&quot;&gt;Celery 공식 문서&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://zapier.com/blog/async-celery-example-why-and-how/&quot;&gt;Async Celery by Example: Why and How&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html&quot;&gt;Periodic Tasks&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;SQLAlchemy
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://docs.sqlalchemy.org/&quot;&gt;SQLAlchemy 공식 문서&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.pythoncentral.io/understanding-python-sqlalchemy-session/&quot;&gt;Understanding Python SQLAlchemy’s Session&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;이외
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://docs.python-requests.org/&quot;&gt;Requests&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://siriux.net/2013/06/nginx-and-websockets/&quot;&gt;nginx and WebSockets&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://flask.pocoo.org/docs&quot;&gt;Flask 공식 문서&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://jinja.pocoo.org/docs&quot;&gt;Jinja2 공식 문서&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://kombu.readthedocs.org&quot;&gt;Kombu 공식 문서&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://ipython.org/documentation.html&quot;&gt;IPython 공식 문서&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://nbviewer.ipython.org/github/re4lfl0w/ipython/blob/master/books/python_data_analysis/ch03_Introduction%20IPython.ipynb&quot;&gt;IPython 소개&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5&gt;Go&lt;/h5&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://go-tour-kr.appspot.com/&quot;&gt;A Tour of Go&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.golang-book.com/&quot;&gt;An introduction to programming in Go&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://code.google.com/p/golang-korea/wiki/EffectiveGo&quot;&gt;Go언어 잘 사용하는 방법&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://gobyexample.com/&quot;&gt;Go by Example&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://talks.golang.org/2012/waza.slide&quot;&gt;Concurrency is not Parallelism&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5&gt;Redis&lt;/h5&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.joinc.co.kr/modules/moniwiki/wiki.php/man/12/REDIS/DataModeling&quot;&gt;REDIS 데이터 모델링 예제들&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://charsyam.wordpress.com/category/cloud/redis/&quot;&gt;CharSyam&amp;#39;s Redis posts&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5&gt;이외&lt;/h5&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.codeok.net/&quot;&gt;CODEOK&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://sentry.readthedocs.org/&quot;&gt;Sentry&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://natepinchot.com/2014/01/31/building-static-wkhtmltopdf/&quot;&gt;Building static wkhtmltopdf (and static QT)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://ghebook.blogspot.kr/2010/10/permutation-combination.html&quot;&gt;순열(順列, permutation)과 조합(組合, combination)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.rfc-editor.org/rfc-index.html&quot;&gt;RFC Index&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://bespokebytes.com/start-getting-up-and-running-with-upstart/&quot;&gt;Start getting up and running with Upstart&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://lqez.github.io/blog/fool-upstart.html&quot;&gt;Fool Upstart&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sat, 14 Mar 2015 21:13:40 +0900</pubDate>
-        <link>http://blog.hannal.com//2015/03/devlife-s1-05/</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2015/03/devlife-s1-05/</guid>
-        
-        <category>Python</category>
-        
-        <category>책</category>
-        
-        <category>참고자료</category>
-        
-        <category>Go</category>
-        
-        <category>비동기</category>
-        
-        <category>Sentry</category>
-        
-        <category>Django</category>
-        
-        <category>Redis</category>
-        
-        <category>gevent</category>
         
         
         <category>devlife</category>

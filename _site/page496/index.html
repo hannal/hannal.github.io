@@ -123,6 +123,52 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2004/4/235/">
+        외부 스크립트를 javascript 로 가져와 사용하기
+      </a>
+    </h1>
+
+    <span class="post-date">27 Apr 2004</span>
+
+    <p>자 우선 html 소스를 보자.</p>
+
+<blockquote><p>
+{div id="get_php_string">{/div>
+</p></blockquote>
+
+<p>이번엔 javascript 소스이다.</p>
+
+<blockquote><p>
+ele_script = document.createElement("script");<br />
+ele_script.src = "a.php";<br />
+document.body.appendChild(ele_script);
+</p></blockquote>
+
+<p>document 에 script라는 엘레먼트 하나를 생성하는 것이다. 이는 tag 이다. 만일 createElement("iframe") 이라고 하면 iframe 이 하나 생기는 것이다. createElement 에 대한 자료는 http://www.webreference.com/js/column44/createtag.html 이나 http://www.webreference.com/programming/javascript/domscripting/1/6.html 이다.</p>
+
+<p>이렇게 생성한 엘레먼트의 소스를 a.php 로 연결한다. 즉 a.php 가 웹상에서 실행되는 것이다. 이제 a.php 를 보자.</p>
+
+<blockquote><p>
+{?php<br />
+echo "document.getElementById("get_php_string").innerHTML = "<b>merong</b>";";<br />
+?>
+</p></blockquote>
+
+<p>document.getElementById("get_php_string").innerHTML = "merong"; 를 단지 출력하고 있다. 이 말은 php 가 출력한 내용이<br />
+위에서(javascript)에서 생성한 script element 에 들어간 것이다. 이제 document.body.appendChild(ele_script); 를 통해 적용(??? 적절한 표현을 못하겠다)을 한다. 저기 굵은 merong 이라는 글자가 html 에서 {div id="get_php_string">{/div> 에 출력이(들어가게) 될 것이다.</p>
+
+<p>예제는  http://www.webreference.com/programming/javascript/domscripting/1/iframecreate.htm 를 보면 눈으로 확인이 가능하다. 그 자리에서 iframe tag(element) 를 생성하여 외부 사이트를 출력하고 있다.</p>
+
+<p>좋은 자료를 알려준 <a href="http://bumsoo.joeunbook.net/" target="_blank">오</a>님에게 고맙다는 인사를 해본다.</p>
+
+<p>p.s : < 글자를 칠 수가 없어 { 로 대체했다.</p>
+
+<p>p.s : 이 참에 javascript 에 대해 좀 배웠다. ~ 룰루</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2004/4/234/">
         땅과 나무의 계약 파기
       </a>
@@ -133,43 +179,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>(전략) ... 그리하여 계약을 파기하기로 최종 결정하였다.. 내게 필요한 건 비옥한 땅이지 나무가 아니다. 당신은 의도적으로 표출하지는 않았으나 보이지 않는 언행과 행동으로 내게 땅임을 강요해왔다. 그러나 나 단풍 나무는 땅임을 사양하며, 애초 계약에서도 쌍방간의 ... (후략)</p>
 
 <p>- 땅과 나무와의 계약 파기 공표 中 에서..</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2004/4/232/">
-        코카콜라는 어떻게 산타에게 빨간 옷을 입혔는가
-      </a>
-    </h1>
-
-    <span class="post-date">27 Apr 2004</span>
-
-    <table align="left">
-<tr>
-<td style="padding-right:5"><center><img src="http://blog.hannal.com/tt-attach/0427/040427002102603116/319804.jpg" width="106" height="155"></center></td>
-</tr>
-<tr>
-<td class="centerphoto"> </td>
-</tr>
-</table>
-
-<p>- 책 제목 : 코카콜라는 어떻게 산타에게 빨간 옷을 입혔는가 <br />
-- 저자 : 김병도<br />
-- 분량 : 300여 페이지 <br />
-- 분류 : 마케팅<br />
-- 사진 출처 : <a href='http://www.yes24.com' target='_blank'>YES 24</a></p>
-
-<p>
-눈길을 자극하는 책 제목과 책 제목보다 더 눈을 자극하는 새빨간 표지의 휴대용 책. 서점에는 이렇게 자극적인 책 제목과 색상의 표지를 지닌 마케팅 서적이 넘쳐난다. 마케팅에 대해 이론을 갖추지 못한 나같은 이들이 누구의 조언 없이 스스로 책을 고를 때 실로 난감할 터, 그럼에도 이 책이 내 손에 들어온 이유는 익히 알려진 코카콜라와 산타클로스와의 관계에 대해 어떻게 서술하는지 궁금했기 때문이다.</p>
-
-<p>휴대용 책의 한계인지 아니면 휴대용 책다운 것인지 잘 분간이 안간다만 어쨌건 휴대용 책답게 마케팅을 겉핥기 수준으로 다루고 있다. 그 겉핥는 방법, 즉 접근 방법은 책 제목에서도 느껴지듯이 실 사례를 이용하고 있으며 그 주된 사례는 역시 코카콜라社와 산타클로스라는 브랜드에 대한 것이다. 그럭 저럭 읽을 만한 수준으로 마케팅에 대해 이야기하고 있다. 자칫 지루하고 졸기 쉬운 마케팅 이야기를 나름대로 흥미있게 구성하는 점도 좋다.</p>
-
-<p>마케팅에 속하는 기법들이 많다. 그중 쉽게 줏어들을 수 있는 단어가 CRM 이다. 마케팅에 있어서 고객은 뗄 수 없는 관계이고, 자연히 고객 관리 경영법에 대해 접근할 수 밖에 없다. 이 책은 코카콜라(코크)와 산타클로스라는 브랜드에 대한 마케팅 기법의 서술이 아닌 코크와 산타클로스를 이용한 고객 접근 방법에 대해 서술하고 있다. 즉 마케팅 서적 중에서도 CRM 에 대해 다루는 편이다. CRM 이라는 놈에게 친한 척하는 느낌도 든다.</p>
-
-<p>그렇다고 코카콜라와 산타클로스에 대한 고객 접근법적 분석을 기대하면 곤란하다. 브랜드와 서비스를 통해 고객 접근하는 사례 중 코카콜라와 산타클로스가 가장 대중적이며 성공적이었기 때문에 이들의 사례로서 접근을 시작할 뿐, 책의 대부분을 채우고 있는 사례들은 코카콜라에 대한 것이 아니다. 마일리지나 백화점의 무료 셔틀 버스 등에 있다. 하지만 이제는 식상하다시피한 코카콜라社와 산타클로스의 은밀한(?) 관계에 대해 깊게 파고들기 보다는 여러 사례들을 들며 하고 싶은 말을 하는 구성이 더 낫다. 그 점이 휴대용 책다운 것이다.</p>
-
-<p>이 책은 마케팅에 대해 개념이 부족한(일명 개념 없는 이들. 흐흐) 나같은 이들을 대상으로 한다. 마케팅에 경험도 있고 어느 정도의 이론이 있는 이들에게는 '뻔한 소리를 길게 늘여쓴 불량 감자'같은 책이라는 말이다. 이 책을 통해 마케팅의 많고 다양한 코끼리 다리 중 하나를 겉핥는데 도움이 되어 마케팅의 나머지 부분들을 공부하는데 추진력과 같은 힘이 될 것이라 생각한다.</p>
 
   </div>
   
