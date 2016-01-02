@@ -100,7 +100,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <div class="sidebar-item">
     <p>
-      &copy; 2015. All rights reserved.
+      &copy; 2016. All rights reserved.
     </p>
   </div>
 </div>
@@ -123,6 +123,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/2006/9/bad_html_title/">
+        제목 좀 써주면 안되겠니?
+      </a>
+    </h1>
+
+    <span class="post-date">05 Sep 2006</span>
+
+    <p>내가 종종 가는 몇 곳은 읽을거리에 제목(&lt;title&gt; HTML tag)을 <strong>정석대로</strong> 달지 않는다. 달긴 다는데 자기네 이름을 달아 놓거나 일단 html tag로 자기네 이름을 달아놓은 뒤 javascript로 title 내용을 바꾼다. 어디 어디 뉴스, 이것이 게임이다... 이런 식. 그래서 여러 읽을거리를 열면 대체 뭐가 뭔지 알 수 없다. 이를테면 이런 식이다.</p>
+
+<p class="centerphoto"><img src="http://blog.hannal.com/wp-content/old_uploads/where_is_the_news.GIF" alt="" style="border: 1px solid #000" /></p>
+
+<p>음... 분명 서로 다른 기사를 열었는데 문서(html) 제목(title)은 전부 '네이버 뉴스'이다. 문서 제목이 뭔지는 몰라도 문서가 어디에 있는지는 확실히 알겠다. 쓰읍...</p>
+
+<p class="centerphoto"><img src="http://blog.hannal.com/wp-content/old_uploads/please_input_title_tag.GIF" alt="" style="border:1px solid #000;" /></p>
+
+<p>가끔 이렇게 구글에서 읽을거리를 찾곤 한다. 네이버의 검색도 나쁘진 않지만 구글에 비하면 아직 만족스럽지 않고, 검색기 성능이나 기능이 약한 중소 누리집들의 검색 기능을 이용하느니 구글을 이용하는 것이 더 낫기 때문이다. 그러나 문서 제목(html title)에 배려가 부족한 곳은 저렇게 뜬다. 자주가는 오락 웹 잡지인 Thisisgame은 HTML tag로는 자기네 이름을 써넣은 뒤 문서가 열리면 javascript로 HTML title tag 내용을 읽을거리 제목으로 바꾼다. 문제는 <a href="http://www.google.co.kr/search?q=site%3Athisisgame.com&start=0&lr=lang_ko&ie=utf-8&oe=utf-8">구글같은 검색/수집기는 javascript를 해석하지 않거나 제대로 해석하지 않아 이용자의 눈에 보이는 문서 제목과 검색기에서 나오는 문서 제목이 달라진다</a>. 네이버도 위 그림과 같이 문서 제목이 전부 '네이버 뉴스'로만 나오는데 <a href="http://news.search.naver.com/search.naver?where=news&query=fta&x=16&y=14&sm=tab_hty">네이버 안에서 검색을 하면 제대로 찾아볼 수</a> 있다.</p>
+
+<p>그래... 다 먹고 살자고 하는 일이지. 근데 좀 치사하다는 생각은 든다. 문서 제목 좀 제대로 써주면 안되겠니?</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/2006/8/%ec%9d%8c%ec%9a%95%eb%8f%99%ed%99%94-%ec%98%a4%ec%9e%85%ec%9d%98-%eb%a7%88%eb%b2%95%ec%82%ac">
         음욕동화 - 오입의 마법사
       </a>
@@ -137,57 +160,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>이름에서 알 수 있듯이 성(性)을 소재로 한 만화이다. 근데 무척 유치하고 재미 없다. 누들누드와 비교 불가! 다만 등장하는 여자의 가슴이 큰 편인데(실제인지 그래픽 편집을 한 것인지 @_@) 가슴 큰 여자를 좋아한다면 잠깐 볼만 하긴 하겠다. -_-</p>
 
 <p>* 덧쓰기 (2006년 8월 31일) : 여자의 몸매나 얼굴이 훌륭하고 여자도 한 명이 아니길래 이상하다 싶었는데 역시나 일반인이 만든 만화가 아니라 관련 업계(?)에서 팔기 위한 목적으로 만든 만화였다. <a href="http://www.stardocu.com/ent/ent_main_sub.php?cate=EX">Star docu</a>라는 곳에 보면 있다. orz</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2006/8/match_n_index_function_in_ms-excel/">
-        MS Excel(엑셀)에서 값 찾아 위치 값 갖고놀기
-      </a>
-    </h1>
-
-    <span class="post-date">29 Aug 2006</span>
-
-    <p>A열에 중 '한날'이라는 글자가 있는 곳을 찾아 그 행 위치를 알아내고, 그 행 위치를 토대로 같은 행의 다른 열(B열) 값을 알아내는 함수가 필요하다면 MATCH 함수와 INDEX 함수를 쓰면 된다.</p>
-
-<table border="1">
-<tr>
-<th>&nbsp;</th>
-<th>A</th>
-<th>B</th>
-</tr>
-<tr>
-<td>1</td>
-<td>한나</td>
-<td>여자</td>
-</tr>
-<tr>
-<td>2</td>
-<td>한남</td>
-<td>동네</td>
-</tr>
-<tr>
-<td>3</td>
-<td>한날</td>
-<td>미청년</td>
-</tr>
-<tr>
-<td>4</td>
-<td>한낮</td>
-<td>시간대</td>
-</tr>
-</table>
-
-<p>MS Excel 함수 : <strong>=INDEX(A1:B4, MATCH("한날",A1:A4,0), 2)</strong></p>
-
-<p>위와 같이 하면 '미청년'이라는 문자열을 반환한다.</p>
-
-<p>MATCH 함수는 찾을 범위(두번째 인자 (A1:A4))에서 찾고자 하는 값(첫번째 인자 ("한날"))을 찾아서(세번째 인자는 찾는 방식이다. 0이면 완전 일치하는 값. -1과 1은 이하, 혹은 이상 값을 찾음) 그 값이 있는 행 값을 반환한다. 이때 행 값은 찾을 범위를 기준으로 한다. A1:A99로 했는데 반환 값이 5라면 A5나 B5 등을 뜻하지만, A3:A99로 했고 반환 값이 5라면 A8이나 B8 등을 뜻한다.</p>
-
-<p>INDEX 함수는 지정한 범위(첫번째 인자(A1:B4))에서 이용자가 지정한 행 값(두번째 인자)과 열 값(세번째 인자)에 있는 값을 반환한다. 만일 <strong>=INDEX(A1:B4, 2, 2)</strong>라고 하면 "동네"라는 문자열이 반환되며 <strong>=INDEX(A1:B4, 3, 1)</strong>이라고 하면 "한날"이라는 문자열이 반환된다.</p>
-
-<p>이를 조합해서 MATCH 함수로 찾고자 하는 값이 있는 행 값을  알아낸 뒤, INDEX 함수로 해당 행에 있는 다른 열의 값을 가져올 수 있다.</p>
 
   </div>
   
