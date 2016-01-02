@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2016-01-02T16:05:23+09:00</updated>
+  <updated>2016-01-02T16:19:04+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -14,7 +14,7 @@
   <entry>
     <title>2016년을 맞이하며 20년 전 판을 생각하다</title>
     <link href="/2016/01/hello_2016/"/>
-    <updated>2016-01-02T05:00:49+09:00</updated>
+    <updated>2016-01-02T16:00:49+09:00</updated>
     <id>/2016/01/hello_2016</id>
     <content type="html">&lt;h3&gt;게임 개발&lt;/h3&gt;
 

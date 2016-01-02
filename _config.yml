@@ -18,7 +18,7 @@ highlighter: pygments
 #highlighter: rouge
 #highlighter: rdiscount
 
-category_dir: category
+category_dir: _site/category
 categories: [essay, start-with-django-lectures, start-with-django-webframework, kay-on-the-team, flaskon-startup-diary, devlife, game]
 
 project_dir: _projects
