@@ -6,9 +6,102 @@
 </description>
     <link>http://blog.hannal.com//</link>
     <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 10 Jan 2016 18:28:45 +0900</pubDate>
-    <lastBuildDate>Sun, 10 Jan 2016 18:28:45 +0900</lastBuildDate>
+    <pubDate>Wed, 13 Jan 2016 19:59:52 +0900</pubDate>
+    <lastBuildDate>Wed, 13 Jan 2016 19:59:52 +0900</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>프로그래밍 입문자를 위한 몇 가지 조언</title>
+        <description>&lt;p&gt;2014년 11월 4일부터 &lt;a href=&quot;http://www.fastcampus.co.kr/&quot;&gt;패스트캠퍼스&lt;/a&gt;에서 웹 서비스 개발을 주제로 강의하여 얼마 전에 네 번째 기수를 마쳤다. Python과 Django를 이용해 웹 서비스 개발 공정을 겪는 것이 커리큘럼 주제인데, 1기에 대한 이야기는 &lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;Python과 Django 강의&lt;/a&gt;라는 글로 작성했다. 이번 글에선 어떻게 Python과 Django를 공부하면 좋을 지 1년 간 강의하며 고민했고 몇 가지 원리에 대해서는 정리되어 공유해 본다. 내가 강의한 주제가 Python과 Django, 그리고 웹 프로그래밍이어서 그렇지, 프로그래밍에 대한 공부 방법이라고 해도 무방하다고 생각한다.&lt;/p&gt;
+
+&lt;h3&gt;강의 개요&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;이름 : &lt;a href=&quot;http://www.fastcampus.co.kr/dev_camp_wsd/&quot;&gt;웹 서비스 개발 캠프&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;주제
+
+&lt;ul&gt;
+&lt;li&gt;Python과 Django를 강사의 경험을 담아 심도있게 다룬다.&lt;/li&gt;
+&lt;li&gt;웹 서비스를 개발하는 공정을 Back-end 중심으로 경험하며 웹 프로그램을 개발하여 배치(deployment)한다.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;수강 대상자
+
+&lt;ul&gt;
+&lt;li&gt;다른 언어나 프레임워크를 써봤고, Django 입문하려는 사람&lt;/li&gt;
+&lt;li&gt;Python이나 웹 프로그래밍 중급 과정에 진입하려는 사람&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;강의 시간
+
+&lt;ul&gt;
+&lt;li&gt;1기 : 80시간&lt;/li&gt;
+&lt;li&gt;2기 : 64시간&lt;/li&gt;
+&lt;li&gt;3~4기 : 40시간&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;손으로 반복, 반복, 그리고 또 반복&lt;/h3&gt;
+
+&lt;p&gt;뭔가 만들려 하면 막막해서 시작을 떼지 못하겠다는 입문자가 무척 많다.&lt;/p&gt;
+
+&lt;p&gt;책을 보거나 강의를 듣는 중엔 다 안다. 물어보면 곧잘 대답도 한다. 근데 막상 코드를 짜라고 하면 힘겨워한다. 질문하며 코드 흐름을 자연스레 유도하면 대답은 하는데, 그 대답을 코드로 옮기질 못하기도 한다. 커리큘럼 초반엔 그대로 곧잘 따라오는데, 중반에 접어들어 학습하는 주제와 범위가 늘면 눈에 띄게 힘들고 어려워 한다.&lt;/p&gt;
+
+&lt;p&gt;그에 반해 빈 파일에 코드를 채워넣는 걸 주저하지 않는 사람도 있다. 원래 다른 분야에서 프로그래밍을 했거나 다른 언어로 웹 프로그래밍을 한 사람이야 그렇다 쳐도, 사실상 입문자여서 이 강의를 듣기엔 다소 무리하는 수강자인데도 곧잘 코드를 작성한다. 입문자여서 프로그래밍이나 Python, Django에 대한 지식과 경험이 부족하여 이론을 설명하면 이해는 못하는데 코드는 어쨌든 작성해 간다. 심지어 자신이 무슨 코드를 짰는지 이해하지 못하면서도 말이다.&lt;/p&gt;
+
+&lt;p&gt;이런 차이는 반복량에 있다. 눈으로는 코드와 이론을 알지만, 손은 모른다. 프로그래밍 언어도 언어의 한 종류이다. 아무리 영어 단어나 문법을 외워도 말을 하지 않고 글을 쓰지 않으면 표현하기 어렵다. 마찬가지로 눈으로 아무리 이론을 공부하고 코드를 읽어도 손으로 코드를 짜지 않으면 코딩은 되지 않는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://scienceon.hani.co.kr/34106&quot;&gt;아무리 시시하고 아는 코드라도 직접 손으로 쳐야 한다. 한 번 쳐보고 넘어가지 말고, 다양하게 응용하며 여러 번 쳐봐야 한다&lt;/a&gt;. 손에도 코드를 새겨야 한다. 코드를 손에 새기는 가장 쉽고 좋은 방법은 딱 세 개이다. 반복, 반복, 그리고 또 반복하는 것이다.&lt;/p&gt;
+
+&lt;h3&gt;복습&lt;/h3&gt;
+
+&lt;p&gt;학습한 건 가능한 빨리 복습해야 학습 효과가 크다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;우선 배운 걸 그대로 따라하는 복습을,&lt;/li&gt;
+&lt;li&gt;시간이 있다면 응용하는 복습을&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;하는 게 좋다. 나는 첫 번째 복습 방법을 교재에 반영하여 수강자가 수업 내용을 떠올리도록 유도한다. 큰 주제 별로 교재를 구성하되, 작은 주제는 강의 흐름에 맞추어 배치하여 스토리텔링을 하려 한다. 중요한 내용은 몇 번 반복 등장하고, 가끔 다른 주제가 먼저 등장하기도 하는데 교재를 한 장 한 장 읽어 나가도록 구성하여 교재를 그대로 따라 복습하면 강의를 떠올리도록 한 것이다.&lt;/p&gt;
+
+&lt;p&gt;두 번째 복습 방법은 과제를 내서 유도한다. 아무리 의지가 가득해도 입문자에게 독학이 어려운 이유 중 하나는 학습한 내용을 응용하여 복습하기 어렵기 때문이다. 과제 풀이를 열심히 한 수강자는 커리큘럼 후반으로 가며 다루는 주제가 다양해 질수록 과제를 푼 효과를 보는데, 새 주제가 등장하더라도 이전 주제와 연계되거나 응용하기 때문이다. 책이나 교육 웹사이트로 학습하는 데 실습 문제나 과제가 나오면 꼭 풀기를 권한다.&lt;/p&gt;
+
+&lt;h3&gt;질문&lt;/h3&gt;
+
+&lt;p&gt;공부하고 있는 걸 머리에 선명하게 새기는 또 다른 방법은 질문하는 것인데, 복습한 사람이 질문을 하는 편이었다. 내 경우는 과제에 함정(?)을 심어 놓는데, 과제 제출한 사람이 많은데 함정에 대한 질문이 없으면 수강자들이 진도를 잘 따라오고 있다고 판단하여 좀 더 깊은 내용을 다루거나 더 많은 양을 다룬다. 함정에 빠진 피해자는 질문을 하게 되는데, 함정에 빠진데다 질문을 하여 답변을 받기 때문에 기억에 남을 가능성이 높다고 본다.&lt;/p&gt;
+
+&lt;p&gt;독학할 때엔 이러한 피드백 과정을 겪기 어렵다. 웹에서 검색하여 문제를 해결하긴 하지만, 문제의 앞뒤 맥락을 이해하기 보다는 답에 초점을 맞추어 넘어가기 십상이기 때문이다. 나는 문제에 부딪혀서 스스로 해결하지 못하여 웹에서 해결 방법을 찾으면 반드시 따로 갈무리 하여 쌓아놓고, 일정 시간 뒤에 갈무리 한 자료들을 범주를 나누고 복기한다. 갈무리 당시엔 개별 문제이지만, &lt;a href=&quot;http://scienceon.hani.co.kr/33793&quot;&gt;시간이 흘러 쌓인 문제들을 분류해놓고 보면 각 문제가 서로 연결되어 문제 상황과 맥락을 이해&lt;/a&gt;하게 된다.&lt;/p&gt;
+
+&lt;p&gt;또한 질문과 답변을 받는 소통은 피드백 과정이다. &lt;a href=&quot;http://scienceon.hani.co.kr/33829&quot;&gt;피드백을 받지 못하면 실력은 늘지 않는다&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;질문하고 답을 찾자. 질문 하려면 질문할 준비가 돼야 한다. 그 준비란 바로 실습과 복습이다.&lt;/p&gt;
+
+&lt;h3&gt;함께 공부하기&lt;/h3&gt;
+
+&lt;p&gt;팀은 1기 때부터 계속 조성하려 애썼다. 1기 때는 강사 입장에선 운좋게도 수강자들이 스스로 팀을 짜서 팀 프로젝트를 수행했었다. 2기 때는 권유를 해봤고, 3기 때는 오리엔테이션 때 아예 팀 조성 시간을 갖고 팀 프로젝트를 정해주었으며 팀장에겐 작은 사례(?)를 하기도 했다. 4기 때는 3기 때와 거의 같으나 수시로 팀 프로젝트를 상기시키며 좀 더 독려했다. 하지만 팀 운영은 잘 안 됐다. 복습과 과제 수행도 버거운데 팀 활동은 더 시간 내기 어려웠다는 수강자가 많았다.&lt;/p&gt;
+
+&lt;p&gt;하지만 여전히 팀 조성과 활동을 하도록 관심을 투자할 가치가 있다. 팀은 아니지만 지인과 나란히 앉아 공부하거나 서로 도우며 공부한 수강자는 독학하듯 혼자서 수업에 참여한 수강자에 비해 실패나 난관에 흔들리는 정도가 덜했다. 질문도 왕성하게 하고 붙임성 있게 다른 수강자와 교류하며 수업에 왕성하게 참여하는 수강자는 그 자신이 수업에서 거둬가는 게 많기도 하지만, 다른 수강자에게도 영향을 많이 끼친다. 그런 참여 활동이 &lt;a href=&quot;http://scienceon.hani.co.kr/33907&quot;&gt;당사자 뿐만 아니라 동료 수강자에게 피드백을 주고 받는 과정&lt;/a&gt;이기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;입문자일수록 함께 공부할 동료를 구하라고 권하고 싶다.&lt;/p&gt;
+
+&lt;h3&gt;마치며&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/2014/5/principles_for_efficient_training/&quot;&gt;근거기반훈련 워크샵에 참석해 효과적 훈련의 원리&lt;/a&gt;를 배웠다. 막상 내게 제대로 활용하지 않았는데, 1년 여 강의하며 몇 가지 원리는 뚜렷하게 효과를 체험했다. &lt;a href=&quot;http://www.fastcampus.co.kr/dev_camp_wpb/&quot;&gt;웹 프로그래밍 입문&lt;/a&gt;과 &lt;a href=&quot;http://www.fastcampus.co.kr/dev_camp_wsd/&quot;&gt;웹 서비스 개발&lt;/a&gt;을 주제로 강의하긴 하지만, 꼭 내 강의가 아니더라도 혼자 공부하거나 지인과 공부하며 활용하면 충분히 효과를 볼 것이라 생각한다.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 13 Jan 2016 10:45:00 +0900</pubDate>
+        <link>http://blog.hannal.com//2016/01/how-to-study-programming/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2016/01/how-to-study-programming/</guid>
+        
+        <category>python</category>
+        
+        <category>django</category>
+        
+        <category>강의</category>
+        
+        <category>패스트캠퍼스</category>
+        
+        
+        <category>devlife</category>
+        
+      </item>
     
       <item>
         <title>2016년을 맞이하며 20년 전 판을 생각하다</title>
@@ -2112,203 +2205,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, &amp;#39;uploaded_files&amp;#39;)
         
         
         <category>essay</category>
-        
-      </item>
-    
-      <item>
-        <title>Python 3에서 함수의 키워드 인자 강제와 주석문</title>
-        <description>&lt;p&gt;Python 3에 도입된 함수 선언 문법 중 키워드 인자를 강제하는 방법과 주석문(&lt;code&gt;annotation&lt;/code&gt;)이 있다. Python의 매력 요소 중 하나가 깔끔하고 명료한 코드라 생각하는데, 이 두 문법은 기호를 남발하는 코드처럼 보여서 좀 불만스럽지만 코드 문맥(context)을 읽는 데엔 참 유익하다. 그나마 &lt;code&gt;$&lt;/code&gt; 기호가 사용되는 건 아니라서 다행이랄까?! :)&lt;/p&gt;
-
-&lt;h3&gt;위치 인자 개수 지정&lt;/h3&gt;
-
-&lt;p&gt;Python은 함수 매개 인자 방식으로 위치 인자(positional argument)와 키워드 인자(keywords argument)를 지원한다. 위치 인자는 함수로 전달하는 매개 인자를 순서대로 나열하는 것이고, 키워드 인자는 인자 이름과 인자에 할당할 값을 특정하는 것이다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def args_func(arg1, arg2, arg3):
-    print(arg1, arg2, arg3)
-
-args_func(&amp;#39;hello&amp;#39;, &amp;#39;world&amp;#39;, &amp;#39;!&amp;#39;)
-args_func(&amp;#39;!&amp;#39;, arg3=&amp;#39;hello&amp;#39;, arg2=&amp;#39;world&amp;#39;)
-args_func(&amp;#39;world&amp;#39;, arg3=&amp;#39;!&amp;#39;, arg2=&amp;#39;hello&amp;#39;)
-args_func(&amp;#39;hello&amp;#39;, &amp;#39;!&amp;#39;, arg3=&amp;#39;world&amp;#39;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;위 코드에서&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;args_func(&amp;#39;hello&amp;#39;, &amp;#39;world&amp;#39;, &amp;#39;!&amp;#39;)&lt;/code&gt;는 &lt;code&gt;hello world !&lt;/code&gt;를 출력하고,&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;args_func(&amp;#39;!&amp;#39;, arg3=&amp;#39;hello&amp;#39;, arg2=&amp;#39;world&amp;#39;)&lt;/code&gt;는 &lt;code&gt;! world hello&lt;/code&gt;를 출력한다.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;args_func(&amp;#39;world&amp;#39;, arg3=&amp;#39;!&amp;#39;, arg2=&amp;#39;hello&amp;#39;)&lt;/code&gt;는 &lt;code&gt;world hello !&lt;/code&gt;를 출력하며,&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;args_func(&amp;#39;hello&amp;#39;, &amp;#39;!&amp;#39;, arg3=&amp;#39;world&amp;#39;)&lt;/code&gt;는 &lt;code&gt;hello ! world&lt;/code&gt;를&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;출력한다. 위치 인자, 키워드 인자 순서로 전달만 하면 어떤 인자를 위치 인자로 전달하고, 어떤 인자를 키워드 인자로 전달하는지에 별다른 제한은 없다.&lt;/p&gt;
-
-&lt;p&gt;Python 3는 키워드 인자를 강제하는 문법을 지원한다. 바로 &lt;code&gt;*&lt;/code&gt; 문자를 쓰는 것이다&lt;sup id=&quot;fnref1&quot;&gt;&lt;a href=&quot;#fn1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def args2_func(arg1, *, arg2, arg3):
-    print(arg1, arg2, arg3)
-
-args2_func(&amp;#39;hello&amp;#39;, &amp;#39;world&amp;#39;, &amp;#39;!&amp;#39;)
-args2_func(&amp;#39;!&amp;#39;, arg3=&amp;#39;hello&amp;#39;, arg2=&amp;#39;world&amp;#39;)
-args2_func(&amp;#39;world&amp;#39;, arg3=&amp;#39;!&amp;#39;, arg2=&amp;#39;hello&amp;#39;)
-args2_func(&amp;#39;hello&amp;#39;, &amp;#39;!&amp;#39;, arg3=&amp;#39;world&amp;#39;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;*&lt;/code&gt; 이후에 나열된 매개 인자는 반드시 키워드 인자로 전달돼야 한다. 위 코드에서 &lt;code&gt;args2_func&lt;/code&gt; 함수를 실행하는 네 개 실행 줄 중 첫 번째와 네 번째는 &lt;code&gt;TypeError&lt;/code&gt; 예외가 일어난다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Traceback (most recent call last):
-  File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1, in &amp;lt;module&amp;gt;
-TypeError: args2_func() takes 1 positional argument but 3 were given
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;즉, &lt;code&gt;args2_func&lt;/code&gt; 함수는 위치 인자를 1개 취하는데, 이 개수보다 많은 인자가 위치 인자로 전달되었다는 뜻이다.&lt;/p&gt;
-
-&lt;p&gt;그렇다면 &lt;code&gt;*&lt;/code&gt; 이전에 나열된 매개 인자를 키워드 인자로 값을 전달하면 어떻게 될까?&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;args2_func(arg1=&amp;#39;hello&amp;#39;, arg2=&amp;#39;world&amp;#39;, arg3=&amp;#39;!&amp;#39;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;아무 문제도 발생하지 않는다. 즉, &lt;code&gt;*&lt;/code&gt;는 위치 인자 개수를 특정하거나(exact) &lt;code&gt;*&lt;/code&gt; 앞에 나열된 인자를 위치 인자로 강제하는 것이 아니라 &lt;code&gt;*&lt;/code&gt; 이후에 나열되는 인자는 반드시 키워드 인자로 전달 받도록 강제하는 것이다. 만약 위치 인자를 단 한 개도 허용하지 않고자 한다면 다음과 같이 함수 매개 인자를 선언하면 된다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def kwargs_func(*, arg1, arg2, arg3):
-    print(arg1, arg2, arg3)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이 함수는 모든 매개 인자를 키워드 인자로 전달해야 한다.&lt;/p&gt;
-
-&lt;h3&gt;주석문 (annotation)&lt;/h3&gt;
-
-&lt;p&gt;annotation 문법은 함수 매개 인자와 반환 값에 대한 주석(annotation)을 지정하는 것이다&lt;sup id=&quot;fnref2&quot;&gt;&lt;a href=&quot;#fn2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def anno_func(arg1: str, arg2: &amp;#39;also str&amp;#39;, arg3: 1 is True) -&amp;gt; bool:
-    print(arg1, arg2, arg3)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;표현된 코드를 보면 마치 인자의 형(&lt;code&gt;type&lt;/code&gt;)을 지정하는 것 같지만, 실제로는 주석이기 때문에 인자의 형이 무엇이 되든 영향을 받지 않아서 다음과 같이 함수를 호출해도 아무 문제가 발생하지 않는다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;anno_func(1, True, &amp;#39;world&amp;#39;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;반환하는(return) 값의 형도 주석으로 설명한 것과 달라도 무방하다. &lt;code&gt;anno_func&lt;/code&gt;은 주석으로 반환 값을 &lt;code&gt;bool&lt;/code&gt;이라 명기했지만, 실제로는 &lt;code&gt;return&lt;/code&gt;문이 따로 없기 때문에 &lt;code&gt;None&lt;/code&gt; 값을 반환한다. 물론, 아무 문제도 없다.&lt;/p&gt;
-
-&lt;p&gt;이렇게 지정한 주석은 함수 객체에 &lt;code&gt;__annotations__&lt;/code&gt; 속성에 담겨 있으며, 사전형(&lt;code&gt;dict&lt;/code&gt;) 객체이다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;print(anno_func.__annotations__)
-print(anno_func.__annotations__[&amp;#39;arg1&amp;#39;])
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;재밌는 점은 &lt;code&gt;__annotations__&lt;/code&gt;에는 주석으로 지정한 값(&lt;code&gt;value&lt;/code&gt;)이 그대로 할당되어 있다는 점이다. 이 점을 이용하면 함수 매개 인자를 특정할 수 있다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def static_args_func(arg1: str, arg2: str, arg3: int) -&amp;gt; bool:
-    args = locals()
-    for _k, _v in args.items():
-        arg_type = static_args_func.__annotations__[_k]
-
-        if isinstance(_v, arg_type):
-            continue
-
-        raise TypeError(
-            &amp;quot;The type of &amp;#39;{}&amp;#39; does not match &amp;#39;{}&amp;#39; type&amp;quot;.format(
-                _k, arg_type.__name__
-            )
-        )
-    print(arg1, arg2, arg3)
-
-static_args_func(1, 2, 3)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;static_args_func&lt;/code&gt; 함수의 &lt;code&gt;arg1&lt;/code&gt;, &lt;code&gt;arg2&lt;/code&gt; 인자는 주석으로 &lt;code&gt;str&lt;/code&gt;형을 명기했다. 그래서 사전형 속성인 &lt;code&gt;__annotations__&lt;/code&gt;의 &lt;code&gt;arg1&lt;/code&gt;키에는 명기한 값인 &lt;code&gt;str&lt;/code&gt;이 할당되어 있다. &lt;code&gt;__annotations__&lt;/code&gt;에 할당되어 있는 주석 값을 이용해 &lt;code&gt;arg1&lt;/code&gt;과 같은 함수 매개 인자의 형을(&lt;code&gt;type&lt;/code&gt;) 검사한 것이 &lt;code&gt;if not isinstance(_v, arg_type):&lt;/code&gt; 부분이다.&lt;/p&gt;
-
-&lt;p&gt;이 함수를 &lt;code&gt;static_args_func(1, 2, 3)&lt;/code&gt;와 같이 호출하면 &lt;code&gt;arg1&lt;/code&gt;과 &lt;code&gt;arg2&lt;/code&gt;에 대해 코드에서 지정한 &lt;code&gt;TypeError&lt;/code&gt; 예외가 일어난다.&lt;/p&gt;
-
-&lt;p&gt;다음 코드는 가변 매개 인자도 형 검사를 한다. 더이상 형 검사를 하지 않는 위치부터 나머지 인자까지는 &lt;code&gt;Ellipsis&lt;/code&gt; 형(&lt;code&gt;...&lt;/code&gt;)을 썼다. 즉, 두 번째 인자까지는 형 검사를 하고, 이후 인자는 형 검사를 생략한다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def type_checking_func(*args: (int, int, ...)):
-    annotations = type_checking_func.__annotations__
-
-    if (
-        not isinstance(annotations, dict) or
-        len(annotations) == 0
-    ):
-        return type_checking_func(*args)
-
-    try:
-        _check_index = annotations[&amp;#39;args&amp;#39;].index(Ellipsis)
-    except ValueError:
-        _check_index = len(annotations) - 1
-
-    for i, _v in enumerate(args[:_check_index]):
-        arg_type = annotations[&amp;#39;args&amp;#39;][i]
-
-        if isinstance(_v, arg_type):
-            continue
-
-        raise TypeError(
-            &amp;quot;The type of &amp;#39;{}&amp;#39; does not match &amp;#39;{}&amp;#39; type&amp;quot;.format(
-                _v, arg_type.__name__
-            )
-        )
-    print(*args)
-
-type_checking_func(1, 2, &amp;#39;3&amp;#39;, &amp;#39;a&amp;#39;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;인자의 형을 검사하는 기능을 장식자(&lt;code&gt;decorator&lt;/code&gt;)로 만들어서 여러 함수에 간편하게 사용하면 더 낫다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def check_argument_type(func):
-    def wrapper(*args):
-        annotations = func.__annotations__
-        if (
-            not isinstance(annotations, dict) or
-            len(annotations) == 0
-        ):
-            return func(*args)
-
-        try:
-            check_index = annotations[&amp;#39;args&amp;#39;].index(Ellipsis)
-        except ValueError:
-            check_index = len(annotations[&amp;#39;args&amp;#39;]) - 1
-
-        for _i, _v in enumerate(args[:check_index]):
-            _arg_type = annotations[&amp;#39;args&amp;#39;][_i]
-
-            if isinstance(_v, _arg_type):
-                continue
-
-            raise TypeError(
-                &amp;quot;The type of &amp;#39;{}&amp;#39; does not match &amp;#39;{}&amp;#39; type&amp;quot;.format(
-                    _v, _arg_type.__name__
-                )
-            )
-        return func(*args)
-    return wrapper
-
-@check_argument_type
-def hello_func(*args: (int, int, ...)):
-    print(*args)
-
-hello_func(1, 2, &amp;#39;3&amp;#39;, &amp;#39;a&amp;#39;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Python스러운 구현인 지 아닌 지 모르겠지만, 함수 매개 인자가 어떤 자료형으로 넘어올 지 몰라서 받는 스트레스는 줄어들 것 같다. :)&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://gist.github.com/hannal/12597a1466307f4290a4&quot;&gt;Python 3에서 함수의 키워드 인자 강제와 주석문 예제 코드&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-
-&lt;li id=&quot;fn1&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-3102/&quot;&gt;PEP-3102 : Keyword-Only Arguments&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;#fnref1&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;li id=&quot;fn2&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-3107/&quot;&gt;PEP-3107 : Function Annotations&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;#fnref2&quot; rev=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-
-&lt;/ol&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Sun, 22 Mar 2015 01:50:49 +0900</pubDate>
-        <link>http://blog.hannal.com//2015/03/keyword-only-arguments_and_annotations_for_python3/</link>
-        <guid isPermaLink="true">http://blog.hannal.com//2015/03/keyword-only-arguments_and_annotations_for_python3/</guid>
-        
-        <category>Python 3</category>
-        
-        <category>위치 인자</category>
-        
-        <category>positional arguments</category>
-        
-        <category>키워드 인자</category>
-        
-        <category>keyword-only arguments</category>
-        
-        <category>annotation</category>
-        
-        
-        <category>devlife</category>
         
       </item>
     
