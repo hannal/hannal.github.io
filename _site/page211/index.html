@@ -33,6 +33,17 @@
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <style>
+  .posts h2.post-title {
+    font-size: 1.6em !important;
+  }
+
+  .post-parting-line {
+    border-top: 7px solid #eee !important;
+    border-bottom: 7px solid #fff !important;
+  }
+  </style>
 </head>
 
 
@@ -103,11 +114,11 @@
         <div class="posts">
   
   <div class="post">
-    <h1 class="post-title">
+    <h2 class="post-title">
       <a href="/2006/8/donot_insert_any_function_into_empty_function_on_php/">
         php에서 이유 없이 오류 날 때
       </a>
-    </h1>
+    </h2>
 
     <span class="post-date">11 Aug 2006</span>
 
@@ -135,13 +146,14 @@ echo empty($vars);<br />
 <p>이렇게 하면 잘 작동한다. 예제에선 trim 함수를 썼는데, trim 이건 무엇이건 empty 함수 안에 값을 반환하건(return) 하지 않건 함수를 넣으면 오류가 발생하며 작동하지 않는다.</p>
 
   </div>
+  <hr class="post-parting-line" />
   
   <div class="post">
-    <h1 class="post-title">
+    <h2 class="post-title">
       <a href="/2006/8/hanja_is_too_difficult_to_learn_to_me/">
         한자 읽기
       </a>
-    </h1>
+    </h2>
 
     <span class="post-date">09 Aug 2006</span>
 
@@ -167,6 +179,7 @@ echo empty($vars);<br />
 내년에... orz...</p>
 
   </div>
+  <hr class="post-parting-line" />
   
 </div>
 

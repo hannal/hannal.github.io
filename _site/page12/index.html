@@ -33,6 +33,17 @@
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <style>
+  .posts h2.post-title {
+    font-size: 1.6em !important;
+  }
+
+  .post-parting-line {
+    border-top: 7px solid #eee !important;
+    border-bottom: 7px solid #fff !important;
+  }
+  </style>
 </head>
 
 
@@ -103,11 +114,11 @@
         <div class="posts">
   
   <div class="post">
-    <h1 class="post-title">
+    <h2 class="post-title">
       <a href="/2014/9/start_with_django_webframework_03/">
         3. Photo 앱과 모델 만들기
       </a>
-    </h1>
+    </h2>
 
     <span class="post-date">15 Sep 2014</span>
 
@@ -458,13 +469,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 </div>
 
   </div>
+  <hr class="post-parting-line" />
   
   <div class="post">
-    <h1 class="post-title">
+    <h2 class="post-title">
       <a href="/2014/9/letter_overlap_problem_on_wkhtmltopdf/">
         wkhtmltopdf 에서 글자 겹치는 문제
       </a>
-    </h1>
+    </h2>
 
     <span class="post-date">05 Sep 2014</span>
 
@@ -489,6 +501,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 <p>webkit renderer를 쓰는 safari와 chrome에서는 발견되지 않으며, wkhtmltopdf에서 발생. 이외에도 다양한 원인이 있겠지만, 현재까지 발견한 원인은 이 두 가지.</p>
 
   </div>
+  <hr class="post-parting-line" />
   
 </div>
 

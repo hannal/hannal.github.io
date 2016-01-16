@@ -33,6 +33,17 @@
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <style>
+  .posts h2.post-title {
+    font-size: 1.6em !important;
+  }
+
+  .post-parting-line {
+    border-top: 7px solid #eee !important;
+    border-bottom: 7px solid #fff !important;
+  }
+  </style>
 </head>
 
 
@@ -103,11 +114,11 @@
         <div class="posts">
   
   <div class="post">
-    <h1 class="post-title">
+    <h2 class="post-title">
       <a href="/2008/5/issue_about_tinyint_in_cakephp/">
         cakephp에서 테이블 필드를 tinyint 로 할 때 주의할 점.
       </a>
-    </h1>
+    </h2>
 
     <span class="post-date">09 May 2008</span>
 
@@ -136,13 +147,14 @@ field_2 tinyint(1) unsigned default 0,</p></blockquote>
 <p>이건 오류(bug)라고 하기도 애매한 것이, <a href="http://dev.mysql.com/doc/refman/5.0/en/numeric-type-overview.html">mysql 에서 테이블 필드를 bool 이나 boolean 으로 지정하면 tinyint(1) 로 바꿔서</a> 이렇게 처리한 듯 합니다. 역시 관련 문서를 정독하지 않고 "hello world"부터 찍고 보는 사파 개발 성향이 이번에도 제대로 드러났네요. 히히.</p>
 
   </div>
+  <hr class="post-parting-line" />
   
   <div class="post">
-    <h1 class="post-title">
+    <h2 class="post-title">
       <a href="/2008/4/purplecow_comes_to_korea/">
         보랏빛 소가 온다.
       </a>
-    </h1>
+    </h2>
 
     <span class="post-date">24 Apr 2008</span>
 
@@ -214,6 +226,7 @@ field_2 tinyint(1) unsigned default 0,</p></blockquote>
 <p>덧쓰기 : 마지막 단락인 “마치며” 단락은 4월 26일에 덧씀.</p>
 
   </div>
+  <hr class="post-parting-line" />
   
 </div>
 

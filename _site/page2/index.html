@@ -33,6 +33,17 @@
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <style>
+  .posts h2.post-title {
+    font-size: 1.6em !important;
+  }
+
+  .post-parting-line {
+    border-top: 7px solid #eee !important;
+    border-bottom: 7px solid #fff !important;
+  }
+  </style>
 </head>
 
 
@@ -103,11 +114,11 @@
         <div class="posts">
   
   <div class="post">
-    <h1 class="post-title">
+    <h2 class="post-title">
       <a href="/2015/12/my-dev-envs/">
         내 개발 환경.
       </a>
-    </h1>
+    </h2>
 
     <span class="post-date">18 Dec 2015</span>
 
@@ -214,13 +225,14 @@
 </ul>
 
   </div>
+  <hr class="post-parting-line" />
   
   <div class="post">
-    <h1 class="post-title">
+    <h2 class="post-title">
       <a href="/2015/10/start_with_django_webframework_10/">
         10. 이용자가 올린 사진 목록 보기
       </a>
-    </h1>
+    </h2>
 
     <span class="post-date">02 Oct 2015</span>
 
@@ -690,6 +702,7 @@ def profile(request, username):
 </div>
 
   </div>
+  <hr class="post-parting-line" />
   
 </div>
 
