@@ -115,27 +115,18 @@
   <h1 class="post-title">태터툴즈에 덧글 맞춤법 검사기 달기</h1>
   <span class="post-date">11 Nov 2004</span>
   <p><b>1. Javascript 파일 받기</b><br />
-http://www.blogmeme.com/blog/index.php?blog_code=dev&article_id=1102 여기에 가서 urimalSpellCheck.js 이 파일을 다운 로드 하십시오. 다운로드 한 뒤에 사용하고 있는 스킨이 있는 디렉토리에 파일을 두십시오. 취향에 따라 넣고 싶은 곳에 넣어도 되지만, 저는 스킨과 같은 곳에 있는 걸로 설명하겠습니다.</p>
-
+http://www.blogmeme.com/blog/index.php?blog_code=dev&amp;article_id=1102 여기에 가서 urimalSpellCheck.js 이 파일을 다운 로드 하십시오. 다운로드 한 뒤에 사용하고 있는 스킨이 있는 디렉토리에 파일을 두십시오. 취향에 따라 넣고 싶은 곳에 넣어도 되지만, 저는 스킨과 같은 곳에 있는 걸로 설명하겠습니다.</p>
 <p><b>2. Javascript 파일 첨부하기</b><br />
-사용하고 계시는 스킨 파일(skin.html)을 열은 뒤 아래 내용을 &lt;head> 와 &lt;/head> 사이에 추가하세요.</p>
-
+사용하고 계시는 스킨 파일(skin.html)을 열은 뒤 아래 내용을 &lt;head&gt; 와 &lt;/head&gt; 사이에 추가하세요.</p>
 <p><xmp><script language="JavaScript" src="./urimalSpellCheck.js"></script></xmp></p>
-
 <p><b>3. 맞춤법 검사 링크 달기</b><br />
 스킨 파일을 열어서 덧글(코멘트) 입력하는 부분에 가보면 덧글을 입력하는 부분이 있습니다. &#91;##_rp_onclick_submit_##&#93; 이런 게 있는 부분인데 그거 앞에 이런 걸 넣으십시오.</p>
-
-<p>&lt;a href="#comment_&#91;##_rp_input_comment_##&#93;" onClick="urimalSpellCheck(document.weblog.&#91;##_rp_input_comment_##&#93;.value);" style="font-size:13px;font-weight:bold;">맞춤법 확인&lt;/a></p>
-
+<p>&lt;a href="#comment_&#91;##_rp_input_comment_##&#93;" onClick="urimalSpellCheck(document.weblog.&#91;##_rp_input_comment_##&#93;.value);" style="font-size:13px;font-weight:bold;"&gt;맞춤법 확인&lt;/a&gt;</p>
 <p>이제 맞춤법 검사기는 작동합니다.</p>
-
 <p><b>4. 마무리</b><br />
 그런데 이렇게만 하면 맞춤법 검사를 할 때 화면이 움직이거나 그럴 수 있습니다. 그걸 위해 다음의 코드를 덧글 입력하는 부분의 맨 앞에 넣으십시오. 보통의 경우 이름 입력란이 맨 앞이니 그거 바로 앞에 넣으면 무난합니다.</p>
-
-<p>&lt;a name="#comment_&#91;##_rp_input_comment_##&#93;">&lt;/a></p>
-
+<p>&lt;a name="#comment_&#91;##_rp_input_comment_##&#93;"&gt;&lt;/a&gt;</p>
 <p>끝났습니다.</p>
-
 <p>덧쓰기 : 실수로 원래 글을 삭제해서 재작성합니다. -_-; 하지만 덧글은 살릴 수가 없군요. 흑흑.</p>
 
 </div>

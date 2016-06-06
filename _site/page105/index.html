@@ -123,23 +123,15 @@
     <span class="post-date">14 Jul 2008</span>
 
     <p>지난 글에서 django 에 있는 admin 기능을 이용해 글을 썼고, 글 목록 기능과 글 낱장 보기 기능을 만들어서 작성한 글을 출력했다. 이번 글에서는 django admin 기능을 쓰지 않고 직접 글 쓰기 기능을 만들 것이다. 달랑 하나 만들어? 하는 생각이 들겠지만, 은근히 까다로운 내용이 좀 있으니 서두르지 말고 천천히 익혀 나가자.</p>
-
 <p>아참, 이 강좌는 RSS 구독기에서 볼 경우 화면이 깨지거나 제대로 나오지 않을 수 있다. 우리가 만들 블로그 템플릿에 쓸 HTML 태그가 들어가고 이걸 xmp 라는 HTML 태그들을 출력하는데, 일부 RSS 구독기에서는 xmp 태그를 지원하지 않는다. 되도록이면 웹으로 바로 접근해서 읽기를 권한다.</p>
-
 <h3>글쓰기 기능 추가 기반 작업</h3>
-
 <p>우선 글쓰기 기능을 쓰는 데 필요한 주소를 추가해야 한다. 주소는 /blog/write 라고 하고, 연결할 함수는 write_form 이라고 할 것이므로, urls.py 에는</p>
-
 <blockquote><p><code>(r'^blog/write/$', 'hannal.blog.views.write_form'),</code></p></blockquote>
-
 <p>이런 주소 체계를 추가하고, views.py (blog 디렉토리에 있는 views.py)에는</p>
-
 <blockquote><pre><code>def write_form(request):
     pass</code></pre>
 </blockquote>
-
 <p>이렇게 만들면 된다. 글쓰기 화면은 컨트롤러(뷰)에서 딱히 할 게 없다. 글쓰기 화면용 템플릿 파일을 읽어와서 출력하면 그만이다(글 고치기 화면 얘기는 나중에 하자). 지난 글에서 이미 템플릿을 가져와 출력하는 건 해봤으니 가져와서 붙여넣어 해치우자.</p>
-
 <blockquote><pre><code>def write_form(request):
     page_title = '블로그 글 쓰기 화면'
     tpl = loader.get_template('write.html')
@@ -149,95 +141,62 @@
     return HttpResponse(tpl.render(ctx))
 </code></pre>
 </blockquote>
-
 <p>write.html 을 가져와 출력하기로 했으니 write.html 을 만들어야 한다.</p>
-
 <blockquote><pre><xmp><h1></h1>
 
 <form method="post" action="/blog/add/post/">
-    <p><label for="title">제목</label><input type="text" id="title" name="title" value="" /></p>
-    <p><label for="category">글 갈래</label><select name="category" id="category"></select></p>
-    <p><label for="tags">글 꼬리표</label><input type="text" id="tags" name="tags" value="" /></p>
-    <p><textarea id="content" name="content"></textarea></p>
-    <p><input type="submit" value="써넣기" /></p>
+	<p><label for="title">제목</label><input type="text" id="title" name="title" value="" /></p>
+	<p><label for="category">글 갈래</label><select name="category" id="category"></select></p>
+	<p><label for="tags">글 꼬리표</label><input type="text" id="tags" name="tags" value="" /></p>
+	<p><textarea id="content" name="content"></textarea></p>
+	<p><input type="submit" value="써넣기" /></p>
 </form>
 </xmp></pre>
 </blockquote>
-
 <p>HTML 에 대한 내용은 이곳에서 다루지 않을 것이니 각 HTML 태그 쓰임새를 모르겠다면 직접 찾아서 익히길 바란다. 다만 한 가지 눈 여겨 봐야할 점은 폼 내용을 전송할 주소가 <strong>/blog/add/post/</strong> 라는 점인데, 이 내용을 urls.py 와 views.py 에도 추가하자.</p>
-
 <blockquote><p><code>(r'^blog/add/post/$', 'hannal.blog.views.add_post'),</code></p></blockquote>
-
 <p>위 내용은 urls.py 에,</p>
-
 <blockquote><pre><code>def add_post(request):
     pass
 </code></pre>
 </blockquote>
-
 <p>위 내용은 views.py 에 넣는다.</p>
-
 <h4>HTTP Request</h4>
-
 <p>HTTP 로 서버로부터 뭔가를 요청(Request)하는 방식은 크게 <strong>GET 방식</strong>과(method) <strong>POST 방식</strong>이 있다. 각 방식 차이는 스스로 인터넷에 있는 <a href="http://shoutrock.egloos.com/3564666">설명글</a>에서 알아보길 바라며, 여기서는 좀 많이 간단히 알아보려 한다. GET 방식은 URI ( <a href="http://ko.wikipedia.org/wiki/URI">Uniform Resource Identifier</a> )를 통해 값을 전달하고, POST 방식은 눈으로는 보내는 값을 바로 확인할 수 없지만 파일도 첨부해서 보낼 수 있다. 좀 더 기술 느낌나게 설명하자면 <strong>GET 방식은 HTTP 헤더에 값을 넣고, POST 방식은 HTTP 본문에 값을 넣는다</strong>. GET 방식은 HTTP 헤더 제약을 받기 때문에 보낼 수 있는 값 양(길이)에 제한이 있고(웹브라우저 마다 다르다), POST 방식은 제한이 없다고 볼 수 있다(웹서버 마다 다름).</p>
-
 <p><strong>django 는 http 로 넘어오는 각종 값들을 request 에 넣어서 넘겨준다</strong>. 그렇다. add_post 니 뭐니 우리가 컨트롤러 안에 만든 함수에 빠지지 않고 들어가 있는 request 가 그 request 이다. GET 방식으로 넘어오는 값은 urls.py 를 이용해 컨트롤러에 있는 함수에 넘겨주는 인자로 받을 수도 있고, request.GET 객체에서 꺼내 쓸 수 있다. POST 방식은 request.POST 객체에서 꺼내 쓸 수 있다. 예를 들면, hannal 이라는 이름으로(key) hello world 라는 값을(value) GET 방식으로 보낸다면 <strong>request.GET['hannal']</strong> 에 hello world 가 들어가 있다.</p>
-
 <h4>POST 방식으로 넘어오는 값 받아내기</h4>
-
 <p>한 번에 글 내용 다 받아다 DB에 넣지 말고 글 내용 받는 걸 차근 차근 보자.</p>
-
 <blockquote><pre><code>def add_post(request):
     entry_title = request.POST['title']
     return HttpResponse('hello %s' % entry_title)
 </code></pre>
 </blockquote>
-
 <p>return HttpResponse 부분은 익숙한 부분이니 설명은 생략한다. entry_title = request.POST['title'] 이 줄에서 앞서 설명한 request.POST['title'] 가 있다. POST 방식으로 넘어오는 값을 받으려고 request.POST 객체를 썼으며 글쓰기 폼(form) 내용 중 글 제목을 title 이라 했으므로 ( &lt;input type="text" id="title" name="title" value="" /&gt; ) ['title'] 라고 해서 request.POST['title'] 가 된 것이다. 이렇게 받은 값을 entry_title 이라는 변수에 넣은 뒤 출력했다.</p>
-
 <p><img src="http://blog.hannal.com/assets/uploads/2008/07/posting_by_post_method.png" alt="" title="글 입력한 것을 django 로 받기" width="455" height="128" class="alignnone size-full wp-image-97" /></p>
-
 <p>이제까지 작업한 코드들을 저장하여 django 내장 웹서버를 재구동한 뒤 http://localhost:8000/blog/write 에 가서 글 제목을 써넣은 후 “써넣기” 단추를 누르면 hello 뒤에 여러분이 써넣은 글 제목이 함께 붙어 나온다.</p>
-
 <h4>넘어온 값 검사하기</h4>
-
 <p>예전에 글 정보 모델(Entries)을 만들 때 반드시 글 제목이나 본문 같은 걸 쓰도록 모델에서 설정했다(null=False 이렇게). 그런데 이렇게 모델에서만 처리하면 DBMS 에 문제가 생긴 것인지 아니면 Unicode 같은 문제인지 아니면 반드시 써넣어야 하는(Null을 허용하지 않는) 요소가 빠져서 문제가 생긴 것인지 얼른 알기 어렵다. 또, 넘겨 받은 값을 모델을 통해 DB에 넣기 전에 그 값이 제대로 된 값인지(숫자만 들어와야 하는데 문자가 들어왔다든가) 확인을 하고 싶은데, 모델로 바로 값을 넘기면 그런 검사를 할 수 없다.</p>
-
 <p>그래서 컨트롤러에서 값을 먼저 검사해야 한다. 마치 지난 글에서 쪽 번호가 숫자인지 아닌지 검사한 것처럼.</p>
-
 <p>글 제목이 HTTP Post 방식으로 넘어왔는지 확인하려면 어떻게 해야 할까? 단순하게 생각하면</p>
-
 <blockquote><pre><code>if request.POST['title'] == None:
         pass
 </code></pre>
 </blockquote>
-
 <p>이렇게 하면 될 것 같은데, 애초 <code>['title']</code> 이게 없다면 위 코드는 오류가 난다.</p>
-
 <p><img src="http://blog.hannal.com/assets/uploads/2008/07/dict_key_error.png" alt="" title="django Dictionary KeyError" width="497" height="36" class="alignnone size-full wp-image-98" style="border: 1px solid #000;" /></p>
-
 <p><strong>request.GET 객체나 request.POST 객체는 파이썬에 있는 딕셔너리(Dictionary) 자료형과 비슷한 자료형</strong>이다. 파이썬 딕셔너리 자료형은 <strong>has_key 라는 메소드를 제공한다. 이 메소드는 해당 자료에 지정한 키(key)가 있는지 확인해서 참(True)/거짓(False) 값을 반환</strong>한다.</p>
-
 <p><img src="http://blog.hannal.com/assets/uploads/2008/07/true-false_by_has_key_method_of_dict_var.png" alt="" title="django 의 Dictionary 자료형에 있는 has_key 메소드" width="284" height="145" class="alignnone size-full wp-image-99" style="border: 1px solid #000;" /></p>
-
 <p>django 의 request 객체도 마찬가지이다. 그럼 has_key 메소드를 이용해보자.</p>
-
 <blockquote><pre><code>if request.POST.has_key('title') == False:
     return HttpResponse('글 제목을 입력해야 한다우.')</code></pre>
 </blockquote>
-
 <p>확인해볼 겸 title 을 title2 라고 바꿔서 해보자.</p>
-
 <blockquote><pre><code>if request.POST.has_key('</code><strong>title2</strong><code>') == False:
     return HttpResponse('글 제목을 입력해야 한다우.')</code></pre>
 </blockquote>
-
 <p>그런 뒤 글 작성을 해보면 “글 제목을 입력해야 한다우”라는 문자열이 뜬다.</p>
-
 <p>그런데 딕셔너리 자료형을 쓰면 될 것이지 <a href="http://www.djangoproject.com/documentation/request_response/#querydict-objects">왜 딕셔너리 자료형과 비슷한 별도 개체(QueryDict)를 만들어 쓰는걸까?</a> 공식 문서에 이에 대한 답이 있다. 이유는 HTML 폼 태그 중 select 태그처럼 똑같은 키에 값이 여러 개가 들어 올 수 있는 경우가 있기 때문이다.</p>
-
 <p>위 코드는 다시 원래대로 바꾸고, 글 제목이 한 글자라도 써있는지 확인하는 코드를 넣자. 위 코드에서 <code>request.POST['title']</code> 가 존재하지 않는 경우를 처리 했으니, 위 if 조건문에 걸리지 않는다면 <code>request.POST['title']</code> 이 변수가 존재한다고 할 수 있다. 그러므로 if 조건문 문법인 else 문을 쓰면 된다.</p>
-
 <blockquote><pre><code>if request.POST.has_key('title') == False:
     return HttpResponse('글 제목을 입력해야 한다우.')
 else:
@@ -247,11 +206,8 @@ else:
         entry_title = request.POST['title']
 </code></pre>
 </blockquote>
-
 <p>위 코드에서 생소한 부분은 <strong>len 함수</strong>이다. len 함수는 파이썬에서 기본으로 쓸 수 있는 built-in 함수로 length 를 줄인 말이다. <strong>이 함수는 문자열 길이나 tuple, list 자료형의 키 개수(방 개수?)를 반환</strong>한다. len('hannal') 이라고 하면 숫자 6이 뜨는데 문자열 길이가 6이기 때문이다. 이 len 함수를 이용해서 <strong>request.POST['title']</strong> 길이가 0이면, 즉 한 글자도 없으면 글 제목을 제대로 넣으라는 문자열이 뜬다.</p>
-
 <p>이런 식으로 글 본문도 값을 검사하면 된다.</p>
-
 <blockquote><pre><code>if request.POST.has_key('content') == False:
     return HttpResponse('글 본문을 입력해야 한다우.')
 else:
@@ -260,37 +216,25 @@ else:
     else:
         entry_content = request.POST['content']</code></pre>
 </blockquote>
-
 <h4>글쓰기 폼 영역에 글 갈래(category) 목록 나타내기</h4>
-
 <p>아까 우리는 글쓰기 화면에서 글 갈래 목록을 화면에 뿌리지 않았다. 이미 만들어둔(지난 글에서 django admin 기능을 이용해 글 갈래 모델(Categories)을 통해 DB에 바로 글 갈래를 넣었다) 글 갈래를 글쓰기 화면에 출력하여 글을 쓸 때 그 글이 속할 글 갈래를 지정해야 한다.</p>
-
 <p>DB에 넣어둔 글 갈래를 가져와야 한다는 말은 글 갈래 모델을 통해 글 갈래들을 가져와야 한다는 말이기도 하다. 우선</p>
-
 <blockquote><p><code>from hannal.blog.models import Entries</code></p></blockquote>
-
 <p>views.py 파일 맨 위쪽에 있는 저 문장을</p>
-
 <blockquote><p><code>from hannal.blog.models import Entries, <strong>Categories</strong></code></p></blockquote>
-
 <p>이렇게 바꿔야 한다. 바꾼다기 보다는 Categories 모델을 가져오라고 추가한 것이다. 이번엔 글쓰기 영역을 출력하는 write_form 함수(def write_form)에서 글 갈래를 가져오도록 해야 한다.</p>
-
 <blockquote><p><code>categories = Categories.objects.all()</code></p></blockquote>
-
 <p>그런 뒤 write.html 에서 쓸 수 있도록 치환자를 등록한다.</p>
-
 <blockquote><pre><code>ctx = Context({
     'page_title':page_title,
     'categories':categories
 })
 </code></pre>
 </blockquote>
-
 <p>마지막으로 write.html 에서 글 갈래를 출력한다.</p>
-
-<blockquote><p><xmp>&#123;&#37; for category in categories &#37;&#125;</p>
+<blockquote><p><xmp>&#123;&#37; for category in categories &#37;&#125;
 <option value=""></option>
-<p>&#123;&#37; endfor &#37;&#125;</xmp></p></blockquote>
+<p>&#123;&#37; endfor &#37;&#125;</p>
 <p>간단하다. 새로운 내용은 없으며 이미 우리가 이 강좌에서 익힌 내용들이다. 이제는 글 쓰기 화면에 글 갈래도 나열되어 글 쓸 때 하나 고를 수 있다.</p>
 <p>글 쓰기 화면에서 글 갈래를 골랐다면 서버로 글 내용을 보냈을 때 글 갈래 정보를 가져와야 한다. 이용자 글쓰기 화면에서 글 갈래를 고르면 그 글 갈래의 일련번호(id)가 서버로 날아가는데, 서버에서는 이 숫자를 그대로 넣으면 안된다. <strong>그 숫자(id)가 실제로 글 갈래 모델(Categories)에 있는 것인지 확인한 뒤에 글 정보 모델(Entries) 관계 상황에 맞게 넣어야</strong> 한다. 말은 복잡하지만 한 두 줄로 처리할 수 있으니 겁 먹을 필요는 없다.</p>
 <p>먼저 이용자가 입력한 글 갈래 정보가 DB 에 있는지 확인하여 있으면 그 글 정보를 가져오고, 없으면 잘못된 글 갈래 정보라고 안내하는 코드를 만든다. 말은 복잡하지만 구현은 아주 단순하다.</p>
@@ -300,57 +244,36 @@ except:
     return HttpResponse('이상한 글 갈래구려')
 </code></pre>
 </blockquote>
-
 <p>글 갈래가 숫자이든 아니든 상관없이 Categories 모델을 통해 DB에서 이용자가 입력한 글 갈래 정보로 글 갈래 정보를 가져오게 한다. 있다면 가져올 것이고, 없다면 “이상한 글 갈래구려”라고 안내말이 뜬다. 없는 것 뿐만 아니라 글 갈래 값을 글 갈래 일련번호(id)가 아닌 이상한 문자열로 조작해 보낼 경우에도 저 안내말이 뜬다. 왜냐하면 그런 자료가 없어서 예외 상황 오류(except)가 발생하기 때문이다. 꼼꼼하게 예외 상황을 따지던 강좌 내용에 비해 참 허망할 정도로 단순하다. ^^</p>
-
 <p>자, 정말 글 갈래 정보를 제대로 처리했는지 확인해볼까?</p>
-
 <blockquote><p><code>return HttpResponse('hello %s' % entry_category.Title)</code></p></blockquote>
-
 <p>이렇게 한 뒤 글을 써보면 화면에는 hello 문자열 뒤에 글쓰기 화면에서 지정한 글 갈래의 이름이 나타난다.</p>
-
 <h4>글 꼬리표 넣기</h4>
-
 <p>글 꼬리표는 다소 처리가 귀찮다. 그리고 여태껏 다루지 않은 내용도 나온다.</p>
-
 <p>글 꼬리표는 글 하나에 여러 개 붙을 수 있다. 그래서 꼬리표들은 <strong>한 자료형에 여러 값을 구분해서 넣을 수 있는 tuple 자료형이나 list 자료형에 넣어서 반복문으로 넣거나 꺼내 것이 편하다</strong>. 이용자가 입력한 꼬리표가 한 개이든 100개이든, 혹은 하나도 없든 구분하지 않고 꼬리표는 list 자료형에 담기로 하고, 이용자가 꼬리표를 입력했는지에 따라 이 자료형에 꼬리표를 넣을지 말지 결정하면 된다.</p>
-
 <blockquote><pre><code>if request.POST.has_key('tags') == True:
     pass
 else:
     tag_list = []
 </code></pre>
 </blockquote>
-
 <p>꼬리표가 없는 경우부터 보면, 이용자가 입력한 꼬리표가 없으므로 아무 값이 없는 빈 list 자료형으로 tag_list 변수를 만들었다.</p>
-
 <p>이번엔 꼬리표가 있는 경우이다. <strong>꼬리표는 쉼표로 구분해서 받기로 한다</strong>. “django 장고 파이썬”이라고 한 경우 이 긴 문자열이 꼬리표 하나지만 “django, 장고, 파이썬”이라고 하면 django와 장고, 그리고 파이썬이라는 꼬리표 세 개를 쓰는 것이다. 방법은 간단하다. 이용자가 입력한 문자열에 쉼표(,)를 기준으로 문자열을 쪼개면 되는데 이건 <strong>파이썬에서 문자열(str, unicode)에 기본 탑재된(built-in) 메소드인 split</strong> 을 쓰면 된다.</p>
-
 <blockquote><p><code>'django, 장고, 파이썬'.split(',')</code></p></blockquote>
-
 <p>이렇게 하면 list 자료형으로 문자열을 쪼개 넣는다. 그런데 위와 같이 하면</p>
-
 <blockquote><p><code>['django', ' 장고', ' 파이썬']</code></p></blockquote>
-
 <p>이렇게 쉼표 뒤에 있던 공백도 포함되어 들어간다. 우리가 원하는 꼴은</p>
-
 <blockquote><p><code>['django', '장고', '파이썬']</code></p></blockquote>
-
 <p>이렇게 “장고”와 “파이썬” 문자열 앞에 공백이 없이 깔끔하게 정리된 꼴이다. 이건 split 메소드와 마찬가지로 <strong>파이썬 문자열 built-in 메소드인 strip</strong> 으로 할 수 있다.</p>
-
 <blockquote><p><code>'   django  '.strip()</code></p></blockquote>
-
 <p>이렇게 하면 'django' 이렇게 앞뒤 공백을 정리한다. 그렇다면 쉼표 단위로 문자열을 쪼갠 다음에 list 자료형을 반복문으로 돌며 strip 메소드로 공백을 제거해야 한다.</p>
-
 <blockquote><pre><code>tags = []
 split_tags = unicode(request.POST['tags']).split(',')
 for tag in split_tags:
     tag_list.append(tag.strip())
 </code></pre>
 </blockquote>
-
 <p>쪼갠 최종 꼬리표를 tags 에 넣을 것이므로</p>
-
 <ol>
 <li>tags 를 list 자료형으로 초기화하고(빈값을 넣고)</li>
 <li>쉼표로 이용자가 입력한 꼬리표 문자열을 쪼개어 split_tags 라는 변수에 넣은 후 (단, 혹시나 숫자가 들어올 수 있으므로 무조건 unicode 문자형으로 강제 변환하였다)</li>
@@ -358,15 +281,10 @@ for tag in split_tags:
 <li>strip() 메소드로 앞뒤 공백을 없앤 문자열을</li>
 <li>tags 에 추가(append)</li>
 </ol>
-
 <p>하는 것이다. 꽤 단순한 일을 하는 소스인데 4줄이다. 파이썬은 이런 걸 깔끔하게 정리할 수 있는 편리한 문법을 제공하는데, 바로 <strong>람다식(lambda expression)</strong>이다. 보다 자세한 내용은 이 글 맨 아래에 있는 “파이썬 기초” 부분에서 다루기로 하고, 여기서는 위에 있는 4줄을 람다식과 map 함수를 이용해서 다음과 같이 한 줄로 바꾸기로 하자.</p>
-
 <blockquote><p><code>tags = map(lambda str: str.strip(), unicode(request.POST['tags']).split(','))</code></p></blockquote>
-
 <p>지금이야 저 소스가 익숙하지 않으니 가독성이 떨어지겠지만, 익숙해지면 정말 소스와 기능이 한 눈에 들어오게 된다.</p>
-
 <p>이제 tags 에는 잘 쪼개놓은 글 꼬리표가 list 자료형으로 예쁘장하게 들어가있다. 이 꼬리표를 글 꼬리표 모델(TagModel)을 이용해 실제 DB에 넣어보자. 우선 DB에 넣을 글 꼬리표가 기존 DB에 이미 있는지 확인해야 한다. 왜냐하면 기존 hannal 이라는 글 꼬리표의 id 가 1이고 이 꼬리표에 글 10, 23번이 연결되어 있는데, 새로운 hannal 꼬리표가 id 10으로 생겼을 경우, hannal 이라는 꼬리표 이름은 같은데 어떤 글은 1번 hannal 꼬리표와 연결되어 있고 어떤 글은 10번 hannal 꼬리표에 연결되는 불상사가 생긴다. 물론 기존 DB에 없는 꼬리표라면 DB에 추가해 넣으면 된다. 자, 그렇다면</p>
-
 <blockquote><pre><code>for tag in tags:
     try:
         TagModel.objects.get(Title=tag)
@@ -374,55 +292,36 @@ for tag in split_tags:
         # TagModel 에 글 꼬리표 입력 추가
 </code></pre>
 </blockquote>
-
 <p>이렇게 하나 하나 찾은 뒤 없으면 추가하는 코드를 짜야 할까? 그래도 되지만 <strong>django 에서는 <a href="http://www.djangoproject.com/documentation/db-api/#get-or-create-kwargs">get_or_create</a> 라는 친절한 메소드를 제공</strong>해서 좀 더 깔끔하고 알아보기 쉽게 처리할 수 있다.</p>
-
 <blockquote><pre><code>for tag in tags:
     (obj, created) = TagModel.objects.get_or_create(Title=tag)
 </code></pre>
 </blockquote>
-
 <p>처리할 글 꼬리표의 이름을 가진 글 꼬리표를 DB에서 가져오되(get), 없는 경우 새로 만들어 넣는다(create). 참 깔끔하다.</p>
-
 <p>get_or_create 메소드는 값 두 가지를 tuple 자료형으로 반환한다. <strong>첫 번째 값은(obj) DB에서 가져온 객체</strong>(없어서 새로 넣는 경우엔 새로 넣은 뒤 그것을 가져온다)이고, <strong>두 번째는(created) 생성일시</strong>이다.  우리가 글을 가져올 때</p>
-
 <blockquote><p><code>entry = Entries.objects.get(id=1)</code></p></blockquote>
-
 <p>이렇게 가져와서 그 자료(객체)를 entry 에 넣듯이, 반환하는 값 중 첫 번째는 DB에서 가져온 값(객체)을 뜻한다. 두 번째 생성일시는 기존 DB에 없어서 새로 만들어 넣는 경우에 발생하는 값으로, <strong>이미 DB에 있어서 새로 만들어 넣는 게 아닌 경우엔 이 값은 False</strong> 가 된다.</p>
-
 <p>글 꼬리표는 1개 이상이다. 그러므로 get_or_created 가 반환하는 값 중 첫 번째 값인 obj 도 list 자료형에 차곡 차곡 담아야 한다. created 는 굳이 쓰진 않으니 obj 만 받아다 담자.</p>
-
 <blockquote><pre><code>tag_list = []
 for tag in tags:
      tag_list.append(TagModel.objects.get_or_create(Title=tag)[0])
 </code></pre>
 </blockquote>
-
 <p>append 는 위에서 이미 익혔다. 좀 다른 점은 <code>TagModel.objects.get_or_create(Title=tag)</code> 이 뒤에 [0] 를 붙인 것인데, get_or_created 가 반환값 두 개를 <strong>tuple 자료형으로 반환하는 것이므로 첫 번째 값인 obj만 받아내기 위해 [0] 라고 한 것</strong>이다. 만약 created 만 받고 싶다면 [1] 이라고 하면 된다.</p>
-
 <p>이 세 줄짜리 소스 코드를 아까처럼 한 줄로 줄일 수 있을까? 가능하다. 위에서 람다식과 map 함수를 쓴 것처럼</p>
-
 <blockquote><p><code>tag_list = map(lambda tag: TagModel.objects.get_or_create(Title=tag)[0], tags)</code></p></blockquote>
-
 <p>라고 하면 된다. 위에서 다루지 않은 문법으로도 처리할 수 있다.</p>
-
 <blockquote><p><code>tag_list = [TagModel.objects.get_or_create(Title=tag)[0] for tag in tags]</code></p></blockquote>
-
 <p><strong>for 반복문을 안에다 넣은 것</strong>이다. 우리에겐 참 암호같은 소스 코드이지만, 저 문법은 영어 문장 구조(문법)과 비슷하다. that 절 느낌이랄까? ^^</p>
-
 <ul>
 <li>I believe that you can do it.</li>
 <li>A) 나는 안다 / B) 너가 해낼 수 있으리란 걸.</li>
 <li>B) 부분을 that 앞으로 떠넘기어서</li>
 <li>=&gt; 나는 너가 해낼 수 있으리란 걸 안다.</li>
 </ul>
-
 <p>중학생 때 성문영어 문법책을 볼 때 저걸 공부하며 that 절을 무척 미워했던 기억이 난다. (성문영어 참고서가 아니었나?)</p>
-
 <p>어쨌든 굳이 저런 식으로 소스 코드를 쓴 이유는 파이썬을 공부하며 인터넷에서 남이 짠 소스를 보다보면 다분히 영어 문장 구조를 따르는 저런 표현식을 쓰는 소스 코드를 심심치 않게 만나기 때문이다. 우리는 자주 쓰지 않더라도 소스 코드를 알아볼 눈은 갖춰야 하니까 말이다. 사람 마다 취향이 다르겠지만, 난 람다와 map 함수를 권하고 싶다.</p>
-
 <p>이제 글 꼬리표 처리도 다 끝났다. 정리하면 이렇게 표현할 수 있다.</p>
-
 <blockquote><pre><code>if request.POST.has_key('tags') == True:
     tags = map(lambda str: str.strip(), unicode(request.POST['tags']).split(','))
     tag_list = map(lambda tag: TagModel.objects.get_or_create(Title=tag)[0], tags)
@@ -430,25 +329,15 @@ else:
     tag_list = []
 </code></pre>
 </blockquote>
-
 <p>고작 이 다섯 줄을 설명하려고 이렇게 넓게 둘러봤다. ^^</p>
-
 <h3>1차 저장</h3>
-
 <p>응? 1차 저장? 저장이면 저장이지 1차 저장은 무엇이람.</p>
-
 <p>실은 이것도 다 “글 꼬리표” 때문이다. 글 꼬리표 모델(TagModel)과 글 정보 모델(Entries)은 MANY TO MANY 관계이다. 이런 관계에서 글을 저장할 때 글 꼬리표를 매달려면 먼저 글 꼬리표를 매달지 않은 상태에서 글을 저장하여 글의 일련번호(id), 정확히 말하자면 DB 테이블의 기본 키(Primary Key)를 먼저 만든 뒤에 글 꼬리표를 매달아야 한다.</p>
-
-<p><img src='http://blog.hannal.com/assets/uploads/2008/06/many_to_many_table_on_djang.gif ' alt='Django의 Many To Many 관계 설명 그림' class='alignnone' /></p>
-
+<p><img src="http://blog.hannal.com/assets/uploads/2008/06/many_to_many_table_on_djang.gif " alt="Django의 Many To Many 관계 설명 그림" class="alignnone" /></p>
 <p>이 그림을 기억했으면 좋겠다. “<a href="http://blog.hannal.com/04_2-python_django_lecture/">미) 파이썬 기초 문법과 데이터 모델링 (4편 2/2)</a>” 에서 MANY TO MANY 관계형을 설명할 때 본 그림이다. 이렇게 MANY TO MANY 관계형에선 두 모델 사이에서 두 모델에 속한 자료를 서로 잇는 DB 테이블이 있다고 배웠다. <strong>글과 글 꼬리표로 치면, 이 테이블엔 글 일련번호(id)와 글 꼬리표 일련번호(id)가 서로 이어져 있는 것</strong>이다. 바로 그렇기 때문에 글 일련번호가 필요한 것이다. <strong>글 일련번호가 있어야 글 꼬리표를 이을 수 있도록 이 테이블에 관계를 정의할 수 있기 때문</strong>이다.</p>
-
 <p>django 모델을 이용해 자료를 DB에 저장하는 방법은 어렵지 않다. 우리는 글 정보를 넣을 것이므로</p>
-
 <blockquote><p><code>new_entry = Entries(Title=entry_title, Content=entry_content, Category=entry_category)</code></p></blockquote>
-
 <p>이렇게 하면 된다. 차근 차근 살펴보자. 위 한 줄 소스 코드는 이렇게 풀어 쓸 수 있다.</p>
-
 <blockquote><p><code>new_entry = Entries()<br />
 new_entry.Title = entry_title<br />
 new_entry.Content = entry_content<br />
@@ -466,9 +355,7 @@ new_entry.Category = entry_category<br />
     new_entry.Tags.add(tag)
 </code></pre>
 </blockquote>
-
 <p>new_entry는 Entries 클래스라는 모델을 할당 받은 것이다. Entries 모델엔 Tags 라는 요소가(프로퍼티) ManyToMany 로 정의되어 있다.</p>
-
 <blockquote><pre><code>class Entries(models.Model):
     Title = models.CharField(max_length=80, null=False)
     Content = models.TextField(null=False)
@@ -477,95 +364,78 @@ new_entry.Category = entry_category<br />
     Tags = models.ManyToManyField(TagModel)
     Comments = models.PositiveSmallIntegerField(default=0, null=True)</code></pre>
 </blockquote>
-
 <p>models.py 에 있는 위 모델 내용 중 Tags 부분을 보면 그렇다. 이 Tags 에는 여러 메소드가 있다. 지난 글에서 글에 달린 모든 글 꼬리표를 가져오려고 list.html 나 read.html 에서 <code>&#123;&#37; for tag in entry.Tags.all &#37;&#125;</code> 이런 템플릿 구문을 썼었다. 바로 <strong><code>entry.Tags.all</code></strong> 에서 <strong>all 메소드</strong>가 있듯이 저 <strong>new_entry.Tags 에도 add 메소드가 있다</strong>. 물론 all 메소드도 있다. entry 라는 놈이든 new_entry 라는 놈이든 같은 놈이나 마찬가지이기 때문이다.</p>
-
 <p><strong>new_entry 라는 글 객체는 방금 새로 DB에 저장한 새 글 객체</strong>이다. 이 객체에 있는 Tags 에는 add 메소드가 있는데 이 메소드는 Tags 에 연결된 다른 모델에 값을 추가(add)하여 연결하는 것이다. 우리는 글 꼬리표를 추가해 연결할 것이므로 for 반복문으로 tag_list 에서 글 꼬리표를 하나씩(tag) 꺼내어 add 로 추가한 것이다.</p>
-
 <p>글 꼬리표들까지 모두 매달았다. 물론 글 꼬리표 자체를 이용자가 써넣지 않았다면 tag_list 는 빈 list 자료형이므로 글 꼬리표는 넣지 않을 것이고, 그러면 굳이 2차 저장을 할 필요는 없다. 즉 글 꼬리표가 있는 경우에만 2차 저장을 하여 글 꼬리표를 매달면 되므로</p>
-
-<blockquote><pre><code>if len(tag_list) > 0:
+<blockquote><pre><code>if len(tag_list) &gt; 0:
     new_entry.save()
 </code></pre>
 </blockquote>
-
 <p>라고 하면 된다.</p>
-
 <p>그런데 글 저장하다가 오류가 생기는 일은 없을까? 예를 들면, DBMS에 문제가 생겼다거나 우리 예상을 벗어나는 매우 신기한 값을 이용자가 입력해서 DB에 값을 넣지 못하는 경우 말이다. 물론 생길 수 있다. 그런 문제가 생기면 파이썬 예외 상황(Exception) 오류가 발생한다. 모델을 통해 DB에서 자료를 가져올 때 가져올 조건을 만족하는 자료가 없으면 예외 상황 오류가 발생한 것처럼 말이다. 이런 경우를 대비하려면 마찬가지로 예외 상황 처리 구문을 써야 한다. 1차 저장에 먼저 적용하자.</p>
-
 <blockquote><pre><code>try:
     new_entry.save()
 except:
     return HttpResponse('글을 써넣다가 오류가 발생했습니다.')
 </code></pre>
 </blockquote>
-
 <p>오류가 발생하면 작업을 중단하고 위와 같은 오류 안내말을 출력한다.</p>
-
 <p>이번엔 2차 저장에 적용한다.</p>
-
-<blockquote><pre><code>if len(tag_list) > 0:
+<blockquote><pre><code>if len(tag_list) &gt; 0:
     try:
         new_entry.save()
     except:
         return HttpResponse('글을 써넣다가 오류가 발생했습니다.')
 </code></pre>
 </blockquote>
-
 <p>그리고 함수 맨 마지막에 있던</p>
-
 <blockquote><p><code>return HttpResponse('hello %s' % entry_category.Title)</code></p></blockquote>
-
 <p>내용도 저장 성공 안내말로 바꾼다.</p>
-
 <blockquote><p><code>return HttpResponse('%s번 글을 제대로 써넣었습니다.' % new_entry.id)</code></p></blockquote>
-
 <p>강좌 내용을 잘 따라왔다면 글이 잘 들어갈 것이다.</p>
-
 <p><img src="http://blog.hannal.com/assets/uploads/2008/07/save_the_entry_successfully.png" alt="" title="글 저장 성공 화면" width="433" height="115" class="alignnone size-full wp-image-100" style="border: 1px solid #000;" /></p>
-
-<p><hr />
+<hr />
 <p>이렇게 해서 글 저장까지 끝냈다. “10분만에 블로그 만들기 동영상 설명”을 보면 이 정도 기능까지 만들고 블로그를 다 만들었다고 뻥친다. 아주 뻥이라고만 할 수는 없는 것이 스카폴딩 기능(django 라면 admin 기능)을 이용하면 단 몇 분 만에 댓글 달기 기능도 구현할 수 있기 때문에 설명에서 생략했기 때문이다. 그렇게 치면 우리도 7회 만에 블로그 하나 만들었다. ^^</p>
 <p>다음 글에서는 댓글 입력과 출력 기능을 만들 것이다. 다음 주까지 마치면 블로그 기능 중 가장 기본이라 할 수 있는 글 쓰기, 글 목록 보기, 글 낱장 보기, 댓글 달기, 댓글 보기까지 다 만들게 된다. 이것 말고도 RSS 기능이나  글 수정 기능도 만들겠지만, 어떤 건 숙제로 나가고 어떤 건 좀 더 나중에 만들 것이다.</p>
 <p>예전에 다른 프로그래밍 언어나마 익혀서 다뤄본 적 있는 이라면 이 정도만 되어도 아직 우리가 만들지 않은 기능들을 스스로 만들려고 덤벼들 것이라 생각한다. 자료를 DB에 써넣고 끄집어내는 주요 기능이나 문법 같은 건 이번 글을 통해 상당 수 다뤘기 때문이다. 실제로 강좌도 전회 중 거의 절반쯤 마쳤다(분량으로 치면 거의 2/3). 이전 글과 이번 글은 양이 많아 공부할 때 힘들었겠지만 조금만 더 나아가면 우리나라에서 django 로 블로그 만들 줄 아는 몇 안되는 사람 중 한 명이 되니 좀 더 힘을 내자. :)</p>
 <ul>
-<li><a href='http://blog.hannal.com/assets/uploads/2008/07/hannal-cheong_5-2.zip'>이번 글에서 다룬 소스 압축파일</a>
+<li><a href="http://blog.hannal.com/assets/uploads/2008/07/hannal-cheong_5-2.zip">이번 글에서 다룬 소스 압축파일</a>
 </li>
 </ul>
 <hr />
 <h3>파이썬 기초</h3>
 <h4>UTF-8 와 len 함수</h4>
-<p>혹시 프로그래밍 공부를 조금 해본 이라면 영문은 한 글자가 1바이트(byte) 이고 한글이나 한자 같은 건 2바이트라는 걸 알 것이다. 그러므로 len(&#39;hannal&#39;) 은 6이 반환되고 len(&#39;한날&#39;) 은 4가(1글자는 2바이트이므로) 반환된다고 생각할 수 있다.</p>
-<p>UTF-8 에선 다르다. UTF-8 에선 영문이든 한글이든 모두 바이트 단위가 아닌 글자 단위로 처리한다. 그래서 len(u&#39;한날&#39;) 이라고 하면 4가 아닌 2가 출력된다. 2 바이트가 아니라 2글자가 되는 것이다. (앞에 u 는 유니코드라는 표시이다)</p>
+<p>혹시 프로그래밍 공부를 조금 해본 이라면 영문은 한 글자가 1바이트(byte) 이고 한글이나 한자 같은 건 2바이트라는 걸 알 것이다. 그러므로 len('hannal') 은 6이 반환되고 len('한날') 은 4가(1글자는 2바이트이므로) 반환된다고 생각할 수 있다.</p>
+<p>UTF-8 에선 다르다. UTF-8 에선 영문이든 한글이든 모두 바이트 단위가 아닌 글자 단위로 처리한다. 그래서 len(u'한날') 이라고 하면 4가 아닌 2가 출력된다. 2 바이트가 아니라 2글자가 되는 것이다. (앞에 u 는 유니코드라는 표시이다)</p>
 <p>그렇다면 UTF-8 문자열을 아스키 문자열로 변환하면 값이 달라질까? 우리는 encode 메소드를 이용해 유니코드 문자열을 아스키로 변환했으니, 이걸 이용해서 확인해보자.</p>
-<blockquote><p><code>len(u&#39;한날&#39;.encode(&#39;utf-8&#39;))</code></p></blockquote>
-<p>유니코드인 한날 문자열(u&#39;한날&#39;)을 encode 메소드로 변환한 것인데, 숫자는 4가 아니라 6이 뜬다. UTF-8 에서 한글은 2바이트가 아니라 3바이트이기 때문이다.</p>
-<h4>has<em>key 메소드</h4>
-<p>딕셔너리 자료형에서 특정 키가 있는지 확인하는 방법으로 has</em>key 메소드를 배웠다. 실은 이보다 더 간편한 방법이 있다. 바로 in 이다. 아래 두 코드는 동일하게 작동한다.</p>
-<p>1. has<em>key 메소드 쓰기</p>
-<blockquote><pre><code>if dict</em>var.has<em>key(&#39;hannal&#39;):
-      print &#39;the key is existed&#39;
+<blockquote><p><code>len(u'한날'.encode('utf-8'))</code></p></blockquote>
+<p>유니코드인 한날 문자열(u'한날')을 encode 메소드로 변환한 것인데, 숫자는 4가 아니라 6이 뜬다. UTF-8 에서 한글은 2바이트가 아니라 3바이트이기 때문이다.</p>
+<h4>has_key 메소드</h4>
+<p>딕셔너리 자료형에서 특정 키가 있는지 확인하는 방법으로 has_key 메소드를 배웠다. 실은 이보다 더 간편한 방법이 있다. 바로 in 이다. 아래 두 코드는 동일하게 작동한다.</p>
+<p>1. has_key 메소드 쓰기</p>
+<blockquote><pre><code>if dict_var.has_key('hannal'):
+      print 'the key is existed'
 </code></pre>
 </blockquote>
 <p>2. if 조건문의 in 쓰기</p>
-<blockquote><pre><code>if &#39;hannal&#39; in dict</em>var:
-      print &#39;the key is existed&#39;
+<blockquote><pre><code>if 'hannal' in dict_var:
+      print 'the key is existed'
 </code></pre>
 </blockquote>
 <p>모양새가 for 문과 비슷하다고 생각했는가? 대단한 눈썰미이다. :)</p>
 <h4>람다식와 map 함수</h4>
 <p>우리는 위에서</p>
 <blockquote><pre><code>tags = []
-split<em>tags = unicode(request.POST[&#39;tags&#39;]).split(&#39;,&#39;)
-for tag in split</em>tags:
-    tag<em>list.append(tag.strip())
+split_tags = unicode(request.POST['tags']).split(',')
+for tag in split_tags:
+    tag_list.append(tag.strip())
 </code></pre>
 </blockquote>
 <p>이 4줄을</p>
-<blockquote><p><code>tags = map(lambda str: str.strip(), unicode(request.POST[&#39;tags&#39;]).split(&#39;,&#39;))</code></p></blockquote>
+<blockquote><p><code>tags = map(lambda str: str.strip(), unicode(request.POST['tags']).split(','))</code></p></blockquote>
 <p>이렇게 한 줄로 줄였다. 여기서 눈에 띄이는 애들이 있는데 바로 map 함수와 lambda(람다)식이다. 람다부터 보자.</p>
 <p>람다식은 함수와 거의 똑같다. 함수처럼 인자를 받고, 이를 처리해서 값을 반환한다. 차이점이라면 <strong>람다는 “딱 한 줄”로만 표현</strong>할 수 있다.</p>
-<blockquote><pre><code>def a</em>plus<em>b(a, b):
+<blockquote><pre><code>def a_plus_b(a, b):
     return a + b
 </code></pre>
 </blockquote>
@@ -576,10 +446,11 @@ for tag in split</em>tags:
 &gt;&gt;&gt; lmd(10, 23)<br />
 33<br />
 </code></p></blockquote>
-<p>&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2008/07/lambda</em>ex.png&quot; alt=&quot;&quot; title=&quot;&quot; width=&quot;196&quot; height=&quot;57&quot; class=&quot;alignnone size-full wp-image-101&quot; style=&quot;border: 1px solid #000;&quot; /&gt;</p>
+<p><img src="http://blog.hannal.com/assets/uploads/2008/07/lambda_ex.png" alt="" title="" width="196" height="57" class="alignnone size-full wp-image-101" style="border: 1px solid #000;" /></p>
 <p>lambda a, b: a + b 라는 람다식을 lmd 에다 넣고 lmd를 실행할 때 인자로 10과 23을 넣자 이 둘을 더한 값이 반환된다.</p>
 <p>아주 간단한 식을 함수처럼 값을 받아다 처리하고 싶은데 함수로 만들자니 거창하고, 그렇다고 재사용 할 일도 없으면 람다식으로 깔끔하고 편하게 처리할 수 있다.</p>
-<p>이런 람다식과 함께 쓰면 참 편리하고 강력한 함수가 몇 개 있는데 filter 함수나 map, reduce 같은 함수가 있다. 이들에 대한 설명은 http://turing.cafe24.com/ 에서 연재 중인 <a href="http://turing.cafe24.com/python/35lambda.htm">파이썬 강좌 중 람다 부분을 참고</a>하길 바란다.</p></p>
+<p>이런 람다식과 함께 쓰면 참 편리하고 강력한 함수가 몇 개 있는데 filter 함수나 map, reduce 같은 함수가 있다. 이들에 대한 설명은 http://turing.cafe24.com/ 에서 연재 중인 <a href="http://turing.cafe24.com/python/35lambda.htm">파이썬 강좌 중 람다 부분을 참고</a>하길 바란다.</p>
+</xmp></p></blockquote>
 
   </div>
   <hr class="post-parting-line" />
@@ -594,33 +465,22 @@ for tag in split</em>tags:
     <span class="post-date">07 Jul 2008</span>
 
     <p>이제부터는 실제로 눈에 보이는 블로그 기능들을 만든다. 만들다 보면 기능 구현 뿐 아니라 django 관련 내용도 다룰 것이므로 각 글 분량이 길 것이다. 그래서 조금 눈을 돌리면 흐름을 잃어 헷갈릴 수 있는데, 좀 산만한 강좌 진행이더라도 함께 잘 나아갔으면 좋겠다.</p>
-
 <p>이번 글에서는 django 에 있는 관리자(admin) 기능과 글 목록 기능을 만들 것이다.</p>
-
 <h3>urls.py : 주소 체계 설정 파일</h3>
-
 <p>요즘 웹 서비스에 유행하는 주소 체계는 ? 나 = 같은 기호를 쓰지 않고 마치 디렉토리(폴더)나 파일에 바로 접근하는 것처럼 꾸민다.</p>
-
 <ul>
 <li>예전 대세 : /list.php?id=hannal&amp;page=1</li>
 <li>요즘 대세 : /list/hannal/page_1</li>
 </ul>
-
 <p>이런 주소는 사람이 봤을 때 좀 더 깔끔하고 예쁠 뿐더러, 웹 검색기들도 주소 체계를 더 잘 파악한다고 해서 유행처럼 많이 쓰이고 있다. 이를 <strong>FancyURL 혹은 BeautifulURL</strong> 이라고 부르는데, 여러 웹 서버에서 다양한 방법으로 이런 기능을 제공한다.</p>
-
 <ul>
 <li>IIS : ISAPI 필터를 이용하여 구현</li>
 <li>Apache : mod_rewrite 모듈을 이용하여 구현</li>
 </ul>
-
 <p>다시 말하면 FancyURL은 php이나 파이썬 등으로 만든  cgi 에서 구현하는 것이 아니라 <strong>웹 서버에서 제공하는 기능</strong>이다. 그렇다면 urls.py 는 무슨 역할일까? 굳이 urls.py 를 쓰지 않아도 웹 서버에서 제공하는 기능으로 FancyURL을 구현할 수 있는데 말이다. 답은 편리함이다. <strong>웹 서버단에서 일일이 FancyURL 규칙이나 체계를 설정하는 것보다는 cgi 차원에서 주소를 분석하여 각 주소에 맞는 처리를 하도록 하는 것이 더 편리</strong>하다.</p>
-
 <p><img class="aligncenter size-full wp-image-91" src="http://blog.hannal.com/assets/uploads/2008/07/fancy_url_processing_on_django.png" alt="" width="450" height="209" /></p>
-
 <p>원리는 간단하다. 이용자가 서비스에 접근할 때는 접근하려는 url 이 있는데, 이 url을 지정한 대표 cgi 로 건내주면 cgi 는 url 을 분석해서 그에 맞는 처리를 하는 것이다. 요청 받는 모든 url 을 hannal.py 가 받는다고 하면, /list/hello 로 접근을 하든 /read/hannal 로 접근을 하든 hannal.py 가 이 주소를 받은 뒤 urls.py 에서 저런 주소 규칙이 있는지 찾아서 있으면 그 주소 규칙에 연결된 행동을 하고, 없으면 없다는 오류를 낸다.</p>
-
 <p>urls.py 을 열어보자. 이렇게 생겼을 것이다.</p>
-
 <blockquote>
 <pre><code>from django.conf.urls.defaults import *
 
@@ -632,56 +492,33 @@ urlpatterns = patterns('',
 #     (r'^admin/', include('django.contrib.admin.urls')),
 )</code></pre>
 </blockquote>
-
 <p>맨 위에 from django.conf.urls.defaults import * 는 바로 이전 글에서 설명한 모듈을 가져오는 부분이다. 그 아래에 있는 urlpatterns 라는 변수가 바로 우리가 쓸 주소 체계/규칙을 담아놓는 변수이다. 이 변수는 django.conf.urls.defaults 에 있는 patterns 라는 함수가 만들어주는 값을 담는다.</p>
-
 <p>patterns 함수는 크게 두 가지 인자를 넘겨 받는다. 하나는 <strong>접두사(prefix)</strong>고, 또 하나는 <strong>주소 체계(pattern)</strong>이다. 접두사는 patterns 함수의 첫 번째 인자로 넘기고, 두 번째 인자부터는 튜플(tuple) 자료형으로 주소 체계를 넣으면 된다. 주소 체계가 3개라면 두 번째 인자부터 네 번째 인자까지 넣는 방식이다.</p>
-
 <p>접두사는 주소 체계가 아주 복잡하고 어플리케이션도 많다면 편하다. 주소 체계가 10개 있고 이 10개가 hannal.blog.views 에 있는 함수들과 연결되어 있다면(hannal.blog.views.index , hannal.blog.views.read , hannal.blog.views.speak 등) hannal.blog.views 를 접두사로 지정한 뒤 연결할 대상 이름은 hannal.blog.views 를 뺀 index, read, speak 등으로 쓸 수 있다. 다만, 파이썬에서 쓰는 객체 접근 꼴에 익숙해지게 하기 위해(점으로 프로퍼티나 메소드, 하위 객체를 구분하는 꼴) 이 강좌에서는 일부러 이 prefix 를 쓰지 않는다. 관련 내용은 Django 공식 문서에서 <a href="http://www.djangoproject.com/documentation/url_dispatch/#the-view-prefix">The view prefix</a>를 참조하면 된다.</p>
-
 <p>주소 체계는 <strong>방 두 개짜리 튜플 자료형</strong>을 한 덩어리로 쓴다. 첫 번째 방엔 주소 규칙이 들어가고, 두 번째 방엔 그 주소 규칙으로 요청(request)이 일어났을 때 실행할 행동을 지정한다.</p>
-
 <blockquote><p><code>주소 체계 덩어리 : ('주소 규칙', '실행할 행동 지정')</code></p></blockquote>
-
 <p>만약 /blog 로 접근을 하면 index_blog 라는 함수를 실행한다면</p>
-
 <blockquote><p><code>('/blog/', 'index_blog')</code></p></blockquote>
-
 <p>이런 비슷한 모양으로 주소 체계 덩어리를 만드는 것이다. /blog/2 엔 index_blog2 를 실행하는 걸 더하고 싶다면</p>
-
 <blockquote><p><code>('/blog/', 'index_blog'), ('/blog/2/', 'index_blog2')</code></p></blockquote>
-
 <p>이렇게 patterns 함수에 다음 인자로 주소 체계 덩어리를 더하면 된다. 근데 방금 전에 나는 “이런 모양으로”이라고 하지 않고 “이런 비슷한 모양으로”라고 했다. 이 말은 실제로 저런 모양이 아니라는 말인데, 보통은 저 두 주소 체계를 이렇게 설정해서 쓴다.</p>
-
 <blockquote><p><code>(r'^blog/(d+)/$', 'hannal.blog.views.index')</code></p></blockquote>
-
 <p>하나씩 살표보자. 우선 맨 앞에 있는 <span style="text-decoration: line-through;">r 은 regular expression string, 그러니까 정규표현식 문자열로 문자열을 정의하는 역할을 한다</span>.<a href="http://docs.python.org/reference/lexical_analysis.html#strings">r 은 raw string 을 나타내며</a> 역슬래시같은 일부 이스케이프 문자를 해석하지 않고 문자 그대로 다룬다.</p>
-
 <p>그 안에 있는 문자열들은 정규표현식이다. 정규표현식은 매우 강력한 문자열 처리 방식인데, 간단히 설명을 하자면 일정한 규칙(pattern)을 지정하여 문자열을 다루는 데 쓴다. /blog/1, /blog/2, /blog/3 이런 문자열이 각 각 있을 때, /blog/ 는 공통되고 바로 뒤에는 숫자가 붙는다는 걸 쉽게 알 수 있다. 사람이야 이걸 한 눈에 알아보고 정규화 할 수 있지만 컴퓨터는 그러지 못한다. 바로 이런 상황, 그러지 못하는 상황에 처한 컴퓨터가 그럴 수 있게 해주는 것이 정규표현식이다.</p>
-
 <p>이번엔 정규표현식 내용을 보자. ' 로 묶인 안쪽 문자열인 <strong>^blog/(d+)/</strong>$ 이 바로 주소 규칙이다. 근데 주소 규칙이 암호처럼 이상한 기호가 들어가있다. 우리가 나타내고 싶은 주소는 단지 /blog/1 이나 /blog/2 인데 말이다. 자, 앞에서 /blog/1 이나 /blog/2 는 정규화 할 수 있다고 했다. 바로 /blog/숫자 라고 말이다. 여기서 /blog 과 숫자를 정규표현식으로 나타낸 것이 저 암호 같은 문자열이다.</p>
-
 <p>정규표현식은 이 글에서 모두 다루기엔 만만치 않으니 저 규칙만 알아보자.</p>
-
 <ul>
 <li>우선 ^ 은 맨 앞이라는 뜻이다. 그러므로 ^blog 라고 하면 문자열에서 blog 로 시작한다는 말이 된다. blog/1 는 이 조건에 해당되지만 a_blog/1 은 해당되지 않는다.</li>
 <li>(d+) 에서 정규표현식은 d+ 이다. d 는 숫자를 뜻한다. 다른 표현 방법으로는 [0-9]이다(0부터 9까지라는 뜻). 뒤에 있는 + 는 1개 이상이라는 뜻으로 d+ 라는 표현식은 숫자가 1개 이상인 경우를 나타낸다. /blog/1 이든 /blog/3333 이든 상관없이 숫자가 나오면 다 해당된다. 이 표현식을 괄호로 묶으면 이 표현식에 해당되는 부분을 변수처럼 따로 빼낸다(?).</li>
 <li>맨 마지막에 있는 $ 은 맨 끝이라는 뜻이다. /$ 라고 쓴 건 / 문자가 맨 끝이라는 뜻이다. /blog/1/ 은 이 조건에 해당되지만 /blog/1/aa 이러면 이 조건에 해당되지 않는다.</li>
 <li>마지막으로 (d+) 에서 괄호는 묶음(group)이다. 이 문자열 자체는 규칙(pattern) 뜻이 있는 건 아니고, 괄호로 묶인 부분을 묶음으로 인식해서 이 묶음을 변수처럼 따로 접근한다. 설명이 부족한데 실제 예는 곧 나온다.</li>
 </ul>
-
 <p>정리하면 이용자가 접근한 주소 문자열을 분석했을 때, blog/ 로 시작하고 바로 뒤에 문자열 길이가 1자 이상인 숫자가 붙으며 /으로 끝나면 hannal.blog.views.index 를 실행하겠다는 뜻이다. hannal.blog.views.index 는 from 과 import 로 모듈을 가져오는 문장과 비슷하게 생겼는데, 실제로도 같은 뜻이다. hannal 에 있는 blog 에서 views 에 있는 index 를 실행하겠다는 뜻으로, hannal 은 바로 프로젝트, blog 는 어플리케이션, views 는 컨트롤러(뷰)인 views.py, index 는 views.py 안에 있는 index 라는 함수이다.</p>
-
 <p>참 별 것 아닌 것 가지고 길게 다룬 것 같은데, 자주 만나고 다루는 놈이므로 글 공간을 길게 잡아봤다. ^^</p>
-
 <h3>django admin mode</h3>
-
 <p>요즘 잘 나가는 RoR (Ruby on Rails) 같은 웹 프레임워크들은 <strong>스카폴딩(scaffolding)</strong>이라는 편리하고 매력있는 기능을 제공한다. 스카폴딩은 쇠관(metal pipes)으로 틀을 지어 건물을 짓거나 보수할 때 유용한 <a href="http://enc.daum.net/dic100/contents.do?query1=20XX192232"><strong>임시 건축 틀</strong></a>이다. 적어도 건축 용어로는 그러한데, 다른 분야에서 이 낱말을 쓸 때도 <strong>알맹이를 만드는 데 유용한 임시 보완 틀</strong>이라는 점에서 거의 비슷한 개념이다. 이런 스카폴딩이 RoR 에서 어떻게 편리함을 제공하는지 궁금할텐데, 우리가 아직 글쓰는 화면과 기능을 <strong>정식</strong>으로 만들지 않았는데 일단 DB에 글을 써넣어야 화면에 글이 보이게 하고 싶을 때, 임시로 글을 써넣는 기능을 아주 짧은 시간과 노력을 들여 후다닥 만들어서 필요한 상황을 편하게 해소할 수 있다.</p>
-
 <p>django 에는 이렇게 편리한 <strong>스카폴딩 기능을 제공하지 않는다</strong>. 대신 admin 기능(A dynamic admin interface)을 제공하는데, 스카폴딩에서 누리는 편리함을 대부분 제공한다. 어? 그럼 스카폴딩인데 이름만 바뀐 게 아닌가? 간단하게 생각하면 그렇다고 볼 수 있지만, <strong>django 는 임시 틀을 만들지도 않고 admin 이라는 미리 지어진 별도 공간에서 처리</strong>하므로 어떤 점에서 보면 잔손질을 좀 더 덜 하는 셈이다. 그래서 공식 문서에선 <a href="http://www.djangoproject.com/documentation/overview/#a-dynamic-admin-interface-it-s-not-just-scaffolding-it-s-the-whole-house">admin 기능을 임시 건축물 틀이 아니라 집 그 자체</a>라는 재밌는 표현을 쓰고 있다.</p>
-
 <p>이번 글에선 글 목록 기능을 만들텐데 아직 글쓰기 기능을 만들지 않았으니 admin 기능을 익힐 겸 admin 영역에서 글을 써보려 한다. 우선 settings.py 를 연 뒤 맨 아래에 있는 INSTALLED_APPS 가 있는 부분을 보자. 지난 글에서 우린 'hannal.blog', 라는 줄을 추가했다. 여기에 <strong><code>'django.contrib.admin',</code></strong> 줄을 추가한다.</p>
-
 <blockquote>
 <pre><code>INSTALLED_APPS = (
     'django.contrib.auth',
@@ -692,63 +529,37 @@ urlpatterns = patterns('',
     'hannal.blog',
 )</code></pre>
 </blockquote>
-
 <p>이런 비슷한 모양새가 될 것이다.</p>
-
 <p>이번엔 admin 기능에 필요한 DB 테이블을 생성해야 하는데 간단하게</p>
-
 <blockquote><p>manage.py syncdb</p></blockquote>
-
 <p>라고 명령어를 치면 된다(settings.py 에 치라는 말이 아니라 manage.py 파일을 저 부가명령어와 함께 실행하라는 뜻이다). 마치 blog 에 있는 models.py 에 모델을 디자인 하듯이 django.contrib.admin 에도 모델들이 정의되어 있어서 자동으로 테이블을 만드는 것이다 ( /django/contrib/admin/models.py 에 있다 ).</p>
-
 <p>이제 웹에서 admin 기능으로 접근할 수 있게 주소 체계를 설정해야 한다. 바로 이 부분을 해야 해서 위에서 길게 urls.py 를 설명한 것이다. 우선 urls.py 를 열면</p>
-
 <blockquote>
 <pre><code>    # Uncomment this for admin:
     # (r'^admin/', include('django.contrib.admin.urls')),</code></pre>
 </blockquote>
-
 <p>이런 비슷한 줄이 있는데 <code>(r'^admin/', include('django.contrib.admin.urls')),</code> 이 줄을 주석 처리한 # 기호를 지운다. <strong>주석을 해제</strong>하는 것이다.</p>
-
 <p>2008년 9월에 발표될 예정인 <strong>django 1.0판에서는 다소 설정법이 바뀌었다</strong>. 먼저 admin 모듈을 가져와야 한다.</p>
-
 <blockquote><p><code>from django.contrib import admin</code></p></blockquote>
-
 <p>이번엔 그 아래에</p>
-
 <blockquote><p><code>admin.autodiscover()</code></p></blockquote>
-
 <p>코드를 추가하면 된다. 이 코드는 settings.py 에서 INSTALLED_APPS 에 admin.py를 자동으로 불러들이는 기능을 한다. 이제 주소 규칙을 새로 해야 하는데,</p>
-
 <blockquote><p><code>(r'^admin/', include('django.contrib.admin.urls')),</code></p></blockquote>
-
 <p>대신에</p>
-
 <blockquote><p><code>(r'^admin/(.*)', admin.site.root),</code></p></blockquote>
-
 <p>라고 해야 한다. 공식 문서에서 <a href="http://www.djangoproject.com/documentation/admin/#adminsite-objects">AdminSite Object</a> 부분을 참고하길 바란다.</p>
-
 <p>이번엔 django 내장 웹서버를 구동한다 ( manage.py runserver ). 이미 django 내장 웹서버를 구동했다면 스스로 재구동한다. 그런 뒤 웹브라우저에서 http://localhost:8000/admin 이라고 치면 Django administration 로그인 화면이 나타난다. ^^</p>
-
 <p>아이디와 암호는 바로 이전 글에서 blog 모델을 DB 테이블로 만들 때 만들었던 그 내용으로 로그인 하면 된다.</p>
-
 <p><img class="aligncenter size-full wp-image-82" title="django admin 첫 화면" src="http://blog.hannal.com/assets/uploads/2008/07/django_admin_02.png" alt="" width="500" height="265" /></p>
-
 <p>저곳에서 당장 우리가 할 일은 없다. 저 관리자 화면에 우리가 관리할 모델을 나타나게 해야 한다.</p>
-
 <h3>각 모델에 admin 기능 활성화하기</h3>
-
 <h4>글 정보 모델(Entries)</h4>
-
 <p>우선 blog 디렉토리(폴더)에 있는 models.py 파일을 연다. 그런 뒤 class Entries 라고 된 부분, 그러니까 글 정보 모델이 있는 부분에 다음 줄을 추가한다.</p>
-
 <blockquote>
 <pre>class Admin:
      pass</pre>
 </blockquote>
-
 <p>이런 모양새가 된다.</p>
-
 <blockquote>
 <pre><code>class Entries(models.Model):
     Title = models.CharField(max_length=80, null=False)
@@ -759,51 +570,35 @@ urlpatterns = patterns('',
     Comments = models.PositiveSmallIntegerField(default=0, null=True)
 
     <strong>class Admin:</strong>
-        <strong>pass</strong></code></pre>
+    	<strong>pass</strong></code></pre>
 </blockquote>
-
 <p><strong>들여쓰기에 주의</strong>하자. Admin 이라는 클래스가 Entries 클래스(모델) 안에 있기 때문이다. 이제 파일을 저장하고(물론 django 내장 웹서버는 자동으로 재구동 된다) 아까 그 관리자 화면으로 가면 Entriess 라는 모델이 나타난다.</p>
-
 <p><img class="aligncenter size-full wp-image-81" title="django admin 영역 첫 화면" src="http://blog.hannal.com/assets/uploads/2008/07/django_admin_01.png" alt="" width="498" height="198" /></p>
-
 <p>이제 admin 영역에서 Entries 모델을 다룰 수 있다. 가볍게 글을 하나 써보자.</p>
-
 <p>Add entries 를 누르면 Entries 모델에 새 자료를 넣을 수 있는 화면이 나온다.</p>
-
 <p><img class="aligncenter size-full wp-image-83" title="Entries 모델에 자료 넣기" src="http://blog.hannal.com/assets/uploads/2008/07/django_admin_03.png" alt="" width="486" height="419" /></p>
-
 <p>글 제목과 본문을 쓰고 Save 를 누르면 저장이 되지 않는다. 글 갈래(Category)와 꼬리표(Tags)를 지정하지 않았기 때문이다. 실제 글쓰기 기능은 이런 걸 자동으로 처리되게 할 테지만, admin 영역에선 그런 게 안되니 미리 글 갈래와 꼬리표를 써두고 골라야 한다.</p>
-
 <h4>admin 영역에서 글 갈래와 꼬리표 모델(Entries)에 자료 넣기</h4>
-
 <p>아까 Entries 모델에 그랬던 것처럼 Categories 모델과 TagModel 모델에도 class Admin: 을 추가하자.</p>
-
 <blockquote>
 <pre>class Categories(models.Model):
     Title = models.CharField(max_length=40, null=False)
 
     <strong>class Admin:</strong>
-        <strong>pass</strong>
+    	<strong>pass</strong>
 
 class TagModel(models.Model):
     Title = models.CharField(max_length=20, null=False)
 
     <strong>class Admin:</strong>
-        <strong>pass</strong></pre>
+    	<strong>pass</strong></pre>
 </blockquote>
-
 <p>소스 코드는 이렇게 된다. 이제 admin 영역에서 첫 화면으로 간 뒤 Categoriess 모델을 누른 뒤 Add categories 를 누른다. Title 이라고 된 곳에 적당한 이름을 넣고 Save 를 누르면 저장된다(난 “주절 주절”이라고 했다). 같은 방법으로 TagModels 모델에도 적당한 꼬리표를 추가하자(난 “실험”, “한날”을 각 각 추가했다).</p>
-
 <h4>글 정보 모델에 글 써넣기</h4>
-
 <p>다시 한 번 글을 써보자. Entries 모델에 자료 추가 화면으로 간 뒤 Category 와 Tags 를 방금 추가한 것들을 고른 뒤 글을 쓰면 잘 저장된다. 우린 글쓰기 기능을 안만들었는데도 글 정보 모델에 글을 써넣은 것이다! 정말 편하고 쉽지 않은가? scaffolding 이든 django admin 영역이든 정말 편하고 강력한 기능이다.</p>
-
 <p>근데 어째 방금 우리가 작업한 admin 영역에서 각 개체(자료) 모양새가 예쁘지 않다. 예를 들면, 꼬리표를 두 개 넣었는데 각 각이 우리가 쓴 꼬리표 이름(실험, 한날)으로 뜨지 않고 TagModel object 라고 뜨고, 글 정보 모델에 가보면 우리가 쓴 글이 글 제목으로 뜨지 않고 Entries object 라고 참 공돌이스럽게(?) 나타나는 것이다. 자료가 많아지면 뭐가 뭔지 어떻게 구분한담? 걱정마시라. 입맛에 맞게 바꿀 수 있다. 이 내용은 이 글 아래에서 다루기로 하고, 당장은 방금 쓴 글을 자랑스럽게 화면에 표시하는 영역부터 만들자.</p>
-
 <h3>글 목록 출력 영역</h3>
-
 <p>드디어! 블로그처럼 보이는 영역을 만들 차례이다. 그러나 여기서 잠시 다리를 걸자면, 주소 체계를 어떻게 해야 할 지부터 정해야 한다. 길게 고민할 것 없이 이렇게 하자.</p>
-
 <ul>
 <li>/blog : 블로그 맨 첫 목록 화면 (1쪽)</li>
 <li>/blog/page/숫자 : 쪽 번호 목록 주소</li>
@@ -812,13 +607,9 @@ class TagModel(models.Model):
 <li>/blog/tag/문자열 : 글 꼬리표에 속하는 글 목록 주소</li>
 <li>/blog/tags : 글 꼬리표 목록</li>
 </ul>
-
 <p>우선 만들 부분은 맨 위에 있는 화면과 두 번째 부분이다. 바로 쪽 번호로 글 목록을 나타내는 영역이다.</p>
-
 <h4>urls.py 에 주소 체계 추가</h4>
-
 <p>주소 규칙은 크게 두 가지이다. /blog 로만 접근했을 때는 <code>(r'^blog/$', hannal.blog.views.index),</code> 이렇게 하면 된다. /blog/page/숫자 는 <code>(r'^blog/page/(?P&lt;page&gt;d+)/$', hannal.blog.views.index),</code> 이렇게 하면 된다. 그래서</p>
-
 <blockquote>
 <pre><code>urlpatterns = patterns('',
     (r'^blog/$', 'hannal.blog.views.index'),
@@ -827,63 +618,41 @@ class TagModel(models.Model):
      (r'^admin/', include('django.contrib.admin.urls')),
 )</code></pre>
 </blockquote>
-
 <p>이런 비슷한 모양이 된다. 정규표현식에 대해서는 이미 간단히 설명을 했는데 ?P&lt;page&gt; 라는 문자열은 처음 보는 것이다. 이는 정규표현식에서 묶음(group)에 이름을 지어주는 것이다. 그냥 (d+) 라고 하면 이 규칙에 해당되는 저 묶음을 $1 이나 1 처럼 숫자로 된 이름으로 저 묶음을 변수처럼 다룬다. 그런데 이런 이름은 알아보기 쉽지 않다. 순서만 바뀌어도 헷갈리고. 그래서 우리가 좀 더 알아보기 쉬운 형태로 이름을 지정하는 것이다. ?P&lt;page&gt; 라고 하면 (d+) 이런 규칙에 해당되는 부분을 page 라는 이름으로 묶은 것이다. 즉, <strong>(d+) 에 해당되는 부분을 hannal.blog.views.index 로 넘겨줄 때 page 라는 이름으로 넘겨주는 것</strong>이다.</p>
-
 <p>이번엔 hannal.blog.views.index 를 만들어 보자. blog 디렉토리에 있는 <strong>views.py</strong> 파일을 연 뒤 다음 내용을 써넣자.</p>
-
 <blockquote>
 <pre># -*- coding: utf-8 -*-
 
 def index(request):
     pass</pre>
 </blockquote>
-
 <p>이게 기본 형태이다. 맨 위에 utf-8 뭐시기는 예전 글에서 간단히 설명했으니 넘어가고, def 로 시작하는 줄은 함수를 선언하는 내용이다. 클래스는 <strong>class 이름</strong> 이렇게 선언을 하고, 함수(혹은 메소드)는 <strong>def 이름</strong> 이렇게 선언을 한다. 그리고 <strong>넘겨 받는 기본 인자가 request</strong> 이므로 request 를 써주어 저런 모양이 된다. 그런데 우리는 page 라는 변수도 받는다. 그러므로</p>
-
 <blockquote>
 <pre>def index(request, page):
     pass</pre>
 </blockquote>
-
 <p>이렇게 된다. 그런데 이렇게 하면 /blog 주소로 접근했을 때 오류가 난다. 왜냐하면 저 함수는 request 와 page 변수를 받는다고 했는데 /blog 로 접근을 하면 page 변수를 넘기지 않기 때문이다. 그래서 <strong>page 가 없는 경우엔 page 에 알아서 기본값이 들어가게</strong> 해야 한다.</p>
-
 <blockquote>
 <pre>def index(request, page=1):
     pass</pre>
 </blockquote>
-
 <p>간단하다. page 를 넘겨 받을 때 1 을 넣게 하면 된다. 물론 page 에 특정값을 넘겨 받으면 그 값이 들어오고, 넘겨주는 값이 없으면 1 이 들어간다.</p>
-
 <p>기본값을 1로 한 이유는 글 목록 쪽 번호가 기본으로 1이기 때문이다. 쪽 번호가 -1023 쪽부터 시작한다면 그렇게 해도 무방하다만 꽤나 범상치 않은 쪽 번호이다. 무난하고 자연스럽게 page=1 이렇게 하면 page 를 지정하지 않은 경우 자동으로 쪽 번호는 1이 되는 것이다. 즉, <strong>/blog 로 접근하면 1쪽을 나타내므로 /blog/page/1 과 같은 화면이 뜬다</strong>.</p>
-
 <p>만약 이렇게 했는데</p>
-
 <blockquote><p>TypeError: unsupported operand type(s) for -: ‘unicode’ and ‘int’</p></blockquote>
-
 <p>이런 오류가 난다면 바로 아래에 page = int(page) 라는 코드를 넣으면 된다.</p>
-
 <blockquote>
 <pre>def index(request, page=1):
     page = int(page)</pre>
 </blockquote>
-
 <p><a href="http://blog.hannal.com/05_1-python_django_lecture/#comment-6867">이는 page 값이 숫자형이 아니라 unicode형이라서 빼기(-) 연산을 할 수 없다는 오류</a>이다. int 라는 기본 내장 함수(built-in function)로 숫자형으로 바꾸는 것이다.</p>
-
 <h4>화면에 글자 찍어보기</h4>
-
 <p>화면에 아까 우리가 쓴 글을 뿌리기 전에 잠시 “안녕, 여러분” 문장부터 찍어보자. django 에서는 화면에(http response) 문자열을 뿌리기 편하게 해주는 기능을 제공하는데 그 기능들이 django.http 에 들어가 있고, <strong>화면에 글자를 뿌리는 데엔 HttpResponse 함수</strong>를 쓰면 된다.</p>
-
 <blockquote><p>from django.http import HttpResponse</p></blockquote>
-
 <p>이걸 쓸 수 있게 소스 파일 안에서 불러 들이자(import).</p>
-
 <p>그런 뒤 화면에 “안녕, 여러분”을 뿌리면 된다.</p>
-
 <blockquote><p>return HttpResponse('안녕, 여러분')</p></blockquote>
-
 <p>아주 간단하다. 소스 코드는</p>
-
 <blockquote>
 <pre><code># -*- coding: utf-8 -*-
 from django.http import HttpResponse
@@ -891,82 +660,50 @@ from django.http import HttpResponse
 def index(request, page=1):
     return HttpResponse('안녕, 여러분')</code></pre>
 </blockquote>
-
 <p>이렇게 된다. 맨 위에 utf-8 줄이 없으면 저 한글 부분에서 오류가 나니 꼭 넣자. 그런 뒤 웹브라우저에서 http://localhost:8000/blog/ 에 접속하면</p>
-
 <p><img class="aligncenter size-full wp-image-84" title="HttpResponse 로 화면 출력" src="http://blog.hannal.com/assets/uploads/2008/07/django_httpresponse_01.png" alt="" width="376" height="118" /></p>
-
 <p>감격스럽게도 “안녕, 여러분”에 화면에 나타난다. 난 처음 저 화면을 봤을 때 주먹을 불끈 쥐었다. ^^;</p>
-
 <p>이번엔 변수를 활용해보자. page_title 이라는 변수에 “블로그 글 목록 화면”을 담은 뒤 이 변수를 화면에 추가하는 것이다.</p>
-
 <blockquote>
 <pre><code>def index(request, page=1):
     <strong>page_title = <code>'</code>블로그 글 목록 화면<code>'</code></strong>
     return HttpResponse(</code><code>'</code>안녕, 여러분. 이곳은 [<strong>%s</strong>] 이야.<code>'</code> <strong>% page_title</strong>)</pre>
 </blockquote>
-
 <p>page_title 하는 줄은 별로 어려운 내용은 아니다. page_title 에 '블로그 글 목록 화면' 을 담은 것이다. 문제는(?) 그 다음 줄.</p>
-
 <blockquote><p><code>('안녕, 여러분. 이곳은 [%s] 이야.' % page_title)</code></p></blockquote>
-
 <p>에 보면 [<strong>%s</strong>]이 있고 <strong>% page_title</strong> 이 있다. [%s]에서 [ 과 ]는 화면에 출력되는 기호이니 별 의미는 없고, %s를 보면 되는데 <strong>%s 를 하면 % page_title 에서 page_title 변수 안 내용을 “문자열로” 대입해서 바꾼다는 뜻</strong>이다. 이런 역할을 하기 위해 % 를 넣은 것이다. 이런 걸 파이썬에서는 <a href="http://docs.python.org/lib/typesseq-strings.html">String Formatting Operations</a>이라고 한다.</p>
-
 <h4>모델에서 글 목록 가져와서 출력하기</h4>
-
 <p>이번엔 모델을 이용하여 DB에 넣은 글을 가져와서 화면에 출력해보자. 모델을 이용하려면 먼저 모델을 불러와야 한다. 간단하다. python 으로 다른 모듈을 불러오는 그 방법,</p>
-
 <blockquote><p>from hannal.blog.models import <strong>Entries</strong></p></blockquote>
-
 <p>이렇게 하면 된다. <strong>blog 디렉토리에 있는 models.py 에서 Entries 객체(여기서는 클래스)를 가져온(import) 것</strong>이다.</p>
-
 <p>모델을 이용해서 DB에서 자료를 꺼내는 것도 간단하긴 한데, 방법이 몇 가지 있다.</p>
-
 <ul>
 <li>하나만 가져오기 : get</li>
 <li>여러 개 가져오기 : filter</li>
 <li>다 가져오기 : all</li>
 </ul>
-
 <p>각 각은 쓰는 상황이 곧 닥치니까 쓸 때마다 설명을 할 것이다.</p>
-
 <p>블로그 글 목록을 <strong>쪽 단위</strong>로 가져오려면 <strong>글을 가져오는 조건을 지정</strong>해야 한다. 무슨 말이냐 하면 글이 100개 있는데 한 쪽에 글을 10개씩 가져온다면 1쪽엔 1번~10번 글, 2쪽엔 11번~20번 글을 가져와야 한다. 이럴 때 쓰는 것이 <strong>all 메소드</strong>이다. 이름을 보면 왠지 <strong>모두 다 가져오는 것 같은데 실제로는 이러 이러한 조건에 해당되는 것만 가져오게 하는 데 쓰는 조건을 지정하지 않는 것</strong> 뿐이다.</p>
-
 <blockquote><p>모델.objects.all()</p></blockquote>
-
 <p>쓰는 법은 간단하다. 이렇게 하면 된다. django 로 모델을 만들면 그 모델엔 objects 라는 클래스가 있고, 이 objects 클래스엔 all 이라는 메소드가 포함된다. 우리는 Entries 라는 모델에서 자료를 꺼내올 것이니</p>
-
 <blockquote><p>Entries.objects.all()</p></blockquote>
-
 <p>라고 하면 되며, 가져온 자료를(결과를) 따로 변수에 담아야 하니</p>
-
 <blockquote><p>entries = Entries.objects.all()</p></blockquote>
-
 <p>이렇게 해서 entries 라는 변수에 가져온 결과를 담으면 된다. 그런데 이렇게 하면 정말로 그 모델에 연결된 DB에서 모든 자료를 가져온다. 글이 몇 천 개 있는데 고작 글 몇 개를 가져오려고 그 몇 천 개 글을 다 가져온 뒤 골라쓰면 낭비가 아닐 수 없다. 그러니 우리가 쓸 글만 가져오게 해야 한다.</p>
-
 <blockquote><p>entries = Entries.objects.all()<strong>[시작위치:끝날위치]</strong></p></blockquote>
-
 <p>간단하다. 이렇게 하면 DB에서 자료를 가져올 때 가져올 범위를 지정한다(mysql 인 경우 <strong>LIMIT 시작위치, 가져올개수</strong>로 범위를 지정한다). 맨 처음부터 5개를 가져오고 싶다면</p>
-
 <blockquote><p>entries = Entries.objects.all()<strong>[0:5]</strong></p></blockquote>
-
 <p>라고 하면 된다. 기왕 말이 나왔으니 <strong>이제부터 블로그 글 목록에서 글은 한 쪽에 글 다섯 개</strong>라고 한다.</p>
-
 <blockquote><p>per_page = 5</p></blockquote>
-
 <p>이렇게 변수로도 지정하자.</p>
-
 <p>이제 쪽 번호에 따라 가져올 구간을 계산해야 한다. 1쪽은 맨 첫 번째 쪽이므로 글을 맨 처음부터 다섯 개 가져오면 된다. 이런 식으로 쭈욱 따져보면</p>
-
 <ul>
 <li>1쪽 : 0 ~ 5</li>
 <li>2쪽 : 5~10</li>
 <li>7쪽 : 30~35</li>
 <li>12쪽 : 55~60</li>
 </ul>
-
 <p>이런 식이다. 잘 보면 쪽번호에서 1을 뺀 뒤 5를 곱한 값이 시작 위치이고, 이 시작 위치에 5를 더한 값이 끝날 위치라는 걸 알 수 있다. 이런 규칙을 공식으로 풀어쓰면</p>
-
 <blockquote><p>start_pos = (page-1) * 5<br />
 end_pos = start_pos + 5</p></blockquote>
 <p>인데, 여기서 숫자 5는 한 쪽당 가져올 글 개수이고 이 값은 per_page 라는 변수에 담아두고 있으니</p>
@@ -999,38 +736,23 @@ def index(request, page=1):
 
     return HttpResponse(</code><code>'</code>안녕, 여러분. [%s] 글은 첫 번째 글이야.<code>'</code> % entries[0].Title.encode(<code>'</code>utf-8<code>'</code>))</pre>
 </blockquote>
-
 <p>이것과 비슷하게 생겼을 것이다.</p>
-
 <p><img class="aligncenter size-full wp-image-86" title="모델에서 글 정보 가져와서 출력" src="http://blog.hannal.com/assets/uploads/2008/07/django_print_a_title_from_the_model.png" alt="" width="370" height="124" /></p>
-
 <p>http://localhost:8000/blog 로 접속을 하면 화면이 잘 나온다. 물론 글 제목을 다르게 했다면 다른 제목이 뜬다.</p>
-
 <p><strong>블로그는 최근 글부터 나열</strong>한다. 즉 시간을 기준으로 역순이라는 말인데, 모델로 DB에서 글들을 가져올 때 가져오는 정렬 순서를 지정해야 한다. 이를 <strong>order_by() 메소드</strong>로 할 수 있다.</p>
-
 <p><strong>order_by 메소드는 정렬할 모델 요소(클래스 프로퍼티, DB 필드)을 넘겨주면 그 요소를 기준으로 정렬</strong>을 한다. 왼쪽 정렬, 가운데 정렬 이런 건 아니고, 정순, 역순을 하는데 <strong>원래 순서대로(정순) 정렬한다면 그냥 정렬할 요소 이름을 넘겨주면 되고, 거꾸로(역순) 정렬한다면 정렬할 요소 이름 앞에 - 문자를 써준다</strong>.</p>
-
 <ul>
 <li>order_by(<code>'</code>created<code>'</code>) : created 순서대로 정렬</li>
 <li>order_by(<code>'</code>-created<code>'</code>) : created 역순으로 정렬</li>
 </ul>
-
 <p>우리는 작성 일시 역순으로 가져와야 하므로</p>
-
 <blockquote><p><code>entries = Entries.objects.all()<strong>.order_by(<code>'</code>-created<code>'</code>)</strong>[start_pos:end_pos]</code></p></blockquote>
-
 <p>라고 하면 된다.</p>
-
 <p>이제 글 목록은 1차로 끝났다. 정말? 정말이다. 2차, 3차, 4차, ... , 21차는 잠시 후에 하면 된다. 씨익.</p>
-
 <h4>모델에서 특정 글(낱장) 가져와서 출력하기</h4>
-
 <p>특정 글만 가져와서 나타내는 것 역시 글 목록 가져오는 것만큼 간단하다. 이 간단한 걸 구현하기에 앞서 먼저 주소 체계부터 만들어야 한다. 위에서 글을 낱장으로 접근할 주소를 <strong>/blog/entry/숫자</strong>로 하기로 했으니 urls.py 에</p>
-
 <blockquote><p><code>(r'^blog/entry/(?P&lt;entry_id&gt;d+)/$', 'hannal.blog.views.read'),</code></p></blockquote>
-
 <p>를 추가한다. 저 주소 규칙으로 접근을 하면 read 함수로 글 id 를 넘겨주는 것이다.</p>
-
 <blockquote><p><code>urlpatterns = patterns('',<br />
 (r'^blog/$', 'hannal.blog.views.index'),<br />
 (r'^blog/page/(?P&lt;page&gt;d+)/$', 'hannal.blog.views.index'),<br />
@@ -1045,37 +767,21 @@ def index(request, page=1):
 
     return HttpResponse('안녕, 여러분. 여긴 [%s]이고 [<strong>%d</strong>]번 글이야.</code><code>'</code> % (page_title, <strong>int(entry_id)</strong>))</pre>
 </blockquote>
-
 <p>특이한 건 별로 없다. urls.py 에서 글 번호(id)를 entry_id 로 넘겨주므로 read 함수도 entry_id 로 받는다. 다만 <strong>entry_id 값을 넘겨주지 않으면 기본값으로 None 이라 지정</strong>하는 부분이 위에 있는 index 함수와 다르다.</p>
-
 <p>새로 눈에 띄이는 부분은 %d 와 int 이다. <strong>%d 는 %s와 비슷한 녀석인데 %s는 문자열을 받는다면 %d는 숫자를 받는다</strong>.</p>
-
 <p>int 함수는 파이썬에 기본으로 내장된 함수인데, <strong>넘겨받는 값을 정수형으로 바꾼다</strong>. 넘겨받는 값이 <strong>숫자들로만 구성된 문자형('12'나 '1234' 같은 문자형)인 경우 숫자로 변환하여 12 나 1234 로 바꿔서 숫자 셈을 할 수 있게</strong> 만든다(c 언어로는 atoi() 함수랑 같다). 또 <strong>33.2처럼 실수(float)인 경우 .2 부분을 떼고 정수 부분만 남겨서 33으로</strong> 만들기도 한다. 주소에서 숫자(entry_id)를 가져오는 건 숫자인 문자형이므로 int 함수를 이용해 숫자로 변환한 것이다.</p>
-
 <p>page_title 과 int(entry_id)를 괄호로 묶은 것은 %s 나 %d 같은 문자열 포매팅(formatting) 문자가 두 개 이상이기 때문이다.</p>
-
 <p>웹브라우저에서 http://localhost:8000/blog/entry/1  에 방문하면 낱장 글 보는 화면이 잘 뜬다.</p>
-
 <p>이번엔 지정한 글 번호를 가진 글을 가져와서 화면에 출력해보자. 방법은 간단하다. Entries 모델에서 이용자가 요청하는 글 번호(entry_id)를 갖는 <strong>글 하나</strong>를 가져오게 하면 된다.</p>
-
 <p>이미 위에서 <strong>자료 하나</strong>를 가져올 때엔 get 함수를 쓴다고 아주 간단히 소개했다. all 함수로 글 목록에 나타낼 글 정보를 가져온 것과 비슷한 방법으로 글을 가져오면 된다.</p>
-
 <blockquote><p>current_entry = Entries.objects.get(id=1)</p></blockquote>
-
 <p>이런 식으로 쓰면 되는데 우리는 이용자가 요청한 주소에서 글 번호를 entry_id 로 가져오고 이 글을 화면에 출력해야 하므로</p>
-
 <blockquote><p>current_entry = Entries.objects.get(id=entry_id)</p></blockquote>
-
 <p>라고 해야 한다. 이렇게 해도 잘 되는데, 확실하게 하려면</p>
-
 <blockquote><p>current_entry = Entries.objects.get(id=int(entry_id))</p></blockquote>
-
 <p>이러는 게 낫다. 화면에 출력해보자.</p>
-
 <blockquote><p><code>return HttpResponse('안녕, 여러분. [%d]번 글은 [%s]이야.' % (current_entry.id, current_entry.Title.encode(</code><code>'</code>utf-8<code>'</code>)))</p></blockquote>
-
 <p>소스 코드는</p>
-
 <blockquote>
 <pre><code>def read(request, entry_id=None):
     page_title = '블로그 글 읽기 화면'
@@ -1084,41 +790,27 @@ def index(request, page=1):
 
     return HttpResponse('안녕, 여러분. [%d]번 글은 [%s]이야.</code><code>'</code> % (current_entry.id, current_entry.Title.encode(<code>'</code>utf-8<code>'</code>)))</pre>
 </blockquote>
-
 <p>이런 모양일테고 화면도 잘 뜬다.</p>
-
 <p><img class="aligncenter size-full wp-image-87" title="글 낱장 읽기 화면" src="http://blog.hannal.com/assets/uploads/2008/07/django_print_read_page.png" alt="" width="427" height="115" /></p>
-
 <p>정말 참 간단하다.</p>
-
 <h5>이전 글, 다음 글 가져오기</h5>
-
 <p>글 목록은 쪽 번호로 이리 저리 왔다 갔다 한다면, 특정 글을 읽고 있는 낱장 상태에선 지금 보고 있는 글을 기준으로 이전 글과 다음 글로 왔다 갔다 한다.</p>
-
 <p>자, 단순하게 생각해보자. 우리는 글을 가져올 때 시간 역순으로 정렬한다. 근데 현재 특정 글만 달랑 가져왔다. 이 글의 이전 글은 어떻게 가져올까? 지금 보고 있는 글 id 가 1023이니까 id 가 1022 인 글을 가져와야 할까? 지금 우리가 만들 블로그는 그렇게 해도 상관 없지만, 엄밀히 말해서 옳은 방법은 아니다. 왜냐하면</p>
-
 <ul>
 <li>1023번 글 : 공개 상태</li>
 <li>1022번 글 : 비공개 상태</li>
 <li>1021번 글 : 공개 상태</li>
 </ul>
-
 <p>처럼 글 공개/비공개 기능이 있는 경우엔 1022번이 이전 글이 아닐 수 있고, 혹은 글 작성일시를 이용자가 다시 설정하는 경우도 있기 때문이다. 1023번 글 작성 일시가 2008년 7월 5일 오후 1시인데 1022번 글의 작성일시를 7월 5일 오후 3시로 하면 글 순서는</p>
-
 <ul>
 <li>1022번 글</li>
 <li>1023번 글</li>
 <li>1021번 글</li>
 </ul>
-
 <p>식으로 되는 것이다. 그러므로 지금 보고 있는(current) 글의 작성일시를 먼저 알아낸 뒤, 이 일시보다 이전에 작성된 글 중 가장 최근 글을 알아내야 한다. 1023번 글 보다 이전에 쓰여진 글이 1022, 1021, 1020 순이라면 1022를 가져와야 한다.</p>
-
 <p>단순하게 생각하면 이런 흐름인데 이걸 소스 코드로 구현하면 영 귀찮고 지저분하다. 그러므로 우린 구현하지 않으려 한다. 농담이고(^^) django에선 이걸 아주 편하게 해주는 기능을 제공한다. 바로 <strong><a href="http://www.djangoproject.com/documentation/db-api/#get-next-by-foo-kwargs-and-get-previous-by-foo-kwargs">get_next_by_뭐시기 라는 메소드와 get_previous_by_뭐시기 라는 메소드</a></strong>이다.</p>
-
 <p>뭐시기는 뭘 기준으로 이전(previous)이고 다음(next)인지 정할 이름이다. 예를 들어, 작성일시(우린 created 라고 이름을 지었다)를 기준으로 한다면 get_next_by_created() 나 get_previous_by_created() 가 된다. 글 제목(Title 이라고 했다)이라면 get_next_by_Title() 이런 식이다. 정말 놀랍지 않은가?</p>
-
 <p>그럼 실제로 구현해보자.</p>
-
 <blockquote><p>prev_entry = current_entry<strong>.get_previous_by_created()</strong><br />
 next_entry = current_entry<strong>.get_next_by_created()</strong></p></blockquote>
 <p>주의할 점은 <strong>Entries.objects.get_previous_by_created() 가 아니라 이미 Entries.objects.get 으로 글을 가져와서 담은 current_entry 객체에 붙인 점</strong>이다. 사람 논리로 접근해서 생각하면 당연하다. 이전이나 다음이란 무엇을 기준으로 이전이고 다음인지 나타내는 것이다. <strong>그 기준이 바로 지금 우리가 보고 있는 글(current_entry)이므로 current_entry 에 있는 메소드인 get_previous_by_뭐시기 와 get_next_by_뭐시기 를 쓰는 것</strong>이다.</p>
@@ -1144,13 +836,9 @@ next_entry = current_entry<strong>.get_next_by_created()</strong></p></blockquot
     ROOT_PATH + '/templates',
 )</code></pre>
 </blockquote>
-
 <p>이런 식으로 꾸미면 된다. 이제 템플릿 파일은 templates 안에다 넣으면 된다.</p>
-
 <h4>글 목록</h4>
-
 <p>글 목록을 템플릿 파일을 이용하여 나타내보자. views.py 파일을 연 뒤 파일 위쪽에 있는 from/import 부분에 템플릿 기능에 필요한 객체들을 불러 들이도록 한다.</p>
-
 <blockquote><p># -*- coding: utf-8 -*-<br />
 from django.http import HttpResponse<br />
 from hannal.blog.models import Entries<br />
@@ -1197,42 +885,31 @@ from hannal.blog.models import Entries<br />
     반복할 내용
 }</pre>
 </blockquote>
-
 <p>예를 들면 c 언어에서는</p>
-
 <blockquote>
 <pre><code>for ( i=0; i &lt; 10; ++i ) {
     printf("number %d", i);
 }</code></pre>
 </blockquote>
-
 <p>이렇게 생겼고, php 에선</p>
-
 <blockquote>
 <pre><code>for ( $i=0; $i &lt; 10; ++$i ) {
     echo 'number '.$i;
 }</code></pre>
 </blockquote>
-
 <p>이렇게 생겼으며(perl 도 거의 똑같다), python 에선</p>
-
 <blockquote>
 <pre><code>for i in range(0, 10):
     print 'number %d' % i</code></pre>
 </blockquote>
-
 <p>이렇게 생겼다. 그리고 django 템플릿 엔진에 있는 반복문 문법도 python 것과 조금 비슷하다.</p>
-
 <blockquote>
 <pre>&#123;&#37; for i in list_var &#37;&#125;
     number 
 &#123;&#37; endfor &#37;&#125;</pre>
 </blockquote>
-
 <p>python 의 for문과 다른 점이라면 <strong>for문을 닫는 부분(&#123;&#37; endfor &#37;&#125;)이 있다</strong>는 점이며, for문이 변수 치환자와 다른 점이라면 <strong> 이 아닌 &#123;&#37; 과 &#37;&#125; 을 쓴다</strong>는 점이다. 이렇게 변수 치환자와는 달리 구문(statement)은 &#123;&#37; 과 &#37;&#125;으로 표현한다. 잠시 후 다룰 조건문 역시 이런 구문을 쓴다.</p>
-
 <p>for문을 배웠으니 글들을 갖고 있는 entries 에서 글을 하나씩 뽑아내서 화면에 출력해보자. 글들을 갖고 있는 치환자는 entries 이다. entries 안에 글들을 반복해서 끄집어 내려 하므로</p>
-
 <blockquote><p>&#123;&#37; for entry in entries &#37;&#125;<br />
 &#123;&#37; endfor &#37;&#125;</p></blockquote>
 <p>라고 하면 된다. entries (글들) 안을 빙빙 돌며 매번 entry 라는 변수에 담는 것이다.</p>
@@ -1249,17 +926,11 @@ from hannal.blog.models import Entries<br />
 
 &#123;&#37; endfor &#37;&#125;</pre>
 </blockquote>
-
 <p>list.html 을 저장하고 다시 웹브라우저 화면을 갱신하면 화면 아래에 글도 출력될 것이다. 아직 글을 한 개 밖에 안썼으니 글은 하나만 출력될 것이다. django admin 에 접속해서 또 글을 쓰면 두 개가 뜬다. 참고로 내 화면은</p>
-
 <p><img class="aligncenter size-full wp-image-89" title="템플릿을 이용하여 모델에서 글 가져와 출력" src="http://blog.hannal.com/assets/uploads/2008/07/django_page_with_template_02.png" alt="" width="425" height="454" /></p>
-
 <p>이렇게 뜬다.</p>
-
 <p> 으로 묶은 것은 변수 치환자라는 건 배웠는데, entry.Title, 그러니까 entry점Title 이라는 꼴은 좀 어색하다. 이건 django 가 모델로 가져온 각 자료 객체에서 모델 요소들이 클래스 프로퍼티로 존재하기 때문에 그렇다. 이미 앞선 글들에서 몇 번 설명을 했고, 글 낱장 읽기(def read)에서도 return HttpResponse 부분에서 글 제목을 current_entry.Title 이런 꼴로 출력하고 있다. 같은 내용이다.</p>
-
 <p>흐음. 이걸로 끝? 아니다. 글 갈래(category)와 꼬리표를 출력하지 않았다. 글 갈래는 Category, 꼬리표는 Tags 라고 이름을 지었으니  와  라고 쓰면 되겠다. 날짜 표시하는 부분 위에 출력해보자.</p>
-
 <blockquote><p>&lt;li&gt;&lt;/li&gt;<br />
 &lt;li&gt;&lt;/li&gt;<br />
 &lt;li&gt;&lt;/li&gt;</p></blockquote>
@@ -1303,41 +974,32 @@ ctx = Context({
 })
 return HttpResponse(tpl.render(ctx))</pre>
 </blockquote>
-
 <p>list.html 이 read.html 로 바뀌었고, 현재 글, 이전 글, 다음 글을 치환자로 만드는 부분이 다르지만 틀은 같다.</p>
-
 <p>read.html 은 일단 이렇게 만든다.</p>
-
 <blockquote>
 <pre>&lt;div&gt;
 &lt;h3&gt;&lt;a href="/blog/entry/"  href="/blog/entry/"&gt;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;/li&gt;
 &lt;li&gt;&#123;&#37; for tag in current_entry.Tags.all &#37;&#125;
-        &lt;span&gt;&lt;/span&gt;
-        &#123;&#37; endfor &#37;&#125;&lt;/li&gt;
+		&lt;span&gt;&lt;/span&gt;
+		&#123;&#37; endfor &#37;&#125;&lt;/li&gt;
 &lt;li&gt;&lt;/li&gt;
 &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div&gt;&lt;/div&gt;
 &lt;/div&gt;</pre>
 </blockquote>
-
 <p>list.html 것과 거의 비슷하다. 이제 글 목록 화면에서 글 제목을 클릭해서 글 낱장 화면으로 가면 오류가 뜰 것이다.</p>
-
 <p><img class="aligncenter size-full wp-image-90" title="DB에 개체가 없어서 나는 오류" src="http://blog.hannal.com/assets/uploads/2008/07/django_error_becauze_not_exists_objects_by_get_prev-next_method.png" alt="" width="406" height="193" /></p>
-
 <p>오류 내용에서 알 수 있듯이 <strong>자료가 없기 때문</strong>에 그렇다. 무슨 말인고 하니, 1번 글로 접근을 할 경우 1번 글 보다 이전 글은 없다. 마찬가지로 가장 마지막 글로 접근을 하면 가장 마지막 글 보다 나중인(다음) 글은 없다. 물론 글이 3개가 있는데 가운데 있는 2번 글로 접근한다면 이전 글은 1번 글, 다음 글은 3번 글이 있으므로 오류가 나지 않는다. 즉, <strong>DB에 없는 자료를 요청하면 그런 자료가 없다는 예외 상황(Exception) 오류</strong>가 나버린다. 이용자가 어떤 글 번호로 접근할지 모르는데 글이 없을 때마다 저런 흉측한(?) 오류 화면을 그대로 놔둬야 할까? 물론 가만 냅두지 않을 수 있다. <strong>자료가 없는 예외 상황이 발생하면 무작정 오류를 내지 말고, 그 예외 상황에 맞는 처리를 해주면 된다</strong>. 이런 예외 상황 처리를 예외 상황 구문으로 하며, <strong>파이썬에서는 try except 문으로 표현</strong>할 수 있다. 이 구문의 꼴을 먼저 보자.</p>
-
 <blockquote>
 <pre>try:
     a = 1
 except:
     a = 3</pre>
 </blockquote>
-
 <p>try 안쪽은 일단 실행할(시도할) 구문을 넣고, 이 구문에서 예외 상황이 터지면 except 안쪽에 있는 구문을 처리하는 것이다. 우선 a 에 1을 담아보는데 만약 어떤 문제로 인해 예외 상황이 터지면 a 에 3을 담는다. 물론 아까 본 그 흉측한(?) 예외 상황 오류는 나지 않는다. 이걸 문제가 된 이전 글/다음 글 부분에도 넣자.</p>
-
 <blockquote>
 <pre><strong>try:</strong>
     prev_entry = current_entry.get_previous_by_created()
@@ -1349,53 +1011,49 @@ except:
 <strong>except:</strong>
     next_entry = None</pre>
 </blockquote>
-
 <p>간단하다. get_previous_by_created() 로 이전 글을 가져와서 prev_entry에 넣되, 만약 이전 글이 없어서 예외 상황이 터지면 prev_entry 에 None 이라는 값을 넣는다. 이걸 다음 글 부분도 똑같이 한 것이다.</p>
-
 <p>다시 화면을 열면 이번엔 오류가 안난다. 이전 글과 다음 글 가져오는 데서 발생할 수 있는 오류를 처리했으니 템플릿 파일에 관련 내용을 템플릿 파일 맨 아래에 넣었다.</p>
-
 <blockquote>
 <pre>&lt;ul&gt;
-    &#123;&#37; if prev_entry &#37;&#125;
-    &lt;li&gt;&lt;a href="/blog/entry/"&gt;이전 글 ()&lt;/a&gt;&lt;/li&gt;
-    &#123;&#37; endif &#37;&#125;
+	&#123;&#37; if prev_entry &#37;&#125;
+	&lt;li&gt;&lt;a href="/blog/entry/"&gt;이전 글 ()&lt;/a&gt;&lt;/li&gt;
+	&#123;&#37; endif &#37;&#125;
 
-    &#123;&#37; if next_entry &#37;&#125;
-    &lt;li&gt;&lt;a href="/blog/entry/"&gt;다음 글 ()&lt;/a&gt;&lt;/li&gt;
-    &#123;&#37; endif &#37;&#125;
+	&#123;&#37; if next_entry &#37;&#125;
+	&lt;li&gt;&lt;a href="/blog/entry/"&gt;다음 글 ()&lt;/a&gt;&lt;/li&gt;
+	&#123;&#37; endif &#37;&#125;
 &lt;/ul&gt;</pre>
 </blockquote>
-
 <p>새로운 구문인 if문(조건문)을 빼면 나머지는 익숙한 내용들이다. if문 생김새 역시 for문과 비슷하다. &#123;&#37; 과 &#37;&#125;을 쓰며 if문을 닫을 때는 &#123;&#37; endif &#37;&#125; 를 쓴다. &#123;&#37; if prev_entry &#37;&#125; 라고 하면 prev_entry 가 있는가? 라고 확인을 한다. 있으면 참(true)이므로 if문 안쪽 내용을 처리하고, prev_entry가 없거나 None, 혹은 False 나 숫자 0인 경우는 거짓(false)이 되므로 if 문 안쪽을 처리하지 않는다.</p>
-
 <p>if문은 for문에 비해 문법이 좀 더 복잡하다. 그게 아니면(else) 구문도 있고, 그것이 아닌가?( if a 가 1이 아니면) 같은 문법도 있다. 아직은 때가 아니니 이 정도만 알아두자. 저런 문법이 나올 때 마다 하나씩 다룰 것이다.</p>
-
-<p><hr />우와! 드디어 이번 글을 마칠 때가 됐다. 이번 글을 마치면서 전체 강좌에서 반 정도 마쳤다. 다음 주와 다다음 주까지가 강좌 분량도 많고 진행도 빨라서 정신이 없지만, 이 두 주만 넘기면 한결 가볍고 편안할 것이다.</p>
+<hr />
+<p>우와! 드디어 이번 글을 마칠 때가 됐다. 이번 글을 마치면서 전체 강좌에서 반 정도 마쳤다. 다음 주와 다다음 주까지가 강좌 분량도 많고 진행도 빨라서 정신이 없지만, 이 두 주만 넘기면 한결 가볍고 편안할 것이다.&lt;/p&gt;</p>
 <p>이번 글은 역대 최고 분량이었던 지난 글 보다도 거의 두 배나 돼서 참 힘들었다. 날도 무지 더웠고, 소스 코드 검증도 자주 해야 했으며 그림도 많았다. 약 31,000개 글자 이상, 6,500개 낱말 이상으로 쓰여질만큼 양이 많다. 날도 더워 집중도 잘 안되고 휴가철이라 마음도 이리 저리 흔들리겠지만 부디 차근 차근 잘 따라와서 다음 글도 부담없이 맞이하길 바란다. :)</p>
 <p>다음 글에서는 글 입력과 수정, 삭제 기능을 만들 것이다.</p>
 <hr />
+
 <h3>각주</h3>
 <h4>admin 영역에서 자료 좀 더 예쁘게 나타내기</h4>
-<p>django admin 영역에서 각 모델에 있는 자료들을 다루려 할 때 &quot;뭐뭐뭐 object&quot; 형태로 떠서 각 개체가 무엇인지 알아보기에 좋지 않다. Entries 모델을 보더라도 Entries object 라고 뜨지 말고 글 제목과 id, 그리고 작성일시가 뜬다면 한결 각 글(개체)을 구분하기 좋다.</p>
+<p>django admin 영역에서 각 모델에 있는 자료들을 다루려 할 때 "뭐뭐뭐 object" 형태로 떠서 각 개체가 무엇인지 알아보기에 좋지 않다. Entries 모델을 보더라도 Entries object 라고 뜨지 말고 글 제목과 id, 그리고 작성일시가 뜬다면 한결 각 글(개체)을 구분하기 좋다.</p>
 <p>우리가 admin 영역에서 모델을 다루고 싶을 때 class Admin: 이라는 부분을 추가했었다. 그 바로 아래 줄에는 pass 라고 써서 별도 설정을 하지 않았는데, 여기에 별도 설정을 하여 admin 영역에서 모델의 개체들을 좀 더 알아보기 좋게 나타낼 수 있다.</p>
-<p>이는 class Admin: 에 <strong>list<em>display</strong>라는 프로퍼티를 이용하면 된다.</p>
+<p>이는 class Admin: 에 <strong>list_display</strong>라는 프로퍼티를 이용하면 된다.</p>
 <blockquote>
 <pre><code>class Entries(models.Model):
-    Title = models.CharField(max</em>length=80, null=False)
+    Title = models.CharField(max_length=80, null=False)
     Content = models.TextField(null=False)
-    created = models.DateTimeField(auto<em>now</em>add=True, auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, auto_now=True)
     Category = models.ForeignKey(Categories)
     Tags = models.ManyToManyField(TagModel)
-    Comments = models.PositiveSmallIntegerField(default=0, null=True)</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;strong&gt;class Admin:&lt;/strong&gt;
-    &lt;strong&gt;list_display = (&lt;code&gt;&#39;id&#39;, &#39;created&#39;, &#39;Title&#39;&lt;/code&gt;)&lt;/strong&gt;&lt;/code&gt;&lt;/pre&gt;
-</code></pre></div>
-<p></blockquote>
+    Comments = models.PositiveSmallIntegerField(default=0, null=True)
+
+    <strong>class Admin:</strong>
+    	<strong>list_display = (<code>'id', 'created', 'Title'</code>)</strong></code></pre>
+</blockquote>
 <p>위 내용은 글 정보 모델(Entries)에서 class Admin 부분을 고친 것이다. pass 를 저렇게 바꿨다. 이젠 굳이 자세한 설명을 하지 않아도 저것들이 각 각 무엇을 뜻하는지 잘 알 것이라 생각한다. 저장을 하고 admin 영역에서 Entries 모델을 눌러서 개체들을 보자. 뭔가 다른 화면이 나올 것이다. :)</p>
-<p>주의해야 할 점은 list<em>display 변수에 넣을 값은 list 형이나 tuple 형이어야 한다는 점이다. 위 코드에서는 &#39;id&#39;, &#39;created&#39;, &#39;Title&#39; 이라고 넣었듯이 tuple 로 넣었다. 이 말은</p>
-<p>list</em>display = (<code>&#39;id&#39;</code>)</p>
+<p>주의해야 할 점은 list_display 변수에 넣을 값은 list 형이나 tuple 형이어야 한다는 점이다. 위 코드에서는 'id', 'created', 'Title' 이라고 넣었듯이 tuple 로 넣었다. 이 말은</p>
+<p>list_display = (<code>'id'</code>)</p>
 <p>이렇게 값을 하나만 넣을 때 맨 끝에 쉼표를 넣지 않고 위와 같이 넣으면 내장 웹서버가 실행될 때 오류를 낸다. 그러므로 위와 같은 경우엔</p>
-<p>list<em>display = (<code>&#39;id&#39;</code><strong>,</strong>)</p>
+<p>list_display = (<code>'id'</code><strong>,</strong>)</p>
 <p>이렇게 쉼표를 찍어 일반 문자열이 아닌 tuple 자료형으로 넣어줘야 한다.</p>
 <p>이에 대한 보다 자세한 설명은 <a href="http://www.djangoproject.com/documentation/tutorial02/#customize-the-admin-change-list">django 공식 문서에 있는 Customize the admin change list</a> 부분에 있다.</p>
 <h4>쪽 번호 값 확인하고 예외 상황 처리하기</h4>
@@ -1405,13 +1063,13 @@ except:
 <p>이렇게 하면 참(True)이나 거짓(False)를 반환해준다(자료형 말고도 클래스 등을 넣을 수도 있다). 파이썬 인터프리터 상태에서 확인해보자. python 이라고 치면 python 인터프리터 상태에 진입한다. 그 상태에서 다음과 같이 해보자.</p>
 <blockquote><p><code>Python 2.5.2 (r252:60911, Jul  1 2008, 17:26:00)<br />
 [GCC 4.1.2 (Gentoo 4.1.2 p1.1)] on linux2<br />
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.<br />
+Type "help", "copyright", "credits" or "license" for more information.<br />
 &gt;&gt;&gt; isinstance(1, int)<br />
 <strong>True</strong><br />
-&gt;&gt;&gt; isinstance(</code><code>&#39;</code>a<code>&#39;</code>, int)<br />
+&gt;&gt;&gt; isinstance(</code><code>'</code>a<code>'</code>, int)<br />
 <strong>False</strong><br />
 &gt;&gt;&gt;</p></blockquote>
-<p>확인할 값을 1을 넣고 확인할 자료형으로 int 을 넣으면 두 자료형이 같으므로 True 를 반환한다. 그러나 &#39;a&#39; 를 넣으면 int 와 같지 않으므로 False 를 반환한다. 이걸 쪽 번호가 숫자인지 확인을 한다면</p>
+<p>확인할 값을 1을 넣고 확인할 자료형으로 int 을 넣으면 두 자료형이 같으므로 True 를 반환한다. 그러나 'a' 를 넣으면 int 와 같지 않으므로 False 를 반환한다. 이걸 쪽 번호가 숫자인지 확인을 한다면</p>
 <blockquote>
 <pre>if isinstance(page, int) == False:
     page = 1</pre>
@@ -1427,19 +1085,20 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 <li>A모델과 연결된 C모델에서 관련 자료 가져와</li>
 <li>A모델과 연결된 D모델에서 관련 자료 가져와</li>
 </ol>
-<p>근데 이 방식엔 단점이 있으니 바로 성능이 다소 떨어지는 점이다. A모델과 연결된 B, C, D 모델에서 관련 자료를 가져오라고 시킬 때마다 DB에 접근해서 정보를 가져온다. 어차피 다 가져올 것이라면 A모델에서 자료 가져올 때 B, C, D 모델 자료도 다함께 한 번에 가져온다면 DB에 한 번 접근하고도 위 4과정을 처리할 수 있기에 더 효율이 좋다. 이럴 때 쓰는 메소드가 <strong>select</em>related()</strong> 이다. 사용법은 간단하다.</p>
-<blockquote><p><code>entries = Entries.objects.all().order<em>by(&#39;-created&#39;)[start</em>pos:end<em>pos]</code></p></blockquote>
+<p>근데 이 방식엔 단점이 있으니 바로 성능이 다소 떨어지는 점이다. A모델과 연결된 B, C, D 모델에서 관련 자료를 가져오라고 시킬 때마다 DB에 접근해서 정보를 가져온다. 어차피 다 가져올 것이라면 A모델에서 자료 가져올 때 B, C, D 모델 자료도 다함께 한 번에 가져온다면 DB에 한 번 접근하고도 위 4과정을 처리할 수 있기에 더 효율이 좋다. 이럴 때 쓰는 메소드가 <strong>select_related()</strong> 이다. 사용법은 간단하다.</p>
+<blockquote><p><code>entries = Entries.objects.all().order_by('-created')[start_pos:end_pos]</code></p></blockquote>
 <p>이렇게 된 부분에</p>
-<blockquote><p><code>entries = Entries.objects.all()</code><code>.<strong>select</em>related()</strong></code><code>.order<em>by(</code><code>&#39;</code>-created<code>&#39;</code>)[start</em>pos:end<em>pos]</p></blockquote>
-<p>이런 식으로 메소드를 껴넣으면 된다. 보다 자세한 설명과 예제는 &lt;a href=&quot;http://www.djangoproject.com/documentation/models/select</em>related/&quot;&gt;django 공식 문서에서 select<em>related() 부분</a>을 참조 바란다.</p>
-<p>** 2009년 3월 27일 덧씀 : &lt;a href=&quot;http://blog.hannal.com/05</em>1-python<em>django</em>lecture#comment-356&quot;&gt;이형욱님 댓글 내용</a>을 확인한 뒤 select<em>related() 메서드 쓰는 방법을 제대로 고침.</p>
+<blockquote><p><code>entries = Entries.objects.all()</code><code>.<strong>select_related()</strong></code><code>.order_by(</code><code>'</code>-created<code>'</code>)[start_pos:end_pos]</p></blockquote>
+<p>이런 식으로 메소드를 껴넣으면 된다. 보다 자세한 설명과 예제는 <a href="http://www.djangoproject.com/documentation/models/select_related/">django 공식 문서에서 select_related() 부분</a>을 참조 바란다.</p>
+<p>** 2009년 3월 27일 덧씀 : <a href="http://blog.hannal.com/05_1-python_django_lecture#comment-356">이형욱님 댓글 내용</a>을 확인한 뒤 select_related() 메서드 쓰는 방법을 제대로 고침.</p>
 <p>주의할 점은 이 방식이 언제나 성능에서 더 나은 효율을 가져오는 건 아니라는 점이다. 대체로 DBMS에 자주 접속을 하는 것보다는 더 조금 접속을 하는 것이 성능에서 낫긴 한데, 너무 복잡한 요청을 DBMS에 하면 도리어 성능이 제대로 나지 않을 수 있다. 이건 쉽지 않은 영역이니 따로 더 깊게 공부를 하거나 DB 관리자 영역으로 넘기는 게 낫다.</p>
-<hr />이번 글에선 파이썬 기초 부문을 다루지 않으려 한다. 이미 이 글에서 다루고 있는 내용만으로도 여러분들을 바쁘게 할 것인데다 숙제도 있기 때문이다. :)</p>
+<hr />
+<p>이번 글에선 파이썬 기초 부문을 다루지 않으려 한다. 이미 이 글에서 다루고 있는 내용만으로도 여러분들을 바쁘게 할 것인데다 숙제도 있기 때문이다. :)&lt;/p&gt;</p>
 <p>아래는 이번 글에서 만든 소스 코드인데 템플릿을 쓰지 않고 모델로 DB에서 글을 가져와 출력하는 파일 묶음과 템플릿을 써서 출력하는 파일 묶음으로 나눴다.</p>
 <ul>
-<li>&lt;a href=&quot;http://blog.hannal.com/assets/uploads/2008/07/01-hannal</em>cheong<em>5-1</em>source-no<em>using</em>template.zip&quot;&gt;템플릿 안쓰고 모델로 글 가져와서 출력하기 소스 압축파일</a></li>
+<li><a href="http://blog.hannal.com/assets/uploads/2008/07/01-hannal_cheong_5-1_source-no_using_template.zip">템플릿 안쓰고 모델로 글 가져와서 출력하기 소스 압축파일</a></li>
 <li><a href="http://blog.hannal.com/assets/uploads/2008/07/02-hannal_cheong_5-1_source-using_template.zip">템플릿 쓰고 모델로 글 가져와서 출력하기 소스 압축파일</a></li>
-</ul></p>
+</ul>
 
   </div>
   <hr class="post-parting-line" />

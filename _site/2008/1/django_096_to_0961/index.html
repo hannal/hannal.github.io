@@ -115,51 +115,34 @@
   <h1 class="post-title">django 0.96 에서 0.96.1로 판올림 할 때 주의할 점</h1>
   <span class="post-date">29 Jan 2008</span>
   <p>python에서 쓸만한 웹 프레임워크인 django를 0.96에서 0.96.1로 판올림 할 때 주의할 점이 있습니다. Django 공식 누리집에는 0.96을 기준으로 문서가 나와있어서 무작정 django를 최신판으로 판올림하면 오류가 발생합니다. 잘 되던 소스가 갑자기 뻗어서 깜짝 놀랐네요.</p>
-
 <h3>DB Model</h3>
-
 <p>기존엔 문자열 최대 길이를 지정할 때 <strong>maxlength</strong> 라는 예약어를 썼는데 0.96.1부터는 <strong>max_length</strong>를 씁니다.</p>
-
 <pre>class Entries(models.Model):
-    me2permalink = models.CharField(<strong>max_length</strong>=250, null=False)
-    content = models.TextField(<strong>max_length</strong>=150, null=True)
-    comment_count = models.SmallIntegerField(default=0, null=True)
-    voted = models.SmallIntegerField(default=0, null=True)
-    reg_date = models.DateTimeField(auto_now_add=True)
-    channel = models.SmallIntegerField(default=1, null=False)
+	me2permalink = models.CharField(<strong>max_length</strong>=250, null=False)
+	content = models.TextField(<strong>max_length</strong>=150, null=True)
+	comment_count = models.SmallIntegerField(default=0, null=True)
+	voted = models.SmallIntegerField(default=0, null=True)
+	reg_date = models.DateTimeField(auto_now_add=True)
+	channel = models.SmallIntegerField(default=1, null=False)
 </pre>
-
 <p>위 예제는 <a href="http://shadow.hannal.com/me2day">미투데이용 그림자놀이</a>에서 쓰고 있는 글 저장 테이블.</p>
-
 <h3>i18n에서 ugettext 오류</h3>
-
 <p>0.96.1에선 <strong>ugettext</strong> 가 빠졌습니다. 그냥 <strong>gettext</strong>를 쓰면 됩니다. 어차피 python 자체도 unicode 기반으로 돌아가는데 ugettext가 좀 무의미하긴 했죠.</p>
-
 <pre>from django.utils.translation import <strong>gettext</strong> as _</pre>
-
 <h3>HttpResponse에서 content_type</h3>
-
 <p>HttpResponse로 문자열을 뿌릴 때 <strong>content_type='text/javascript'</strong> 이런 식으로 content_type을 쓰면 안됩니다. 0.96.1부터 없어졌기 때문이죠. 원래 있던 mimetype만 쓰면 됩니다.</p>
-
 <pre>HttpResponse(ret_data, <strong>mimetype</strong>='text/javascript')</pre>
-
 <h3>template tag로 문자열 넘길 때 utf-8 문제</h3>
-
 <p>django에서 템플릿 태그를 만들어서 쓰고 있습니다. 문자열을 넘기면 일부를 잘라다 출력합니다.</p>
-
 <p></p>
-
 <p>이러면 comment.entry.content 에 들어가 있는 문자열을 내가 만든 cutstring이라는 함수로 넘깁니다. 이 함수는 이렇게 생겼습니다.</p>
-
 <pre>def cutstring(value, length):
-    if len(value) > length:
-        return value[0:length] + '...'
-    return value
+	if len(value) &gt; length:
+		return value[0:length] + '...'
+	return value
 cutstring = stringfilter(cutstring)
 </pre>
-
 <p>보시다시피 아주 간단하죠. 근데 0.96.1로 판올림을 하니까 value로 넘겨 받은 문자가 utf-8가 아니라 ascii였습니다. 언제나 그런 것도 아니고 어떨 때는 unicode로 넘기고 어떨 때는 ascii. -_-; 이 둘 큰 차이점은 ascii는 위와 같이 문자열을 자를 때 byte 단위로 자르고, unicode는 글자 단위로 자르는 데 있습니다. 이때문에</p>
-
 <pre>s1 = '안녕? 반가워'
 s2 = u'안녕? 반가워'</pre>
 <p>라고 하고, s1[0:5] 라고 하면 '안녕?'이 나오고, s2[0:5]라고 하면 '안녕? 반'이 나옵니다.</p>
@@ -167,34 +150,31 @@ s2 = u'안녕? 반가워'</pre>
 <p>이런 경우 <a href="http://www.djangoproject.com/documentation/unicode/#conversion-functions">문서에서는 force_unicode()</a>를 쓰라고 하지만, svn이나 웹으로 받은 django 0.96.1 어디에도 저런 놈은 없었습니다. 문서대로라면 django/utils/encode.py 에 있어야 하는데, 0.96.1엔 없고 <strong><ins datetime="2008-02-09T09:57:10+00:00">0.97 pre판부터 django/utils/encoding.py 에 있습니다</ins></strong>.</p>
 <p>결국, 강제로 unicode로 문자열을 바꿔서 해결했습니다.</p>
 <pre>def cutstring(value, length):
-    <strong>if type(value) != 'unicode':
-        value = unicode(value, 'utf-8')</strong>
-    if len(value) > length:
-        return value[0:length] + '...'
-    return value
+	<strong>if type(value) != 'unicode':
+		value = unicode(value, 'utf-8')</strong>
+	if len(value) &gt; length:
+		return value[0:length] + '...'
+	return value
 cutstring = stringfilter(cutstring)
 </pre>
-
 <p>단, 0.97 pre판부터는 위와 같이 하면 unicode는 지원하지 않는다며 오류가 납니다. 이때에는 value = unicode(value, 'utf-8') 이라고 하지 말고 <strong>value = force_unicode(value)</strong>이라고 해야 합니다. 이런 식으로 처리하면 되겠죠. (start_unicode 같은 애들도 있는데, 각 각의 차이점은 <a href="http://www.djangoproject.com/documentation/unicode/#conversion-functions">Unicode data in Django</a> (공식 문서)를 참조하세요.)</p>
-
 <pre>
 import django
-<strong>if django.VERSION[0] == 0 and django.VERSION[1] >= 97:
+<strong>if django.VERSION[0] == 0 and django.VERSION[1] &gt;= 97:
     from django.utils.encoding import force_unicode</strong>
 
 def cutstring(value, length):
-    if type(value) != 'unicode':
-            <strong>if django.VERSION[0] == 0 and django.VERSION[1] < 97:
-        value = unicode(value, 'utf-8')
+	if type(value) != 'unicode':
+            <strong>if django.VERSION[0] == 0 and django.VERSION[1] &lt; 97:
+		value = unicode(value, 'utf-8')
             else:
                 value = force_unicode(value)</strong>
 
-    if len(value) > length:
-        return value[0:length] + '...'
-    return value
+	if len(value) &gt; length:
+		return value[0:length] + '...'
+	return value
 cutstring = stringfilter(cutstring)
-</strong></pre>
-
+</pre>
 <p>아참. 넘어오는 문자열이 혹시 utf-8가 아니라 euc-kr 같은 것이라면 unicode(value, 'utf-8') 가 아니라 unicode(value, 'euc-kr') 이라고 해야 합니다..</p>
 
 </div>

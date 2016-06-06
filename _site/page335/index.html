@@ -123,39 +123,32 @@
     <span class="post-date">23 Apr 2005</span>
 
     <p>태터툴즈의 게시물을 워드프레스로 옮기고, 블로그 도구의 위치를 동일하게 할 경우, Permalink가 문제가 됩니다. 예를 들어 태터툴즈로 운영하던 블로그 주소는 http://도메인/tt 이고 워드프레스로 운영할 블로그 주소는 http://도메인/wp 로 한다면 아무 문제가 없지만, 곧 죽어도 블로그 주소는 http://도메인/blog 로 해야할 경우 태터툴즈가 사용하던 고유 주소와 워드프레스의 고유 주소가 달라지는 문제가 발생합니다. 이 문제는 태터툴즈의 게시물을 워드프레스로 옮기는 과정에서 약간의 손을 써주고, 워드프레스의 index.php 파일을 고침으로써 아주 쉽게 해결할 수 있습니다.</p>
-
 <p><u><b>1. 태터툴즈의 게시물을 워드프레스로 옮기기</b></u><br />
 워드프레스에는 게시물 이름(postname)이 존재합니다. 이걸 고유 주소(Permalink)로 사용할 수도 있지요. 이런 정책을 활용합시다.<br />
 태터툴즈의 게시물을 워드프레스로 옮길 때 게시물 이름(postname)을 태터툴즈의 글 번호(no)로 지정하면 됩니다.<br />
 <a href="http://heygom.com/blog/?p=244">곰</a>님께서 만든 걸 <a href="http://blog.hannal.com/index.php?pl=692">제가 수정한 태터툴즈에서 워드프레스로 게시물 옮기는 도구</a>에는 이런 지정이 되어 있습니다.</p>
-
 <p><u><b>2. 변하지 않는 링크(Permalink) 형태 변경</b></u><br />
 이제 워드프레스의 관리자 영역으로 가서 "변하지 않는 링크" 형태를 수정합니다. [설정]-[변하지 않는 링크]로 가면 됩니다.<br />
 이곳에 가서 변하지 않는 링크 모양을 <b>/%postname%/</b>라고 입력하십시오.</p>
-
 <p><u><b>3. index.php 수정</b></u><br />
 마지막 단계입니다. 워드프레스의 index.php 파일 내용 맨 위에 다음 내용을 넣습니다.</p>
-
 <p><textarea language="php" name="code"><br />
 if ( $_GET["pl"] )<br />
-    Header("Location: {$_GET["pl"]}/");<br />
+	Header("Location: {$_GET["pl"]}/");<br />
 </textarea></p>
-
 <p>위 내용을 추가하면 워드프레스의 index.php 파일 내용은 다음과 같이 됩니다.</p>
-
 <p><textarea language="php" name="code"><br />
-< ?php<br />
+&lt; ?php<br />
 if ( $_GET["pl"] )<br />
-    Header("Location: {$_GET["pl"]}/");</p>
-
+	Header("Location: {$_GET["pl"]}/");
 <p>/* Short and sweet */<br />
 define("WP_USE_THEMES", true);<br />
 require("./wp-blog-header.php");<br />
-?><br />
-</textarea></p>
-
+?&gt;<br />
+</p>
 <p><u><b>4. 완료</b></u><br />
 모든 과정이 완료됐습니다. 이제 워드프레스이지만 태터툴즈 때의 고유 주소는 계속 유지됩니다. 만일 위 과정을 아무 문제 없이 완료했다면 태터툴즈 때의 고유 주소로 접근해보세요. 글이 잘 나옵니다.</p>
+</textarea></p>
 
   </div>
   <hr class="post-parting-line" />
@@ -170,21 +163,19 @@ require("./wp-blog-header.php");<br />
     <span class="post-date">23 Apr 2005</span>
 
     <p>안녕하세요.</p>
-
 <p>2009년 3월 2일 추가 : <a href="http://ani2life.egloos.com/4201068">-A2-님께서 텍스트큐브에 있는 자료를 워드프레스로 옮기는 변환기를 만드셨습니다</a>. 기존 태터툴즈 클래식을 쓰시던 분들은 텍스트큐브로 판올림(migration)하신 뒤, 그 자료를 워드프레스로 옮기시길 적극 권장합니다.</p>
-
 <p><strong>아래 변환기는 워드프레스 옛날 판에서 작동하므로 현 2.0 이상인 워드프레스에 맞게 돌아가지 않습니다.</strong></p>
+<hr />
 
-<p><hr />
-<p>곰님께서 만드신 &quot;<strong><a href="http://heygom.com/blog/?p=244">태터툴즈(클래식) 게시물을 워드프레스로 옮기는 도구</a></strong>&quot; 중 UTF-8로 게시물을 변환하며 워드프레스로 게시물을 옮기는 도구에 몇 가지 문제가 있어 수정했습니다.</p>
-<ul><strong>발견된 문제점 (파일명 : import<em>tt</em>utf8.php)</strong></p>
+<p>곰님께서 만드신 "<strong><a href="http://heygom.com/blog/?p=244">태터툴즈(클래식) 게시물을 워드프레스로 옮기는 도구</a></strong>" 중 UTF-8로 게시물을 변환하며 워드프레스로 게시물을 옮기는 도구에 몇 가지 문제가 있어 수정했습니다.</p>
+<ul><strong>발견된 문제점 (파일명 : import_tt_utf8.php)</strong>
 <li>UTF-8로 변환해주는 카테고리 이름을 UTF-8로 변경하지 않는 문제</li>
 <li>부모 카테고리 값이 0일 때 처리 문제</li>
-<li>댓글 작성자 이름에 &#39; 들어갈 시 변환 오류나는 것 처리</li>
+<li>댓글 작성자 이름에 ' 들어갈 시 변환 오류나는 것 처리</li>
 </ul>
-<p>위의 문제는 곰님의 실수같고, 두번째 문제는 흔히 일어나기 어려운 문제이지만 제 블로그에는 해당 경우가 있어서 예외 처리를 해놨습니다. INSERT INTO $wpdb-&gt;post2cat (post<em>id,category</em>id) VALUES (숫자, ) 이렇게 되어 category<em>id 쪽에 빈공백이 들어가서 SQL error가 나는 문제는 이제 생기지 않습니다.</p>
+<p>위의 문제는 곰님의 실수같고, 두번째 문제는 흔히 일어나기 어려운 문제이지만 제 블로그에는 해당 경우가 있어서 예외 처리를 해놨습니다. INSERT INTO $wpdb-&gt;post2cat (post_id,category_id) VALUES (숫자, ) 이렇게 되어 category_id 쪽에 빈공백이 들어가서 SQL error가 나는 문제는 이제 생기지 않습니다.</p>
 <p>또한 게시물을 워드프레스에 저장할 때 게시물 이름(postname)을 게시물 제목이 아닌 태터툴즈의 게시물 번호로 했습니다. 만일 태터툴즈에서의 게시물 번호가 566이었다면, 워드프레스에 저장된 해당 게시물의 게시물 이름은 566이 됩니다. 워드프레스에서 변하지 않는 링크(Permalink) 형태를 /%postname% 이런 식으로 하면 아주 손쉽게 태터툴즈 때 사용하던 Permalink를 변환할 수 있습니다.</p>
-<p>- &lt;a href=&quot;http://www.hannal.net/import</em>tt<em>utf8-20050423.php.txt&quot;&gt;import</em>tt<em>utf8-20050423.php.txt 파일 받기</a> &lt;- 클릭. (받은 뒤 파일 확장자인 .txt 를 없애서 import</em>tt_utf8-20050423.php 로 파일명을 바꾼 뒤 사용하십시오)</p></p>
+<p>- <a href="http://www.hannal.net/import_tt_utf8-20050423.php.txt">import_tt_utf8-20050423.php.txt 파일 받기</a> &lt;- 클릭. (받은 뒤 파일 확장자인 .txt 를 없애서 import_tt_utf8-20050423.php 로 파일명을 바꾼 뒤 사용하십시오)</p>
 
   </div>
   <hr class="post-parting-line" />

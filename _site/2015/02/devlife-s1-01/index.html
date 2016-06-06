@@ -117,78 +117,84 @@
   <p>지난 8월 중순부터 취미로 하던 프로그래밍을 전업으로 하고 있다. 그동안 세 개 제품을 투입(release)했고, 하나는 비공개 시험 운영 중이며, 약 두 달 동안 강의를 하기도 했다. 지난 6개월을 돌이켜 본다.</p>
 
 <ol>
-<li><a href="http://blog.hannal.com/2015/02/devlife-s1-01/"><code>개발 생활 - 1</code></a> : PDF 문서 생성 서버</li>
-<li><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">개발 생활 - 2</a> : 연산된 데이터 수집 작업자</li>
-<li><a href="http://blog.hannal.com/2015/03/devlife-s1-03/">개발 생활 - 3</a> : 전자우편 알림 서버</li>
-<li><a href="http://blog.hannal.com/2015/03/devlife-s1-04/">개발 생활 - 4</a> : Python과 Django 강의</li>
-<li><a href="http://blog.hannal.com/2015/03/devlife-s1-05/">개발 생활 - 5</a> : 공부 자료</li>
-<li><a href="http://blog.hannal.com/2015/03/devlife-s1-06/">개발 생활 - 6</a> : 앞으로 계획</li>
+  <li><a href="http://blog.hannal.com/2015/02/devlife-s1-01/"><code>개발 생활 - 1</code></a> : PDF 문서 생성 서버</li>
+  <li><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">개발 생활 - 2</a> : 연산된 데이터 수집 작업자</li>
+  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-03/">개발 생활 - 3</a> : 전자우편 알림 서버</li>
+  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-04/">개발 생활 - 4</a> : Python과 Django 강의</li>
+  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-05/">개발 생활 - 5</a> : 공부 자료</li>
+  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-06/">개발 생활 - 6</a> : 앞으로 계획</li>
 </ol>
 
-<h3>1. 전업 결심</h3>
+<h3 id="section">1. 전업 결심</h3>
 
 <p>2014년 7월에 프로그래머로 전직을 결심했지만 막막하기만 했다. 여러 언어와 도구, 분야를 검토한 끝에 Python을 주 프로그래밍 언어로, 관심을 두고 꾸준히 다룰 언어로는 Go 언어를 정했다. 기준은 내가 하고 싶고 만들고 싶은 것에 필요하고 내 취향이나 성향에 맞는 지 여부이며, 급여 등은 판단 기준에 넣지 않았다.</p>
 
 <p>그러다 8월 중순에 <a href="http://www.rsquare.co.kr">부동산 다이렉트</a>라는 회사에 서버 프로그래머로 합류했다.</p>
 
-<h3>2. 개발 프로젝트</h3>
+<h3 id="section-1">2. 개발 프로젝트</h3>
 
-<h4>2-1. PDF 문서 생성 서버</h4>
+<h4 id="pdf---">2-1. PDF 문서 생성 서버</h4>
 
-<h5>개요</h5>
+<h5 id="section-2">개요</h5>
 
 <p>이 프로젝트는 서버에 저장된 데이터를 제안서로 만들고, 이 제안서를 PDF 문서로 생성하는 기능을 만드는 것이었다. 기존에 Go 언어로 만들어 사용하는 서버가 있었는데 다음 요구사항을 구현해야 했고, 이 기능 구현을 내가 맡은 것이다.</p>
 
 <ul>
-<li>요구사항
-
-<ul>
-<li>여러 제안서를(PDF 파일) 하나로 묶어서 PDF 파일 하나로 만든다.</li>
-<li>DB에서 직접 데이터를 가져오던 기존 방식 대신 API Server에서 REST API로 데이터를 가져온다.</li>
-</ul></li>
-<li>내가 정한 추가 목표치
-
-<ul>
-<li>웹 페이지에서 PDF 생성 버튼을 누르면 응답 화면을 먼저 보여주고, PDF 생성이 완료되면 따로 알려주어 사용성을 높인다.</li>
-<li>유연하고 빠르게 제안서 양식에 변화를 주어 생산성을 높인다.</li>
-<li>3주 안에 개발을 끝낸다.</li>
-</ul></li>
+  <li>요구사항
+    <ul>
+      <li>여러 제안서를(PDF 파일) 하나로 묶어서 PDF 파일 하나로 만든다.</li>
+      <li>DB에서 직접 데이터를 가져오던 기존 방식 대신 API Server에서 REST API로 데이터를 가져온다.</li>
+    </ul>
+  </li>
+  <li>내가 정한 추가 목표치
+    <ul>
+      <li>웹 페이지에서 PDF 생성 버튼을 누르면 응답 화면을 먼저 보여주고, PDF 생성이 완료되면 따로 알려주어 사용성을 높인다.</li>
+      <li>유연하고 빠르게 제안서 양식에 변화를 주어 생산성을 높인다.</li>
+      <li>3주 안에 개발을 끝낸다.</li>
+    </ul>
+  </li>
 </ul>
 
-<h5>개발 환경</h5>
+<h5 id="section-3">개발 환경</h5>
 
 <p>제안서는 꽤 복잡한 구조(layout)였고 Google Map API도 사용해서 Javascript를 처리해야 했다. <a href="http://wkhtmltopdf.org/">wkhtmltopdf</a>는 이런 복잡한 HTML를 PDF로 변환하는 데 가장 적합한 도구이다. Webkit 렌더러를 이용하여 웹브라우저가 HTML를 렌더링하는 방식으로 HTML 문서를 출력하고 이 문서를 PDF로 변환하기 때문에 우리에게 필요한 기능을 모두 제공했고, 이미 개발팀에서 사용하고 있기도 했다.</p>
 
 <p>하지만, wkhtmltopdf엔 PDF 파일들을 하나로 합치는 기능이 없다. 여러 도구를 살펴봤는데 <a href="http://www.python.org">Python</a>용 라이브러리인 PyPDF 2가 적합했다. 그리고 내가 정한 추가 목표치를 달성하는 데에도 Python이 가장 적합했다. 그래서 PDF 문서 생성 서버는 Python을 이용해 새로 만들기로 결정했다.</p>
 
 <ul>
-<li>언어 : Python 2.7</li>
-<li>사용 라이브러리, 프레임워크
-
-<ul>
-<li>웹 프레임워크 : <a href="http://flask.pocoo.org/">Flask</a></li>
-<li>PDF 병합 : <a href="http://mstamy2.github.io/PyPDF2/">PyPDF 2</a></li>
-<li>백그라운드 처리 : <a href="http://www.celeryproject.org/">Celery</a></li>
-<li>웹 소켓 : <a href="http://www.gevent.org/">gevent</a></li>
-</ul></li>
+  <li>언어 : Python 2.7</li>
+  <li>사용 라이브러리, 프레임워크
+    <ul>
+      <li>웹 프레임워크 : <a href="http://flask.pocoo.org/">Flask</a></li>
+      <li>PDF 병합 : <a href="http://mstamy2.github.io/PyPDF2/">PyPDF 2</a></li>
+      <li>백그라운드 처리 : <a href="http://www.celeryproject.org/">Celery</a></li>
+      <li>웹 소켓 : <a href="http://www.gevent.org/">gevent</a></li>
+    </ul>
+  </li>
 </ul>
 
-<h5>개발 과정</h5>
+<h5 id="section-4">개발 과정</h5>
 
 <p>막상 개발에 착수하자 시작부터 문제에 봉착했다. PyPDF 2는 wkhtmltopdf로 만든 PDF를 두 개 이상 병합하려 하면 <code>__WKANCHOR__</code> 관련 오류가 발생하였다. wkhtmltopdf로 만든 PDF에 형성한 앵커의 ID가 PDF 마다 동일하게 만들어져서 이를 합칠 때 중복되어서(고유하지 않아서) 발생하는 문제 같다. wkhtmltopdf나 PyPDF 2 소스를 고쳐서 문제를 해결하려 했으나 시간이 여의치 않았다. 나는 여러 제안서를 HTML 문서 하나로 합치고, 이 합친 HTML 문서를 PDF로 변환하기로 했다. wkhtmltopdf에 여러 HTML 문서를 PDF 문서 하나로 병합해 생성하는 기능이 있긴 했으나, 결과물인 PDF 외양(layout)이 깨지는 문제가 발생하였다. 그리고, 백 개가 넘는 제안서를 하나로 합치는 상황을 터미널 콘솔에서 테스트하기 번거로웠다. 그래서 아예 하나로 합쳐진 HTML을 만드는 방법을 골랐다.</p>
 
 <p>API Server에서 제공하는 REST API로 데이터를 가져오는 건 <a href="https://github.com/jcgregorio/httplib2">httplib2</a>를 이용했다. 대세인 HTTP 라이브러리인 <a href="http://docs.python-requests.org/">Requests</a>를 사용하려 했으나 <code>HTTPS</code> 통신이 잘 되질 않았다. 구현을 마친 나중에 안 사실이지만 이 문제는 HTTPS 인증서를 내가 잘못 사용해서 발생한 문제였다.</p>
 
 <p>API Server에서 가져온 데이터를 어떻게 구조화 할까 고민하다 <a href="https://www.djangoproject.com/">Django</a>의 ORM을 흉내 내기로 했다. Django의 Model은 다음과 같이 데이터를 데이터베이스에서 가져온다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">building = Building.objects.get(id=3, status=&#39;open&#39;)
 
-print building.name
-</code></pre></div>
+<p>```
+building = Building.objects.get(id=3, status=’open’)</p>
+
+<p>print building.name
+```</p>
+
 <p>내가 만든 건 이런 모양이다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">building = Building.filter(id=3, {&#39;status&#39;: &#39;open&#39;})
 
-print building.name
-</code></pre></div>
+<p>```
+building = Building.filter(id=3, {‘status’: ‘open’})</p>
+
+<p>print building.name
+```</p>
+
 <p>데이터베이스를 사용하지 않고 오직 REST API로 데이터를 가져오기 때문에 굳이 ORM처럼 만들 필요는 없었다. 데이터 모델 스키마는 API Server의 문서에 잘 나와 있기 때문에 문서 서버에서 모델을 정의하지 않아도 무방했다. Django ORM을 분석하면서 많이 배우긴 했지만 프로젝트 관리 관점에서 보면 초과 사양으로 보였다. 하지만, 자잘한 수정 사항이 매우 빈번하게 발생하자 그 나름대로 기준과 일관성이 있는 인터페이스 덕에 유연하게 대응할 수 있었다.</p>
 
 <p>1차 요구사항을 구현하고 나서 사용성을 높이는 단계로 넘어갔다. PDF 생성은 적지 않은 시간이 소요되기 때문에 이용자가 웹 페이지에서 PDF 생성 버튼을 누르면 한참 기다려야 했다. 만약 100장짜리 제안서를 PDF로 생성하는 경우 30~40분을 기다려야 하며, HTTP/1.x 특성상 연결이 끊기거나(Timeout) 연결에 문제가 생길 가능성이 높아진다. 그래서 PDF 생성은 백그라운드에서 별도 작업자가 처리하고, 생성이 완료되면 푸시로 이용자에게 알려주는 기능을 구현하기로 했다.</p>
@@ -196,34 +202,37 @@ print building.name
 <p>Celery를 이용해 백그라운드로 처리하는 기능은 구현하긴 쉬웠다. 하지만, PyPDF 2의 PDF 병합 문제로 병합할 개별 PDF 문서를 분산해서 처리하지 않았기 때문에 비동기로 백그라운드에서 PDF 를 생성하는 역할로만 활용했다.</p>
 
 <p>웹 브라우저가 웹 소켓을 열어 웹 소켓 서버와 연결을 유지하고, PDF 생성이 완료되면 서버가 클라이언트인 웹 브라우저로 푸시 알림으 보내는 기능도 간단히 구현했다. gevent 라이브러리를 사용하는 <a href="https://pypi.python.org/pypi/gevent-websocket/">gevent-websocket</a> 라이브러리를 이용하여 웹 소켓 서버를 만들었다. 처음엔 직접 구현하고 있었는데 때마침 열린 <a href="http://www.pycon.kr/2014">PYCON Korea 2014</a>에서 정민영님이 발표한 <a href="http://www.pycon.kr/2014/program/3">제약을 넘어 : Gevent</a>를 듣고 gevent와 gevent-websocket을 도입했다. 무척 간단했다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">from gevent import monkey
-monkey.patch_all()
 
-from geventwebsocket import (
+<p>```
+from gevent import monkey
+monkey.patch_all()</p>
+
+<p>from geventwebsocket import (
     WebSocketServer,
     WebSocketApplication,
     Resource,
-)
+)</p>
 
-class TaskChecker(WebSocketApplication):
+<p>class TaskChecker(WebSocketApplication):
     # 작업 class
-    pass
+    pass</p>
 
-notifier_host = &#39;localhost&#39;
-notifier_port = 9999
+<p>notifier_host = ‘localhost’
+notifier_port = 9999</p>
 
-WebSocketServer(
+<p>WebSocketServer(
     (notifier_host, notifier_port),
-    Resource({&#39;/&#39;: TaskChecker})
+    Resource({‘/’: TaskChecker})
 ).serve_forever()
-</code></pre></div>
+```</p>
+
 <p>서버가 백그라운드에서 PDF를 생성하는 긴긴 시간 동안 이용자는 자신이 받을 제안서 PDF를 웹 화면으로 먼저 접하게 된다. 미리보기(preview) 역할을 하는 셈이다. 이용자에겐 별다른 기능이 없지만, 실제로는 제안서 HTML을 만드는 중요 역할을 한다. 이 웹 서버는 Flask를 이용해 만들었다. 내겐 Django가 더 익숙했지만, 경량 프레임워크이면서도 문서 서버의 웹 서버에 필요한 기능은 충분히 포함하고 있었고, Flask에 기본 탑재된 템플릿 엔진인 <code>jinja2</code>의 문법이 Django의 템플릿 문법과 거의 동일해서 금방 적응했다.</p>
 
 <p>Flask는 참 좋은 프레임워크이다. PDF 생성과 병합하는 기능을 분석하고 구현하는 데 예상보다 많은 시간을 써서 시간에 쫓기는 상황이다보니 Flask 문서를 거의 읽지 않고 <a href="http://www.stackoverflow.com">Stackoverflow</a>를 전전하며 개발했는데, 대부분 코드에서 기대하는 바가 의도하는 대로, 그리고 예상하는 대로 동작하였다. 구조도 명료해서 Flask 내부를 들여다 보기에도 좋았다.</p>
 
-<h5>우여곡절</h5>
+<h5 id="section-5">우여곡절</h5>
 
-<p>이용자가 웹 브라우저에서 웹 소켓으로 푸시 알림 서버에 연결하면 이 알림 서버는 Redis 서버에 접속하여 Celery가 진행하고 있는 작업 상태를 추적한다. 작업이 끝나면(<code>celery.AsyncResult(id=task_id).status == &#39;SUCCESS&#39;</code>) 푸시 알림 서버는 해당 작업(PDF 생성)에 대한 알림을 요청한 클라이언트들에게 생성된 PDF 파일을 내려 받는 URL을 반환한다. 웹 브라우저는 이 URL을 받으면 화면에 PDF 다운로드 버튼을 출력하고, 이용자는 이 버튼을 눌러 제안서 PDF를 받는 것이다.</p>
+<p>이용자가 웹 브라우저에서 웹 소켓으로 푸시 알림 서버에 연결하면 이 알림 서버는 Redis 서버에 접속하여 Celery가 진행하고 있는 작업 상태를 추적한다. 작업이 끝나면(<code>celery.AsyncResult(id=task_id).status == 'SUCCESS'</code>) 푸시 알림 서버는 해당 작업(PDF 생성)에 대한 알림을 요청한 클라이언트들에게 생성된 PDF 파일을 내려 받는 URL을 반환한다. 웹 브라우저는 이 URL을 받으면 화면에 PDF 다운로드 버튼을 출력하고, 이용자는 이 버튼을 눌러 제안서 PDF를 받는 것이다.</p>
 
 <p>그래서 백그라운드 작업 처리 부분과 푸시 알림 서버를 연계해야 했는데, 테스트가 까다로웠다. 동시성이나 병렬성에 익숙하지 않다보니 지극히 직렬성 사고를 하여 코드나 로직을 직렬성을 전제로 작성했는데, 동기식 직렬성을 전제로 작성한 코드로 비동기 상황을 테스트 하려다 보니 상황을 재현하고 발생한 문제를 추적하기 용이하지 않았다. 작은 코드 변화만으로 작동 순서가 달라져 문제가 발생하기도 했다.</p>
 
@@ -237,7 +246,7 @@ WebSocketServer(
 
 <p>코드로는 의도나 목적을 이해하여 초기 구현은 빨리 마쳤다. 기존 것과 동일하게 동작하면 됐기 때문이다. 하지만, 나는 새로 만드는 버전을 맡은 것이고, 새 버전의 제안서는 기존 제안서와 꽤 달랐다. 이런 문제들은 출시(release)하고나서 운영할 때 유지보수에 혼란을 일으키는 요소가 된다. 정확한 기능의 의도와 목적을 이해하지 않은 상태에서 구조와 설계를 잡고 구현했기 때문이다. 다행히 초과 사양으로 구현하느라 일정 초기에 고생스러웠던 추상화 부분들, 그리고 기획자의 꼼꼼한 지원 덕에 서비스 적용(release) 후 유지보수에 큰 난관이 일어나진 않았다.</p>
 
-<h5>정리</h5>
+<h5 id="section-6">정리</h5>
 
 <p>목표로 했던 것보다 2주 더 걸린 5주 만에 개발을 마쳤다. Python 2.7을 사용한 걸 제외하면, 사용한 라이브러리나 프레임워크 등 대부분을 처음 사용하는 경우였다. 도구 뿐만 아니라 개발 메카니즘이나 구성도 생소했다. 이용자가 실제로 접하는 기능과 동작은 단순하기 그지 없는데, 실제 구현은 까다로운 부분도 많았다.</p>
 

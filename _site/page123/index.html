@@ -123,12 +123,10 @@
     <span class="post-date">18 Feb 2008</span>
 
     <p>최근에 웹 프레임워크 두 가지를 이래 저래 쓰며 찔러보고 있다. 하나는 Python으로 구현된 <a href="http://www.djangoproject.com">Django</a>이고, 또 하나는 PHP로 구현된 <a href="http://www.cakephp.org">Cakephp</a>이다. Django로는 <a href="http://shadow.hannal.com/me2day">미투데이용 장난감 서비스인 그림자놀이</a>를 만들어서 서비스 중이고, Cakephp로는 회사에서 내가 주도하며 쓰고 있다.</p>
-
 <p>Django를 쓴 기간은 길긴 한데 집에서 취미로 만지며 써서 집중도가 좀 떨어진다. Cakephp는 얼마 안되지만 밥벌이로 만지다보니 아무래도 집중도가 좀 더 높다. 어쨌건 이 글을 쓸 만큼 좀 익숙해지고 구조나 흐름을 이해한 상태이다.</p>
-
 <p>두 프레임워크는 RoR이라고도 불리며 인기를 끌고 있는 <a href="http://www.rubyonrails.org/">Rails</a> 프레임워크에 많은 영향을 받았다. 그래서 쓰는 법이나 흐름이 비슷하다. 물론, Rails는 Ruby용, Django는 Python용, Cakephp는 Php용이라서, 언어 특유한 정책이나 철학에 영향을 받아 좀 파고 들다보면 차이가 생길 수 밖에 없다. 그래도 “Hello world” 찍는 방법이나 웹 프로그래밍 할 때 들어가는 잔손질을 많이 줄여주는 방법도 비슷하다.</p>
+<hr />
 
-<p><hr />
 <p>Django는 Python 언어 특성 덕에 참 간결하고 빠르게, 그리고 편하게 적응하며 쓸 수 있다. Rails는 제대로 쓴 적 없이 가벼이 둘러 본 정도라서 비교를 할 순 없지만, Cakephp와 비교하면 정말 쉽고 간편하다. Cakephp도 따로 프레임워크를 쓰지 않고 php로 웹 개발을 하는 것보다 훨씬 편하긴 한데, Django와 비교하면 “왜 이런 것까지 내가 코딩하고 있어야 하지?”라는 생각이 절로 든다.</p>
 <p>개발자와 운영자 입장에서 간결하고 편하고 쉽다는 건 무슨 말일까. 사람마다 다른 생각이 있겠지만, 내 생각엔 서비스 중 cgi 문제가 생겼을 때 그 문제를 찾아가 고치거나, 혹은 기능을 추가할 때 어디를 어떻게 건드리면 되는지 금방 찾을 수 있는 것이라 본다. 그런 점에서 Django로 개발을 하다보면 서비스 흐름이나 구조를 이해하고 추적하기 매우 편하다. 아주 큰 서비스를 만든다면야 그 많은 부분을 머리 속에 다 담을 수 없을테니 당연히 추적하는 데 시간이나 노력이 많이 들겠지만, Django는 소스 자체가 간결하고 프레임워크 흐름 자체가 명료해서 그런 개발/운영 비용이 적게 든다고 본다.</p>
 <p>Django는 물론, Python 자체가 상당히 빠른 장점도 있다. Python 자체가 선처리저장소(Caching, 캐쉬)와 비슷한 기능을 가진데다(*.py를 실행하고 나면 컴파일 된 *.pyc 을 만드는데 이게 좀 더 실행이 빠르다), Fast-cgi 로 돌리면 정말 반응이 빨라진다. 여기에 Django에 내장된 선처리저장소 기능을 쓰면 응답 화면이 “팍” 뜬다. php도 fast-cgi로 돌려봤지만 Django 속도에 비할 바가 못된다.</p>
@@ -138,6 +136,7 @@
 <p>그래서 요즘 <a href="http://www.turbogears.org">Turbogears</a>라는 또 다른 웹 프레임워크에 관심을 두고 있다. Turbogears는 앞서 언급한 Django 장점을 거의 그대로 가진데다, 내가 Django에서 불만스러워 했던 <a href="http://docs.turbogears.org/1.0/SQLAlchemy#multiple-databases">다중 DB 접속 기능도 제공</a>한다. 인터넷 돌아다니다가 <a href="http://www.devchix.com/2007/06/03/python-web-frameworks-are-template-languages-worth-using-or-is-python-enough/">Python Web Frameworks: Are Template Languages Worth using, or is Python enough?</a>라는 글을 공감하며 읽었는데, 이 글에서 권하는 PythonPaste 나 CherryPy 중 CherryPy를 Turbogears에서 채택하고 있어서 더 관심이 가기도 했다.</p>
 <p>아직 Turbogears를 써보지 않아 두 프레임워크의 차이점을 세세히 꼽을 순 없지만, Django는 기능들을 자체 개발하여 Django라는 이름으로 제공한다면, Turbogears는 기존에 만들어져 있던 <a href="http://lastmind.net/blog/2006/10/framework-21-rubyonrails-vs-turbogears-part-2.html">모듈들을 Turbogears라는 이름으로 조합한 점</a>이다(표현이 좀 이상한데 주소 연결한 글 참조 바람). 장점이야 각 부문별로 기능이나 성능이 검증된 모듈(module, library)를 쓰고 쉽게 갈아 끼울 수 있다는 점이고, 단점이라면 이게 혹시라도 Turbogears라는 이름으로 일관된 정책으로 잘 묶여 있지 않으면 개발이나 학습에 비용이 많이 깨질 수 있다는 점이다.</p>
 <hr />
+
 <p>Cakephp는 꽤 인기 좋은 Php 웹 프레임워크로 보인다. 무엇보다 가장 큰 장점은 <a href="http://manual.cakephp.co.kr">한글 문서</a>가 꽤 잘 구비되어 있다는 점이고, <a href="http://api.cakephp.org/">Cakephp API 문서</a>도 잘 준비되어 있어서 좀 막연한 클래스나 메소드가 있을 때 참조하기 좋다.</p>
 <p>Rails와 닮은 프레임워크들이 보통 그렇듯이, Cakephp도 오류 상황에 대해 꽤 친절한 편이다. 모델과 연결되는(mapping) DB 테이블이 없으면 그거 없다고 안내하고, 컨트롤러가 이상하거나 없으며 그에 대해 안내하고. 따로 문서를 보지 않고 Cakephp가 뿌려주는 오류 안내문만 따라가도 Hello world 는 아주 손쉽게 출력할 수 있다.</p>
 <p>Cakephp의 좋은 점 중 하나는 웹 개발할 때 많이 쓸 법한 메소드나 기능은 아예 클래스에 기본 실행으로 탑재를 해놨다는 점이다. 예를 들면, 컨트롤러에서 화면 출력을 하는 기능이 render 라는 메소드인데, 굳이 이걸 넣지 않아도 알아서 저 함수를 실행해준다. Django는 언어 자체 특성상 소스 코드가 간결하다면, Cakephp는 Php 자체가 소스 코드를 지저분하게 하는 마력이 있다보니 아예 자주 쓸 법한 소스 문장을 쓰지 않아도 해버렸다. 뭐, 그래도 어쨌건 소스 코드가 지저부 해지는 건 어쩔 수 없다.</p>
@@ -148,7 +147,8 @@
 <p>다만, Cakephp 자체가 좀 느린 편이다. php 반응 속도는 빠른 편이라고 생각하는데, Cakephp는 좀 멈칫하는 것이 느껴진다. 전처리저장소(Caching) 기능을 쓰면 낫긴 하지만, 여러 단계를 거치는 과정 자체가 좀 느리다. Django와 비교하면 많이 답답하다. 둘 다 Fast-cgi 로 돌렸는데 화면 반응은 확실히 Django가 빠르다.</p>
 <p>요즘이야 컴퓨터 부품 값이 워낙 싸서 좀 된다 싶은 서비스라면 저렴하게 웹 서버 여러 대 열면 어느 정도 속도는 보장 될테고, 어느 정도 안정된 반응 속도만 보여준다면, 그러니까 아주 빠르지도 않지만 그렇다고 아주 느려지는 현상도 별로 없는 일정함만 보장된다면 대형 서비스에선 아주 빠른 속도가 꼭 필요하지 않을 수는 있다. 즉, Cakephp가 살짝 느린 응답을 보인다고 해서 속상해 할 일은 없다고 본다. 게다가 슬쩍 보건데 Cakephp가 Rails 보다는 빠른 것 같다. 이 정도면 좋지 뭐.</p>
 <hr />
-<p>아마 요즘 회사에서 하는 일 중 내 역할이 끝나면 난 다시 Cakephp를 만질 일은 없을테고(php 자체를 별로 좋아하지 않으니까), Turbogears가 마음에 든다면 Django도 다시 건드리진 않을 것 같다. 둘 다 괜찮은 프레임워크이긴 하지만, 이리 저리 써보니 내 성향에 꼭 들어 맞진 않는다. 웹 개발을 주업이 아닌 취미로 해서 내가 이놈들을 내 입맛에 맞게 고쳐가며 쓰는 상황을 애써 피하려다 보니 입맛에 안맞으면 안쓰게 된다. 현재까지는 그래도 Django가 가장 낫긴 하지만 말이다. :) (내가 다중 DB 접속 기능을 쓸만큼 규모가 큰 웹 서비스를 개발할 일은 없으니까)</p></p>
+
+<p>아마 요즘 회사에서 하는 일 중 내 역할이 끝나면 난 다시 Cakephp를 만질 일은 없을테고(php 자체를 별로 좋아하지 않으니까), Turbogears가 마음에 든다면 Django도 다시 건드리진 않을 것 같다. 둘 다 괜찮은 프레임워크이긴 하지만, 이리 저리 써보니 내 성향에 꼭 들어 맞진 않는다. 웹 개발을 주업이 아닌 취미로 해서 내가 이놈들을 내 입맛에 맞게 고쳐가며 쓰는 상황을 애써 피하려다 보니 입맛에 안맞으면 안쓰게 된다. 현재까지는 그래도 Django가 가장 낫긴 하지만 말이다. :) (내가 다중 DB 접속 기능을 쓸만큼 규모가 큰 웹 서비스를 개발할 일은 없으니까)</p>
 
   </div>
   <hr class="post-parting-line" />
@@ -164,9 +164,7 @@
 
     <p>기록 차원에서 간단하게 적어두기.<br />
 아래 코드들은 CJKCodec 이 설치된 python 2.4부터 가능하며, 전부 unicode(utf-8)로 처리된다. 만약, CJKCodec이 안깔려있다면 <a href="http://cjkpython.berlios.de/index-ko.html">CJKPython</a>에서 받아서 깔면 된다.</p>
-
 <h3>1. 글자 종류 알아내기</h3>
-
 <blockquote><p>* 코드</p>
 <pre>
 # -*- coding:utf-8 -*-
@@ -177,15 +175,12 @@ str = u'가'
 print name(str)[:6]
 </pre>
 </blockquote>
-
 <blockquote><p>* 실행 결과</p>
 <pre>
->>> HANGUL
+&gt;&gt;&gt; HANGUL
 </pre>
 </blockquote>
-
 <h3>2. 한글을 음소로 나누기</h3>
-
 <blockquote><p>* 코드</p>
 <pre>
 # -*- coding:utf-8 -*-
@@ -196,15 +191,12 @@ str = u'안'
 print hangul.split(str)
 </pre>
 </blockquote>
-
 <blockquote><p>* 실행 결과</p>
 <pre>
->>> (u'u3147', u'u314f', u'u3134')
+&gt;&gt;&gt; (u'u3147', u'u314f', u'u3134')
 </pre>
 </blockquote>
-
 <h3>3. 종성(끝소리) 있는지 확인</h3>
-
 <blockquote><p>* 코드</p>
 <pre>
 # -*- coding:utf-8 -*-
@@ -218,15 +210,12 @@ else:
     print 0
 </pre>
 </blockquote>
-
 <blockquote><p>* 실행 결과</p>
 <pre>
->>> 1
+&gt;&gt;&gt; 1
 </pre>
 </blockquote>
-
 <h3>4. 초성만 뽑아내기</h3>
-
 <blockquote><p>* 코드</p>
 <pre>
 # -*- coding:utf-8 -*-
@@ -240,13 +229,11 @@ for ch in str:
         a.append(hangul.split(ch)[0])
 </pre>
 </blockquote>
-
 <blockquote><p>* 실행 결과</p>
 <pre>
->>> ['ㅇ','ㄴ','ㅎ','ㅅ','ㅇ']
+&gt;&gt;&gt; ['ㅇ','ㄴ','ㅎ','ㅅ','ㅇ']
 </pre>
 </blockquote>
-
 <p>중성만 뽑아내려면 <strong>hangul.split(ch)[0]</strong>을 <strong>hangul.split(ch)[1]</strong>, 종성은 <strong>hangul.split(ch)[2]</strong>이라고 하면 된다.</p>
 
   </div>

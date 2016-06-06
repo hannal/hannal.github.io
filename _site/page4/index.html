@@ -123,133 +123,163 @@
     <span class="post-date">28 Jun 2015</span>
 
     <ul>
-<li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
-<li>마지막 갱신일시 : 2015년 6월 28일 1시 20분</li>
+  <li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
+  <li>마지막 갱신일시 : 2015년 6월 28일 1시 20분</li>
 </ul>
 
 <p>지난 편에서는 Django 이용자 인증 체계을 알아봤으니 이번 편에서는 인증 기능을 이용하여 로그인한 이용자만 사진 게시물을 게시하는 기능을 만들어 보겠습니다.</p>
 
-<h3>1. 사진 게시물에 이용자 정보 연결</h3>
+<h3 id="section">1. 사진 게시물에 이용자 정보 연결</h3>
 
-<h4>(1) 기본키 (Primary Key)</h4>
+<h4 id="primary-key">(1) 기본키 (Primary Key)</h4>
 
-<p>로그인한 이용자만 사진 게시물을 게시한다면 각 사진 게시물엔 사진을 게시한 이용자 정보를 담아야 합니다. 누가 게시한 사진인지 알아야 하니까요. 이용자 ID(<code>username</code>)을 문자열로 담아도 되지만, 대개는 고유하며 변하지 않을 정보인 기본키(Primary Key)를 담습니다. </p>
+<p>로그인한 이용자만 사진 게시물을 게시한다면 각 사진 게시물엔 사진을 게시한 이용자 정보를 담아야 합니다. 누가 게시한 사진인지 알아야 하니까요. 이용자 ID(<code>username</code>)을 문자열로 담아도 되지만, 대개는 고유하며 변하지 않을 정보인 기본키(Primary Key)를 담습니다.</p>
 
 <p>이용자가 따로 기본키 역할을 하는 모델 필드를 지정하지 않으면 Django는 관례대로 <code>id</code>라는 모델 필드를 알아서 만들고 이를 기본키로 사용합니다. 사진 모델인 <code>Photo</code>로 사진 게시물 데이터를 <code>photo01</code>이라는 인스턴스 객체로 할당하면 이 객체엔 <code>id</code>라는 멤버 변수가 속성으로 존재하고 이 속성에 정수(<code>int</code>) 값이 할당되어 있습니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&gt;&gt;&gt; photo01 = Photo.objects.last()
+
+<p><code>
+&gt;&gt;&gt; photo01 = Photo.objects.last()
 &gt;&gt;&gt; print(photo01.id)
-</code></pre></div>
+</code></p>
+
 <p>모델의 인스턴스 객체엔 <code>pk</code> 속성도 존재하는데, 이 속성은 기본키를 가리키고 있습니다. 이용자가 <code>id</code> 모델 필드를 기본키로 하지 않고 <code>uuid</code>라는 모델 필드를 만들어 이 필드를 기본키로 지정하면 <code>pk</code>는 이 모델 필드를 가리킵니다. 우리는 각 모델의 기본키로 설정된 모델 필드의 이름이 무엇인지 신경쓰지 않고 <code>pk</code> 속성을 사용하면 됩니다.</p>
 
-<h4>(2) 모델 관계 필드 (relationship fields)</h4>
+<h4 id="relationship-fields">(2) 모델 관계 필드 (relationship fields)</h4>
 
 <p><code>Photo</code> 모델로 데이터베이스에 저장할 데이터에 이용자 모델의 기본키 값을 저장하려면 다음과 같이 하면 됩니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class Photo(models.Model):
-    user_id = models.IntegerField()
-</code></pre></div>
-<p>그런 뒤에 <code>Photo</code> 모델로 데이터를 저장하는 과정에서 이용자의 기본키 값을 <code>user_id</code>에 할당하면 됩니다. 각 게시물을 게시한 이용자가 누구인지 아니까 각 사진 게시물 정보를 가져오면서 이용자 정보도 함께 가져오면 좋겠군요.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">from django.contrib.auth import get_user_model
-User = get_user_model()
 
+<p><code>
 class Photo(models.Model):
+    user_id = models.IntegerField()
+</code></p>
+
+<p>그런 뒤에 <code>Photo</code> 모델로 데이터를 저장하는 과정에서 이용자의 기본키 값을 <code>user_id</code>에 할당하면 됩니다. 각 게시물을 게시한 이용자가 누구인지 아니까 각 사진 게시물 정보를 가져오면서 이용자 정보도 함께 가져오면 좋겠군요.</p>
+
+<p>```
+from django.contrib.auth import get_user_model
+User = get_user_model()</p>
+
+<p>class Photo(models.Model):
     # 중략
     def get_user(self):
         return User.objects.get(pk=self.user_id)
-</code></pre></div>
+```</p>
+
 <p>이 코드들엔 문제가 있습니다. 모델의 기본키 모델 필드가 <code>IntegerField</code>가 아닌 경우에 제대로 대응하지 못하고, <code>get_user()</code> 메서드를 호출할 때마다 매번 이용자 모델에서 이용자 데이터를 탐색해 반환하며, 이용자 모델과 연결하는 모델마다 매번 저런 구현을 중복 적용해야 합니다. 이런 문제들에 대응하는 구현체를 만들어야 하는데, Django는 <a href="https://docs.djangoproject.com/en/1.8/ref/models/fields/#module-django.db.models.fields.related">관계 모델 필드</a>로 제공합니다. 총 세 종류입니다.</p>
 
 <ul>
-<li><code>ForeignKey</code> : 1 대 다(1 to n) 관계</li>
-<li><code>OneToOneField</code> : 1 대 1 관계</li>
-<li><code>ManyToManyField</code> : 다 대 다(n to n) 관계</li>
+  <li><code>ForeignKey</code> : 1 대 다(1 to n) 관계</li>
+  <li><code>OneToOneField</code> : 1 대 1 관계</li>
+  <li><code>ManyToManyField</code> : 다 대 다(n to n) 관계</li>
 </ul>
 
 <p>이용자와 사진 게시물 관계로 세 관계 필드를 살펴 보겠습니다. <code>OneToOneField</code>는 이용자는 오직 사진 게시물을 하나만 게시하고 소유합니다. <code>ManyToManyField</code>는 이용자가 사진 게시물을 여러 개 올릴 수 있는데, 각 사진 게시물을 여러 이용자가 소유하는 게 가능합니다. 1번 사진을 Hannal 이용자 뿐만 아니라 Kay, Yuna 이용자가 소유하는 관계가 맺어지므로 소유한 누구나 사진 게시물을 변경하거나 지울 수 있습니다. 마지막으로 <code>ForeignKey</code>는 한 이용자가 여러 사진 게시물을 게시하고 소유하는 관계입니다. 우리에게 필요한 모델 관계군요. <code>ForeignKey</code>에 대한 건 본 편 “2. <code>ForeignKey</code> 모델 필드”를 참고하시고, 연결부터 해보겠습니다.</p>
 
-<h4>(3) <code>Photo</code> 모델에 이용자 기본키 정보 연결하기</h4>
-<div class="highlight"><pre><code class="language-text" data-lang="text">from django.conf import settings
+<h4 id="photo-----">(3) <code>Photo</code> 모델에 이용자 기본키 정보 연결하기</h4>
 
-class Photo(models.Model):
+<p>```
+from django.conf import settings</p>
+
+<p>class Photo(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     # 후략
-</code></pre></div>
+```</p>
+
 <p><code>ForeignKey</code> 모델 필드(클래스)는 <code>django.db.models</code> 모듈에 있어서 다른 모델 필드처럼 <code>models</code> 객체에서 접근하여 사용하면 됩니다. 첫 번째 인자로 관계 지을 모델을 모델 객체나 경로를 문자열로 전달합니다. <code>settings</code>의 <code>AUTH_USER_MODEL</code> 설정 항목은 현재 프로젝트에서 사용하는 인증용 이용자 모델이 위치한 경로를 문자열로 지정하고 있습니다. <a href="http://blog.hannal.com/2015/06/start_with_django_webframework_08/">8. 로그인, 로그아웃 하기</a>편에서 이에 대한 내용을 참조하세요.</p>
 
-<h5>마이그레이션 수행</h5>
+<h5 id="section-1">마이그레이션 수행</h5>
 
 <p><code>Photo</code> 모델이 변경됐으니 데이터베이스에 반영해야 합니다. 마이그레이션을 수행합니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ python manage.py makemigrations photo
-You are trying to add a non-nullable field &#39;user&#39; to photo without a default;
-we can&#39;t do that (the database needs something to populate existing rows).
+
+<p><code>
+$ python manage.py makemigrations photo
+You are trying to add a non-nullable field 'user' to photo without a default;
+we can't do that (the database needs something to populate existing rows).
 Please select a fix:
  1) Provide a one-off default now (will be set on all existing rows)
  2) Quit, and let me add a default in models.py
 Select an option:
-</code></pre></div>
-<p>긴 영어 문장이 나오며 뭔가를 물어 보는데 당황하지 말고 내용을 잘 살펴 보세요. </p>
+</code></p>
+
+<p>긴 영어 문장이 나오며 뭔가를 물어 보는데 당황하지 말고 내용을 잘 살펴 보세요.</p>
 
 <ul>
-<li>당신은 Null(<code>None</code>)을 허용하지 않는(non-nullable) <code>user</code>라는 필드를 추가하려 하는데, 값이 주어지지 않는 경우에 기본으로 저장될 기본값(default)이 없다.</li>
-<li>데이터베이스가 기존에 저장된 데이터(populate existing rows)에 Null 외 값을 필요로 해서 우린(Django) 이 작업을 바로 수행하지 못한다.</li>
-<li>그러니 뭔가 조치를 취해달라.
-
-<ol>
-<li>이 자리에서 기본값을 제공해주든</li>
-<li>마이그레이션 수행 과정에서 빠져 나간 뒤에 <code>models.py</code>에 기본값 지정 인자(<code>default</code>)를 추가해달라.</li>
-</ol></li>
+  <li>당신은 Null(<code>None</code>)을 허용하지 않는(non-nullable) <code>user</code>라는 필드를 추가하려 하는데, 값이 주어지지 않는 경우에 기본으로 저장될 기본값(default)이 없다.</li>
+  <li>데이터베이스가 기존에 저장된 데이터(populate existing rows)에 Null 외 값을 필요로 해서 우린(Django) 이 작업을 바로 수행하지 못한다.</li>
+  <li>그러니 뭔가 조치를 취해달라.
+    <ol>
+      <li>이 자리에서 기본값을 제공해주든</li>
+      <li>마이그레이션 수행 과정에서 빠져 나간 뒤에 <code>models.py</code>에 기본값 지정 인자(<code>default</code>)를 추가해달라.</li>
+    </ol>
+  </li>
 </ul>
 
 <p>그 자리에서 기본값을 제공해줄테니 <code>1</code>을 입력합니다. Django가 뭔가를 요구하네요.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">Please enter the default value now, as valid Python
+
+<p><code>
+Please enter the default value now, as valid Python
 The datetime module is available, so you can do e.g. datetime.date.today()
 &gt;&gt;&gt; 
-</code></pre></div>
+</code></p>
+
 <p>기본값으로 유효한 Python의 객체를 입력하라는 말입니다. 일단 <code>1</code>을 입력합니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">Migrations for &#39;photo&#39;:
+
+<p><code>
+Migrations for 'photo':
   0006_photo_user.py:
     - Add field user to photo
-</code></pre></div>
+</code></p>
+
 <p>이제야 마이그레이션 수행에 필요한 마이그레이션 작업 파일이 만들어 졌습니다. 두 번째 입력한 <code>1</code>은 이용자 모델의 기본키 값이 <code>1</code>을 뜻합니다. 기존에 저장한 사진 게시물의 이용자를 기본키 값이 <code>1</code>인 이용자로 지정한 것입니다. 만약, 기존에 소유자가 없는 사진 게시물을 위해 별도 이용자를 만들어서 연결하고자 한다면, 그 이용자를 만들어서 그 이용자의 기본키 숫자값을 지정하면 됩니다.</p>
 
 <p>왜 기본키 값을 넣는지 첫 번째 이유는 앞서 설명을 하였고, 두 번째 이유는 “(2) ForeignKey 모델 필드”에서 설명하겠습니다.</p>
 
 <p>이제 <code>makemigrations</code> 명령어로 만든 마이그레이션 작업 내용을 데이터베이스에 반영합니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ python manage.py migrate photo
+
+<p><code>
+$ python manage.py migrate photo
 Operations to perform:
   Apply all migrations: photo
 Running migrations:
   Applying photo.0006_photo_user... OK
-</code></pre></div>
-<h3>2. 로그인한 이용자만 사진 게시물 게시하기</h3>
+</code></p>
+
+<h3 id="section-2">2. 로그인한 이용자만 사진 게시물 게시하기</h3>
 
 <p><code>Photo</code> 모델에 이용자 모델 연결을 마쳤으니 이번엔 사진 게시물을 저장하는 과정에 로그인한 이용자 정보를 적용하겠습니다. 간단히 말해서 로그인한 이용자만 사진 게시물을 게시하는 것이지요.</p>
 
-<h4>(1) 현재 이용자를 사진 게시물에 적용</h4>
+<h4 id="section-3">(1) 현재 이용자를 사진 게시물에 적용</h4>
 
 <p>현재 웹 서비스에 연결된(requested) 접속 정보는 <code>request</code> 객체에 담겨 있습니다. <code>request</code>는 뷰(view) 함수가 첫 번째 인자로 전달받는 객체입니다. 개별 사진을 보는 <code>single_photo</code> 뷰 함수는 <code>def single_photo(request, photo_id):</code>와 같이, 사진 게시물을 새로 저장하는 <code>new_photo</code> 뷰 함수는 <code>def new_photo(request):</code>와 같이 첫 번째 인자로 <code>request</code>를 전달 받습니다.</p>
 
 <p><code>reuqest</code> 객체엔 <code>user</code> 속성이 존재하는데, 이 속성은 접속한 이용자에 정보가 담겨 있습니다. 로그인한 이용자라면 이용자 모델 클래스로 생성한 인스턴스 객체가, 로그인하지 않은 이용자라면 <code>AnonymousUser</code> 모델 클래스로 생성한 인스턴스 객체가 할당됩니다. 먼저 코드부터 작성해 보겠습니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">def new_photo(request):
-    if request.method == &quot;GET&quot;:
+
+<p>```
+def new_photo(request):
+    if request.method == “GET”:
         edit_form = PhotoEditForm()
-    elif request.method == &quot;POST&quot;:
-        edit_form = PhotoEditForm(request.POST, request.FILES)
+    elif request.method == “POST”:
+        edit_form = PhotoEditForm(request.POST, request.FILES)</p>
 
-        if edit_form.is_valid():
-            new_photo = edit_form.save(commit=False)
-            new_photo.user = request.user
-            new_photo.save()
+<pre><code>    if edit_form.is_valid():
+        new_photo = edit_form.save(commit=False)
+        new_photo.user = request.user
+        new_photo.save()
 
-            return redirect(new_photo.get_absolute_url())
+        return redirect(new_photo.get_absolute_url())
 
-    # 후략
-</code></pre></div>
-<p>한 줄은 조금 바뀌었고, 두 줄이 추가됐습니다. </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">if edit_form.is_valid():
+# 후략 ```
+</code></pre>
+
+<p>한 줄은 조금 바뀌었고, 두 줄이 추가됐습니다.</p>
+
+<p><code>
+if edit_form.is_valid():
     new_photo = edit_form.save(commit=False)
     new_photo.user = request.user
     new_photo.save()
-</code></pre></div>
+</code></p>
+
 <p>두 번째 줄 <code>new_photo = edit_form.save(commit=False)</code>에서 <code>edit_form</code> 객체는 사진 게시물 생성과 관련된 폼(Form)인 <code>PhotoEditForm</code> 폼 클래스입니다. 첫 번째 줄에서 <code>is_valid()</code>로 웹에서 전달받은 자료를 검증한 그 객체입니다. 이 객체가 모델 폼인 경우, 그러니까 <code>ModelForm</code> 클래스를 상속받아 만든 폼인 경우 <code>save()</code> 인스턴스 메서드를 포함하고 있는데, 이 메서드는 모델의 <code>save()</code> 메서드와 동일한 역할을 합니다. 데이터를 모델에 연결된 데이터베이스 테이블에 저장하는 것이지요. 모델의 <code>save()</code> 메서드와 마찬가지로 저장한 내용이 반영된 모델의 인스턴스 객체를 반환합니다. 즉, <code>edit_form.save()</code>로부터 반환받은 객체를 할당한 <code>new_photo</code>는 폼과 관련된 객체가 아니라 <code>PhotoEditForm</code> 모델 폼 클래스에 연결되어 있는 <code>Photo</code> 모델로 생성한 인스턴스 객체입니다.</p>
 
 <p><code>save()</code> 메서드에 인자로 전달한 <code>commit</code>은 실제로 데이터베이스에 반영할 것인지 여부를 정합니다. <code>True</code>를 전달하면 바로 데이터베이스에 저장하고, <code>False</code>라고 하면 모델 클래스로 생성한 인스턴스 객체만 반영하고 데이터베이스에 실제로 반영하진 않습니다. 따로 반영 여부를 정해주지 않으면 기본값은 <code>True</code>이어서 바로 데이터베이스에 반영합니다. 데이터베이스에 저장하지 않을 거면서 뭐하러 <code>save()</code> 메서드를 호출했으며, <code>save()</code> 메서드엔 실제로 반영할 것인지 여부를 정하는 <code>commit</code> 인자가 필요한 이유는 무엇일까요? 답은 그 바로 다음에 나오는 두 줄에 있습니다.</p>
@@ -258,13 +288,16 @@ Running migrations:
 
 <p>만약, <code>edit_form.save()</code>나 <code>edit_form.save(commit=True)</code>처럼 바로 데이터베이스에 반영하려고 하면 <code>IntegrityError</code> 예외 오류가 발생하며, <code>NOT NULL constraint failed: photo_photo.user_id</code>라 안내 받습니다.</p>
 
-<p><img src="/assets/uploads/2015/06/09-IntegrityError.png" alt=""></p>
+<p><img src="/assets/uploads/2015/06/09-IntegrityError.png" alt="" /></p>
 
 <p>겁먹지 말고 오류 안내말을 잘 보세요. 정확히 이해하지 않은 채 추측만 하려는 태도는 안 좋지만, 여러분은 이 강좌 나머지 내용을 그냥 건너뛰지 않을테니 예외 오류 내용을 보고 상황을 추측해 보겠습니다. <code>NOT NULL</code>, <code>failed</code>, <code>photo_photo.user_id</code> 이 세 가지 표현이 눈에 들어오지요? “photo”가 두 번 반복된 <code>photo_photo</code>는 <code>Photo</code> 모델과 연관되어 보이고, <code>user_id</code>는 우리가 만든 적이 없지만 <code>user</code> 모델 필드와 관련되어 보입니다. <code>Photo</code> 모델의 <code>user</code> 모델 필드에 <code>NOT NULL</code>과 관련된 문제가 발생하여 진행하던 작업(<code>save()</code>)이 실패했다는 뜻이군요. <code>NOT NULL</code>은 <code>NULL</code>이면 안 된다는 의미니까 <code>Photo</code> 모델의 <code>user</code> 모델 필드에 <code>NULL</code>이 들어가서 오류가 생긴 겁니다.</p>
 
 <p>웹페이지의 폼 양식에서 이용자 모델의 기본키 값을 직접 전달하면 안 됩니다. 예를 들어, <code>hannal</code> 이용자의 기본키 값이 <code>1023</code>이고 이 값을 웹 폼 양식에서 <code>user_id</code>로 담아서 서버로 전달한다면, 이용자는 기본키 값 숫자를 고쳐서 마치 다른 이용자가 사진 게시물을 올린 것처럼 왜곡할지도 모릅니다. 이런 정보는 서버에서 알아내서 다뤄야 합니다. 그게 <code>request.user</code>입니다. 아하, <code>request.user</code>를 <code>PhotoEditForm</code> 폼 클래스에 전달하면 되겠구나.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">edit_form = PhotoEditForm(request.POST, request.FILES, request.user)
-</code></pre></div>
+
+<p><code>
+edit_form = PhotoEditForm(request.POST, request.FILES, request.user)
+</code></p>
+
 <p><code>request.POST</code>처럼.</p>
 
 <p>아닙니다. 그렇게 알아서 동작(magic behaviour)해주지 않고, 그래서도 안 됩니다. 추측해야 하는 코드와 기능은 좋지 않다고 봅니다. 이용자 정보가 필요한 폼 클래스라면 이용자 정보를 따로 전달받도록 처리해야 합니다. Python 클래스는 실행 가능한(callable) 객체이므로 함수처럼 소괄호를 사용하여 실행하고 실행 결과로 인스턴스 객체를 반환 받는데, 인스턴스 초기화를 수행하는 메서드가 <code>__init__()</code>입니다. 이용자 정보인 <code>request.user</code>를 인자로 전달 받는 <code>__init__()</code> 메서드를 <code>PhotoEditForm</code> 폼 클래스에 만들면 됩니다. 이건 Class based view를 다룰 때 살펴보기로 하고, 이번 편에서는 <code>save()</code> 메서드에 <code>commit</code> 인자를 <code>False</code>로 전달하여 처리합니다.</p>
@@ -275,44 +308,50 @@ Running migrations:
 
 <p>이제 로그인한 이용자 정보가 사진 게시물에 반영되어 저장됩니다.</p>
 
-<h4>(2) <code>new_photo</code> 뷰 함수에 로그인한 이용자만 접근하도록 제한</h4>
+<h4 id="newphoto------">(2) <code>new_photo</code> 뷰 함수에 로그인한 이용자만 접근하도록 제한</h4>
 
 <p>로그인하지 않은 이용자가 사진 게시물을 저장하려 하면 오류가 발생할 겁니다. 로그인하지 않은 이용자는 이용자 모델로 생성한 인스턴스 객체에 기본키 값이 없을테니 <code>IntegrityError</code> 예외 오류가 발생할 것 같습니다. 이렇게 예상하셨다면 훌륭합니다. 한 번 시도해보세요.</p>
 
-<p><img src="/assets/uploads/2015/06/09-anonymous_user_exception.png" alt=""></p>
+<p><img src="/assets/uploads/2015/06/09-anonymous_user_exception.png" alt="" /></p>
 
 <p>실제로 발생하는 예외는 <code>ValueError</code>가 발생하며, 안내말은 <code>User</code> 모델 클래스로 만든 인스턴스여야 한다는 내용입니다. 앞서 설명드린 바와 같이 로그인하지 않은 경우 <code>request.user</code>엔 <code>AnonymousUser</code> 모델 클래스로 생성한 인스턴스 객체가 할당되어 있습니다. <code>django.contrib.auth.models</code>에 있는데, 코드를 보면 아시겠지만 껍데기 역할을 할 뿐입니다.</p>
 
 <p>로그인한 이용자인지 여부는 <code>request.user</code>의 <code>is_authenticated()</code> 메서드를 실행하면 <code>bool</code> 객체를 반환받아 구분합니다. <code>True</code>이면 로그인한 이용자, <code>False</code>이면 로그인하지 않은 이용자입니다. 코드도 아주 간단합니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">from django.conf import settings
 
-def new_photo(request):
+<p>```
+from django.conf import settings</p>
+
+<p>def new_photo(request):
     if not request.user.is_authenticated():
         return redirect(settings.LOGIN_URL)
     # 후략
-</code></pre></div>
+```</p>
+
 <p>로그인하지 않은 이용자가 <code>new_photo</code> 뷰 함수로 접근하면 <code>settings.LOGIN_URL</code>에 지정되어 있는 URL로 이동(redirect) 시킵니다. <code>LOGIN_URL</code>은 <code>global_settings</code>에 <code>/accounts/login/</code>으로 기본 지정되어 있습니다.</p>
 
 <p><code>@login_required</code> 장식자(decorator)를 사용하면 더 명확하고 간결합니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">from django.contrib.auth.decorators import login_required
 
-@login_required
+<p>```
+from django.contrib.auth.decorators import login_required</p>
+
+<p>@login_required
 def new_photo(request):
     # 후략
-</code></pre></div>
-<p><img src="/assets/uploads/2015/06/09-login_required.png" alt=""></p>
+```</p>
+
+<p><img src="/assets/uploads/2015/06/09-login_required.png" alt="" /></p>
 
 <p>더 친절하게도 로그인한 후 이동할 도착지도 <code>next</code> 인자로 지정됩니다. 로그인 주소를 <code>settings.LOGIN_URL</code>에 따로 지정해주면 자동으로 변경한 주소로 이동해 줍니다.</p>
 
-<h3>3. 모델 관계에 더 자세히 알아보기</h3>
+<h3 id="section-4">3. 모델 관계에 더 자세히 알아보기</h3>
 
 <p>우리는 이용자 모델을 <code>Photo</code> 모델의 <code>user</code> 모델 필드에 <code>ForeignKey</code> 관계로 연결했습니다. 그리고 <code>user</code> 모델 필드에 이용자 모델로 생성한 인스턴스 객체(<code>request.user</code>)를 할당하지 않자 <code>photo_photo.user_id</code>에 NULL을 저장하려 해서 저장하지 못했다는 예외 오류도 접했습니다. 이 중에서 <code>user_id</code> 정체를 살펴 보겠습니다.</p>
 
-<h4>(1) ForeignKey 모델 필드</h4>
+<h4 id="foreignkey--">(1) ForeignKey 모델 필드</h4>
 
 <p><code>ForeignKey</code>, 그러니까 Many to one 관계는 “One”쪽에 “Many”쪽 데이터 여러 개가 연결되는 구조입니다.</p>
 
-<p><img src="/assets/uploads/2015/06/09-ManyToOne.png" alt=""></p>
+<p><img src="/assets/uploads/2015/06/09-ManyToOne.png" alt="" /></p>
 
 <p>한 이용자가 여러 게시물을 남기거나, 한 글갈래(category)에 여러 글이 속하는 관계입니다. Django 모델로는 <code>ForeignKey</code> 모델 필드로 모델 클래스를 지정한 것인데, 이 관계 정보를 데이터베이스엔 어떻게 저장할까요?</p>
 
@@ -326,84 +365,100 @@ def new_photo(request):
 
 <p>기본키는 관례에 따라 <code>id</code>라는 모델 필드가 되며, 모델 필드는 데이터베이스 테이블 컬럼과 이름이 같으므로 테이블 컬럼도 <code>id</code>입니다. <code>Photo</code> 모델의 <code>user</code> 모델 필드는 이용자 모델을 Many to one으로 가리키는데, 이용자 모델의 기본키인 모델 필드도 <code>id</code>입니다. <code>Photo</code> 모델 데이터가 Many쪽이고 이용자 모델이 One쪽이므로, <code>Photo</code> 모델의 <code>user</code> 모델 필드는 이용자 모델 필드의 기본키 모델 필드인 <code>id</code> 이름을 덧붙여서 <code>user_id</code>가 됩니다.</p>
 
-<p><img src="/assets/uploads/2015/06/09-foreign_key_db_table_schema.png" alt=""></p>
+<p><img src="/assets/uploads/2015/06/09-foreign_key_db_table_schema.png" alt="" /></p>
 
 <p>만약 기본키 모델 필드 이름이 <code>id</code>가 아니라 <code>uid</code>라면 <code>_uid</code>가 덧붙게 됩니다. Django는 이 데이터베이스 컬럼 값을 참조하여 서로 분리된 모델의 데이터 연결 관계를 알아냅니다.</p>
 
-<h4>(2) 모델 관계를 나중에 맺기 (lazy relation)</h4>
+<h4 id="lazy-relation">(2) 모델 관계를 나중에 맺기 (lazy relation)</h4>
 
-<p>모델 관계를 맺을 대상 모델 클래스 객체를 직접 전달해도 됩니다. </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">from django.contrib.auth import get_user_model
-User = get_user_model()
+<p>모델 관계를 맺을 대상 모델 클래스 객체를 직접 전달해도 됩니다.</p>
 
-class Photo(models.Model):
+<p>```
+from django.contrib.auth import get_user_model
+User = get_user_model()</p>
+
+<p>class Photo(models.Model):
     user = models.ForeignKey(User)
     # 후략
-</code></pre></div>
+```</p>
+
 <p><code>models.ForeignKey(User)</code>는 <code>ForeignKey</code> 클래스에 <code>User</code>라는 객체를 첫 번째 인자로 전달하여 호출(call)하고, 모델 필드의 인스턴스 객체를 반환받아 <code>user</code>에 할당하는 것입니다. Python은 소스 파일 맨 윗 줄부터 아래로 실행하므로 저 구문을 실행하여 모델 필드를 만드는 시점에 실제로 존재하는 <code>User</code> 객체를 사용합니다.</p>
 
 <p>그렇다면 관계 맺을 모델이 있는 경로를 문자열로 담아 인자로 전달하는 경우는 언제일까요? 이용자 모델처럼 상황에 따라 연결할 모델이 바뀌는 경우가 있습니다. 지난 편에서 예를 든 것처럼 이용자 모델이 바꾸면 이 모델을 가져오는(<code>import</code>) 모든 코드에도 영향이 미칩니다. 그러나 <code>settings.AUTH_USER_MODEL</code>에 이용자 모델이 있는 위치를 지정하고, <code>AUTH_USER_MODEL</code> 내용을 참조하여 <code>get_user_model()</code> 함수로 이용자 모델을 가져오면 <a href="http://blog.dahlia.kr/post/103101756957">한 의도를 한 구현체로 정리</a>할 수 있지요.</p>
 
 <p>관계 맺을 대상 모델이 아직 만들어지기 전에 연결하려는 경우에도 문자열로 지정합니다. A 모델이(from) B 모델을(to) 관계를 맺는다면 다음과 같이 B 모델을 먼저 만들고 그 <strong>이후</strong>에 A 모델을 만들어야 합니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class B(models.Model):
-    pass
 
-class A(models.Model):
+<p>```
+class B(models.Model):
+    pass</p>
+
+<p>class A(models.Model):
     b = models.ForeignKey(B)
-</code></pre></div>
+```</p>
+
 <p>B 모델은 C 모델을 관계 맺는다면 C 모델을 B 모델에 앞서 만들어야 합니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class C(models.Model):
-    pass
 
-class B(models.Model):
-    c = models.ForeignKey(C)
+<p>```
+class C(models.Model):
+    pass</p>
 
-class A(models.Model):
+<p>class B(models.Model):
+    c = models.ForeignKey(C)</p>
+
+<p>class A(models.Model):
     b = models.ForeignKey(B)
-</code></pre></div>
-<p>그런데 C 모델은 A 모델에 관계를 지어야 한다고 가정하겠습니다. </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class C(models.Model):
-    a = models.ForeignKey(A)
+```</p>
 
-class B(models.Model):
-    c = models.ForeignKey(C)
+<p>그런데 C 모델은 A 모델에 관계를 지어야 한다고 가정하겠습니다.</p>
 
-class A(models.Model):
+<p>```
+class C(models.Model):
+    a = models.ForeignKey(A)</p>
+
+<p>class B(models.Model):
+    c = models.ForeignKey(C)</p>
+
+<p>class A(models.Model):
     b = models.ForeignKey(B)
-</code></pre></div>
+```</p>
+
 <p>문제가 생깁니다. C 모델이 만들어지는 시점에 A라는 객체가 존재하지 않기 때문이죠. A 모델을 C 모델 코드 위로 올리면 안 됩니다. A 모델이 만들어지는 시점에 B 모델이 없기 때문이지요. 이런 경우에, C 모델에서 A 모델을 문자열 인자로 전달하면 됩니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">class C(models.Model):
-    a = models.ForeignKey(&#39;A&#39;)
 
-class B(models.Model):
-    c = models.ForeignKey(C)
+<p>```
+class C(models.Model):
+    a = models.ForeignKey(‘A’)</p>
 
-class A(models.Model):
+<p>class B(models.Model):
+    c = models.ForeignKey(C)</p>
+
+<p>class A(models.Model):
     b = models.ForeignKey(B)
-</code></pre></div>
+```</p>
+
 <p>문자열로 관계 맺을 대상 모델을 지정하면 관계 맺을 대상 모델이 만들어졌다는 신호가 오기 전까지 관계를 맺지 않은 채 관계 맺는 연산을 지연시켜 놓습니다. 비유가 아니라 정말로 대상 모델 클래스(예 : <code>A</code> 모델)가 초기화 되면 모델 신호(<code>ModelSignal</code>)인 <code>class_prepared</code>를 일으키고(fire), 대상 모델을 바라보던 모델은(예 : <code>C</code> 모델) 이 신호을 받고선 비로소 실제 관계를 맺습니다.</p>
 
-<p>이런 연산 특성을 응용하여 관계 맺을 대상 모델로 자기 자신을 지정하는 것도 가능합니다. 순환 관계(recursive relationship)이라고 하는데, 문자열 <code>&#39;self&#39;</code>을 지정하면 됩니다. 추후에 기회가 닿으면 순환 관계 모델을 만들어 보겠습니다.</p>
+<p>이런 연산 특성을 응용하여 관계 맺을 대상 모델로 자기 자신을 지정하는 것도 가능합니다. 순환 관계(recursive relationship)이라고 하는데, 문자열 <code>'self'</code>을 지정하면 됩니다. 추후에 기회가 닿으면 순환 관계 모델을 만들어 보겠습니다.</p>
 
 <p>정리하면, 모델 관계 필드는 관계 맺을 대상을 세 가지 형태로 지정합니다.</p>
 
 <ul>
-<li>관계 지을 모델 클래스 객체를 직접 인자로 전달</li>
-<li>관계 지을 모델 클래스 객체가 있는 경로를 문자열로 전달
-
-<ul>
-<li>형식 : <code>Django앱이름.모델이름</code></li>
-</ul></li>
-<li>자기 자신을 가리키는 경우 <code>&#39;self&#39;</code> 문자열 전달</li>
+  <li>관계 지을 모델 클래스 객체를 직접 인자로 전달</li>
+  <li>관계 지을 모델 클래스 객체가 있는 경로를 문자열로 전달
+    <ul>
+      <li>형식 : <code>Django앱이름.모델이름</code></li>
+    </ul>
+  </li>
+  <li>자기 자신을 가리키는 경우 <code>'self'</code> 문자열 전달</li>
 </ul>
 
-<hr>
+<hr />
 
 <p>강좌 9편을 마칩니다. 그동안 강좌 연재 소식을 <a href="https://www.facebook.com/hello.kaycha">제 페이스북 개인 페이지</a>, <a href="https://www.facebook.com/groups/django/">Django 페이스북 그룹</a>, 제 페이스북 개인 계정, 제 트위터에서 알려 왔는데요. 10편부터는 제 페이스북 개인 페이지와 트위터에만 알릴 예정입니다. 제 블로그를 구독하지 않고 강좌 연재 소식을 보시려면 제 페이스북 개인 페이지나 트위터를 구독하시길 바랍니다. :)</p>
 
 <ul>
-<li><a href="https://github.com/hannal/start_with_django_webframework/tree/09-fullsource/pystagram">9편까지 진행한 전체 소스 코드</a></li>
+  <li><a href="https://github.com/hannal/start_with_django_webframework/tree/09-fullsource/pystagram">9편까지 진행한 전체 소스 코드</a></li>
 </ul>
+
 
   </div>
   <hr class="post-parting-line" />
@@ -418,100 +473,106 @@ class A(models.Model):
     <span class="post-date">07 Jun 2015</span>
 
     <ul>
-<li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
-<li>마지막 갱신일시 : 2015년 6월 7일 7시 19분</li>
+  <li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
+  <li>마지막 갱신일시 : 2015년 6월 7일 7시 19분</li>
 </ul>
 
 <p>이번 편에서는 Django 이용자 인증 체계을 알아보고, 이 인증 체계에서 로그인을 어떻게 처리하는지 살펴 보겠습니다.</p>
 
-<h3>1. Django 이용자 인증 체계</h3>
+<h3 id="django---">1. Django 이용자 인증 체계</h3>
 
 <p>Django 이용자 인증 체계는 크게 두 가지 요소로 구분합니다.</p>
 
 <ul>
-<li>인증 (Authentication)</li>
-<li>권한 (Authorization)</li>
+  <li>인증 (Authentication)</li>
+  <li>권한 (Authorization)</li>
 </ul>
 
-<p>인증은 “나 누구인데 확인 좀...”이라면 권한은 “나 이거 해도 돼요?”라 보면 됩니다. 누구인지 신원이 확인되지 않은 존재에게 권한을 세밀하게 부여하진 못합니다. 신원이 확인된, 즉, 인증된 이용자인지 아닌지로 구분하는 정도로 권한을 부여합니다. 그래서, 권한 체계를 비롯하여 이용자 인증 체계 자체는 인증(Authetication)을 바탕으로 합니다.</p>
+<p>인증은 “나 누구인데 확인 좀…”이라면 권한은 “나 이거 해도 돼요?”라 보면 됩니다. 누구인지 신원이 확인되지 않은 존재에게 권한을 세밀하게 부여하진 못합니다. 신원이 확인된, 즉, 인증된 이용자인지 아닌지로 구분하는 정도로 권한을 부여합니다. 그래서, 권한 체계를 비롯하여 이용자 인증 체계 자체는 인증(Authetication)을 바탕으로 합니다.</p>
 
-<h4>(1) Django 내장 인증 기능</h4>
+<h4 id="django----1">(1) Django 내장 인증 기능</h4>
 
 <p>Django는 이용자 인증 체계를 내장하고 있으며, 우리는 이미 이 기능을 사용해봤습니다. <a href="http://blog.hannal.com/2014/10/start_with_django_webframework_04/">4. Photo 모델로 Admin 영역에서 데이터 다루기</a> 편에서 최고 권한 이용자로 Admin 영역에 로그인하여 사진 게시물을 입력 했었거든요.</p>
 
-<p>Django에 내장된 인증 체계는 <code>django.contrib.auth</code>라는 경로(name space)인 Python 패키지에 모여 있으며, Django 개념으로는 Django App입니다. <code>settings.py</code> 파일에 있는 <code>INSTALLED_APPS</code> 설정 항목을 보면 <code>&#39;django.contrib.auth&#39;,</code>가 있는데, 우리가 만드는 Pystagram에 사용할 Django App에 Django 인증 체계가 앱 형태로 기본 내장되어 있는 것입니다.</p>
+<p>Django에 내장된 인증 체계는 <code>django.contrib.auth</code>라는 경로(name space)인 Python 패키지에 모여 있으며, Django 개념으로는 Django App입니다. <code>settings.py</code> 파일에 있는 <code>INSTALLED_APPS</code> 설정 항목을 보면 <code>'django.contrib.auth',</code>가 있는데, 우리가 만드는 Pystagram에 사용할 Django App에 Django 인증 체계가 앱 형태로 기본 내장되어 있는 것입니다.</p>
 
 <p>Django webframework으로 제품을 만든다면 Django 인증 체계를 사용하는 게 좋습니다. 오랜 기간 개발되어 보안 수준은 성숙하고 안전하며, 확장 가능하게 유연합니다. Django에서 제공하는 다른 여러 기능이 내장된 인증 기능 구조를 따르기 때문에 Django가 제공하는 기능을 유기성 있고 풍부하게 쓰기에도 Django 인증 체계를 쓰는 게 좋습니다.</p>
 
-<h4>(2) Django 내장 권한 기능</h4>
+<h4 id="django----2">(2) Django 내장 권한 기능</h4>
 
 <p>권한 검사 기능도 Django에 내장되어 있습니다. 뷰(View) 단위 행동(behaviour), 데이터 단위 행동에 권한을 부여하여 운용 가능하며, 권한을 그룹 단위로 묶어서(grouping) 이용자에게 지정하는 기능도 제공합니다. 자세한 내용은 권한 기능을 적용할 때 다루겠습니다.</p>
 
-<h3>2. 로그인 기능 구현</h3>
+<h3 id="section">2. 로그인 기능 구현</h3>
 
-<h4>(1) URL 패턴 추가</h4>
+<h4 id="url--">(1) URL 패턴 추가</h4>
 
 <p>Django에서 제공하는 인증 기능을 이용하여 로그인, 로그아웃 기능을 구현 하겠습니다. <code>settings.py</code> 파일이 있는 시작패키지에서 <code>urls.py</code> 파일을 열고, 다음 URL 패턴을 <code>urlpatterns</code>에 추가합니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">urlpatterns = patterns(
-    &#39;&#39;,
+
+<p><code>
+urlpatterns = patterns(
+    '',
     # 중략
     url(
-        r&#39;^accounts/login/&#39;,
-        &#39;django.contrib.auth.views.login&#39;,
-        name=&#39;login&#39;,
+        r'^accounts/login/',
+        'django.contrib.auth.views.login',
+        name='login',
         kwargs={
-            &#39;template_name&#39;: &#39;login.html&#39;
+            'template_name': 'login.html'
         }
     ),
     url(
-        r&#39;^accounts/logout/&#39;,
-        &#39;django.contrib.auth.views.logout&#39;,
-        name=&#39;logout&#39;
+        r'^accounts/logout/',
+        'django.contrib.auth.views.logout',
+        name='logout'
     ),
 )
-</code></pre></div>
-<p><code>r&#39;^accounts/login/&#39;</code>은 로그인 하는 URL이고, 로그인 화면을 출력하거나 로그인 인증 처리를 하는 뷰 함수는 Django에 내장된 <code>login</code> 뷰 함수를 사용합니다. 이 함수 객체는 <code>django.contrib.auth.views</code> 모듈에 존재합니다. 이 URL 패턴의 이름을 <code>name</code> 키워드 인자를 이용하여 <code>login</code>이라고 지었는데, 이 인자를 사용하지 않아도 무방합니다. <code>kwargs</code>는 URL 패턴에 연결한 뷰 함수에 추가로 전달할 인자를 사전형(<code>dict</code>) 객체로 전달합니다. 키가 <code>&#39;template_name&#39;</code>이고 값이 <code>&#39;login.html&#39;</code>인 사전형 객체인데, Django에서 제공하는 <code>login</code> 뷰 함수에 <code>template_name</code> 이름으로 키워드 인자를 지정하면 로그인 화면을 출력하는 데 사용할 템플릿으로 사용합니다. <code>&#39;login.html&#39;</code>이라는 문자열을 지정했으니 우리가 <code>settings.py</code>에서 <code>TEMPLATE_DIRS</code>에 지정한 템플릿 디렉터리 중 최상위 순위에 있는 <code>login.html</code> 파일을 찾아서 로그인 화면을 출력하는 데 사용합니다.</p>
+</code></p>
 
-<p><code>r&#39;^accounts/logout/&#39;</code>은 로그아웃 하는 URL이며, 로그아웃 기능 역시 로그인 기능과 마찬가지로 Django에 내장된 뷰 함수를 사용합니다.</p>
+<p><code>r'^accounts/login/'</code>은 로그인 하는 URL이고, 로그인 화면을 출력하거나 로그인 인증 처리를 하는 뷰 함수는 Django에 내장된 <code>login</code> 뷰 함수를 사용합니다. 이 함수 객체는 <code>django.contrib.auth.views</code> 모듈에 존재합니다. 이 URL 패턴의 이름을 <code>name</code> 키워드 인자를 이용하여 <code>login</code>이라고 지었는데, 이 인자를 사용하지 않아도 무방합니다. <code>kwargs</code>는 URL 패턴에 연결한 뷰 함수에 추가로 전달할 인자를 사전형(<code>dict</code>) 객체로 전달합니다. 키가 <code>'template_name'</code>이고 값이 <code>'login.html'</code>인 사전형 객체인데, Django에서 제공하는 <code>login</code> 뷰 함수에 <code>template_name</code> 이름으로 키워드 인자를 지정하면 로그인 화면을 출력하는 데 사용할 템플릿으로 사용합니다. <code>'login.html'</code>이라는 문자열을 지정했으니 우리가 <code>settings.py</code>에서 <code>TEMPLATE_DIRS</code>에 지정한 템플릿 디렉터리 중 최상위 순위에 있는 <code>login.html</code> 파일을 찾아서 로그인 화면을 출력하는 데 사용합니다.</p>
 
-<h4>(2) 로그인 템플릿 파일</h4>
+<p><code>r'^accounts/logout/'</code>은 로그아웃 하는 URL이며, 로그아웃 기능 역시 로그인 기능과 마찬가지로 Django에 내장된 뷰 함수를 사용합니다.</p>
+
+<h4 id="section-1">(2) 로그인 템플릿 파일</h4>
 
 <p>이번엔 로그인 화면에 사용할 <code>login.html</code> 템플릿 파일을 만듭니다. <code>templates</code> 디렉터리에 <code>login.html</code> 파일을 만들고 다음 내용을 담습니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">{% extends &quot;layout.html&quot; %}
 
-{% block content %}
+<p>```
+{% extends “layout.html” %}</p>
 
-{% if form.errors %}
-&lt;p&gt;ID나 비밀번호가 일치하지 않습니다.&lt;/p&gt;
-{% endif %}
+<p>{% block content %}</p>
 
-{% if next %}
+<p>{% if form.errors %}</p>
+<p>ID나 비밀번호가 일치하지 않습니다.</p>
+<p>{% endif %}</p>
+
+<p>{% if next %}
     {% if user.is_authenticated %}
     &lt;p&gt;권한이 없는 페이지에 접근하였으니, 권한이 있는 계정으로 로그인하세요.&lt;/p&gt;
     {% else %}
     &lt;p&gt;이 페이지를 보려면 로그인을 해야 합니다.&lt;/p&gt;
     {% endif %}
-{% endif %}
+{% endif %}</p>
 
-&lt;form method=&quot;post&quot; action=&quot;{% url &#39;login&#39; %}&quot;&gt;
+<form method="post" action="{% url 'login' %}">
 {% csrf_token %}
-&lt;table&gt;
-&lt;tr&gt;
-    &lt;td&gt;{{ form.username.label_tag }}&lt;/td&gt;
-    &lt;td&gt;{{ form.username }}&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td&gt;{{ form.password.label_tag }}&lt;/td&gt;
-    &lt;td&gt;{{ form.password }}&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
 
-&lt;input type=&quot;submit&quot; value=&quot;로그인&quot; /&gt;
-&lt;input type=&quot;hidden&quot; name=&quot;next&quot; value=&quot;{{ next }}&quot; /&gt;
-&lt;/form&gt;
+<input type="submit" value="로그인" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
 
-{% endblock %}
-</code></pre></div>
+<p>{% endblock %}
+```</p>
+
 <p>Django에서 견본으로 제공하는 <a href="https://docs.djangoproject.com/en/1.8/topics/auth/default/#django.contrib.auth.views.login">login.html 템플릿 파일</a>에서 따와서 약간 고쳤습니다. <code>form.errors</code>엔 입력한 폼 양식에 문제가 있는 경우에 문제 내용이 담겨 있습니다. ID(<code>username</code>)나 비밀번호를 입력하지 않거나 형식에 맞지 않는 등 여러 오류 종류가 있겠지만, 간결하게 ID와 비밀번호가 일치하지 않는다고만 안내합니다. 로그인에 대해서는 굳이 친절하게 뭐가 문제인지 자세히 알려줄 필요는 없습니다.</p>
 
 <p><code>{% if next %}</code>에서 <code>next</code>는 로그인을 한 후 이동할 URL을 뜻합니다. 예를 들어, 로그인을 하지 않은 채 사진에 달린 댓글을 삭제하려 하면 로그인하는 URL로 이동하고 로그인을 하고 나면 로그인하기 전에 접근하려는 URL으로 이동하는데, 이동할 URL이 GET이나 POST 방식으로 전달된 Query String 키인 <code>next</code>에 담깁니다. 대개는 URL이 <code>https://pystagram.com/accounts/login/?next=/redirect_to_here/</code>와 같이 표현됩니다.</p>
@@ -522,19 +583,19 @@ class A(models.Model):
 
 <p>이제 <code>http://localhost:8000/accounts/login/</code>에 접속하면 로그인 화면이 나옵니다. 잘못된 <code>username</code>과 <code>password</code>을 제출하면 이에 대한 안내도 나오고요.</p>
 
-<p><img src="/assets/uploads/2015/06/08-login_form_01.png" alt=""></p>
+<p><img src="/assets/uploads/2015/06/08-login_form_01.png" alt="" /></p>
 
-<p><img src="/assets/uploads/2015/06/08-login_form_02.png" alt=""></p>
+<p><img src="/assets/uploads/2015/06/08-login_form_02.png" alt="" /></p>
 
 <p>현재 구현한 로그인 기능으로 로그인을 하면 “Page not found” 오류를 만나게 됩니다. 이에 대해서는 곧 처리하겠습니다.</p>
 
-<p><img src="/assets/uploads/2015/06/08-404_after_login.png" alt=""></p>
+<p><img src="/assets/uploads/2015/06/08-404_after_login.png" alt="" /></p>
 
-<h3>3. 로그인 과정</h3>
+<h3 id="section-2">3. 로그인 과정</h3>
 
 <p>Django가 제공하는 로그인 뷰 함수가 어떤 과정을 거쳐 이용자 인증을 처리하는지 좀 더 살펴 보겠습니다. 이 부분을 몰라도 로그인 기능을 이용하는 데 문제 없습니다.</p>
 
-<h4>(1) Form 검증</h4>
+<h4 id="form-">(1) Form 검증</h4>
 
 <p>웹 페이지에서 폼 양식으로 넘어오는 값은 Form을 이용해 값을 검증합니다. Django는 로그인 절차에 <code>AuthenticationForm</code> 폼을 사용하며, 이 폼은 <code>django.contrib.auth.forms</code> 모듈에 있습니다. 이쯤되면 눈치 채셨을텐데, Django는 인증 관련 모델, 폼, 뷰, 미들웨어 등을 <code>django.contrib.auth</code> 패키지 안에 담아 놨습니다. 인증과 관련된 소스 코드를 보려면 이 패키지를 살펴 보시면 됩니다.</p>
 
@@ -544,121 +605,121 @@ class A(models.Model):
 
 <p>로그인 양식, 그러니까 로그인 하려고 제출한 <code>username</code>과 <code>password</code>에 정확히 일치하는 이용자를 찾는 과정은 <code>AuthenticationForm</code> 폼에서 이뤄집니다. 이 폼의 <code>clean()</code> 메서드에서 <code>username</code>과 <code>password</code> 내용을 토대로 <code>authenticate()</code> 함수를 이용해 인증을 시도합니다. 일치하는 이용자가 없으면 Form 오류를 일으키고, 우리는 “ID나 비밀번호가 일치하지 않습니다.”라는 안내를 화면에서 만납니다. 일치하는 이용자가 있으면 이 이용자 계정이 활성화 된 상태인지(<code>is_active</code>) 검사하는 걸로 폼 안에서 처리하는 인증 과정을 마칩니다.</p>
 
-<h4>(2) 인증 체계 기반으로 처리</h4>
+<h4 id="section-3">(2) 인증 체계 기반으로 처리</h4>
 
-<p><code>authenticate()</code> 함수는 <code>settings</code>의 <code>AUTHENTICATION_BACKENDS</code> 항목에 등록된 인증 체계 기반 클래스를 하나씩 가져와서 <code>authenticate()</code> 메서드를 호출하여 인증을 시도합니다. 우리가 <code>settings.py</code> 파일에 따로 이 항목을 설정하지 않아도 문제가 없는 건, Django에 기본으로 내장된 <code>global_settings.py</code>에 이 항목이 설정되어 있기 때문입니다. 이 항목에 있는 내용은 <code>&#39;django.contrib.auth.backends.ModelBackend&#39;</code> 이름영역인 클래스가 튜플 객체로 담겨 있습니다.</p>
+<p><code>authenticate()</code> 함수는 <code>settings</code>의 <code>AUTHENTICATION_BACKENDS</code> 항목에 등록된 인증 체계 기반 클래스를 하나씩 가져와서 <code>authenticate()</code> 메서드를 호출하여 인증을 시도합니다. 우리가 <code>settings.py</code> 파일에 따로 이 항목을 설정하지 않아도 문제가 없는 건, Django에 기본으로 내장된 <code>global_settings.py</code>에 이 항목이 설정되어 있기 때문입니다. 이 항목에 있는 내용은 <code>'django.contrib.auth.backends.ModelBackend'</code> 이름영역인 클래스가 튜플 객체로 담겨 있습니다.</p>
 
 <p>데이터베이스에서 <code>username</code>와 <code>password</code>로 이용자를 찾는 과정이 비로소 이 단계에서 이뤄집니다. 이용자 모델을 가져오고, 이 모델을 이용해 <code>username</code>으로 먼저 이용자 데이터를 가져오고, 이 이용자 데이터에 저장된 비밀번호와 이용자가 로그인하며 제출한 <code>password</code>를 비교합니다. 비밀번호까지 일치하면 해당 이용자 데이터, 그러니까 이용자 모델로 생성한 인스턴스 객체를 반환하고, 그렇지 않으면 <code>None</code>을 반환합니다.</p>
 
 <p><code>settings</code>의 <code>AUTHENTICATION_BACKENDS</code> 항목에 <code>django.contrib.auth.backends.ModelBackend</code>이 튜플에 담겨져 있다는 말은 다음 두 가지를 의미합니다.</p>
 
 <ol>
-<li>Django 인증 체계 기반(backend)을 꼭 사용하지 않아도 된다.</li>
-<li>인증 체계 기반을 여러 개 이상을 사용하는 게 가능하다.</li>
+  <li>Django 인증 체계 기반(backend)을 꼭 사용하지 않아도 된다.</li>
+  <li>인증 체계 기반을 여러 개 이상을 사용하는 게 가능하다.</li>
 </ol>
 
 <p>인증 체계 기반의 클래스 규칙대로 인터페이스를 만들기만 한다면 우리가 직접 만든 인증 체계를 사용하거나 Facebook, Twitter처럼 인증 API를 제공하는 서비스나 플랫폼을 기반으로 인증 체계를 운용해도 됩니다.</p>
 
-<h4>(3) 이용자 모델 가져오기</h4>
+<h4 id="section-4">(3) 이용자 모델 가져오기</h4>
 
 <p>인증 체계 기반을 Django에서 제공하는 기본 인증 <code>ModelBackend</code>를 다른 것으로 갈아끼우거나 추가한다면, 이용자 정보를 데이터베이스에서 다루는 이용자 모델도 대체하여 쓸 수 있습니다. Django에 내장된 이용자 모델은 <code>django.contrib.auth.models</code>에 <code>User</code> 모델 클래스입니다. 이 이용자 모델엔 모델 필드이 간결하게 담겨 있습니다.</p>
 
 <ul>
-<li><code>username</code> : 이용자 ID 역할. 다른 값과 중복되지 않는 고유한 값만 허용합니다(<code>unique=True</code>).</li>
-<li><code>password</code> : 비밀번호. <code>PasswordField</code> 모델 필드.</li>
-<li><code>first_name</code> : 성씨. <code>CharField</code> 모델 필드이며 생략 가능.</li>
-<li><code>last_name</code> : 이름. <code>CharField</code> 모델 필드이며 생략 가능.</li>
-<li><code>email</code> : 전자우편 주소. <code>EmailField</code> 모델 필드.</li>
-<li><code>is_staff</code> : 관리자 여부. <code>BooleanField</code> 모델 필드.</li>
-<li><code>is_active</code> : 활성화 된 계정인지 여부. <code>BooleanField</code> 모델 필드.</li>
+  <li><code>username</code> : 이용자 ID 역할. 다른 값과 중복되지 않는 고유한 값만 허용합니다(<code>unique=True</code>).</li>
+  <li><code>password</code> : 비밀번호. <code>PasswordField</code> 모델 필드.</li>
+  <li><code>first_name</code> : 성씨. <code>CharField</code> 모델 필드이며 생략 가능.</li>
+  <li><code>last_name</code> : 이름. <code>CharField</code> 모델 필드이며 생략 가능.</li>
+  <li><code>email</code> : 전자우편 주소. <code>EmailField</code> 모델 필드.</li>
+  <li><code>is_staff</code> : 관리자 여부. <code>BooleanField</code> 모델 필드.</li>
+  <li><code>is_active</code> : 활성화 된 계정인지 여부. <code>BooleanField</code> 모델 필드.</li>
 </ul>
 
 <p>이외에도 <code>is_superuser</code>나 <code>groups</code> 같은 모델 필드 몇 가지가 더 있지만, 이 모델 필드의 값을 직접 다룰 일은 드물고, 이 강좌 내용을 이해하시면 이런 모델 필드를 직접 찾아 다루는 건 어렵지 않으므로 이 강좌에선 다루지 않겠습니다.</p>
 
 <p>만약, 필명이나 사용하는 언어, 거주 지역처럼 정보를 추가로 이용자로부터 입력 받아 관리하려면 이용자 모델 클래스를 <strong>확장</strong>해야 합니다. Django에서 제공하는 이용자 모델을 변경해도 되지만, Django 소스 파일을 직접 고쳐서 쓰지 않는 게 좋습니다. Django 판을 올릴 때마다 직접 수정한 부분을 매번 챙겨야 하고, 연계되어 동작하는 다른 기능에 부작용을 일으킬 여지도 있습니다. 그래서 변경하지 않고 <strong>확장</strong>해야 합니다.</p>
 
-<p>확장하는 자세한 방법은 다른 편에서 따로 다루기로 하고<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup>, 여기에선 확장 방법 종류만 간단히 언급하겠습니다.</p>
+<p>확장하는 자세한 방법은 다른 편에서 따로 다루기로 하고<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>, 여기에선 확장 방법 종류만 간단히 언급하겠습니다.</p>
 
 <ol>
-<li>따로 이용자 모델을 만들고, Django의 이용자 모델에 연결(Model relationship).</li>
-<li>이용자 모델과 모델 매니저, 이용자 폼 등을 모두 구현하여 이용자 모델 부분을 대체.</li>
+  <li>따로 이용자 모델을 만들고, Django의 이용자 모델에 연결(Model relationship).</li>
+  <li>이용자 모델과 모델 매니저, 이용자 폼 등을 모두 구현하여 이용자 모델 부분을 대체.</li>
 </ol>
 
 <p>2번 방법에서 “모델 부분을 대체”한다는 표현을 눈 여겨 보세요. 일일이 Django 소스에서 이용자 모델 관련 부분, 가령, <code>django.contrib.auth.models.User</code>를 <code>pystagram_auth.models.User</code>와 같이 교체하는 건 아닙니다. <code>settings</code>의 <code>AUTH_USER_MODEL</code> 항목에 지정하기만 하면 됩니다.</p>
 
-<p>이 항목 역시 우리가 따로 설정한 적이 없는데, Django의 <code>global_settings</code>에 설정되어 있으며, 기본 값으로 <code>&#39;auth.User&#39;</code> 문자열이 할당되어 있습니다. <code>auth</code>는 Django 앱 이름(Python 패키지)이고, <code>User</code>는 모델 클래스 이름입니다. Python 이름영역(name space)으로 풀어 쓰면 <code>auth.models.User</code>인 셈입니다.</p>
+<p>이 항목 역시 우리가 따로 설정한 적이 없는데, Django의 <code>global_settings</code>에 설정되어 있으며, 기본 값으로 <code>'auth.User'</code> 문자열이 할당되어 있습니다. <code>auth</code>는 Django 앱 이름(Python 패키지)이고, <code>User</code>는 모델 클래스 이름입니다. Python 이름영역(name space)으로 풀어 쓰면 <code>auth.models.User</code>인 셈입니다.</p>
 
-<p><code>settings</code>의 <code>AUTH_USER_MODEL</code> 설정 항목을 참조하여 이용자 모델을 실제로 가져오는 역할은 <code>get_user_model()</code> 함수가 맡으며, <code>django.contrib.auth</code>에 있습니다. 이 함수를 이용하면 이용자 모델이 어떤 것으로 바뀌든 코드를 일관되게 유지하게 됩니다. <code>AUTH_USER_MODEL = &#39;auth.User&#39;</code>라고 설정하고 <code>get_user_model()</code> 함수를 실행하면 <code>auth.models.User</code>를 반환하고, <code>AUTH_USER_MODEL = &#39;pystagram_auth.MyUser&#39;</code>로 설정하고 실행하면 <code>pystagram_auth.models.MyUser</code>를 이용자 모델로 반환합니다. 그러므로 <code>get_user_model()</code> 함수로 이용자 모델을 가져오는 게 좋습니다.</p>
+<p><code>settings</code>의 <code>AUTH_USER_MODEL</code> 설정 항목을 참조하여 이용자 모델을 실제로 가져오는 역할은 <code>get_user_model()</code> 함수가 맡으며, <code>django.contrib.auth</code>에 있습니다. 이 함수를 이용하면 이용자 모델이 어떤 것으로 바뀌든 코드를 일관되게 유지하게 됩니다. <code>AUTH_USER_MODEL = 'auth.User'</code>라고 설정하고 <code>get_user_model()</code> 함수를 실행하면 <code>auth.models.User</code>를 반환하고, <code>AUTH_USER_MODEL = 'pystagram_auth.MyUser'</code>로 설정하고 실행하면 <code>pystagram_auth.models.MyUser</code>를 이용자 모델로 반환합니다. 그러므로 <code>get_user_model()</code> 함수로 이용자 모델을 가져오는 게 좋습니다.</p>
 
 <p>인증 체계 기반(backend)과는 달리 기본 이용자 모델은 하나만 가능합니다.</p>
 
-<h4>(4) 정리하면</h4>
+<h4 id="section-5">(4) 정리하면</h4>
 
 <p>로그인 과정을 정리하면 다음과 같습니다.</p>
 
 <ul>
-<li><code>django.contrib.auth.views.login</code>
-
-<ul>
-<li><code>django.contrib.auth.forms.AuthenticationForm</code>
-
-<ul>
-<li><code>django.contrib.auth.authenticate()</code>
-
-<ul>
-<li><code>settings.AUTHENTICATION_BACKENDS</code>에서 인증 기반 하나씩 가져옴</li>
-<li><code>django.contrib.auth.backends.ModelBackend</code>의 <code>authenticate()</code> 메서드로 인증 처리</li>
-</ul></li>
-</ul></li>
-<li><code>django.contrib.auth.auth_login</code> (정확히는 <code>django.contrib.auth.login</code>를 <code>auth_login</code>으로 import 한 것.)으로 인증 관련 세션 처리</li>
-</ul></li>
-<li>로그인 이후 이동할 URL로 이동 처리(redirect)</li>
+  <li><code>django.contrib.auth.views.login</code>
+    <ul>
+      <li><code>django.contrib.auth.forms.AuthenticationForm</code>
+        <ul>
+          <li><code>django.contrib.auth.authenticate()</code>
+            <ul>
+              <li><code>settings.AUTHENTICATION_BACKENDS</code>에서 인증 기반 하나씩 가져옴</li>
+              <li><code>django.contrib.auth.backends.ModelBackend</code>의 <code>authenticate()</code> 메서드로 인증 처리</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><code>django.contrib.auth.auth_login</code> (정확히는 <code>django.contrib.auth.login</code>를 <code>auth_login</code>으로 import 한 것.)으로 인증 관련 세션 처리</li>
+    </ul>
+  </li>
+  <li>로그인 이후 이동할 URL로 이동 처리(redirect)</li>
 </ul>
 
-<h3>4. 로그인 관련 설정 항목</h3>
+<h3 id="section-6">4. 로그인 관련 설정 항목</h3>
 
 <p><code>settings.py</code>에 설정하는 로그인 관련 항목이 몇 가지 있습니다.</p>
 
-<h4>(1) <code>LOGIN_URL</code></h4>
+<h4 id="loginurl">(1) <code>LOGIN_URL</code></h4>
 
 <p><code>LOGIN_URL</code>은 로그인 URL을 뜻합니다. Django에서 제공하는 장식자(decorator) 중 <code>login_required</code>는 뷰 함수에 접근할 때 로그인 여부를 검사하고, 로그인하지 않으면 로그인 URL로 이용자를 이동시키는데, 이 로그인 URL을 <code>settings.LOGIN_URL</code>에서 가져 옵니다. <code>global_settings</code>에 설정된 기본값은 <code>/accounts/login/</code>입니다.</p>
 
-<h4>(2) <code>LOGOUT_URL</code></h4>
+<h4 id="logouturl">(2) <code>LOGOUT_URL</code></h4>
 
 <p><code>LOGIN_URL</code>과 같은 역할을 합니다. 기본값은 <code>/accounts/logout/</code>입니다.</p>
 
-<h4>(3) <code>LOGIN_REDIRECT_URL</code></h4>
+<h4 id="loginredirecturl">(3) <code>LOGIN_REDIRECT_URL</code></h4>
 
 <p>로그인을 하고 나서 이동할 URL을 설정합니다. 로그인 하고나서 이동할 URL이 지정된 경우 그 URL로 이동하지만, 이동할 URL이 지정되지 않았거나 지정한 URL이 보안상 문제가 있는 경우 <code>settings.LOGIN_REDIRECT_URL</code>를 사용합니다.</p>
 
 <p>현재 구현한 기능으로는 로그인을 마치면 “Page not found” 오류를 만납니다.</p>
 
-<p><img src="/assets/uploads/2015/06/08-404_after_login.png" alt=""></p>
+<p><img src="/assets/uploads/2015/06/08-404_after_login.png" alt="" /></p>
 
 <p>웹 브라우저 주소입력란을 잘 보면 <code>http://localhost:8000/accounts/profile/</code>과 같이 전혀 본 적 없는 URL로 되어 있습니다. 이는 Django 기본 <code>LOGIN_REDIRECT_URL</code> 설정값이 <code>/accounts/profile/</code>이라서 그렇습니다. 아직 우리는 프로필 페이지를 만들지 않았으니 임시로 <code>/photo/upload/</code>로 이동하도록 설정하겠습니다. 시작패키지에서 <code>settings.py</code> 파일을 열고 다음 코드를 추가합니다.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">LOGIN_REDIRECT_URL = &#39;/photo/upload/&#39;
-</code></pre></div>
+
+<p><code>
+LOGIN_REDIRECT_URL = '/photo/upload/'
+</code></p>
+
 <p>이제 로그인을 마치면 <code>/photo/upload/</code>로 이동하여 사진을 올리라는 압박을 줍니다.</p>
 
-<hr>
+<hr />
 
 <p>강좌 8편을 마칩니다. 아직은 Django 1.7판을 기준으로 강좌를 진행하고 있는데, 조만간 1.8판을 기준으로 내용을 다듬어야 겠습니다.</p>
 
 <ul>
-<li><a href="https://github.com/hannal/start_with_django_webframework/tree/08-fullsource/pystagram">8편까지 진행한 전체 소스 코드</a></li>
+  <li><a href="https://github.com/hannal/start_with_django_webframework/tree/08-fullsource/pystagram">8편까지 진행한 전체 소스 코드</a></li>
 </ul>
 
-<hr>
+<hr />
 
 <div class="footnotes">
-<hr>
-<ol>
-
-<li id="fn1">
-<p>다른 편에서 다루겠다는 내용이 늘어가니 불안해지네요. 까먹고 다루지 않을까봐요.&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
-</li>
-
-</ol>
+  <ol>
+    <li id="fn:1">
+      <p>다른 편에서 다루겠다는 내용이 늘어가니 불안해지네요. 까먹고 다루지 않을까봐요. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
 </div>
 
   </div>
