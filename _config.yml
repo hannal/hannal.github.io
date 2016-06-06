@@ -11,7 +11,7 @@ paginate: 2
 
 # Build settings
 #markdown: kramdown
-markdown: redcarpet
+#markdown: redcarpet
 redcarpet:
     extensions: [footnotes, tables]
 highlighter: pygments
