@@ -87,4 +87,4 @@ permalink: "/2016/01/how-to-study-programming/"
 
 ----
 
-D1B78891
+TP:D1B78891
