@@ -10,7 +10,7 @@ author:
   url: ''
 author_login: Kay
 author_email: kay@hannal.net
-date: '2016-06-07 07:00:00 +0900'
+date: '2016-06-06 07:00:00 +0900'
 categories: [essay]
 tags:
 - 경험
