@@ -14,8 +14,8 @@ paginate: 2
 #markdown: redcarpet
 redcarpet:
     extensions: [footnotes, tables]
-highlighter: pygments
-#highlighter: rouge
+#highlighter: pygments
+highlighter: rouge
 #highlighter: rdiscount
 
 category_dir: _site/category
