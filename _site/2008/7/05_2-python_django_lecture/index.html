@@ -224,9 +224,9 @@ else:
 </code></pre>
 </blockquote>
 <p>마지막으로 write.html 에서 글 갈래를 출력한다.</p>
-<blockquote><p><xmp>&#123;&#37; for category in categories &#37;&#125;
+<blockquote><p><xmp>&#123;&#37; for category in categories &#37;&#125;&lt;/p&gt;
 <option value=""></option>
-<p>&#123;&#37; endfor &#37;&#125;</p>
+<p>&#123;&#37; endfor &#37;&#125;&lt;/xmp&gt;</p>&lt;/blockquote&gt;
 <p>간단하다. 새로운 내용은 없으며 이미 우리가 이 강좌에서 익힌 내용들이다. 이제는 글 쓰기 화면에 글 갈래도 나열되어 글 쓸 때 하나 고를 수 있다.</p>
 <p>글 쓰기 화면에서 글 갈래를 골랐다면 서버로 글 내용을 보냈을 때 글 갈래 정보를 가져와야 한다. 이용자 글쓰기 화면에서 글 갈래를 고르면 그 글 갈래의 일련번호(id)가 서버로 날아가는데, 서버에서는 이 숫자를 그대로 넣으면 안된다. <strong>그 숫자(id)가 실제로 글 갈래 모델(Categories)에 있는 것인지 확인한 뒤에 글 정보 모델(Entries) 관계 상황에 맞게 넣어야</strong> 한다. 말은 복잡하지만 한 두 줄로 처리할 수 있으니 겁 먹을 필요는 없다.</p>
 <p>먼저 이용자가 입력한 글 갈래 정보가 DB 에 있는지 확인하여 있으면 그 글 정보를 가져오고, 없으면 잘못된 글 갈래 정보라고 안내하는 코드를 만든다. 말은 복잡하지만 구현은 아주 단순하다.</p>
@@ -449,14 +449,14 @@ for tag in split_tags:
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="hannal">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-<div class="fb-like" data-href="http://blog.hannal.com/2008/7/05_2-python_django_lecture/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div class="fb-like" data-href="http://localhost:4000/2008/7/05_2-python_django_lecture/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 
 <div class="comments">
   <div id="disqus_thread"></div>
   <script type="text/javascript">
   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
   var disqus_shortname = 'hannal';
-  var disqus_url = 'http://blog.hannal.com/2008/7/05_2-python_django_lecture/';
+  var disqus_url = 'http://localhost:4000/2008/7/05_2-python_django_lecture/';
 
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
@@ -475,6 +475,15 @@ for tag in split_tags:
     
       <li>
         <h3>
+          <a href="/2016/11/citroen-c4-cactus/">
+            시트로엥 C4 칵투스 한 달 소감.
+            <small>28 Nov 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2016/07/book-python-web-programming-with-flask/">
             책, Flask 기반의 파이썬 웹 프로그래밍 소감
             <small>08 Jul 2016</small>
@@ -487,15 +496,6 @@ for tag in split_tags:
           <a href="/2016/06/who-starts-up-o2o-service/">
             프로그램 짜는 세탁소집 첫째 아들.
             <small>06 Jun 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/01/how-to-study-programming/">
-            프로그래밍 입문자를 위한 몇 가지 조언
-            <small>13 Jan 2016</small>
           </a>
         </h3>
       </li>

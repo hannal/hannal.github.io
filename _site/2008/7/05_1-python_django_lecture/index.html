@@ -524,10 +524,10 @@ from hannal.blog.models import Entries<br />
 <code>'</code>entries<code>'</code>:entries,</p></blockquote>
 <p>이라고 하면 된다. 다만 소스 코드 일관성을 위해 마음에 들건 들지 않건 page_title 이라고 하도록 하자.</p>
 <p>이번엔 list.html 을 고쳐서 치환자에 연결된 변수들을 다루자. list.html 파일을 연 뒤 맨 위에</p>
-<blockquote><p>&lt;h1&gt;&lt;strong&gt;&lt;/strong&gt;&lt;/h1&gt;</p></blockquote>
-<p>라고 쓴다. &lt;h1&gt; 과 &lt;/h1&gt;은 &lt;p&gt; 와 &lt;/p&gt; 이랑 마찬가지로 HTML 태그이니 여기서 당장 신경 쓸 필요는 없고,  을 잘 눈여겨 보자. 제로보드 등으로 웹 게시판 스킨을 만들어 본 이라면 저게 왠지 <strong>템플릿(스킨) 파일에서 쓰는 치환자(변수)</strong>처럼 생겼다는 걸 느낄 것이다. 맞다. django 에 내장된 템플릿 엔진은 템플릿 파일에서 치환자를  로 묶어서 나타낸다.  이라고 하면 page_title 이라는 치환자를  과 바꿔 넣겠다는 뜻이 된다. page_title 은 “블로그 글 목록 화면”이라는 문자열이 있으므로 결국 &lt;h1&gt;&lt;/h1&gt; 은 &lt;h1&gt;블로그 글 목록 화면&lt;/h1&gt; 이라는 문자열이 되는 것이다.</p>
+<blockquote><p>&lt;h1&gt;&lt;strong&gt;{{page_title}}&lt;/strong&gt;&lt;/h1&gt;</p></blockquote>
+<p>라고 쓴다. &lt;h1&gt; 과 &lt;/h1&gt;은 &lt;p&gt; 와 &lt;/p&gt; 이랑 마찬가지로 HTML 태그이니 여기서 당장 신경 쓸 필요는 없고, {{page_title}} 을 잘 눈여겨 보자. 제로보드 등으로 웹 게시판 스킨을 만들어 본 이라면 저게 왠지 <strong>템플릿(스킨) 파일에서 쓰는 치환자(변수)</strong>처럼 생겼다는 걸 느낄 것이다. 맞다. django 에 내장된 템플릿 엔진은 템플릿 파일에서 치환자를 {{ 과 }} 로 묶어서 나타낸다. {{page_title}} 이라고 하면 page_title 이라는 치환자를 {{page_title}} 과 바꿔 넣겠다는 뜻이 된다. page_title 은 “블로그 글 목록 화면”이라는 문자열이 있으므로 결국 &lt;h1&gt;{{page_title}}&lt;/h1&gt; 은 &lt;h1&gt;블로그 글 목록 화면&lt;/h1&gt; 이라는 문자열이 되는 것이다.</p>
 <p>못믿겠다면 list.html 을 저렇게 고친 뒤 저장하고 나서 http://localhost:8000/blog 에 방문하시라. “안녕 여러분.” 위에 굵고 크게 “블로그 글 목록 화면”이라는 내용이 뜬다.</p>
-<p>여기서 잠깐. 이런 치환자는 여러 종류가 있으므로 구분을 위해 방금 본  이런 건 변수 치환자라고 부르겠다.</p>
+<p>여기서 잠깐. 이런 치환자는 여러 종류가 있으므로 구분을 위해 방금 본 {{이름}} 이런 건 변수 치환자라고 부르겠다.</p>
 <p>글 목록을 출력하는 건 조금 만만치 않다. 반복문을 쓰기 때문인데, DB 에서 글들을 가져와서 화면에 출력을 한 지금까지도 우리는 프로그래밍에서 반복문이라 부르는 문법들(for문, while문 등)을 단 하나도 쓰지 않았다. 즉, 이번에 처음 만나는 셈이다. 그러니 신경 써서 잘 보길 바란다.</p>
 <p>프로그래밍 언어에 있는 반복문들은 대체로 비슷 비슷하다. 아주 자주 쓰이는 반복문은 바로 for문이다. 보통 이렇게 생겼다.</p>
 <blockquote>
@@ -555,10 +555,10 @@ from hannal.blog.models import Entries<br />
 <p>이렇게 생겼다. 그리고 django 템플릿 엔진에 있는 반복문 문법도 python 것과 조금 비슷하다.</p>
 <blockquote>
 <pre>&#123;&#37; for i in list_var &#37;&#125;
-    number 
+    number {{i}}
 &#123;&#37; endfor &#37;&#125;</pre>
 </blockquote>
-<p>python 의 for문과 다른 점이라면 <strong>for문을 닫는 부분(&#123;&#37; endfor &#37;&#125;)이 있다</strong>는 점이며, for문이 변수 치환자와 다른 점이라면 <strong> 이 아닌 &#123;&#37; 과 &#37;&#125; 을 쓴다</strong>는 점이다. 이렇게 변수 치환자와는 달리 구문(statement)은 &#123;&#37; 과 &#37;&#125;으로 표현한다. 잠시 후 다룰 조건문 역시 이런 구문을 쓴다.</p>
+<p>python 의 for문과 다른 점이라면 <strong>for문을 닫는 부분(&#123;&#37; endfor &#37;&#125;)이 있다</strong>는 점이며, for문이 변수 치환자와 다른 점이라면 <strong>{{ 과 }} 이 아닌 &#123;&#37; 과 &#37;&#125; 을 쓴다</strong>는 점이다. 이렇게 변수 치환자와는 달리 구문(statement)은 &#123;&#37; 과 &#37;&#125;으로 표현한다. 잠시 후 다룰 조건문 역시 이런 구문을 쓴다.</p>
 <p>for문을 배웠으니 글들을 갖고 있는 entries 에서 글을 하나씩 뽑아내서 화면에 출력해보자. 글들을 갖고 있는 치환자는 entries 이다. entries 안에 글들을 반복해서 끄집어 내려 하므로</p>
 <blockquote><p>&#123;&#37; for entry in entries &#37;&#125;<br />
 &#123;&#37; endfor &#37;&#125;</p></blockquote>
@@ -567,7 +567,7 @@ from hannal.blog.models import Entries<br />
 <blockquote>
 <pre>&#123;&#37; for entry in entries &#37;&#125;
 &lt;div&gt;
-&lt;h3&gt;&lt;a href="/blog/entry/"  href="/blog/entry/"&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a href="/blog/entry/{{entry.id}}"  href="/blog/entry/{{entry.id}}"&gt;{{entry.Title}}&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -579,7 +579,7 @@ from hannal.blog.models import Entries<br />
 <p>list.html 을 저장하고 다시 웹브라우저 화면을 갱신하면 화면 아래에 글도 출력될 것이다. 아직 글을 한 개 밖에 안썼으니 글은 하나만 출력될 것이다. django admin 에 접속해서 또 글을 쓰면 두 개가 뜬다. 참고로 내 화면은</p>
 <p><img class="aligncenter size-full wp-image-89" title="템플릿을 이용하여 모델에서 글 가져와 출력" src="http://blog.hannal.com/assets/uploads/2008/07/django_page_with_template_02.png" alt="" width="425" height="454" /></p>
 <p>이렇게 뜬다.</p>
-<p> 으로 묶은 것은 변수 치환자라는 건 배웠는데, entry.Title, 그러니까 entry점Title 이라는 꼴은 좀 어색하다. 이건 django 가 모델로 가져온 각 자료 객체에서 모델 요소들이 클래스 프로퍼티로 존재하기 때문에 그렇다. 이미 앞선 글들에서 몇 번 설명을 했고, 글 낱장 읽기(def read)에서도 return HttpResponse 부분에서 글 제목을 current_entry.Title 이런 꼴로 출력하고 있다. 같은 내용이다.</p>
+<p>{{ 과 }} 으로 묶은 것은 변수 치환자라는 건 배웠는데, entry.Title, 그러니까 entry점Title 이라는 꼴은 좀 어색하다. 이건 django 가 모델로 가져온 각 자료 객체에서 모델 요소들이 클래스 프로퍼티로 존재하기 때문에 그렇다. 이미 앞선 글들에서 몇 번 설명을 했고, 글 낱장 읽기(def read)에서도 return HttpResponse 부분에서 글 제목을 current_entry.Title 이런 꼴로 출력하고 있다. 같은 내용이다.</p>
 <p>흐음. 이걸로 끝? 아니다. 글 갈래(category)와 꼬리표를 출력하지 않았다. 글 갈래는 Category, 꼬리표는 Tags 라고 이름을 지었으니  와  라고 쓰면 되겠다. 날짜 표시하는 부분 위에 출력해보자.</p>
 <blockquote><p>&lt;li&gt;&lt;/li&gt;<br />
 &lt;li&gt;&lt;/li&gt;<br />
@@ -755,14 +755,14 @@ Type "help", "copyright", "credits" or "license" for more information.<br />
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="hannal">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-<div class="fb-like" data-href="http://blog.hannal.com/2008/7/05_1-python_django_lecture/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div class="fb-like" data-href="http://localhost:4000/2008/7/05_1-python_django_lecture/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 
 <div class="comments">
   <div id="disqus_thread"></div>
   <script type="text/javascript">
   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
   var disqus_shortname = 'hannal';
-  var disqus_url = 'http://blog.hannal.com/2008/7/05_1-python_django_lecture/';
+  var disqus_url = 'http://localhost:4000/2008/7/05_1-python_django_lecture/';
 
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
@@ -781,6 +781,15 @@ Type "help", "copyright", "credits" or "license" for more information.<br />
     
       <li>
         <h3>
+          <a href="/2016/11/citroen-c4-cactus/">
+            시트로엥 C4 칵투스 한 달 소감.
+            <small>28 Nov 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2016/07/book-python-web-programming-with-flask/">
             책, Flask 기반의 파이썬 웹 프로그래밍 소감
             <small>08 Jul 2016</small>
@@ -793,15 +802,6 @@ Type "help", "copyright", "credits" or "license" for more information.<br />
           <a href="/2016/06/who-starts-up-o2o-service/">
             프로그램 짜는 세탁소집 첫째 아들.
             <small>06 Jun 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/01/how-to-study-programming/">
-            프로그래밍 입문자를 위한 몇 가지 조언
-            <small>13 Jan 2016</small>
           </a>
         </h3>
       </li>
