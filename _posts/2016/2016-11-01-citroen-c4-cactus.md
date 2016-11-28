@@ -2,7 +2,7 @@
 layout: post
 status: publish
 published: true
-title: 시트로엥 C4 칵투스 한 달 소감.
+title: 시트로엥 C4 칵투스 두 달 소감.
 author:
   display_name: Kay
   login: Kay
@@ -10,7 +10,7 @@ author:
   url: ''
 author_login: Kay
 author_email: kay@hannal.net
-date: '2016-11-28 02:00:00 +0900'
+date: '2016-11-28 11:00:00 +0900'
 categories: [essay]
 tags:
 - citroen

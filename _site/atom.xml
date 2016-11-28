@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2016-11-28T02:54:24+09:00</updated>
+  <updated>2016-11-28T13:32:49+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -12,9 +12,9 @@
 
   
   <entry>
-    <title>시트로엥 C4 칵투스 한 달 소감.</title>
+    <title>시트로엥 C4 칵투스 두 달 소감.</title>
     <link href="/2016/11/citroen-c4-cactus/"/>
-    <updated>2016-11-28T02:00:00+09:00</updated>
+    <updated>2016-11-28T11:00:00+09:00</updated>
     <id>/2016/11/citroen-c4-cactus</id>
     <content type="html">&lt;p&gt;올해 한국에 출시한 시트로엥 C4 칵투스를 샀다.&lt;/p&gt;
 
