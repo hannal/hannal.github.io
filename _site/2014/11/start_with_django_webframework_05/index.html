@@ -375,7 +375,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 <div class="highlighter-rouge"><pre class="highlight"><code>from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns += static('static_files', document_root=settings.MEDIA_ROOT)
+urlpatterns += static('upload_files', document_root=settings.MEDIA_ROOT)
 </code></pre>
 </div>
 
