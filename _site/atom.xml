@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2017-06-26T17:28:24+09:00</updated>
+  <updated>2017-06-26T17:34:26+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -13,7 +13,7 @@
   
   <entry>
     <title>Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기</title>
-    <link href="/2017/06/hello_2017/"/>
+    <link href="/2017/06/django-template-variabledoesnotexist-exception/"/>
     <updated>2017-06-26T00:00:00+09:00</updated>
     <id>/2017/06/django_template_variabledoesnotexist</id>
     <content type="html">&lt;p&gt;한 줄 요약 : Django 템플릿 엔진은 템플릿 필터에 대해서 항상 조용한 실패 처리(silent failure)를 하진 않는다.&lt;/p&gt;

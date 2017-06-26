@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 26 Jun 2017 17:28:24 +0900</pubDate>
-    <lastBuildDate>Mon, 26 Jun 2017 17:28:24 +0900</lastBuildDate>
+    <pubDate>Mon, 26 Jun 2017 17:34:26 +0900</pubDate>
+    <lastBuildDate>Mon, 26 Jun 2017 17:34:26 +0900</lastBuildDate>
     <generator>Jekyll v3.5.0</generator>
     
       <item>
@@ -70,8 +70,8 @@
 &lt;p&gt;삼천포 요약 : 변수 네이밍을 괴랄하게 하면 디버깅에 도움이 된다.&lt;/p&gt;
 </description>
         <pubDate>Mon, 26 Jun 2017 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2017/06/hello_2017/</link>
-        <guid isPermaLink="true">http://localhost:4000//2017/06/hello_2017/</guid>
+        <link>http://localhost:4000//2017/06/django-template-variabledoesnotexist-exception/</link>
+        <guid isPermaLink="true">http://localhost:4000//2017/06/django-template-variabledoesnotexist-exception/</guid>
         
         <category>django</category>
         

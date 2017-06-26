@@ -16,7 +16,7 @@ tags:
 - django
 - template
 - 템플릿
-permalink: "/2017/06/hello_2017/"
+permalink: "/2017/06/django-template-variabledoesnotexist-exception/"
 ---
 
 한 줄 요약 : Django 템플릿 엔진은 템플릿 필터에 대해서 항상 조용한 실패 처리(silent failure)를 하진 않는다.
