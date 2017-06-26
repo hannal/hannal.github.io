@@ -6,9 +6,83 @@
 </description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 04 Feb 2017 12:14:08 +0900</pubDate>
-    <lastBuildDate>Sat, 04 Feb 2017 12:14:08 +0900</lastBuildDate>
-    <generator>Jekyll v3.3.1</generator>
+    <pubDate>Mon, 26 Jun 2017 17:28:24 +0900</pubDate>
+    <lastBuildDate>Mon, 26 Jun 2017 17:28:24 +0900</lastBuildDate>
+    <generator>Jekyll v3.5.0</generator>
+    
+      <item>
+        <title>Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기</title>
+        <description>&lt;p&gt;한 줄 요약 : Django 템플릿 엔진은 템플릿 필터에 대해서 항상 조용한 실패 처리(silent failure)를 하진 않는다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Django Template은 없는 템플릿 변수나 템플릿 변수의 속성, 키, 색인이 없어도 오류 상황을 일으키지 않고 조용히 오류 상황을 잠재운다. 일명 Silent failure 동작이다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;lorem.ipsum.hello.world&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lorem&lt;/code&gt;이라는 템플릿 변수가 없든 &lt;code class=&quot;highlighter-rouge&quot;&gt;lorem&lt;/code&gt; 템플릿 변수는 있는데 이 객체에 &lt;code class=&quot;highlighter-rouge&quot;&gt;ipsum&lt;/code&gt;이라는 키나 속성이 없다고 가정하자. 최종 템플릿 맥락이 출력(치환)이면 Django는 변수나 키, 속성이 없다는 오류 상황을 일으키지 않으며, 저 템플릿 변수 위치엔 아무것도 출력되지 않는다. 템플릿 변수를 출력(render)하거나 템플릿 태그에서 사용할 때는 이처럼 Silent failure로 동작한다.&lt;/p&gt;
+
+&lt;p&gt;하지만 템플릿 필터를 거치는 경우엔 &lt;code class=&quot;highlighter-rouge&quot;&gt;VariableDoesNotExist&lt;/code&gt; 예외(exception)가 발생한다. 예외 이름에서 드러나듯이 템플릿 변수가 없다는 뜻이다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 존재하지 않는 템플릿 변수인 &lt;code class=&quot;highlighter-rouge&quot;&gt;not_exist_var&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;divisibleby&lt;/code&gt; 템플릿 필터에 사용하면 예외 오류가 발생한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'1234'|divisibleby:not_exist_var&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;이에 대해 Django 공식 문서에서는 다음과 같이 설명한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Thus, filter functions should avoid raising exceptions if there is a reasonable fallback value to return. In case of input that represents a clear bug in a template, raising an exception may still be better than silent failure which hides the bug. ( 출처 : &lt;a href=&quot;https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/#writing-custom-template-filters&quot;&gt;custom-template-tags - writing-custom-template-filter&lt;/a&gt; )&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;간단히 말해서 템플릿 필터 함수에서는 버그를 숨기는 Silent failure 보다는 예외를 일으키는 게 낫다고 한다. 실제로 Django 내장 템플릿 필터를 보면 대체물을 대신 반환해도 될 만한 경우엔 Exception 처리를 잡아내서 오류 상황을 피하지만, 그 외의 경우엔 Exception이 발생하게 냅둔다. 문제는 그 정책이 예상을 벗어나는 경우에 발생한다. 난 &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터에서 조용한 실패 처리를 하지 않는 상황을 만났다. &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터는 대개 다음과 같이 사용한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;empty_var|default:'비었수다'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;나도 비슷하게 사용했다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;apple.attr3|default:lemon.attrdict.color&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Django 템플릿 엔진 동작에 익숙하다면 다음과 같이 동작하길 기대(예상)한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apple.attr3&lt;/code&gt;가 없으면 &lt;code class=&quot;highlighter-rouge&quot;&gt;lemon.attrdict['color']&lt;/code&gt;를 대신 출력&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lemon.attrdict&lt;/code&gt;에 &lt;code class=&quot;highlighter-rouge&quot;&gt;color&lt;/code&gt; 키가 없으면 결국 아무것도 출력하지 않고 Silent failure.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;딱히 Exception이 발생할만한 로직이 아니고, &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 필터 함수를 봐도 인자 두 개 받아서 &lt;code class=&quot;highlighter-rouge&quot;&gt;return value or arg&lt;/code&gt;로 동작하는 것 뿐이다. 다시 말해 &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터인 Python 함수는 두 개 인자를 받는데, 첫 번째 인자로 받는 &lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt; 앞에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;apple.attr3&lt;/code&gt;가 있으면 해당 객체를 반환하고, 없으면 두 번째 인자로 받는 &lt;code class=&quot;highlighter-rouge&quot;&gt;:&lt;/code&gt; 뒤에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;lemon.attrdict.color&lt;/code&gt;를 반환한다.&lt;/p&gt;
+
+&lt;p&gt;하지만 실제로는 &lt;code class=&quot;highlighter-rouge&quot;&gt;VariableDoesNotExist&lt;/code&gt; 예외 오류가 발생한다. 이 예외는 &lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그로 해결하면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gist.github.com/hannal/9de33b54a749457d7f29c5f30c5e9136&quot;&gt;with 템플릿 태그로 VariableDoesNotExist 예방&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그는 Silent failure 처리를 해주니 &lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그로 만든 임시 템플릿 변수인 &lt;code class=&quot;highlighter-rouge&quot;&gt;colour&lt;/code&gt;엔 출력할(render) 게 없는 빈 객체가 할당이 된다. &lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그를 안 쓴 경우엔 Silent failure를 해주는 놈이 없다보니 Exception이 그대로 나버린 것이다. 이 문제가 까다로운 이유는 Django 디버깅 화면에서는 문제가 있는 템플릿 줄(line)을 가리키지 않고 Exception이 발생한 Django 소스를 보여주는 데 있다. 평범한 속성명이나 키 이름을 쓰다가는 고생하기 십상이다.&lt;/p&gt;
+
+&lt;p&gt;흔히 겪는 상황은 아닐 것 같다. 나는 모델에 &lt;code class=&quot;highlighter-rouge&quot;&gt;JSONField&lt;/code&gt;를 썼고, 이 모델필드의 &lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt; 객체에 특정 키(위 예제 기준으로는 &lt;code class=&quot;highlighter-rouge&quot;&gt;colour&lt;/code&gt;키)가 없어서 발생한 거였다. 뷰 함수에서 넘겨주는 템플릿 변수 이름대로라면 금방 발견했을 것 같다.&lt;/p&gt;
+
+&lt;p&gt;삼천포 요약 : 변수 네이밍을 괴랄하게 하면 디버깅에 도움이 된다.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 26 Jun 2017 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2017/06/hello_2017/</link>
+        <guid isPermaLink="true">http://localhost:4000//2017/06/hello_2017/</guid>
+        
+        <category>django</category>
+        
+        <category>template</category>
+        
+        <category>템플릿</category>
+        
+        
+        <category>devlife</category>
+        
+      </item>
     
       <item>
         <title>시트로엥 C4 칵투스 두 달 소감.</title>
@@ -1116,13 +1190,13 @@ for i in range(0, 10):
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;대개는 &lt;code class=&quot;highlighter-rouge&quot;&gt;delay()&lt;/code&gt;라는 메서드로 줄여서 수행합니다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;대개는 &lt;code class=&quot;highlighter-rouge&quot;&gt;delay()&lt;/code&gt;라는 메서드로 줄여서 수행합니다.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;대개는 &lt;code class=&quot;highlighter-rouge&quot;&gt;s()&lt;/code&gt;로 줄인 메서드 이름을 씁니다. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;대개는 &lt;code class=&quot;highlighter-rouge&quot;&gt;s()&lt;/code&gt;로 줄인 메서드 이름을 씁니다.&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:3&quot;&gt;
-      &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;chain&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;chord&lt;/code&gt;는 함수처럼 생겼지만 클래스입니다. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;chain&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;chord&lt;/code&gt;는 함수처럼 생겼지만 클래스입니다.&amp;nbsp;&lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -1479,257 +1553,6 @@ class A(models.Model):
         <category>authentication</category>
         
         <category>many to one relationship</category>
-        
-        
-        <category>start-with-django-webframework</category>
-        
-      </item>
-    
-      <item>
-        <title>8. 로그인, 로그아웃 하기</title>
-        <description>&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/category/start-with-django-webframework/&quot;&gt;날로 먹는 Django 웹프레임워크 강좌 목차&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;마지막 갱신일시 : 2017년 1월 30일 0시 20분&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이번 편에서는 Django 이용자 인증 체계을 알아보고, 이 인증 체계에서 로그인을 어떻게 처리하는지 살펴 보겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;1-django-이용자-인증-체계&quot;&gt;1. Django 이용자 인증 체계&lt;/h3&gt;
-
-&lt;p&gt;Django 이용자 인증 체계는 크게 두 가지 요소로 구분합니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;인증 (Authentication)&lt;/li&gt;
-  &lt;li&gt;권한 (Authorization)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;인증은 “나 누구인데 확인 좀…”이라면 권한은 “나 이거 해도 돼요?”라 보면 됩니다. 누구인지 신원이 확인되지 않은 존재에게 권한을 세밀하게 부여하진 못합니다. 신원이 확인된, 즉, 인증된 이용자인지 아닌지로 구분하는 정도로 권한을 부여합니다. 그래서, 권한 체계를 비롯하여 이용자 인증 체계 자체는 인증(Authetication)을 바탕으로 합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;1-django-내장-인증-기능&quot;&gt;(1) Django 내장 인증 기능&lt;/h4&gt;
-
-&lt;p&gt;Django는 이용자 인증 체계를 내장하고 있으며, 우리는 이미 이 기능을 사용해봤습니다. &lt;a href=&quot;http://blog.hannal.com/2014/10/start_with_django_webframework_04/&quot;&gt;4. Photo 모델로 Admin 영역에서 데이터 다루기&lt;/a&gt; 편에서 최고 권한 이용자로 Admin 영역에 로그인하여 사진 게시물을 입력 했었거든요.&lt;/p&gt;
-
-&lt;p&gt;Django에 내장된 인증 체계는 &lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth&lt;/code&gt;라는 경로(name space)인 Python 패키지에 모여 있으며, Django 개념으로는 Django App입니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; 파일에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;INSTALLED_APPS&lt;/code&gt; 설정 항목을 보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;'django.contrib.auth',&lt;/code&gt;가 있는데, 우리가 만드는 Pystagram에 사용할 Django App에 Django 인증 체계가 앱 형태로 기본 내장되어 있는 것입니다.&lt;/p&gt;
-
-&lt;p&gt;Django webframework으로 제품을 만든다면 Django 인증 체계를 사용하는 게 좋습니다. 오랜 기간 개발되어 보안 수준은 성숙하고 안전하며, 확장 가능하게 유연합니다. Django에서 제공하는 다른 여러 기능이 내장된 인증 기능 구조를 따르기 때문에 Django가 제공하는 기능을 유기성 있고 풍부하게 쓰기에도 Django 인증 체계를 쓰는 게 좋습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;2-django-내장-권한-기능&quot;&gt;(2) Django 내장 권한 기능&lt;/h4&gt;
-
-&lt;p&gt;권한 검사 기능도 Django에 내장되어 있습니다. 뷰(View) 단위 행동(behaviour), 데이터 단위 행동에 권한을 부여하여 운용 가능하며, 권한을 그룹 단위로 묶어서(grouping) 이용자에게 지정하는 기능도 제공합니다. 자세한 내용은 권한 기능을 적용할 때 다루겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;2-로그인-기능-구현&quot;&gt;2. 로그인 기능 구현&lt;/h3&gt;
-
-&lt;h4 id=&quot;1-url-패턴-추가&quot;&gt;(1) URL 패턴 추가&lt;/h4&gt;
-
-&lt;p&gt;Django에서 제공하는 인증 기능을 이용하여 로그인, 로그아웃 기능을 구현 하겠습니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; 파일이 있는 시작패키지에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;urls.py&lt;/code&gt; 파일을 열고, 다음 내용을 추가합니다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from django.contrib.auth import views as auth_views  # 이 줄 추가.
-
-urlpatterns = [
-    # 중략
-    url(
-        r'^accounts/login/',
-        auth_views.login,
-        name='login',
-        kwargs={
-            'template_name': 'login.html'
-        }
-    ),
-    url(
-        r'^accounts/logout/',
-        auth_views.logout,
-        name='logout',
-        kwargs={
-            'next_page': settings.LOGIN_URL,
-        }
-    ),
-]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;r'^accounts/login/'&lt;/code&gt;은 로그인 하는 URL이고, 로그인 화면을 출력하거나 로그인 인증 처리를 하는 뷰 함수는 Django에 내장된 &lt;code class=&quot;highlighter-rouge&quot;&gt;login&lt;/code&gt; 뷰 함수를 사용합니다. 이 함수 객체는 &lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.views&lt;/code&gt; 모듈에 존재합니다. 이 URL 패턴의 이름을 &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; 키워드 인자를 이용하여 &lt;code class=&quot;highlighter-rouge&quot;&gt;login&lt;/code&gt;이라고 지었는데, 이 인자를 사용하지 않아도 무방합니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;kwargs&lt;/code&gt;는 URL 패턴에 연결한 뷰 함수에 추가로 전달할 인자를 사전형(&lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt;) 객체로 전달합니다. 키가 &lt;code class=&quot;highlighter-rouge&quot;&gt;'template_name'&lt;/code&gt;이고 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;'login.html'&lt;/code&gt;인 사전형 객체인데, Django에서 제공하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;login&lt;/code&gt; 뷰 함수에 &lt;code class=&quot;highlighter-rouge&quot;&gt;template_name&lt;/code&gt; 이름으로 키워드 인자를 지정하면 로그인 화면을 출력하는 데 사용할 템플릿으로 사용합니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;'login.html'&lt;/code&gt;이라는 문자열을 지정했으니 우리가 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;TEMPLATE_DIRS&lt;/code&gt;에 지정한 템플릿 디렉터리 중 최상위 순위에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;login.html&lt;/code&gt; 파일을 찾아서 로그인 화면을 출력하는 데 사용합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;r'^accounts/logout/'&lt;/code&gt;은 로그아웃 하는 URL이며, 로그아웃 기능 역시 로그인 기능과 마찬가지로 Django에 내장된 뷰 함수를 사용합니다. 키워드 인자 &lt;code class=&quot;highlighter-rouge&quot;&gt;next_page&lt;/code&gt;는 로그아웃 하고 난 뒤에 이동할 URL을 의미합니다. 이 항목이 없으면 로그아웃 화면이 출력됩니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;template_name&lt;/code&gt;: ‘logout.html’ 등으로 지정하지 않으면 Django에 내장된 로그아웃 화면이 나타납니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;2-로그인-템플릿-파일&quot;&gt;(2) 로그인 템플릿 파일&lt;/h4&gt;
-
-&lt;p&gt;이번엔 로그인 화면에 사용할 &lt;code class=&quot;highlighter-rouge&quot;&gt;login.html&lt;/code&gt; 템플릿 파일을 만듭니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;templates&lt;/code&gt; 디렉터리에 &lt;code class=&quot;highlighter-rouge&quot;&gt;login.html&lt;/code&gt; 파일을 만들고 다음 내용을 담습니다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;extends&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;layout.html&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;form.errors&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;lt;p&amp;gt;ID나&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;비밀번호가&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;일치하지&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;않습니다.&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;endif&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;lt;form&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;method=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;post&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;action=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{% url 'login' %}&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;csrf_token&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;lt;input&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hidden&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;next&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-
-
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;lt;button&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;submit&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;로그인&amp;lt;/button&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;endblock&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Django에서 견본으로 제공하는 &lt;a href=&quot;https://docs.djangoproject.com/en/1.10/topics/auth/default/#django.contrib.auth.views.login&quot;&gt;login.html 템플릿 파일&lt;/a&gt;에서 따와서 약간 고쳤습니다. 따로 뷰 함수에서 템플릿으로 로그인 폼을 템플릿 컨텍스트로 전달하지 않았지만, Django에서 관례로 많이 쓰는 이름인 &lt;code class=&quot;highlighter-rouge&quot;&gt;form&lt;/code&gt;을 사용했습니다. form.errors&lt;code class=&quot;highlighter-rouge&quot;&gt;엔 입력한 폼 양식에 문제가 있는 경우에 문제 내용이 담겨 있습니다. ID(&lt;/code&gt;username`)나 비밀번호를 입력하지 않거나 형식에 맞지 않는 등 여러 오류 종류가 있겠지만, 간결하게 ID와 비밀번호가 일치하지 않는다고만 안내합니다. 로그인에 대해서는 굳이 친절하게 뭐가 문제인지 자세히 알려줄 필요는 없습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;next&lt;/code&gt;는 로그인을 한 후 이동할 URL을 뜻합니다. 예를 들어, 로그인을 하지 않은 채 사진에 달린 댓글을 삭제하려 하면 로그인하는 URL로 이동하고 로그인을 하고 나면 로그인하기 전에 접근하려는 URL으로 이동하는데, 이동할 URL이 GET이나 POST 방식으로 전달된 Query String 키인 &lt;code class=&quot;highlighter-rouge&quot;&gt;next&lt;/code&gt;에 담깁니다. 대개는 URL이 &lt;code class=&quot;highlighter-rouge&quot;&gt;https://pystagram.com/accounts/login/?next=/redirect_to_here/&lt;/code&gt;와 같이 표현됩니다.&lt;/p&gt;
-
-&lt;p&gt;그외엔 &lt;a href=&quot;http://blog.hannal.com/2015/05/start_with_django_webframework_07/&quot;&gt;7. 사진 게시물 제출하여 게시하기&lt;/a&gt; 편 내용과 비슷합니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;form&lt;/code&gt;은 &lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.forms&lt;/code&gt; 모듈에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;AuthenticationForm&lt;/code&gt; 폼 클래스로 생성한 인스턴스 객체입니다.&lt;/p&gt;
-
-&lt;p&gt;이제 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8000/accounts/login/&lt;/code&gt;에 접속하면 로그인 화면이 나옵니다. 잘못된 &lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;을 제출하면 이에 대한 안내도 나오고요.&lt;/p&gt;
-
-&lt;p&gt;현재 구현한 로그인 기능으로 로그인을 하면 “Page not found” 오류를 만나게 됩니다. 이에 대해서는 곧 처리하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;3-로그인-과정&quot;&gt;3. 로그인 과정&lt;/h3&gt;
-
-&lt;p&gt;Django가 제공하는 로그인 뷰 함수가 어떤 과정을 거쳐 이용자 인증을 처리하는지 좀 더 살펴 보겠습니다. 이 부분을 몰라도 로그인 기능을 이용하는 데 문제 없습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;1-form-검증&quot;&gt;(1) Form 검증&lt;/h4&gt;
-
-&lt;p&gt;웹 페이지에서 폼 양식으로 넘어오는 값은 Form을 이용해 값을 검증합니다. Django는 로그인 절차에 &lt;code class=&quot;highlighter-rouge&quot;&gt;AuthenticationForm&lt;/code&gt; 폼을 사용하며, 이 폼은 &lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.forms&lt;/code&gt; 모듈에 있습니다. 이쯤되면 눈치 채셨을텐데, Django는 인증 관련 모델, 폼, 뷰, 미들웨어 등을 &lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth&lt;/code&gt; 패키지 안에 담아 놨습니다. 인증과 관련된 소스 코드를 보려면 이 패키지를 살펴 보시면 됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;AuthenticationForm&lt;/code&gt; 폼은 현재 이용자 정보와 HTTP 요청 정보를 담은 &lt;code class=&quot;highlighter-rouge&quot;&gt;request&lt;/code&gt; 객체도 함께 인자로 전달 받는데, 세션 처리에 필요하기 때문에 그렇습니다. 폼 양식 값이 유효하면(&lt;code class=&quot;highlighter-rouge&quot;&gt;is_valid()&lt;/code&gt;) 이용자가 로그인 후에 이동할 URL 문자열이 안전한 지 검사합니다. 그런 뒤 &lt;code class=&quot;highlighter-rouge&quot;&gt;auth_login()&lt;/code&gt; 함수를 이용해 로그인 인증 처리를 마무리하고 나서 이용자를 다음 URL로 이동(redirect) 시킵니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;auth_login()&lt;/code&gt; 함수는 이름과는 달리 실제로는 인증 과정 마무리 단계를 담당합니다. 로그인 양식을 토대로 이용자 정보를 가져와서 HTTP Request(&lt;code class=&quot;highlighter-rouge&quot;&gt;request&lt;/code&gt;) 정보와 함께 사용해 서버 세션 정보를 만듭니다. 세션 정보를 만들지 않으면 로그인 정보는 유지되지 않아서 다른 페이지에 방문할 때마다 매번 로그인을 해야 합니다.&lt;/p&gt;
-
-&lt;p&gt;로그인 양식, 그러니까 로그인 하려고 제출한 &lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;에 정확히 일치하는 이용자를 찾는 과정은 &lt;code class=&quot;highlighter-rouge&quot;&gt;AuthenticationForm&lt;/code&gt; 폼에서 이뤄집니다. 이 폼의 &lt;code class=&quot;highlighter-rouge&quot;&gt;clean()&lt;/code&gt; 메서드에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt; 내용을 토대로 &lt;code class=&quot;highlighter-rouge&quot;&gt;authenticate()&lt;/code&gt; 함수를 이용해 인증을 시도합니다. 일치하는 이용자가 없으면 Form 오류를 일으키고, 우리는 “ID나 비밀번호가 일치하지 않습니다.”라는 안내를 화면에서 만납니다. 일치하는 이용자가 있으면 이 이용자 계정이 활성화 된 상태인지(&lt;code class=&quot;highlighter-rouge&quot;&gt;is_active&lt;/code&gt;) 검사하는 걸로 폼 안에서 처리하는 인증 과정을 마칩니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;2-인증-체계-기반으로-처리&quot;&gt;(2) 인증 체계 기반으로 처리&lt;/h4&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;authenticate()&lt;/code&gt; 함수는 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;AUTHENTICATION_BACKENDS&lt;/code&gt; 항목에 등록된 인증 체계 기반 클래스를 하나씩 가져와서 &lt;code class=&quot;highlighter-rouge&quot;&gt;authenticate()&lt;/code&gt; 메서드를 호출하여 인증을 시도합니다. 우리가 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; 파일에 따로 이 항목을 설정하지 않아도 문제가 없는 건, Django에 기본으로 내장된 &lt;code class=&quot;highlighter-rouge&quot;&gt;global_settings.py&lt;/code&gt;에 이 항목이 설정되어 있기 때문입니다. 이 항목에 있는 내용은 &lt;code class=&quot;highlighter-rouge&quot;&gt;'django.contrib.auth.backends.ModelBackend'&lt;/code&gt; 이름영역인 클래스가 튜플 객체로 담겨 있습니다.&lt;/p&gt;
-
-&lt;p&gt;데이터베이스에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;로 이용자를 찾는 과정이 비로소 이 단계에서 이뤄집니다. 이용자 모델을 가져오고, 이 모델을 이용해 &lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt;으로 먼저 이용자 데이터를 가져오고, 이 이용자 데이터에 저장된 비밀번호와 이용자가 로그인하며 제출한 &lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;를 비교합니다. 비밀번호까지 일치하면 해당 이용자 데이터, 그러니까 이용자 모델로 생성한 인스턴스 객체를 반환하고, 그렇지 않으면 &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt;을 반환합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;AUTHENTICATION_BACKENDS&lt;/code&gt; 항목에 &lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.backends.ModelBackend&lt;/code&gt;이 튜플에 담겨져 있다는 말은 다음 두 가지를 의미합니다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Django 인증 체계 기반(backend)을 꼭 사용하지 않아도 된다.&lt;/li&gt;
-  &lt;li&gt;인증 체계 기반을 여러 개 이상을 사용하는 게 가능하다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;인증 체계 기반의 클래스 규칙대로 인터페이스를 만들기만 한다면 우리가 직접 만든 인증 체계를 사용하거나 Facebook, Twitter처럼 인증 API를 제공하는 서비스나 플랫폼을 기반으로 인증 체계를 운용해도 됩니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;3-이용자-모델-가져오기&quot;&gt;(3) 이용자 모델 가져오기&lt;/h4&gt;
-
-&lt;p&gt;인증 체계 기반을 Django에서 제공하는 기본 인증 &lt;code class=&quot;highlighter-rouge&quot;&gt;ModelBackend&lt;/code&gt;를 다른 것으로 갈아끼우거나 추가한다면, 이용자 정보를 데이터베이스에서 다루는 이용자 모델도 대체하여 쓸 수 있습니다. Django에 내장된 이용자 모델은 &lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.models&lt;/code&gt;에 &lt;code class=&quot;highlighter-rouge&quot;&gt;User&lt;/code&gt; 모델 클래스입니다. 이 이용자 모델엔 모델 필드이 간결하게 담겨 있습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt; : 이용자 ID 역할. 다른 값과 중복되지 않는 고유한 값만 허용합니다(&lt;code class=&quot;highlighter-rouge&quot;&gt;unique=True&lt;/code&gt;).&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt; : 비밀번호. &lt;code class=&quot;highlighter-rouge&quot;&gt;PasswordField&lt;/code&gt; 모델 필드.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;first_name&lt;/code&gt; : 성씨. &lt;code class=&quot;highlighter-rouge&quot;&gt;CharField&lt;/code&gt; 모델 필드이며 생략 가능.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;last_name&lt;/code&gt; : 이름. &lt;code class=&quot;highlighter-rouge&quot;&gt;CharField&lt;/code&gt; 모델 필드이며 생략 가능.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;email&lt;/code&gt; : 전자우편 주소. &lt;code class=&quot;highlighter-rouge&quot;&gt;EmailField&lt;/code&gt; 모델 필드.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;is_staff&lt;/code&gt; : 관리자 여부. &lt;code class=&quot;highlighter-rouge&quot;&gt;BooleanField&lt;/code&gt; 모델 필드.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;is_active&lt;/code&gt; : 활성화 된 계정인지 여부. &lt;code class=&quot;highlighter-rouge&quot;&gt;BooleanField&lt;/code&gt; 모델 필드.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이외에도 &lt;code class=&quot;highlighter-rouge&quot;&gt;is_superuser&lt;/code&gt;나 &lt;code class=&quot;highlighter-rouge&quot;&gt;groups&lt;/code&gt; 같은 모델 필드 몇 가지가 더 있지만, 이 모델 필드의 값을 직접 다룰 일은 드물고, 이 강좌 내용을 이해하시면 이런 모델 필드를 직접 찾아 다루는 건 어렵지 않으므로 이 강좌에선 다루지 않겠습니다.&lt;/p&gt;
-
-&lt;p&gt;만약, 필명이나 사용하는 언어, 거주 지역처럼 정보를 추가로 이용자로부터 입력 받아 관리하려면 이용자 모델 클래스를 &lt;strong&gt;확장&lt;/strong&gt;해야 합니다. Django에서 제공하는 이용자 모델을 변경해도 되지만, Django 소스 파일을 직접 고쳐서 쓰지 않는 게 좋습니다. Django 판을 올릴 때마다 직접 수정한 부분을 매번 챙겨야 하고, 연계되어 동작하는 다른 기능에 부작용을 일으킬 여지도 있습니다. 그래서 변경하지 않고 &lt;strong&gt;확장&lt;/strong&gt;해야 합니다.&lt;/p&gt;
-
-&lt;p&gt;확장하는 자세한 방법은 다른 편에서 따로 다루기로 하고&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, 여기에선 확장 방법 종류만 간단히 언급하겠습니다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;따로 이용자 모델을 만들고, Django의 이용자 모델에 연결(Model relationship).&lt;/li&gt;
-  &lt;li&gt;이용자 모델과 모델 매니저, 이용자 폼 등을 모두 구현하여 이용자 모델 부분을 대체.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;2번 방법에서 “모델 부분을 대체”한다는 표현을 눈 여겨 보세요. 일일이 Django 소스에서 이용자 모델 관련 부분, 가령, &lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.models.User&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;pystagram_auth.models.User&lt;/code&gt;와 같이 교체하는 건 아닙니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;settings&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;AUTH_USER_MODEL&lt;/code&gt; 항목에 지정하기만 하면 됩니다.&lt;/p&gt;
-
-&lt;p&gt;이 항목 역시 우리가 따로 설정한 적이 없는데, Django의 &lt;code class=&quot;highlighter-rouge&quot;&gt;global_settings&lt;/code&gt;에 설정되어 있으며, 기본 값으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;'auth.User'&lt;/code&gt; 문자열이 할당되어 있습니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;auth&lt;/code&gt;는 Django 앱 이름(Python 패키지)이고, &lt;code class=&quot;highlighter-rouge&quot;&gt;User&lt;/code&gt;는 모델 클래스 이름입니다. Python 이름영역(name space)으로 풀어 쓰면 &lt;code class=&quot;highlighter-rouge&quot;&gt;auth.models.User&lt;/code&gt;인 셈입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;AUTH_USER_MODEL&lt;/code&gt; 설정 항목을 참조하여 이용자 모델을 실제로 가져오는 역할은 &lt;code class=&quot;highlighter-rouge&quot;&gt;get_user_model()&lt;/code&gt; 함수가 맡으며, &lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth&lt;/code&gt;에 있습니다. 이 함수를 이용하면 이용자 모델이 어떤 것으로 바뀌든 코드를 일관되게 유지하게 됩니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;AUTH_USER_MODEL = 'auth.User'&lt;/code&gt;라고 설정하고 &lt;code class=&quot;highlighter-rouge&quot;&gt;get_user_model()&lt;/code&gt; 함수를 실행하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;auth.models.User&lt;/code&gt;를 반환하고, &lt;code class=&quot;highlighter-rouge&quot;&gt;AUTH_USER_MODEL = 'pystagram_auth.MyUser'&lt;/code&gt;로 설정하고 실행하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;pystagram_auth.models.MyUser&lt;/code&gt;를 이용자 모델로 반환합니다. 그러므로 &lt;code class=&quot;highlighter-rouge&quot;&gt;get_user_model()&lt;/code&gt; 함수로 이용자 모델을 가져오는 게 좋습니다.&lt;/p&gt;
-
-&lt;p&gt;인증 체계 기반(backend)과는 달리 기본 이용자 모델은 하나만 가능합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;4-정리하면&quot;&gt;(4) 정리하면&lt;/h4&gt;
-
-&lt;p&gt;로그인 과정을 정리하면 다음과 같습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.views.login&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.forms.AuthenticationForm&lt;/code&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.authenticate()&lt;/code&gt;
-            &lt;ul&gt;
-              &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings.AUTHENTICATION_BACKENDS&lt;/code&gt;에서 인증 기반 하나씩 가져옴&lt;/li&gt;
-              &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.backends.ModelBackend&lt;/code&gt;의 &lt;code class=&quot;highlighter-rouge&quot;&gt;authenticate()&lt;/code&gt; 메서드로 인증 처리&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.auth_login&lt;/code&gt; (정확히는 &lt;code class=&quot;highlighter-rouge&quot;&gt;django.contrib.auth.login&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;auth_login&lt;/code&gt;으로 import 한 것.)으로 인증 관련 세션 처리&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;로그인 이후 이동할 URL로 이동 처리(redirect)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;4-로그인-관련-설정-항목&quot;&gt;4. 로그인 관련 설정 항목&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt;에 설정하는 로그인 관련 항목이 몇 가지 있습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;1-login_url&quot;&gt;(1) &lt;code class=&quot;highlighter-rouge&quot;&gt;LOGIN_URL&lt;/code&gt;&lt;/h4&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LOGIN_URL&lt;/code&gt;은 로그인 URL을 뜻합니다. Django에서 제공하는 장식자(decorator) 중 &lt;code class=&quot;highlighter-rouge&quot;&gt;login_required&lt;/code&gt;는 뷰 함수에 접근할 때 로그인 여부를 검사하고, 로그인하지 않으면 로그인 URL로 이용자를 이동시키는데, 이 로그인 URL을 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.LOGIN_URL&lt;/code&gt;에서 가져 옵니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;global_settings&lt;/code&gt;에 설정된 기본값은 &lt;code class=&quot;highlighter-rouge&quot;&gt;/accounts/login/&lt;/code&gt;입니다. 로그인 URL을 다른 것으로 쓴다면 이 항목에 URL을 지정하면 제3자(3rd party) 도구 등에서 참조합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;2-logout_url&quot;&gt;(2) &lt;code class=&quot;highlighter-rouge&quot;&gt;LOGOUT_URL&lt;/code&gt;&lt;/h4&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LOGIN_URL&lt;/code&gt;과 비슷한 역할을 합니다. 기본값은 &lt;code class=&quot;highlighter-rouge&quot;&gt;/accounts/logout/&lt;/code&gt;입니다. 그런데 사용할 일은 거의 없어서 사실상 죽은 설정 항목이나 마찬가지입니다. 이런 게 있다는 정도로 알아 두시면 됩니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;3-login_redirect_url&quot;&gt;(3) &lt;code class=&quot;highlighter-rouge&quot;&gt;LOGIN_REDIRECT_URL&lt;/code&gt;&lt;/h4&gt;
-
-&lt;p&gt;로그인을 하고 나서 이동할 URL을 설정합니다. 로그인 하고나서 이동할 URL이 지정된 경우 그 URL로 이동하지만, 이동할 URL이 지정되지 않았거나 지정한 URL이 보안상 문제가 있는 경우 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.LOGIN_REDIRECT_URL&lt;/code&gt;를 사용합니다.&lt;/p&gt;
-
-&lt;p&gt;현재 구현한 기능으로는 로그인을 마치면 “Page not found” 오류를 만납니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://blog.hannal.com/assets/uploads/2015/06/08-404_after_login.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;웹 브라우저 주소입력란을 잘 보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8000/accounts/profile/&lt;/code&gt;과 같이 전혀 본 적 없는 URL로 되어 있습니다. 이는 Django 기본 &lt;code class=&quot;highlighter-rouge&quot;&gt;LOGIN_REDIRECT_URL&lt;/code&gt; 설정값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;/accounts/profile/&lt;/code&gt;이라서 그렇습니다. 아직 우리는 프로필 페이지를 만들지 않았으니 임시로 &lt;code class=&quot;highlighter-rouge&quot;&gt;/photos/upload/&lt;/code&gt;로 이동하도록 설정하겠습니다. 시작패키지에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; 파일을 열고 다음 코드를 추가합니다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;LOGIN_REDIRECT_URL = '/photos/upload/'
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;이제 로그인을 마치면 &lt;code class=&quot;highlighter-rouge&quot;&gt;/photos/upload/&lt;/code&gt;로 이동하여 사진을 올리라는 압박을 줍니다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;강좌 8편을 마칩니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/hannal/start_with_django_webframework/tree/l08&quot;&gt;8편까지 진행한 전체 소스 코드&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;다른 편에서 다루겠다는 내용이 늘어가니 불안해지네요. 까먹고 다루지 않을까봐요. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Sun, 07 Jun 2015 02:45:00 +0900</pubDate>
-        <link>http://localhost:4000//2015/06/start_with_django_webframework_08/</link>
-        <guid isPermaLink="true">http://localhost:4000//2015/06/start_with_django_webframework_08/</guid>
-        
-        <category>django</category>
-        
-        <category>login</category>
-        
-        <category>logout</category>
-        
-        <category>authentication</category>
-        
-        <category>user model</category>
         
         
         <category>start-with-django-webframework</category>

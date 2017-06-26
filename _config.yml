@@ -8,6 +8,7 @@ url: "http://blog.hannal.com" # the base hostname & protocol for your site
 twitter_username: hannal
 github_username: hannal
 paginate: 2
+plugins: [jekyll-paginate]
 
 # Build settings
 #markdown: kramdown

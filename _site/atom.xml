@@ -3,13 +3,77 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2017-02-04T12:14:08+09:00</updated>
+  <updated>2017-06-26T17:28:24+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
   </author>
   <rights>copyright_details</rights>
 
+  
+  <entry>
+    <title>Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기</title>
+    <link href="/2017/06/hello_2017/"/>
+    <updated>2017-06-26T00:00:00+09:00</updated>
+    <id>/2017/06/django_template_variabledoesnotexist</id>
+    <content type="html">&lt;p&gt;한 줄 요약 : Django 템플릿 엔진은 템플릿 필터에 대해서 항상 조용한 실패 처리(silent failure)를 하진 않는다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Django Template은 없는 템플릿 변수나 템플릿 변수의 속성, 키, 색인이 없어도 오류 상황을 일으키지 않고 조용히 오류 상황을 잠재운다. 일명 Silent failure 동작이다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;lorem.ipsum.hello.world&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lorem&lt;/code&gt;이라는 템플릿 변수가 없든 &lt;code class=&quot;highlighter-rouge&quot;&gt;lorem&lt;/code&gt; 템플릿 변수는 있는데 이 객체에 &lt;code class=&quot;highlighter-rouge&quot;&gt;ipsum&lt;/code&gt;이라는 키나 속성이 없다고 가정하자. 최종 템플릿 맥락이 출력(치환)이면 Django는 변수나 키, 속성이 없다는 오류 상황을 일으키지 않으며, 저 템플릿 변수 위치엔 아무것도 출력되지 않는다. 템플릿 변수를 출력(render)하거나 템플릿 태그에서 사용할 때는 이처럼 Silent failure로 동작한다.&lt;/p&gt;
+
+&lt;p&gt;하지만 템플릿 필터를 거치는 경우엔 &lt;code class=&quot;highlighter-rouge&quot;&gt;VariableDoesNotExist&lt;/code&gt; 예외(exception)가 발생한다. 예외 이름에서 드러나듯이 템플릿 변수가 없다는 뜻이다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 존재하지 않는 템플릿 변수인 &lt;code class=&quot;highlighter-rouge&quot;&gt;not_exist_var&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;divisibleby&lt;/code&gt; 템플릿 필터에 사용하면 예외 오류가 발생한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'1234'|divisibleby:not_exist_var&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;이에 대해 Django 공식 문서에서는 다음과 같이 설명한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Thus, filter functions should avoid raising exceptions if there is a reasonable fallback value to return. In case of input that represents a clear bug in a template, raising an exception may still be better than silent failure which hides the bug. ( 출처 : &lt;a href=&quot;https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/#writing-custom-template-filters&quot;&gt;custom-template-tags - writing-custom-template-filter&lt;/a&gt; )&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;간단히 말해서 템플릿 필터 함수에서는 버그를 숨기는 Silent failure 보다는 예외를 일으키는 게 낫다고 한다. 실제로 Django 내장 템플릿 필터를 보면 대체물을 대신 반환해도 될 만한 경우엔 Exception 처리를 잡아내서 오류 상황을 피하지만, 그 외의 경우엔 Exception이 발생하게 냅둔다. 문제는 그 정책이 예상을 벗어나는 경우에 발생한다. 난 &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터에서 조용한 실패 처리를 하지 않는 상황을 만났다. &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터는 대개 다음과 같이 사용한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;empty_var|default:'비었수다'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;나도 비슷하게 사용했다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;apple.attr3|default:lemon.attrdict.color&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Django 템플릿 엔진 동작에 익숙하다면 다음과 같이 동작하길 기대(예상)한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apple.attr3&lt;/code&gt;가 없으면 &lt;code class=&quot;highlighter-rouge&quot;&gt;lemon.attrdict['color']&lt;/code&gt;를 대신 출력&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lemon.attrdict&lt;/code&gt;에 &lt;code class=&quot;highlighter-rouge&quot;&gt;color&lt;/code&gt; 키가 없으면 결국 아무것도 출력하지 않고 Silent failure.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;딱히 Exception이 발생할만한 로직이 아니고, &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 필터 함수를 봐도 인자 두 개 받아서 &lt;code class=&quot;highlighter-rouge&quot;&gt;return value or arg&lt;/code&gt;로 동작하는 것 뿐이다. 다시 말해 &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터인 Python 함수는 두 개 인자를 받는데, 첫 번째 인자로 받는 &lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt; 앞에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;apple.attr3&lt;/code&gt;가 있으면 해당 객체를 반환하고, 없으면 두 번째 인자로 받는 &lt;code class=&quot;highlighter-rouge&quot;&gt;:&lt;/code&gt; 뒤에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;lemon.attrdict.color&lt;/code&gt;를 반환한다.&lt;/p&gt;
+
+&lt;p&gt;하지만 실제로는 &lt;code class=&quot;highlighter-rouge&quot;&gt;VariableDoesNotExist&lt;/code&gt; 예외 오류가 발생한다. 이 예외는 &lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그로 해결하면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gist.github.com/hannal/9de33b54a749457d7f29c5f30c5e9136&quot;&gt;with 템플릿 태그로 VariableDoesNotExist 예방&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그는 Silent failure 처리를 해주니 &lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그로 만든 임시 템플릿 변수인 &lt;code class=&quot;highlighter-rouge&quot;&gt;colour&lt;/code&gt;엔 출력할(render) 게 없는 빈 객체가 할당이 된다. &lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그를 안 쓴 경우엔 Silent failure를 해주는 놈이 없다보니 Exception이 그대로 나버린 것이다. 이 문제가 까다로운 이유는 Django 디버깅 화면에서는 문제가 있는 템플릿 줄(line)을 가리키지 않고 Exception이 발생한 Django 소스를 보여주는 데 있다. 평범한 속성명이나 키 이름을 쓰다가는 고생하기 십상이다.&lt;/p&gt;
+
+&lt;p&gt;흔히 겪는 상황은 아닐 것 같다. 나는 모델에 &lt;code class=&quot;highlighter-rouge&quot;&gt;JSONField&lt;/code&gt;를 썼고, 이 모델필드의 &lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt; 객체에 특정 키(위 예제 기준으로는 &lt;code class=&quot;highlighter-rouge&quot;&gt;colour&lt;/code&gt;키)가 없어서 발생한 거였다. 뷰 함수에서 넘겨주는 템플릿 변수 이름대로라면 금방 발견했을 것 같다.&lt;/p&gt;
+
+&lt;p&gt;삼천포 요약 : 변수 네이밍을 괴랄하게 하면 디버깅에 도움이 된다.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>시트로엥 C4 칵투스 두 달 소감.</title>
@@ -1044,13 +1108,13 @@ for i in range(0, 10):
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;대개는 &lt;code class=&quot;highlighter-rouge&quot;&gt;delay()&lt;/code&gt;라는 메서드로 줄여서 수행합니다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;대개는 &lt;code class=&quot;highlighter-rouge&quot;&gt;delay()&lt;/code&gt;라는 메서드로 줄여서 수행합니다.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;대개는 &lt;code class=&quot;highlighter-rouge&quot;&gt;s()&lt;/code&gt;로 줄인 메서드 이름을 씁니다. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;대개는 &lt;code class=&quot;highlighter-rouge&quot;&gt;s()&lt;/code&gt;로 줄인 메서드 이름을 씁니다.&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:3&quot;&gt;
-      &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;chain&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;chord&lt;/code&gt;는 함수처럼 생겼지만 클래스입니다. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;chain&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;chord&lt;/code&gt;는 함수처럼 생겼지만 클래스입니다.&amp;nbsp;&lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -1614,7 +1678,7 @@ urlpatterns = [
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;다른 편에서 다루겠다는 내용이 늘어가니 불안해지네요. 까먹고 다루지 않을까봐요. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;다른 편에서 다루겠다는 내용이 늘어가니 불안해지네요. 까먹고 다루지 않을까봐요.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -2002,19 +2066,19 @@ class Photo(models.Model):
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;&lt;a href=&quot;https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/&quot;&gt;Encoding Web Shells in PNG IDAT chunks&lt;/a&gt; 글이나 &lt;a href=&quot;https://blog.sucuri.net/2013/07/malware-hidden-inside-jpg-exif-headers.html&quot;&gt;Malware Hidden Inside JPG EXIF Headers&lt;/a&gt; 글 참조. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/&quot;&gt;Encoding Web Shells in PNG IDAT chunks&lt;/a&gt; 글이나 &lt;a href=&quot;https://blog.sucuri.net/2013/07/malware-hidden-inside-jpg-exif-headers.html&quot;&gt;Malware Hidden Inside JPG EXIF Headers&lt;/a&gt; 글 참조.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;&lt;a href=&quot;https://dobest.io/how-csrf-token-works/&quot;&gt;Django와 Rails에서 CSRF Token의 동작 방식&lt;/a&gt;이라는 글을 참조하세요. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://dobest.io/how-csrf-token-works/&quot;&gt;Django와 Rails에서 CSRF Token의 동작 방식&lt;/a&gt;이라는 글을 참조하세요.&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:3&quot;&gt;
-      &lt;p&gt;쉼표를 빼서 &lt;code class=&quot;highlighter-rouge&quot;&gt;('filtered_image')&lt;/code&gt;로 표기하면 그냥 문자열 객체가 됩니다. 리스트 객체를 만드는 데 대괄호를(&lt;code class=&quot;highlighter-rouge&quot;&gt;[&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;]&lt;/code&gt;) 사용하고 튜플 객체를 만드는 데 소괄호(&lt;code class=&quot;highlighter-rouge&quot;&gt;(&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;)&lt;/code&gt;)를 활용해서 헷갈리기 일쑤인데, 튜플을 만드는 데에 필요한 건 괄호가 아니라 쉼표(&lt;code class=&quot;highlighter-rouge&quot;&gt;,&lt;/code&gt;)입니다. 왜냐하면 쉼표로 항목을 구분하여 나열하며, 괄호는 명시적으로 생략 가능하기 때문입니다. 단, 예외로 아무 항목이 없는 빈 튜플을 만드는 경우엔 그냥 소괄호로 짝지으면 됩니다. 자세한 내용은 &lt;a href=&quot;https://docs.python.org/3/library/stdtypes.html#tuples&quot;&gt;공식 문서의 Tuples&lt;/a&gt;를 참조하세요. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;쉼표를 빼서 &lt;code class=&quot;highlighter-rouge&quot;&gt;('filtered_image')&lt;/code&gt;로 표기하면 그냥 문자열 객체가 됩니다. 리스트 객체를 만드는 데 대괄호를(&lt;code class=&quot;highlighter-rouge&quot;&gt;[&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;]&lt;/code&gt;) 사용하고 튜플 객체를 만드는 데 소괄호(&lt;code class=&quot;highlighter-rouge&quot;&gt;(&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;)&lt;/code&gt;)를 활용해서 헷갈리기 일쑤인데, 튜플을 만드는 데에 필요한 건 괄호가 아니라 쉼표(&lt;code class=&quot;highlighter-rouge&quot;&gt;,&lt;/code&gt;)입니다. 왜냐하면 쉼표로 항목을 구분하여 나열하며, 괄호는 명시적으로 생략 가능하기 때문입니다. 단, 예외로 아무 항목이 없는 빈 튜플을 만드는 경우엔 그냥 소괄호로 짝지으면 됩니다. 자세한 내용은 &lt;a href=&quot;https://docs.python.org/3/library/stdtypes.html#tuples&quot;&gt;공식 문서의 Tuples&lt;/a&gt;를 참조하세요.&amp;nbsp;&lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:4&quot;&gt;
-      &lt;p&gt;사전형 객체처럼 생긴 이런 객체를 인스턴스로 만드는 데 사용하는 클래스(&lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt;)도 &lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt;를 상속받아서 만들어서 &lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt;형이 제공하는 인터페이스를 포함합니다. &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;사전형 객체처럼 생긴 이런 객체를 인스턴스로 만드는 데 사용하는 클래스(&lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt;)도 &lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt;를 상속받아서 만들어서 &lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt;형이 제공하는 인터페이스를 포함합니다.&amp;nbsp;&lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:5&quot;&gt;
-      &lt;p&gt;“magic”이라는 표현을 씁니다. 뭔가 알아서 수행되는데, 이용자(개발자)가 굳이 알 필요가 없는 내부에 감춰진 동작을 뜻하지요. &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;“magic”이라는 표현을 씁니다. 뭔가 알아서 수행되는데, 이용자(개발자)가 굳이 알 필요가 없는 내부에 감춰진 동작을 뜻하지요.&amp;nbsp;&lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -2306,10 +2370,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;2015년 4월 기준으로 제 블로그는 실제로 이런 방식으로 운영합니다. 그다지 자주 내용물을 고치거나 새로 만들지 않기 때문에 오히려 정적으로 자원을 제공하는 것이 더 효율성 있기 때문입니다. 주 자원은 &lt;a href=&quot;https://pages.github.com/&quot;&gt;Github Pages&lt;/a&gt;라는 기능을 이용하여 제공하고, 가변하는 내용물인 댓글은 &lt;a href=&quot;https://disqus.com/&quot;&gt;Disqus&lt;/a&gt;라는 서비스를 이용하여 본문에서 분리해서 운영합니다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;2015년 4월 기준으로 제 블로그는 실제로 이런 방식으로 운영합니다. 그다지 자주 내용물을 고치거나 새로 만들지 않기 때문에 오히려 정적으로 자원을 제공하는 것이 더 효율성 있기 때문입니다. 주 자원은 &lt;a href=&quot;https://pages.github.com/&quot;&gt;Github Pages&lt;/a&gt;라는 기능을 이용하여 제공하고, 가변하는 내용물인 댓글은 &lt;a href=&quot;https://disqus.com/&quot;&gt;Disqus&lt;/a&gt;라는 서비스를 이용하여 본문에서 분리해서 운영합니다.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;Django로 생성한 프로젝트를 Django 프로젝트라 하고, Django 프로젝트는 뭔가를 수행하는 기능 단위인 Django App을 모아놓은 좀 더 큰 단위입니다. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;Django로 생성한 프로젝트를 Django 프로젝트라 하고, Django 프로젝트는 뭔가를 수행하는 기능 단위인 Django App을 모아놓은 좀 더 큰 단위입니다.&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -2534,10 +2598,10 @@ hello_func(1, 2, '3', 'a')
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-3102/&quot;&gt;PEP-3102 : Keyword-Only Arguments&lt;/a&gt; &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-3102/&quot;&gt;PEP-3102 : Keyword-Only Arguments&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-3107/&quot;&gt;PEP-3107 : Function Annotations&lt;/a&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-3107/&quot;&gt;PEP-3107 : Function Annotations&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -2698,7 +2762,7 @@ hello_func(1, 2, '3', 'a')
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;편의점 프로젝트&lt;/a&gt;에서 SQL Query를 짜는 문제 하나는 결국 동료가 해결해 주었다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;편의점 프로젝트&lt;/a&gt;에서 SQL Query를 짜는 문제 하나는 결국 동료가 해결해 주었다.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -2998,13 +3062,13 @@ hello_func(1, 2, '3', 'a')
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;이 말은 연재 중인 강좌에 필요한 기반 마련은 진작 끝냈다는 뜻이다. 단지 너무 바빠서 강좌 글 자체를 작성하지 못하고 있다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;이 말은 연재 중인 강좌에 필요한 기반 마련은 진작 끝냈다는 뜻이다. 단지 너무 바빠서 강좌 글 자체를 작성하지 못하고 있다.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;당시 우리 회사 CTO이자 공동창업자인 Spike^ekipS님이 도입했는데, IPython을 비롯해 내가 접한 개발 도구나 라이브러리, 기술 상당 수는 그가 알려준 것이며, 코드도 그에게서 영향을 받았다. 개발자로서 내게 영향을 준 사람은 두 명(Spike^ekipS, cpascal)인데, 두 사람 모두 뛰어난 해커이다. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;당시 우리 회사 CTO이자 공동창업자인 Spike^ekipS님이 도입했는데, IPython을 비롯해 내가 접한 개발 도구나 라이브러리, 기술 상당 수는 그가 알려준 것이며, 코드도 그에게서 영향을 받았다. 개발자로서 내게 영향을 준 사람은 두 명(Spike^ekipS, cpascal)인데, 두 사람 모두 뛰어난 해커이다.&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:3&quot;&gt;
-      &lt;p&gt;Django 1.8판에 반영되었다. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;Django 1.8판에 반영되었다.&amp;nbsp;&lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
@@ -3421,153 +3485,6 @@ _combinated = combinations(('a', 'b', 'c', 'd',), 2)
 
 &lt;p&gt;기계가 할 일을 사람이 해서는 안 된다. 기계가 할 일은 기계가 잘 하도록 맡겨 두고, 사람은 사람이 잘하는 일에 집중해야 한다.&lt;/p&gt;
 
-</content>
-  </entry>
-  
-  <entry>
-    <title>개발 생활 - 1</title>
-    <link href="/2015/02/devlife-s1-01/"/>
-    <updated>2015-02-18T16:50:49+09:00</updated>
-    <id>/2015/02/devlife</id>
-    <content type="html">&lt;p&gt;지난 8월 중순부터 취미로 하던 프로그래밍을 전업으로 하고 있다. 그동안 세 개 제품을 투입(release)했고, 하나는 비공개 시험 운영 중이며, 약 두 달 동안 강의를 하기도 했다. 지난 6개월을 돌이켜 본다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;개발 생활 - 1&lt;/code&gt;&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;개발 생활 - 6&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;1-전업-결심&quot;&gt;1. 전업 결심&lt;/h3&gt;
-
-&lt;p&gt;2014년 7월에 프로그래머로 전직을 결심했지만 막막하기만 했다. 여러 언어와 도구, 분야를 검토한 끝에 Python을 주 프로그래밍 언어로, 관심을 두고 꾸준히 다룰 언어로는 Go 언어를 정했다. 기준은 내가 하고 싶고 만들고 싶은 것에 필요하고 내 취향이나 성향에 맞는 지 여부이며, 급여 등은 판단 기준에 넣지 않았다.&lt;/p&gt;
-
-&lt;p&gt;그러다 8월 중순에 &lt;a href=&quot;http://www.rsquare.co.kr&quot;&gt;부동산 다이렉트&lt;/a&gt;라는 회사에 서버 프로그래머로 합류했다.&lt;/p&gt;
-
-&lt;h3 id=&quot;2-개발-프로젝트&quot;&gt;2. 개발 프로젝트&lt;/h3&gt;
-
-&lt;h4 id=&quot;2-1-pdf-문서-생성-서버&quot;&gt;2-1. PDF 문서 생성 서버&lt;/h4&gt;
-
-&lt;h5 id=&quot;개요&quot;&gt;개요&lt;/h5&gt;
-
-&lt;p&gt;이 프로젝트는 서버에 저장된 데이터를 제안서로 만들고, 이 제안서를 PDF 문서로 생성하는 기능을 만드는 것이었다. 기존에 Go 언어로 만들어 사용하는 서버가 있었는데 다음 요구사항을 구현해야 했고, 이 기능 구현을 내가 맡은 것이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;요구사항
-    &lt;ul&gt;
-      &lt;li&gt;여러 제안서를(PDF 파일) 하나로 묶어서 PDF 파일 하나로 만든다.&lt;/li&gt;
-      &lt;li&gt;DB에서 직접 데이터를 가져오던 기존 방식 대신 API Server에서 REST API로 데이터를 가져온다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;내가 정한 추가 목표치
-    &lt;ul&gt;
-      &lt;li&gt;웹 페이지에서 PDF 생성 버튼을 누르면 응답 화면을 먼저 보여주고, PDF 생성이 완료되면 따로 알려주어 사용성을 높인다.&lt;/li&gt;
-      &lt;li&gt;유연하고 빠르게 제안서 양식에 변화를 주어 생산성을 높인다.&lt;/li&gt;
-      &lt;li&gt;3주 안에 개발을 끝낸다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;개발-환경&quot;&gt;개발 환경&lt;/h5&gt;
-
-&lt;p&gt;제안서는 꽤 복잡한 구조(layout)였고 Google Map API도 사용해서 Javascript를 처리해야 했다. &lt;a href=&quot;http://wkhtmltopdf.org/&quot;&gt;wkhtmltopdf&lt;/a&gt;는 이런 복잡한 HTML를 PDF로 변환하는 데 가장 적합한 도구이다. Webkit 렌더러를 이용하여 웹브라우저가 HTML를 렌더링하는 방식으로 HTML 문서를 출력하고 이 문서를 PDF로 변환하기 때문에 우리에게 필요한 기능을 모두 제공했고, 이미 개발팀에서 사용하고 있기도 했다.&lt;/p&gt;
-
-&lt;p&gt;하지만, wkhtmltopdf엔 PDF 파일들을 하나로 합치는 기능이 없다. 여러 도구를 살펴봤는데 &lt;a href=&quot;http://www.python.org&quot;&gt;Python&lt;/a&gt;용 라이브러리인 PyPDF 2가 적합했다. 그리고 내가 정한 추가 목표치를 달성하는 데에도 Python이 가장 적합했다. 그래서 PDF 문서 생성 서버는 Python을 이용해 새로 만들기로 결정했다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;언어 : Python 2.7&lt;/li&gt;
-  &lt;li&gt;사용 라이브러리, 프레임워크
-    &lt;ul&gt;
-      &lt;li&gt;웹 프레임워크 : &lt;a href=&quot;http://flask.pocoo.org/&quot;&gt;Flask&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;PDF 병합 : &lt;a href=&quot;http://mstamy2.github.io/PyPDF2/&quot;&gt;PyPDF 2&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;백그라운드 처리 : &lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;Celery&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;웹 소켓 : &lt;a href=&quot;http://www.gevent.org/&quot;&gt;gevent&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;개발-과정&quot;&gt;개발 과정&lt;/h5&gt;
-
-&lt;p&gt;막상 개발에 착수하자 시작부터 문제에 봉착했다. PyPDF 2는 wkhtmltopdf로 만든 PDF를 두 개 이상 병합하려 하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;__WKANCHOR__&lt;/code&gt; 관련 오류가 발생하였다. wkhtmltopdf로 만든 PDF에 형성한 앵커의 ID가 PDF 마다 동일하게 만들어져서 이를 합칠 때 중복되어서(고유하지 않아서) 발생하는 문제 같다. wkhtmltopdf나 PyPDF 2 소스를 고쳐서 문제를 해결하려 했으나 시간이 여의치 않았다. 나는 여러 제안서를 HTML 문서 하나로 합치고, 이 합친 HTML 문서를 PDF로 변환하기로 했다. wkhtmltopdf에 여러 HTML 문서를 PDF 문서 하나로 병합해 생성하는 기능이 있긴 했으나, 결과물인 PDF 외양(layout)이 깨지는 문제가 발생하였다. 그리고, 백 개가 넘는 제안서를 하나로 합치는 상황을 터미널 콘솔에서 테스트하기 번거로웠다. 그래서 아예 하나로 합쳐진 HTML을 만드는 방법을 골랐다.&lt;/p&gt;
-
-&lt;p&gt;API Server에서 제공하는 REST API로 데이터를 가져오는 건 &lt;a href=&quot;https://github.com/jcgregorio/httplib2&quot;&gt;httplib2&lt;/a&gt;를 이용했다. 대세인 HTTP 라이브러리인 &lt;a href=&quot;http://docs.python-requests.org/&quot;&gt;Requests&lt;/a&gt;를 사용하려 했으나 &lt;code class=&quot;highlighter-rouge&quot;&gt;HTTPS&lt;/code&gt; 통신이 잘 되질 않았다. 구현을 마친 나중에 안 사실이지만 이 문제는 HTTPS 인증서를 내가 잘못 사용해서 발생한 문제였다.&lt;/p&gt;
-
-&lt;p&gt;API Server에서 가져온 데이터를 어떻게 구조화 할까 고민하다 &lt;a href=&quot;https://www.djangoproject.com/&quot;&gt;Django&lt;/a&gt;의 ORM을 흉내 내기로 했다. Django의 Model은 다음과 같이 데이터를 데이터베이스에서 가져온다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;building = Building.objects.get(id=3, status='open')
-
-print building.name
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;내가 만든 건 이런 모양이다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;building = Building.filter(id=3, {'status': 'open'})
-
-print building.name
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;데이터베이스를 사용하지 않고 오직 REST API로 데이터를 가져오기 때문에 굳이 ORM처럼 만들 필요는 없었다. 데이터 모델 스키마는 API Server의 문서에 잘 나와 있기 때문에 문서 서버에서 모델을 정의하지 않아도 무방했다. Django ORM을 분석하면서 많이 배우긴 했지만 프로젝트 관리 관점에서 보면 초과 사양으로 보였다. 하지만, 자잘한 수정 사항이 매우 빈번하게 발생하자 그 나름대로 기준과 일관성이 있는 인터페이스 덕에 유연하게 대응할 수 있었다.&lt;/p&gt;
-
-&lt;p&gt;1차 요구사항을 구현하고 나서 사용성을 높이는 단계로 넘어갔다. PDF 생성은 적지 않은 시간이 소요되기 때문에 이용자가 웹 페이지에서 PDF 생성 버튼을 누르면 한참 기다려야 했다. 만약 100장짜리 제안서를 PDF로 생성하는 경우 30~40분을 기다려야 하며, HTTP/1.x 특성상 연결이 끊기거나(Timeout) 연결에 문제가 생길 가능성이 높아진다. 그래서 PDF 생성은 백그라운드에서 별도 작업자가 처리하고, 생성이 완료되면 푸시로 이용자에게 알려주는 기능을 구현하기로 했다.&lt;/p&gt;
-
-&lt;p&gt;Celery를 이용해 백그라운드로 처리하는 기능은 구현하긴 쉬웠다. 하지만, PyPDF 2의 PDF 병합 문제로 병합할 개별 PDF 문서를 분산해서 처리하지 않았기 때문에 비동기로 백그라운드에서 PDF 를 생성하는 역할로만 활용했다.&lt;/p&gt;
-
-&lt;p&gt;웹 브라우저가 웹 소켓을 열어 웹 소켓 서버와 연결을 유지하고, PDF 생성이 완료되면 서버가 클라이언트인 웹 브라우저로 푸시 알림으 보내는 기능도 간단히 구현했다. gevent 라이브러리를 사용하는 &lt;a href=&quot;https://pypi.python.org/pypi/gevent-websocket/&quot;&gt;gevent-websocket&lt;/a&gt; 라이브러리를 이용하여 웹 소켓 서버를 만들었다. 처음엔 직접 구현하고 있었는데 때마침 열린 &lt;a href=&quot;http://www.pycon.kr/2014&quot;&gt;PYCON Korea 2014&lt;/a&gt;에서 정민영님이 발표한 &lt;a href=&quot;http://www.pycon.kr/2014/program/3&quot;&gt;제약을 넘어 : Gevent&lt;/a&gt;를 듣고 gevent와 gevent-websocket을 도입했다. 무척 간단했다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from gevent import monkey
-monkey.patch_all()
-
-from geventwebsocket import (
-    WebSocketServer,
-    WebSocketApplication,
-    Resource,
-)
-
-class TaskChecker(WebSocketApplication):
-    # 작업 class
-    pass
-
-notifier_host = 'localhost'
-notifier_port = 9999
-
-WebSocketServer(
-    (notifier_host, notifier_port),
-    Resource({'/': TaskChecker})
-).serve_forever()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;서버가 백그라운드에서 PDF를 생성하는 긴긴 시간 동안 이용자는 자신이 받을 제안서 PDF를 웹 화면으로 먼저 접하게 된다. 미리보기(preview) 역할을 하는 셈이다. 이용자에겐 별다른 기능이 없지만, 실제로는 제안서 HTML을 만드는 중요 역할을 한다. 이 웹 서버는 Flask를 이용해 만들었다. 내겐 Django가 더 익숙했지만, 경량 프레임워크이면서도 문서 서버의 웹 서버에 필요한 기능은 충분히 포함하고 있었고, Flask에 기본 탑재된 템플릿 엔진인 &lt;code class=&quot;highlighter-rouge&quot;&gt;jinja2&lt;/code&gt;의 문법이 Django의 템플릿 문법과 거의 동일해서 금방 적응했다.&lt;/p&gt;
-
-&lt;p&gt;Flask는 참 좋은 프레임워크이다. PDF 생성과 병합하는 기능을 분석하고 구현하는 데 예상보다 많은 시간을 써서 시간에 쫓기는 상황이다보니 Flask 문서를 거의 읽지 않고 &lt;a href=&quot;http://www.stackoverflow.com&quot;&gt;Stackoverflow&lt;/a&gt;를 전전하며 개발했는데, 대부분 코드에서 기대하는 바가 의도하는 대로, 그리고 예상하는 대로 동작하였다. 구조도 명료해서 Flask 내부를 들여다 보기에도 좋았다.&lt;/p&gt;
-
-&lt;h5 id=&quot;우여곡절&quot;&gt;우여곡절&lt;/h5&gt;
-
-&lt;p&gt;이용자가 웹 브라우저에서 웹 소켓으로 푸시 알림 서버에 연결하면 이 알림 서버는 Redis 서버에 접속하여 Celery가 진행하고 있는 작업 상태를 추적한다. 작업이 끝나면(&lt;code class=&quot;highlighter-rouge&quot;&gt;celery.AsyncResult(id=task_id).status == 'SUCCESS'&lt;/code&gt;) 푸시 알림 서버는 해당 작업(PDF 생성)에 대한 알림을 요청한 클라이언트들에게 생성된 PDF 파일을 내려 받는 URL을 반환한다. 웹 브라우저는 이 URL을 받으면 화면에 PDF 다운로드 버튼을 출력하고, 이용자는 이 버튼을 눌러 제안서 PDF를 받는 것이다.&lt;/p&gt;
-
-&lt;p&gt;그래서 백그라운드 작업 처리 부분과 푸시 알림 서버를 연계해야 했는데, 테스트가 까다로웠다. 동시성이나 병렬성에 익숙하지 않다보니 지극히 직렬성 사고를 하여 코드나 로직을 직렬성을 전제로 작성했는데, 동기식 직렬성을 전제로 작성한 코드로 비동기 상황을 테스트 하려다 보니 상황을 재현하고 발생한 문제를 추적하기 용이하지 않았다. 작은 코드 변화만으로 작동 순서가 달라져 문제가 발생하기도 했다.&lt;/p&gt;
-
-&lt;p&gt;wkhtmltopdf가 만든 PDF가 HTML 문서와 다르게 만들어지는 문제도 해결하기 참 까다로웠다. wkhtmltopdf이 Webkit을 사용하긴 하지만, Webkit을 사용하는 구글 크롬이나 애플 사파리과는 다르게 작동하는 부분이 꽤 많았다. 렌더러 버전 차이도 있고, 웹 브라우저 벤더마다 따로 맞춘 설정(customized)이 문제였다.&lt;/p&gt;
-
-&lt;p&gt;글자 간격이나 틀(layout)이 틀어지는 건 그나마 간단했다. &lt;a href=&quot;http://blog.hannal.com/2014/9/letter_overlap_problem_on_wkhtmltopdf/&quot;&gt;HTML DOM 요소들이 미쳐 날뛰듯이 뒤엉키는 문제&lt;/a&gt;는 해결하기 무척 힘들고 어려웠다. 이 문제가 오직 wkhtmltopdf로 생성한 PDF에서만 발생했고, HTML 문서와는 달리 PDF 문서는 요소를 검사(inspect)할 마땅한 방법이 없었기 때문이다. HTML과 CSS의 여러 속성과 항목을 하나하나 고치고 wkhtmltopdf로 PDF를 생성해 결과 화면을 보며 문제 원인을 추적해야 했다. 디버깅 할 때 중단점(breaking point)을 찍고선 진행 과정을 한 단계씩 추적하듯이, wkhtmltopdf가 PDF 문서를 생성하는 과정을 하나 하나 추적할 수 있었다면 얼마나 좋았을까. 또 다른 어려운 점은 이런 문제는 구글링을 해도 딱히 자료가 없다는 점이다.&lt;/p&gt;
-
-&lt;p&gt;몇 몇 문제는 도저히 재현되지도 파악되지도 않아서 wkhtmltopdf 컴파일 설정을 바꿔서 wkhtmltopdf를 다르게 빌드해보기도 했다. 몇 가지 문제는 &lt;a href=&quot;http://natepinchot.com/2014/01/31/building-static-wkhtmltopdf/&quot;&gt;wkhtmltopdf에 QT 패치&lt;/a&gt;를 해서 해결하기도 했다. wkhtmltopdf는 상당히 덩치가 큰 소프트웨어여서 컴파일하고 빌드하는 데 시간이 많이 든다. 인텔 i5 (2.2GHz quad core), 램 8기가, SSD 사양인 맥북 프로에서도 Clean build를 마치는 데 40여 분이 소요됐고, 이보다 훨씬 사양이 낮은 실 서비스 서버에서는 네 시간에서 다섯 시간이 소요됐다. 개발 중이어서 서비스 서버 사양을 &lt;a href=&quot;http://aws.amazon.com/ko/ec2/instance-types/#t2&quot;&gt;AWS t2.micro&lt;/a&gt;로 낮게 설정했기 때문이다. 힘들게 개발 환경인 Mac OS X에서 wkhtmltopdf 컴파일 설정을 맞췄는데, Redhat 계열 Linux인 AMI에서는 다르게 동작해서 다시 컴파일을 하기도 했다.&lt;/p&gt;
-
-&lt;p&gt;마지막으로 고생했던 점은 Go로 작성된 기존 문서 서버 코드를 분석하며 새 버전을 만든 점이다. 당시 개발팀은 중요 일정을 맞추려고 밤낮으로 고생하고 있었다. 그에 비해 나는 비교적 일정과 구현에 대해 배려받고 있었고, 기능만 놓고 보면 내가 맡은 부분은 중요도가 높진 않았다. 그래서, 가능한 한 다른 개발자를 방해하지 않고 기존 코드를 보며 알아서 해결하려 노력했다. 이미 운영 중인 문서 서버의 Go 소스 코드를 몇 번이고 읽으며 의도를 이해하려 했지만, 기존 문서 서버는 DB에 직접 연결하여 데이터를 다루는 등 동작 방식이 전혀 다른데다 객체 지향 언어가 아닌 Go로 작성된 코드여서 Python으로 코드를 작성하는 데 혼란을 야기했다. 즉, 맥락 전환(context switching)에 비용이 많이 든 것인데, 당시엔 전혀 염두에 두지 않았던 상황이다.&lt;/p&gt;
-
-&lt;p&gt;코드로는 의도나 목적을 이해하여 초기 구현은 빨리 마쳤다. 기존 것과 동일하게 동작하면 됐기 때문이다. 하지만, 나는 새로 만드는 버전을 맡은 것이고, 새 버전의 제안서는 기존 제안서와 꽤 달랐다. 이런 문제들은 출시(release)하고나서 운영할 때 유지보수에 혼란을 일으키는 요소가 된다. 정확한 기능의 의도와 목적을 이해하지 않은 상태에서 구조와 설계를 잡고 구현했기 때문이다. 다행히 초과 사양으로 구현하느라 일정 초기에 고생스러웠던 추상화 부분들, 그리고 기획자의 꼼꼼한 지원 덕에 서비스 적용(release) 후 유지보수에 큰 난관이 일어나진 않았다.&lt;/p&gt;
-
-&lt;h5 id=&quot;정리&quot;&gt;정리&lt;/h5&gt;
-
-&lt;p&gt;목표로 했던 것보다 2주 더 걸린 5주 만에 개발을 마쳤다. Python 2.7을 사용한 걸 제외하면, 사용한 라이브러리나 프레임워크 등 대부분을 처음 사용하는 경우였다. 도구 뿐만 아니라 개발 메카니즘이나 구성도 생소했다. 이용자가 실제로 접하는 기능과 동작은 단순하기 그지 없는데, 실제 구현은 까다로운 부분도 많았다.&lt;/p&gt;
-
-&lt;p&gt;당시엔 밤엔 공부하고 실험하고 출근하면 밤에 쌓은 자산을 적용하여 구현하는, 말 그대로 주경야독 시기를 혹독하게 보냈다. 과의욕 상태에서 불필요한 설계를 하거나 구현하여 고생을 자초하기도 했다.&lt;/p&gt;
-
-&lt;p&gt;많이 학습하고 부족한 부분을 찾은 과정이었다.&lt;/p&gt;
 </content>
   </entry>
   
