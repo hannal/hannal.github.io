@@ -92,7 +92,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2017. All rights reserved.
+      &copy; 2018. All rights reserved.
     </p>
   </div>
 </div>
@@ -150,7 +150,7 @@
 
 <p>Django에서 제공하는 인증 기능을 이용하여 로그인, 로그아웃 기능을 구현 하겠습니다. <code class="highlighter-rouge">settings.py</code> 파일이 있는 시작패키지에서 <code class="highlighter-rouge">urls.py</code> 파일을 열고, 다음 내용을 추가합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from django.contrib.auth import views as auth_views  # 이 줄 추가.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.contrib.auth import views as auth_views  # 이 줄 추가.
 
 urlpatterns = [
     # 중략
@@ -171,8 +171,7 @@ urlpatterns = [
         }
     ),
 ]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">r'^accounts/login/'</code>은 로그인 하는 URL이고, 로그인 화면을 출력하거나 로그인 인증 처리를 하는 뷰 함수는 Django에 내장된 <code class="highlighter-rouge">login</code> 뷰 함수를 사용합니다. 이 함수 객체는 <code class="highlighter-rouge">django.contrib.auth.views</code> 모듈에 존재합니다. 이 URL 패턴의 이름을 <code class="highlighter-rouge">name</code> 키워드 인자를 이용하여 <code class="highlighter-rouge">login</code>이라고 지었는데, 이 인자를 사용하지 않아도 무방합니다. <code class="highlighter-rouge">kwargs</code>는 URL 패턴에 연결한 뷰 함수에 추가로 전달할 인자를 사전형(<code class="highlighter-rouge">dict</code>) 객체로 전달합니다. 키가 <code class="highlighter-rouge">'template_name'</code>이고 값이 <code class="highlighter-rouge">'login.html'</code>인 사전형 객체인데, Django에서 제공하는 <code class="highlighter-rouge">login</code> 뷰 함수에 <code class="highlighter-rouge">template_name</code> 이름으로 키워드 인자를 지정하면 로그인 화면을 출력하는 데 사용할 템플릿으로 사용합니다. <code class="highlighter-rouge">'login.html'</code>이라는 문자열을 지정했으니 우리가 <code class="highlighter-rouge">settings.py</code>에서 <code class="highlighter-rouge">TEMPLATE_DIRS</code>에 지정한 템플릿 디렉터리 중 최상위 순위에 있는 <code class="highlighter-rouge">login.html</code> 파일을 찾아서 로그인 화면을 출력하는 데 사용합니다.</p>
 
@@ -182,30 +181,29 @@ urlpatterns = [
 
 <p>이번엔 로그인 화면에 사용할 <code class="highlighter-rouge">login.html</code> 템플릿 파일을 만듭니다. <code class="highlighter-rouge">templates</code> 디렉터리에 <code class="highlighter-rouge">login.html</code> 파일을 만들고 다음 내용을 담습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">extends</span><span class="w"> </span><span class="nt">"layout.html"</span><span class="w"> </span><span class="err">%}</span><span class="w">
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% extends "layout.html" %}
 
-</span><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">block</span><span class="w"> </span><span class="err">content</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
+{% block content %}
 
-</span><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">form.errors</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
-</span><span class="err">&lt;p&gt;ID나</span><span class="w"> </span><span class="err">비밀번호가</span><span class="w"> </span><span class="err">일치하지</span><span class="w"> </span><span class="err">않습니다.&lt;/p&gt;</span><span class="w">
-</span><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">endif</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
+{% if form.errors %}
+&lt;p&gt;ID나 비밀번호가 일치하지 않습니다.&lt;/p&gt;
+{% endif %}
 
-</span><span class="err">&lt;form</span><span class="w"> </span><span class="err">method=</span><span class="s2">"post"</span><span class="w"> </span><span class="err">action=</span><span class="s2">"{% url 'login' %}"</span><span class="err">&gt;</span><span class="w">
-</span><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">csrf_token</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
-</span><span class="err">&lt;input</span><span class="w"> </span><span class="err">type=</span><span class="s2">"hidden"</span><span class="w"> </span><span class="err">name=</span><span class="s2">"next"</span><span class="w"> </span><span class="err">value=</span><span class="s2">""</span><span class="w"> </span><span class="err">/&gt;</span><span class="w">
+&lt;form method="post" action="{% url 'login' %}"&gt;
+{% csrf_token %}
+&lt;input type="hidden" name="next" value="" /&gt;
 
 
 
-</span><span class="err">&lt;button</span><span class="w"> </span><span class="err">type=</span><span class="s2">"submit"</span><span class="err">&gt;로그인&lt;/button&gt;</span><span class="w">
-</span><span class="err">&lt;/form&gt;</span><span class="w">
+&lt;button type="submit"&gt;로그인&lt;/button&gt;
+&lt;/form&gt;
 
-</span><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">endblock</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+{% endblock %}
+</code></pre></div></div>
 
 <p>Django에서 견본으로 제공하는 <a href="https://docs.djangoproject.com/en/1.10/topics/auth/default/#django.contrib.auth.views.login">login.html 템플릿 파일</a>에서 따와서 약간 고쳤습니다. 따로 뷰 함수에서 템플릿으로 로그인 폼을 템플릿 컨텍스트로 전달하지 않았지만, Django에서 관례로 많이 쓰는 이름인 <code class="highlighter-rouge">form</code>을 사용했습니다. form.errors<code class="highlighter-rouge">엔 입력한 폼 양식에 문제가 있는 경우에 문제 내용이 담겨 있습니다. ID(</code>username`)나 비밀번호를 입력하지 않거나 형식에 맞지 않는 등 여러 오류 종류가 있겠지만, 간결하게 ID와 비밀번호가 일치하지 않는다고만 안내합니다. 로그인에 대해서는 굳이 친절하게 뭐가 문제인지 자세히 알려줄 필요는 없습니다.</p>
 
-<p><code class="highlighter-rouge"><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">next</span><span class="w"> </span><span class="err">%</span><span class="p">}</span></code>에서 <code class="highlighter-rouge">next</code>는 로그인을 한 후 이동할 URL을 뜻합니다. 예를 들어, 로그인을 하지 않은 채 사진에 달린 댓글을 삭제하려 하면 로그인하는 URL로 이동하고 로그인을 하고 나면 로그인하기 전에 접근하려는 URL으로 이동하는데, 이동할 URL이 GET이나 POST 방식으로 전달된 Query String 키인 <code class="highlighter-rouge">next</code>에 담깁니다. 대개는 URL이 <code class="highlighter-rouge">https://pystagram.com/accounts/login/?next=/redirect_to_here/</code>와 같이 표현됩니다.</p>
+<p><code class="highlighter-rouge">{% if next %}</code>에서 <code class="highlighter-rouge">next</code>는 로그인을 한 후 이동할 URL을 뜻합니다. 예를 들어, 로그인을 하지 않은 채 사진에 달린 댓글을 삭제하려 하면 로그인하는 URL로 이동하고 로그인을 하고 나면 로그인하기 전에 접근하려는 URL으로 이동하는데, 이동할 URL이 GET이나 POST 방식으로 전달된 Query String 키인 <code class="highlighter-rouge">next</code>에 담깁니다. 대개는 URL이 <code class="highlighter-rouge">https://pystagram.com/accounts/login/?next=/redirect_to_here/</code>와 같이 표현됩니다.</p>
 
 <p>그외엔 <a href="http://blog.hannal.com/2015/05/start_with_django_webframework_07/">7. 사진 게시물 제출하여 게시하기</a> 편 내용과 비슷합니다. <code class="highlighter-rouge">form</code>은 <code class="highlighter-rouge">django.contrib.auth.forms</code> 모듈에 있는 <code class="highlighter-rouge">AuthenticationForm</code> 폼 클래스로 생성한 인스턴스 객체입니다.</p>
 
@@ -320,9 +318,8 @@ urlpatterns = [
 
 <p>웹 브라우저 주소입력란을 잘 보면 <code class="highlighter-rouge">http://localhost:8000/accounts/profile/</code>과 같이 전혀 본 적 없는 URL로 되어 있습니다. 이는 Django 기본 <code class="highlighter-rouge">LOGIN_REDIRECT_URL</code> 설정값이 <code class="highlighter-rouge">/accounts/profile/</code>이라서 그렇습니다. 아직 우리는 프로필 페이지를 만들지 않았으니 임시로 <code class="highlighter-rouge">/photos/upload/</code>로 이동하도록 설정하겠습니다. 시작패키지에서 <code class="highlighter-rouge">settings.py</code> 파일을 열고 다음 코드를 추가합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>LOGIN_REDIRECT_URL = '/photos/upload/'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LOGIN_REDIRECT_URL = '/photos/upload/'
+</code></pre></div></div>
 
 <p>이제 로그인을 마치면 <code class="highlighter-rouge">/photos/upload/</code>로 이동하여 사진을 올리라는 압박을 줍니다.</p>
 
@@ -339,7 +336,7 @@ urlpatterns = [
 <div class="footnotes">
   <ol>
     <li id="fn:1">
-      <p>다른 편에서 다루겠다는 내용이 늘어가니 불안해지네요. 까먹고 다루지 않을까봐요.&nbsp;<a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+      <p>다른 편에서 다루겠다는 내용이 늘어가니 불안해지네요. 까먹고 다루지 않을까봐요. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -375,6 +372,15 @@ urlpatterns = [
     
       <li>
         <h3>
+          <a href="/2018/01/thinking-of-how-to-work/">
+            일하는 방식 고민.
+            <small>06 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2017/06/django-template-variabledoesnotexist-exception/">
             Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기
             <small>26 Jun 2017</small>
@@ -387,15 +393,6 @@ urlpatterns = [
           <a href="/2016/11/citroen-c4-cactus/">
             시트로엥 C4 칵투스 두 달 소감.
             <small>28 Nov 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/07/book-python-web-programming-with-flask/">
-            책, Flask 기반의 파이썬 웹 프로그래밍 소감
-            <small>08 Jul 2016</small>
           </a>
         </h3>
       </li>

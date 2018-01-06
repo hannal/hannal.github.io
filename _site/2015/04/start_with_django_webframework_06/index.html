@@ -92,7 +92,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2017. All rights reserved.
+      &copy; 2018. All rights reserved.
     </p>
   </div>
 </div>
@@ -169,40 +169,36 @@
 
 <p><code class="highlighter-rouge">STATICFILES_DIRS</code>은 개발 단계에서 사용하는 정적 파일이 위치한 경로들을 지정하는 설정 항목입니다. 특정 Django App<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>에만 사용하는 정적 파일이 있거나 혹은 정적 파일을 관리하기 용이하게 하기 위해 여러 경로(path)에 정적 파일을 배치하였다면, 이 경로들을 Python의 <code class="highlighter-rouge">list</code>나 <code class="highlighter-rouge">tuple</code>로 담으면 됩니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>STATICFILES_DIRS = (
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>대개는 <code class="highlighter-rouge">static</code>이라는 디렉터리에 정적 파일을 담습니다. 주의할 점은 정적 디렉터리 경로가 하나이더라도 반드시 <code class="highlighter-rouge">list</code>나 <code class="highlighter-rouge">tuple</code>로 담아야 한다는 점입니다. 흔히 하는 실수는 다음과 같이 항목 뒤에 쉼표를 빠뜨리는 것입니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>STATICFILES_DIRS = (
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static')
 )
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>이런 경우 Django는 <code class="highlighter-rouge">ImproperlyConfigured: Your STATICFILES_DIRS setting is not a tuple or list; perhaps you forgot a trailing comma?</code>라는 경고를 출력하며 정적 파일을 제대로 제공(serving)하지 못합니다.</p>
 
 <p><code class="highlighter-rouge">manage.py</code>에서 제공하는 명령어 중 <code class="highlighter-rouge">findstatic</code>은 <code class="highlighter-rouge">STATICFILES_DIRS</code>에 설정한 경로에서 지정한 정적 파일을 찾습니다. 실습해보지요. <a href="http://jquery.com/download/">jQuery download</a>에서 “Download the compressed, production jQuery x.x.x”로 된 링크를 찾은 뒤 그 링크에 걸려있는 jQuery 파일을 내려 받습니다. 이 강좌를 쓰는 시점에서 저는 2.1.3판을 받았습니다. 이제 <code class="highlighter-rouge">manage.py</code> 파일이 있는 경로에 <code class="highlighter-rouge">static</code>이라는 이름으로 디렉터리를 만들고, 다시 <code class="highlighter-rouge">static</code> 디렉터리 안에 <code class="highlighter-rouge">js</code>라는 디렉터리를 만든 다음에 <code class="highlighter-rouge">js</code> 디렉터리에 내려 받은 jQuery 파일을 넣습니다. <code class="highlighter-rouge">settings.py</code>에는 앞서 나온 예시대로 <code class="highlighter-rouge">STATICFILES_DIRS</code> 항목을 추가합니다. 이제 <code class="highlighter-rouge">findstatic</code> 명령어로 파일을 찾아 보겠습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py findstatic js/jquery-2.1.3.min.js
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py findstatic js/jquery-2.1.3.min.js
 Found 'jquery-2.1.3.min.js' here:
   /(중략)/pystagram/static/js/jquery-2.1.3.min.js
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>물론 <code class="highlighter-rouge">$</code> 기호는 입력하지 않습니다. 쉘의 프롬프트 기호이니까요.</p>
 
 <p>이번엔 <code class="highlighter-rouge">STATICFILES_DIRS</code>에 <code class="highlighter-rouge">os.path.join(BASE_DIR, 'static2')</code> 항목을 추가합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>STATICFILES_DIRS = (
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'static2'),
 )
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>그런 뒤 <code class="highlighter-rouge">manage.py</code> 파일이 있는 경로에 <code class="highlighter-rouge">static2</code> 디렉터리를 만들고 이 안에 <code class="highlighter-rouge">js</code> 디렉터리를 만들어서 그곳에 jQuery 파일을 복사합니다. 마지막으로 <code class="highlighter-rouge">photo</code> 디렉터리(Django <code class="highlighter-rouge">photo</code> 앱)에 <code class="highlighter-rouge">static</code> 디렉터리를 만들고 이 디렉터리에 jQuery 파일을 복사하고, 또 <code class="highlighter-rouge">static</code> 디렉터리 안에 <code class="highlighter-rouge">js</code> 디렉터리를 더 만든 뒤 그 안에 jQuery 파일을 복사합니다. 디렉터리 구조는 다음과 같으며, 강좌 연재가 너무 지연되어서 <code class="highlighter-rouge">photo</code> 디렉터리가 뭔지 기억이 나지 않는다면 “<a href="http://blog.hannal.com/2014/9/start_with_django_webframework_03/">3. Photo 앱과 모델 만들기</a>”편을 참고하시길 바랍니다. :)</p>
 
@@ -228,37 +224,33 @@ Found 'jquery-2.1.3.min.js' here:
 
 <p>그런 뒤 다음 세 줄을 실행하여 화면에 나온 결과가 무엇을 의미하는지 고민해 보세요.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py findstatic jquery-2.1.3.min.js
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py findstatic jquery-2.1.3.min.js
 $ python manage.py findstatic js/jquery-2.1.3.min.js
 $ python manage.py findstatic javascript/jquery-2.1.3.min.js
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>충분히 고민하셨으리라 믿습니다. <code class="highlighter-rouge">js/jquery-2.1.3.min.js</code>를 찾으려 하면 <code class="highlighter-rouge">static</code> 디렉터리에 있는 것과 <code class="highlighter-rouge">static2</code> 디렉터리에 있는 것, 그리고 <code class="highlighter-rouge">photos/static</code> 디렉터리에 있는 것이 나타납니다. 나타난 순서는 <code class="highlighter-rouge">static</code>, <code class="highlighter-rouge">static2</code>, <code class="highlighter-rouge">photos/static</code> 디렉터리 순인데, 이 배치된 순서는 실제로 정적 파일을 찾아다 사용할 때 우선순위로 작용합니다. 이 우선순위는 <code class="highlighter-rouge">STATICFILES_DIRS</code>에 명기된 디렉터리가 더 상위인데, <code class="highlighter-rouge">STATICFILES_FINDERS</code>라는 <code class="highlighter-rouge">settings.py</code> 설정 항목에서 기본 파일 시스템 파인더(finder)가 Django App 디렉터리보다 상위순위로 지정되어 있기 때문입니다.</p>
 
 <p>이와 같이 정적 파일 경로가 일치할 경우 우선순위에 따라 실제 사용하는 정적 파일이 결정됩니다. 실제 물리 경로는 그대로 유지하지만 우선순위 문제를 겪지 않으려면 접두사(prefix)를 붙여서 구분하면 됩니다. <code class="highlighter-rouge">static2</code>는 이제 곧 지울 항목이니까 <code class="highlighter-rouge">byebye</code>라는 접두사를 쓰겠습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>STATICFILES_DIRS = (
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     ('byebye', os.path.join(BASE_DIR, 'static2'),),
 )
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>이 설정을 적용하면 <code class="highlighter-rouge">static2</code> 디렉터리가 마치 <code class="highlighter-rouge">byebye</code>라는 디렉터리 안에 위치한 것처럼 <code class="highlighter-rouge">static2</code>에 있는 정적 파일에 접근해야 합니다. 다음 두 명령을 실행해 보세요.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py findstatic js/jquery-2.1.3.min.js
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py findstatic js/jquery-2.1.3.min.js
 $ python manage.py findstatic byebye/js/jquery-2.1.3.min.js
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="static_url"><code class="highlighter-rouge">STATIC_URL</code></h4>
 
 <p><code class="highlighter-rouge">STATIC_URL</code>은 웹 페이지에서 사용할 정적 파일의 최상위 URL 경로입니다. 이 최상위 경로 자체는 실제 파일이나 디렉터리가 아니며, URL로만 존재하는 단위입니다. 그래서 이용자 마음대로 정해도 무방하며, 저는 <code class="highlighter-rouge">assets</code>라는 URL 경로를 쓰겠습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>STATIC_URL = '/assets/'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>STATIC_URL = '/assets/'
+</code></pre></div></div>
 
 <p>문자열은 반드시 <code class="highlighter-rouge">/</code>로 끝나야 합니다. <code class="highlighter-rouge">findstatic</code> 명령어로 탐색되는 정적 파일 경로에 <code class="highlighter-rouge">STATIC_URL</code> 경로를 합치면 실제 웹에서 접근 가능한 URL이 됩니다.</p>
 
@@ -279,15 +271,13 @@ $ python manage.py findstatic byebye/js/jquery-2.1.3.min.js
 
 <p><code class="highlighter-rouge">settings.py</code>에 다음과 같이 <code class="highlighter-rouge">STATIC_ROOT</code> 설정 항목을 추가합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">list</code>나 <code class="highlighter-rouge">tuple</code>형인 <code class="highlighter-rouge">STATICFILES_DIRS</code>와는 달리 문자열 경로를 할당합니다. 이제 <code class="highlighter-rouge">collectstatic</code> 명령어로 현 프로젝트가 사용하는 모든 정적 파일을 모읍니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py collectstatic
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py collectstatic
+</code></pre></div></div>
 
 <p>지정한 경로에 있는 기존 파일을 전부 덮어 쓰는데 정말로 모을 거냐고 묻습니다. 원본 파일을 덮어 쓰는 게 아니니 <code class="highlighter-rouge">yes</code>라고 입력합니다. 정적 파일을 모을 경로를 <code class="highlighter-rouge">manage.py</code> 파일이 있는 경로에 <code class="highlighter-rouge">staticfiles</code> 디렉터리로 지정했으므로 이 디렉터리가 만들어지고, 이 안에 사용하는 모든 정적 파일이 <strong>복사</strong>됩니다. 이 디렉터리 안을 보면 <code class="highlighter-rouge">STATICFILES_DIRS</code>에 넣은 경로들 중 <code class="highlighter-rouge">byebye</code>라는 접두사를 붙인 디렉터리도 보입니다.</p>
 
@@ -307,7 +297,7 @@ $ python manage.py findstatic byebye/js/jquery-2.1.3.min.js
 
 <p><code class="highlighter-rouge">django.contrib.staticfiles</code> 앱에는 이 앱이 사용하는 URL 패턴을 담은 <code class="highlighter-rouge">urls.py</code> 파일이 있는데, 이 파일 내용은 다음과 같습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def staticfiles_urlpatterns(prefix=None):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def staticfiles_urlpatterns(prefix=None):
     """
     Helper function to return a URL pattern for serving static files.
     """
@@ -318,8 +308,7 @@ $ python manage.py findstatic byebye/js/jquery-2.1.3.min.js
 # Only append if urlpatterns are empty
 if settings.DEBUG and not urlpatterns:
     urlpatterns += staticfiles_urlpatterns()
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>단순하지요? <code class="highlighter-rouge">settings.py</code>의 <code class="highlighter-rouge">STATIC_URL</code> 항목의 URL에 <code class="highlighter-rouge">django.contrib.staticfiles.views.serve</code> 뷰 함수를 연결했는데, 이 내용은 <code class="highlighter-rouge">settings.DEBUG</code>가 <code class="highlighter-rouge">True</code>인 경우에 반영됩니다.</p>
 
@@ -354,30 +343,27 @@ if settings.DEBUG and not urlpatterns:
 
 <p>먼저 <code class="highlighter-rouge">settings.py</code>에서 <code class="highlighter-rouge">MEDIA_URL</code>과 <code class="highlighter-rouge">MEDIA_ROOT</code> 부분을 추가했습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>MEDIA_URL = '/upload_files/'
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MEDIA_URL = '/upload_files/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Media file에 접근하는 URL이 <code class="highlighter-rouge">/upload_files/</code>로 시작하며, 실제 파일이 위치하는 서버 상 경로는 <code class="highlighter-rouge">MEDIA_ROOT</code>에 할당했습니다.</p>
 
 <p>다음엔 <code class="highlighter-rouge">urls.py</code>에 Media file을 제공(serving)하는 URL 패턴 등록 부분을 고쳤습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>urlpatterns += static('/upload_files/', document_root=settings.MEDIA_ROOT)
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>urlpatterns += static('/upload_files/', document_root=settings.MEDIA_ROOT)
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">static</code> 함수에 첫 번째 인자로 Media file URL을, 키워드 인자 <code class="highlighter-rouge">document_root</code>로 Media file이 위치한 경로를 전달했습니다.</p>
 
 <p>마지막으로 <code class="highlighter-rouge">photos</code> 앱의 <code class="highlighter-rouge">models.py</code> 파일에서 이미지 파일이 저장될 경로를 지정한 <code class="highlighter-rouge">upload_to</code> 필드 옵션을 고쳤습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Photo(models.Model):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Photo(models.Model):
     image = models.ImageField(upload_to='%Y/%m/%d/orig')
     filtered_image = models.ImageField(upload_to='%Y/%m/%d/filtered')
     # 후략
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">upload_to='uploads/%Y/%m/%d/orig'</code> 부분에서 <code class="highlighter-rouge">uploads/</code>를 떼버린 것입니다. <code class="highlighter-rouge">uploads</code>는 이미 <code class="highlighter-rouge">MEDIA_ROOT</code>에 지정되어 있으므로 더이상 업로드 경로에 넣을 필요가 없습니다.</p>
 
@@ -394,10 +380,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 <div class="footnotes">
   <ol>
     <li id="fn:1">
-      <p>2015년 4월 기준으로 제 블로그는 실제로 이런 방식으로 운영합니다. 그다지 자주 내용물을 고치거나 새로 만들지 않기 때문에 오히려 정적으로 자원을 제공하는 것이 더 효율성 있기 때문입니다. 주 자원은 <a href="https://pages.github.com/">Github Pages</a>라는 기능을 이용하여 제공하고, 가변하는 내용물인 댓글은 <a href="https://disqus.com/">Disqus</a>라는 서비스를 이용하여 본문에서 분리해서 운영합니다.&nbsp;<a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+      <p>2015년 4월 기준으로 제 블로그는 실제로 이런 방식으로 운영합니다. 그다지 자주 내용물을 고치거나 새로 만들지 않기 때문에 오히려 정적으로 자원을 제공하는 것이 더 효율성 있기 때문입니다. 주 자원은 <a href="https://pages.github.com/">Github Pages</a>라는 기능을 이용하여 제공하고, 가변하는 내용물인 댓글은 <a href="https://disqus.com/">Disqus</a>라는 서비스를 이용하여 본문에서 분리해서 운영합니다. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:2">
-      <p>Django로 생성한 프로젝트를 Django 프로젝트라 하고, Django 프로젝트는 뭔가를 수행하는 기능 단위인 Django App을 모아놓은 좀 더 큰 단위입니다.&nbsp;<a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+      <p>Django로 생성한 프로젝트를 Django 프로젝트라 하고, Django 프로젝트는 뭔가를 수행하는 기능 단위인 Django App을 모아놓은 좀 더 큰 단위입니다. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -433,6 +419,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
     
       <li>
         <h3>
+          <a href="/2018/01/thinking-of-how-to-work/">
+            일하는 방식 고민.
+            <small>06 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2017/06/django-template-variabledoesnotexist-exception/">
             Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기
             <small>26 Jun 2017</small>
@@ -445,15 +440,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
           <a href="/2016/11/citroen-c4-cactus/">
             시트로엥 C4 칵투스 두 달 소감.
             <small>28 Nov 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/07/book-python-web-programming-with-flask/">
-            책, Flask 기반의 파이썬 웹 프로그래밍 소감
-            <small>08 Jul 2016</small>
           </a>
         </h3>
       </li>

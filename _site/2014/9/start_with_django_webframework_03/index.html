@@ -92,7 +92,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2017. All rights reserved.
+      &copy; 2018. All rights reserved.
     </p>
   </div>
 </div>
@@ -135,15 +135,13 @@
 
 <p>Python 패키지인 Pystagram 디렉터리를 만들고, 여기에 필수 모듈인 <code class="highlighter-rouge">settings.py</code>와 <code class="highlighter-rouge">__init__.py</code>를 만드는 과정을 간편하게 처리하는 프로그램이 <code class="highlighter-rouge">django-admin.py</code>입니다. 이 파일로 Pystagram 프로젝트를 개설하겠습니다. 그 전에 지난 편에서 꾸려놓은 개발 환경을 먼저 써볼까요?</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ source env_pystagram/bin/activate
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ source env_pystagram/bin/activate
+</code></pre></div></div>
 
 <p>이번엔 Pystagram 프로젝트를 개설합니다. 여러분이 원하는 아무 곳(디렉터리)에 만들어도 됩니다. 저는 <code class="highlighter-rouge">~/Workspace</code> 안에다 프로그래밍 프로젝트를 넣어두니 이 안에 만들겠습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ django-admin startproject pystagram
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ django-admin startproject pystagram
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">django-admin</code> 프로그램(script file)에 첫 번째 인자로 <code class="highlighter-rouge">startproject</code>라는 명령어를 넣고 두 번째 인자에 만들 프로젝트 이름을 넣습니다. 그러면 두 번째 인자로 넣은 프로젝트 이름으로 디렉터리가 하나 만들어 집니다.</p>
 
@@ -153,15 +151,14 @@
 
 <p>실제로 Django project는 pystagram 디렉터리 안에 있는 pystagram이라는 디렉터리입니다. 그러니까 <code class="highlighter-rouge">django-admin.py</code>가 만든 디렉터리는 이렇게 구성됩니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pystagram/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pystagram/
 ├── manage.py
 └── pystagram
     ├── __init__.py
     ├── settings.py
     ├── urls.py
     └── wsgi.py
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>pystagram 디렉터리 안에 있는 pystagram 디렉터리가 실제로 사용되는 Python 패키지입니다. 이 디렉터리는 Pystagram 프로젝트에서 사용할 시작 패키지라고 보면 됩니다.</p>
 
@@ -169,14 +166,13 @@
 
 <p><code class="highlighter-rouge">manage.py</code> 파일은 Django로 돌아가는 프로젝트를 다양하게 다루는 도구입니다. Database를 만들거나 개발용 내장 웹서버로 우리가 만드는 프로젝트를 서버로 구동하는 기능 등 여러 편의 요소를 제공합니다. 말이 나온 김에 Django project가 잘 만들어졌는지 <code class="highlighter-rouge">manage.py</code>로 확인해 볼까요?</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py runserver
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py runserver
 
 (중략)
 Django version 1.10.5, using settings 'pystagram.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">manage.py</code> 파일에 첫 번째 인자로 <code class="highlighter-rouge">runserver</code> 명령을 주어 서버를 실행하자, 쉘 프롬프트가 사라지고 Django framework이 제공하는 개발용 내장 웹 서버가 실행된 상태로 대기하고 있습니다. <code class="highlighter-rouge">pystagram</code> package 안에 있는 <code class="highlighter-rouge">settings</code> 모듈을 참조하여 <code class="highlighter-rouge">127.0.0.1</code> 주소와 <code class="highlighter-rouge">8000</code>번 포트로 개발용 서버를 띄웠다는 내용, 그리고 Control+C 글쇠를 누르면 이 서버를 종료한다는 내용이 나와 있습니다.</p>
 
@@ -194,9 +190,8 @@ Quit the server with CONTROL-C.
 
 <p>아무 전달인자를 주지 않으면 내장 웹서버는 호스트는 127.0.0.1를, 포트는 8000를 기본으로 사용합니다. 이 주소를 바꾸려면 사용할 주소를 지정하면 됩니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py runserver 127.0.0.1:8080
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py runserver 127.0.0.1:8080
+</code></pre></div></div>
 
 <h4 id="3-pystagram-project-초기사전-작업">(3) Pystagram Project 초기/사전 작업</h4>
 
@@ -204,26 +199,23 @@ Quit the server with CONTROL-C.
 
 <p>하지만 Pystagram은 데이터베이스를 사용합니다. 또한 Django에서 제공하는 여러 <a href="https://docs.djangoproject.com/en/1.10/topics/http/middleware/">미들웨어</a>나 앱을 사용하는데, 이러한 도구도 데이터베이스를 씁니다. 그래서 동기화 과정이 필요합니다. 방법은 간단합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py migrate
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py migrate
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">manage.py</code>에 <code class="highlighter-rouge">migrate</code> 명령어를 주면 Django framework에서 제공하는 도구가 사용하는 데이터베이스 관련 작업을 자동으로 진행합니다. 최고 권한 이용자도 만들겠습니다. 곧 필요하거든요.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py createsuperuser
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py createsuperuser
 Username (leave blank to use 'hannal'): hannal
 Email address: 
 Password:
 Password (again):
 Superuser created successfully.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>비밀번호는 언제든지 <code class="highlighter-rouge">changepassword</code> 명령어로 바꿀 수 있습니다. 바꿀 대상(username)을 지정하면 되지요.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py changepassword hannal
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py changepassword hannal
+</code></pre></div></div>
 
 <p>이렇게 수행한 데이터베이스 작업은 <code class="highlighter-rouge">db.sqlite3</code>라는 파일에 저장됩니다. 이 파일은 <a href="http://sqlite.org/">sqlite3</a>이라는 데이터베이스 엔진이 다루는 데이터베이스 파일입니다. Django framework은 따로 <code class="highlighter-rouge">settings.py</code>에 설정하지 않으면 기본으로 sqlite3 데이터베이스를 사용하도록 되어 있습니다. 서비스용으로는 쓰기엔 기능과 성능이 부족하지만, 가볍고 간단해서 개발용으로 쓰기엔 더할 나위없이 좋습니다. 더구나 Linux나 Mac OS는 운영체제에 기본 포함하며, Python도 sqlite의 데이터베이스를 다루는 API를 기본 내장하고 있습니다.</p>
 
@@ -241,13 +233,12 @@ Superuser created successfully.
 
 <p><code class="highlighter-rouge">manage.py</code>가 Django project로 돌아가는 프로젝트를 지원하는 도구라는 것 기억하시죠? 이 파일로 App을 만들면 편합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py startapp photos
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py startapp photos
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">django-admin.py</code>과 마찬가지로 별다른 안내 없이 생성됩니다. 뭔가 안내가 나타났다면 문제가 있는 거고요. <code class="highlighter-rouge">manage.py</code>로 만든 Django app인 Photo app은 다음과 같이 구성되어 있습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pystagram/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pystagram/
 ├── db.sqlite3
 ├── manage.py
 ├── photos
@@ -264,8 +255,7 @@ Superuser created successfully.
     ├── settings.py
     ├── urls.py
     └── wsgi.py
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">photos</code> package가 Django App입니다.</p>
 
@@ -287,7 +277,7 @@ Superuser created successfully.
 
 <p>그럼 <code class="highlighter-rouge">Model</code> 클래스를 사용하여 <code class="highlighter-rouge">photos</code> App에 <code class="highlighter-rouge">Photo</code> 모델을 만들어 보겠습니다. 이 모델은 사진을 다루는 기본 데이터를 다룹니다. 모델이니 <code class="highlighter-rouge">models.py</code>를 고쳐야겠지요?</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from django.db import models
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.db import models
 
 class Photo(models.Model):
     id = '개별 사진을 구분하는 색인값'
@@ -295,8 +285,7 @@ class Photo(models.Model):
     filtered_image = '필터 적용된 사진 파일'
     content = '사진에 대한 설명문'
     created_at = '생성일시'
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Django에서 모델의 속성(attribute)은 데이터베이스 필드(field)로 나타냅니다. Python 클래스로 놓고 보면 속성이지만, Django 모델의 데이터 요소로 다루고자 할 경우 Django 모델이 제공하는 별도 자료형(type)으로 값을 다루는데, 이 자료형인 값을 모델 필드라고 하지요. 그래서 위 모델에서 <code class="highlighter-rouge">image</code>, <code class="highlighter-rouge">content</code> 등은 아직은 그냥 Python 클래스 속성입니다. 각각이 무엇인지는 코드로 표현해놨으니 따로 설명드리진 않겠습니다.</p>
 
@@ -316,15 +305,14 @@ class Photo(models.Model):
 
 <p><code class="highlighter-rouge">created_at</code>은 Photo 모델이 생성되어 데이터베이스에 저장되는 시각을 담는데, Django에는 날짜를 다루는 <code class="highlighter-rouge">DateField</code>, 시간을 다루는 <code class="highlighter-rouge">TimeField</code>, 그리고 날짜와 시간을 같이 다루는 <code class="highlighter-rouge">DateTimeField</code>가 있습니다. 생성일시 정보를 다루니 <code class="highlighter-rouge">DateTimeField</code>를 쓰겠습니다. 이 필드에는 <code class="highlighter-rouge">auto_now</code> 옵션과 <code class="highlighter-rouge">auto_now_add</code> 옵션이 있는데, 자동으로 현재 시간 정보를 담을 지 여부를 <code class="highlighter-rouge">True</code>와 <code class="highlighter-rouge">False</code>로 지정합니다. <code class="highlighter-rouge">auto_now_add</code>는 객체가 처음 생성될 때, <code class="highlighter-rouge">auto_now</code>는 객체가 저장될 때 자동으로 시간 정보를 담습니다. <code class="highlighter-rouge">auto_now_add</code>만 <code class="highlighter-rouge">True</code>로 설정한다면, 데이터가 처음 저장되는 시간 정보만 잡히고, 이후에 그 데이터를 수정하여 저장하더라도 자동으로 시간 정보가 담기진 않겠지요. 의사코드로 표현한다면 이런 모습일 겁니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from datetime import datetime
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from datetime import datetime
 
 the_photo.save()
 
 if the_photo.is_created is True:
     the_photo.created_at = datetime.now()
     the_photo.save()
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>저 두 옵션을 활용하면 이런 코드를 생략하는 것이니 깔끔하고 편하지요.</p>
 
@@ -346,19 +334,18 @@ if the_photo.is_created is True:
 
 <p>자, 이제 그냥 클래스 속성으로 구성된 기존 <code class="highlighter-rouge">Photo</code> 모델을 Django 모델로 바꿔 보겠습니다. 아참, 이 필드들은 <code class="highlighter-rouge">models</code> 모듈에 있습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Photo(models.Model):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Photo(models.Model):
     image = models.ImageField()
     filtered_image = models.ImageField()
     content = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="데이터베이스에-반영-migration">데이터베이스에 반영 (migration)</h5>
 
 <p>Django 1.7 이전 판에서는 <code class="highlighter-rouge">manage.py</code>에 <code class="highlighter-rouge">syncdb</code> 명령으로 우리가 만든 모델을 데이터베이스에 반영했지만, 1.7판부터는 <code class="highlighter-rouge">makemigrations</code>과 <code class="highlighter-rouge">migrate</code> 명령어를 이용합니다. <code class="highlighter-rouge">Photo</code> 모델을 마이그레이션 하려면 <code class="highlighter-rouge">settings.py</code>에 <code class="highlighter-rouge">photo</code> 앱을 추가해야 하니 <code class="highlighter-rouge">settings.py</code>에서 <code class="highlighter-rouge">INSTALLED_APPS</code> 항목을 찾아서 다음과 같이 <code class="highlighter-rouge">photos</code>를 추가합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>INSTALLED_APPS = (
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -367,45 +354,40 @@ if the_photo.is_created is True:
     'django.contrib.staticfiles',
     'photos',
 )
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>그 다음에 <code class="highlighter-rouge">makemigrations</code>으로 마이그레이션 작업 내용을 만듭니다. 그런데 오류가 발생합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>SystemCheckError: System check identified some issues:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SystemCheckError: System check identified some issues:
 
 ERRORS:
 photos.Photo.filtered_image: (fields.E210) Cannot use ImageField because Pillow is not installed.
         HINT: Get Pillow at https://pypi.python.org/pypi/Pillow or run command "pip install Pillow".
 photos.Photo.image: (fields.E210) Cannot use ImageField because Pillow is not installed.
         HINT: Get Pillow at https://pypi.python.org/pypi/Pillow or run command "pip install Pillow".
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">image</code>와 <code class="highlighter-rouge">filtered_image</code> 모델 필드는 <code class="highlighter-rouge">ImageField</code>인데, 이 모델 필드는 이미지 파일을 처리하는 도구가 필요합니다. 이미지 처리 도구인 Pillow를 설치하면 해결됩니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ pip install pillow
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install pillow
+</code></pre></div></div>
 
 <p>설치를 마치면 다시 마이그레이션 스크립트를 만듭니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py makemigrations 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py makemigrations 
 Migrations for 'photos':
   0001_initial.py:
     - Create model Photo
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>마이그레이션 작업 내용은 <code class="highlighter-rouge">0001_initial.py</code>에 있으며, <code class="highlighter-rouge">Photo</code> 모델을 생성하는 것만 있네요. 실제 코드는 <code class="highlighter-rouge">photos</code> 디렉터리의 <code class="highlighter-rouge">migrations</code> 디렉터리 안에 <code class="highlighter-rouge">0001_initial.py</code> 있습니다. 이 작업을 실제로 DB에 반영하려면 <code class="highlighter-rouge">migrate</code> 명령을 내리면 됩니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py migrate
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py migrate
 Operations to perform:
   Apply all migrations: admin, photos, contenttypes, auth, sessions
 Running migrations:
   Applying photos.0001_initial... OK
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>이렇게 해서 <code class="highlighter-rouge">Photo</code> 모델을 데이터베이스에 반영하여 연결하였습니다. 이제부터는 <code class="highlighter-rouge">Photo</code> 모델로 데이터를 데이터베이스에 저장하고 찾아 꺼내며 다룰 수 있습니다. 정리하면 <code class="highlighter-rouge">migrate</code>는 실제 DB에 반영하는 명령어이고, 이 명령어는 마이그레이션 스크립트를 실행하는데 <code class="highlighter-rouge">makemigrations</code> 명령어로 마이그레이션 스크립트를 만듭니다.</p>
 
@@ -441,16 +423,16 @@ Running migrations:
 <div class="footnotes">
   <ol>
     <li id="fn:1">
-      <p><a href="https://speakerdeck.com/leewin12/rest-api-seolgye">REST API 설계</a> 발표 자료에서 한국어로 잘 설명 해놨습니다.&nbsp;<a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+      <p><a href="https://speakerdeck.com/leewin12/rest-api-seolgye">REST API 설계</a> 발표 자료에서 한국어로 잘 설명 해놨습니다. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:2">
-      <p><code class="highlighter-rouge">django/db/models/fields/files.py</code> 모듈에 정의되어 있는 <code class="highlighter-rouge">ImageField</code> 클래스를 참조하세요.&nbsp;<a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+      <p><code class="highlighter-rouge">django/db/models/fields/files.py</code> 모듈에 정의되어 있는 <code class="highlighter-rouge">ImageField</code> 클래스를 참조하세요. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:3">
-      <p><code class="highlighter-rouge">django/db/backends/</code>에서 mysql, oracle, sqlite3 패키지 안에 있는 <code class="highlighter-rouge">creation.py</code> 모듈을 참조하세요.&nbsp;<a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+      <p><code class="highlighter-rouge">django/db/backends/</code>에서 mysql, oracle, sqlite3 패키지 안에 있는 <code class="highlighter-rouge">creation.py</code> 모듈을 참조하세요. <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:4">
-      <p>글자 수가 아니라 바이트입니다.&nbsp;<a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
+      <p>글자 수가 아니라 바이트입니다. <a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -486,6 +468,15 @@ Running migrations:
     
       <li>
         <h3>
+          <a href="/2018/01/thinking-of-how-to-work/">
+            일하는 방식 고민.
+            <small>06 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2017/06/django-template-variabledoesnotexist-exception/">
             Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기
             <small>26 Jun 2017</small>
@@ -498,15 +489,6 @@ Running migrations:
           <a href="/2016/11/citroen-c4-cactus/">
             시트로엥 C4 칵투스 두 달 소감.
             <small>28 Nov 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/07/book-python-web-programming-with-flask/">
-            책, Flask 기반의 파이썬 웹 프로그래밍 소감
-            <small>08 Jul 2016</small>
           </a>
         </h3>
       </li>

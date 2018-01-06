@@ -92,7 +92,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2017. All rights reserved.
+      &copy; 2018. All rights reserved.
     </p>
   </div>
 </div>
@@ -120,9 +120,8 @@
 
 <p>Django Template은 없는 템플릿 변수나 템플릿 변수의 속성, 키, 색인이 없어도 오류 상황을 일으키지 않고 조용히 오류 상황을 잠재운다. 일명 Silent failure 동작이다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">lorem.ipsum.hello.world</span><span class="w"> </span><span class="p">}</span><span class="err">}</span><span class="w">
-</span></code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ lorem.ipsum.hello.world }}
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">lorem</code>이라는 템플릿 변수가 없든 <code class="highlighter-rouge">lorem</code> 템플릿 변수는 있는데 이 객체에 <code class="highlighter-rouge">ipsum</code>이라는 키나 속성이 없다고 가정하자. 최종 템플릿 맥락이 출력(치환)이면 Django는 변수나 키, 속성이 없다는 오류 상황을 일으키지 않으며, 저 템플릿 변수 위치엔 아무것도 출력되지 않는다. 템플릿 변수를 출력(render)하거나 템플릿 태그에서 사용할 때는 이처럼 Silent failure로 동작한다.</p>
 
@@ -130,9 +129,8 @@
 
 <p>예를 들어, 존재하지 않는 템플릿 변수인 <code class="highlighter-rouge">not_exist_var</code>를 <code class="highlighter-rouge">divisibleby</code> 템플릿 필터에 사용하면 예외 오류가 발생한다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">'1234'|divisibleby:not_exist_var</span><span class="w"> </span><span class="p">}</span><span class="err">}</span><span class="w">
-</span></code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ '1234'|divisibleby:not_exist_var }}
+</code></pre></div></div>
 
 <p>이에 대해 Django 공식 문서에서는 다음과 같이 설명한다.</p>
 
@@ -142,15 +140,13 @@
 
 <p>간단히 말해서 템플릿 필터 함수에서는 버그를 숨기는 Silent failure 보다는 예외를 일으키는 게 낫다고 한다. 실제로 Django 내장 템플릿 필터를 보면 대체물을 대신 반환해도 될 만한 경우엔 Exception 처리를 잡아내서 오류 상황을 피하지만, 그 외의 경우엔 Exception이 발생하게 냅둔다. 문제는 그 정책이 예상을 벗어나는 경우에 발생한다. 난 <code class="highlighter-rouge">default</code> 템플릿 필터에서 조용한 실패 처리를 하지 않는 상황을 만났다. <code class="highlighter-rouge">default</code> 템플릿 필터는 대개 다음과 같이 사용한다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">empty_var|default:'비었수다'</span><span class="w"> </span><span class="p">}</span><span class="err">}</span><span class="w">
-</span></code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ empty_var|default:'비었수다' }}
+</code></pre></div></div>
 
 <p>나도 비슷하게 사용했다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">apple.attr3|default:lemon.attrdict.color</span><span class="w"> </span><span class="p">}</span><span class="err">}</span><span class="w">
-</span></code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ apple.attr3|default:lemon.attrdict.color }}
+</code></pre></div></div>
 
 <p>Django 템플릿 엔진 동작에 익숙하다면 다음과 같이 동작하길 기대(예상)한다.</p>
 
@@ -202,6 +198,15 @@
     
       <li>
         <h3>
+          <a href="/2018/01/thinking-of-how-to-work/">
+            일하는 방식 고민.
+            <small>06 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2016/11/citroen-c4-cactus/">
             시트로엥 C4 칵투스 두 달 소감.
             <small>28 Nov 2016</small>
@@ -214,15 +219,6 @@
           <a href="/2016/07/book-python-web-programming-with-flask/">
             책, Flask 기반의 파이썬 웹 프로그래밍 소감
             <small>08 Jul 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/06/who-starts-up-o2o-service/">
-            프로그램 짜는 세탁소집 첫째 아들.
-            <small>06 Jun 2016</small>
           </a>
         </h3>
       </li>

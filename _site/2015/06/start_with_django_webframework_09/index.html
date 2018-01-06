@@ -92,7 +92,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2017. All rights reserved.
+      &copy; 2018. All rights reserved.
     </p>
   </div>
 </div>
@@ -129,10 +129,9 @@
 
 <p>이용자가 따로 기본키 역할을 하는 모델 필드를 지정하지 않으면 Django는 관례대로 <code class="highlighter-rouge">id</code>라는 모델 필드를 알아서 만들고 이를 기본키로 사용합니다. 사진 모델인 <code class="highlighter-rouge">Photo</code>로 사진 게시물 데이터를 <code class="highlighter-rouge">photo01</code>이라는 인스턴스 객체로 할당하면 이 객체엔 <code class="highlighter-rouge">id</code>라는 멤버 변수가 속성으로 존재하고 이 속성에 정수(<code class="highlighter-rouge">int</code>) 값이 할당되어 있습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; photo01 = Photo.objects.last()
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; photo01 = Photo.objects.last()
 &gt;&gt;&gt; print(photo01.pk)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>모델의 인스턴스 객체엔 <code class="highlighter-rouge">pk</code> 속성도 존재하는데, 이 속성은 기본키를 가리키고 있습니다. 이용자가 <code class="highlighter-rouge">id</code> 모델 필드를 기본키로 하지 않고 <code class="highlighter-rouge">uuid</code>라는 모델 필드를 만들어 이 필드를 기본키로 지정하면 <code class="highlighter-rouge">pk</code>는 이 모델 필드를 가리킵니다. 우리는 각 모델의 기본키로 설정된 모델 필드의 이름이 무엇인지 신경쓰지 않고 <code class="highlighter-rouge">pk</code> 속성을 사용하면 됩니다.</p>
 
@@ -140,22 +139,20 @@
 
 <p><code class="highlighter-rouge">Photo</code> 모델로 데이터베이스에 저장할 데이터에 이용자 모델의 기본키 값을 저장하려면 다음과 같이 하면 됩니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Photo(models.Model):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Photo(models.Model):
     user_id = models.IntegerField()
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>그런 뒤에 <code class="highlighter-rouge">Photo</code> 모델로 데이터를 저장하는 과정에서 이용자의 기본키 값을 <code class="highlighter-rouge">user_id</code>에 할당하면 됩니다. 각 게시물을 게시한 이용자가 누구인지 아니까 각 사진 게시물 정보를 가져오면서 이용자 정보도 함께 가져오면 좋겠군요.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from django.contrib.auth import get_user_model
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Photo(models.Model):
     # 중략
     def get_user(self):
         return User.objects.get(pk=self.user_id)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>이 코드들엔 문제가 있습니다. 모델의 기본키 모델 필드가 <code class="highlighter-rouge">IntegerField</code>가 아닌 경우에 제대로 대응하지 못하고, <code class="highlighter-rouge">get_user()</code> 메서드를 호출할 때마다 매번 이용자 모델에서 이용자 데이터를 탐색해 반환하며, 이용자 모델과 연결하는 모델마다 매번 저런 구현을 중복 적용해야 합니다. 이런 문제들에 대응하는 구현체를 만들어야 하는데, Django는 <a href="https://docs.djangoproject.com/en/1.8/ref/models/fields/#module-django.db.models.fields.related">관계 모델 필드</a>로 제공합니다. 총 세 종류입니다.</p>
 
@@ -169,13 +166,12 @@ class Photo(models.Model):
 
 <h4 id="3-photo-모델에-이용자-기본키-정보-연결하기">(3) <code class="highlighter-rouge">Photo</code> 모델에 이용자 기본키 정보 연결하기</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from django.conf import settings
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.conf import settings
 
 class Photo(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     # 후략
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">ForeignKey</code> 모델 필드(클래스)는 <code class="highlighter-rouge">django.db.models</code> 모듈에 있어서 다른 모델 필드처럼 <code class="highlighter-rouge">models</code> 객체에서 접근하여 사용하면 됩니다. 첫 번째 인자로 관계 지을 모델을 모델 객체나 경로를 문자열로 전달합니다. <code class="highlighter-rouge">settings</code>의 <code class="highlighter-rouge">AUTH_USER_MODEL</code> 설정 항목은 현재 프로젝트에서 사용하는 인증용 이용자 모델이 위치한 경로를 문자열로 지정하고 있습니다. <a href="http://blog.hannal.com/2015/06/start_with_django_webframework_08/">8. 로그인, 로그아웃 하기</a>편에서 이에 대한 내용을 참조하세요.</p>
 
@@ -183,15 +179,14 @@ class Photo(models.Model):
 
 <p><code class="highlighter-rouge">Photo</code> 모델이 변경됐으니 데이터베이스에 반영해야 합니다. 마이그레이션을 수행합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ python manage.py makemigrations photos
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py makemigrations photos
 You are trying to add a non-nullable field 'user' to photo without a default;
 we can't do that (the database needs something to populate existing rows).
 Please select a fix:
  1) Provide a one-off default now (will be set on all existing rows)
  2) Quit, and let me add a default in models.py
 Select an option:
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>긴 영어 문장이 나오며 뭔가를 물어 보는데 당황하지 말고 내용을 잘 살펴 보세요.</p>
 
@@ -208,11 +203,10 @@ Select an option:
 
 <p>그 자리에서 기본값을 제공해줄테니 <code class="highlighter-rouge">1</code>을 입력합니다. Django가 뭔가를 요구하네요.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Please enter the default value now, as valid Python
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Please enter the default value now, as valid Python
 The datetime module is available, so you can do e.g. datetime.date.today()
 &gt;&gt;&gt; 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>기본값으로 유효한 Python의 객체를 입력하라는 말입니다. 일단 <code class="highlighter-rouge">1</code>을 입력합니다.</p>
 
@@ -234,7 +228,7 @@ The datetime module is available, so you can do e.g. datetime.date.today()
 
 <p>그럼 로그인한 이용자만 사진을 게시하도록 코드부터 작성해 보겠습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>def create(request):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def create(request):
     if request.method == "GET":
         form = PhotoForm()
     elif request.method == "POST":
@@ -248,17 +242,15 @@ The datetime module is available, so you can do e.g. datetime.date.today()
             return redirect(obj)
 
     # 후략
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>한 줄은 조금 바뀌었고, 두 줄이 추가됐습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>if form.is_valid():
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if form.is_valid():
     obj = form.save(commit=False)
     obj.user = request.user
     obj.save()
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>두 번째 줄 <code class="highlighter-rouge">obj = form.save(commit=False)</code>에서 <code class="highlighter-rouge">form</code> 객체는 사진 게시물 생성과 관련된 폼(Form)인 <code class="highlighter-rouge">PhotoForm</code> 폼 클래스입니다. 첫 번째 줄에서 <code class="highlighter-rouge">is_valid()</code>로 웹에서 전달받은 자료를 검증한 그 객체입니다. 이 객체가 모델 폼인 경우, 그러니까 <code class="highlighter-rouge">ModelForm</code> 클래스를 상속받아 만든 폼인 경우 <code class="highlighter-rouge">save()</code> 인스턴스 메서드를 포함하고 있는데, 이 메서드는 모델의 <code class="highlighter-rouge">save()</code> 메서드와 동일한 역할을 합니다. 데이터를 모델에 연결된 데이터베이스 테이블에 저장하는 것이지요. 모델의 <code class="highlighter-rouge">save()</code> 메서드와 마찬가지로 저장한 내용이 반영된 모델의 인스턴스 객체를 반환합니다. 즉 <code class="highlighter-rouge">form.save()</code>로부터 반환받은 객체를 할당한 <code class="highlighter-rouge">obj</code>는 모델 폼의 인스턴스 객체가 아니라 <code class="highlighter-rouge">PhotoForm</code> 모델 폼 클래스에 연결되어 있는 <code class="highlighter-rouge">Photo</code> 모델로 생성한 인스턴스 객체입니다.</p>
 
@@ -272,9 +264,8 @@ The datetime module is available, so you can do e.g. datetime.date.today()
 
 <p>웹페이지의 폼 양식에서 이용자 모델의 기본키 값을 직접 전달하면 안 됩니다. 예를 들어, <code class="highlighter-rouge">hannal</code> 이용자의 기본키 값이 <code class="highlighter-rouge">1023</code>이고 이 값을 웹 폼 양식에서 <code class="highlighter-rouge">user_id</code>로 담아서 서버로 전달한다면, 이용자는 기본키 값 숫자를 고쳐서 마치 다른 이용자가 사진 게시물을 올린 것처럼 왜곡할지도 모릅니다. 이런 정보는 서버에서 알아내서 다뤄야 합니다. 그게 <code class="highlighter-rouge">request.user</code>입니다. 아하, <code class="highlighter-rouge">request.user</code>를 <code class="highlighter-rouge">PhotoForm</code> 폼 클래스에 전달하면 되겠구나.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>form = PhotoForm(request.POST, request.FILES, request.user)
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>form = PhotoForm(request.POST, request.FILES, request.user)
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">request.POST</code>처럼.</p>
 
@@ -294,26 +285,24 @@ The datetime module is available, so you can do e.g. datetime.date.today()
 
 <p>로그인한 이용자인지 여부는 <code class="highlighter-rouge">request.user</code>의 <code class="highlighter-rouge">is_authenticated()</code> 메서드를 실행하면 <code class="highlighter-rouge">bool</code> 객체를 반환받아 구분합니다. <code class="highlighter-rouge">True</code>이면 로그인한 이용자, <code class="highlighter-rouge">False</code>이면 로그인하지 않은 이용자입니다. 코드도 아주 간단합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from django.conf import settings
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.conf import settings
 
 def create(request):
     if not request.user.is_authenticated():
         return redirect(settings.LOGIN_URL)
     # 후략
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>로그인하지 않은 이용자가 <code class="highlighter-rouge">create</code> 뷰 함수로 접근하면 <code class="highlighter-rouge">settings.LOGIN_URL</code>에 지정되어 있는 URL로 이동(redirect) 시킵니다. <code class="highlighter-rouge">LOGIN_URL</code>은 <code class="highlighter-rouge">global_settings</code>에 <code class="highlighter-rouge">/accounts/login/</code>으로 기본 지정되어 있습니다.</p>
 
 <p><code class="highlighter-rouge">@login_required</code> 장식자(decorator)를 사용하면 앞서 구현한 부분을 더 명확하고 간결하게 표현할 수 있습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from django.contrib.auth.decorators import login_required
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.contrib.auth.decorators import login_required
 
 @login_required
 def create(request):
     # 후략
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>더 친절하게도 로그인한 후 이동할 도착지도 <code class="highlighter-rouge">next</code> 인자로 지정됩니다. 로그인 주소를 <code class="highlighter-rouge">settings.LOGIN_URL</code>에 따로 지정해주면 자동으로 변경한 주소로 이동해 줍니다.</p>
 
@@ -347,14 +336,13 @@ def create(request):
 
 <p>모델 관계를 맺을 대상 모델 클래스 객체를 직접 전달해도 됩니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from django.contrib.auth import get_user_model
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Photo(models.Model):
     user = models.ForeignKey(User)
     # 후략
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">models.ForeignKey(User)</code>는 <code class="highlighter-rouge">ForeignKey</code> 클래스에 <code class="highlighter-rouge">User</code>라는 객체를 첫 번째 인자로 전달하여 호출(call)하고, 모델 필드의 인스턴스 객체를 반환받아 <code class="highlighter-rouge">user</code>에 할당하는 것입니다. Python은 소스 파일 맨 윗 줄부터 아래로 실행하므로 저 구문을 실행하여 모델 필드를 만드는 시점에 실제로 존재하는 <code class="highlighter-rouge">User</code> 객체를 사용합니다.</p>
 
@@ -362,17 +350,16 @@ class Photo(models.Model):
 
 <p>관계 맺을 대상 모델이 아직 만들어지기 전에 연결하려는 경우에도 문자열로 지정합니다. A 모델이(from) B 모델을(to) 관계를 맺는다면 다음과 같이 B 모델을 먼저 만들고 그 <strong>이후</strong>에 A 모델을 만들어야 합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class B(models.Model):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class B(models.Model):
     pass
 
 class A(models.Model):
     b = models.ForeignKey(B)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>B 모델은 C 모델을 관계 맺는다면 C 모델을 B 모델에 앞서 만들어야 합니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class C(models.Model):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class C(models.Model):
     pass
 
 class B(models.Model):
@@ -380,12 +367,11 @@ class B(models.Model):
 
 class A(models.Model):
     b = models.ForeignKey(B)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>그런데 C 모델은 A 모델에 관계를 지어야 한다고 가정하겠습니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class C(models.Model):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class C(models.Model):
     a = models.ForeignKey(A)
 
 class B(models.Model):
@@ -393,12 +379,11 @@ class B(models.Model):
 
 class A(models.Model):
     b = models.ForeignKey(B)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>문제가 생깁니다. C 모델이 만들어지는 시점에 A라는 객체가 존재하지 않기 때문이죠. A 모델을 C 모델 코드 위로 올리면 안 됩니다. A 모델이 만들어지는 시점에 B 모델이 없기 때문이지요. 이런 경우에, C 모델에서 A 모델을 문자열 인자로 전달하면 됩니다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class C(models.Model):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class C(models.Model):
     a = models.ForeignKey('A')
 
 class B(models.Model):
@@ -406,8 +391,7 @@ class B(models.Model):
 
 class A(models.Model):
     b = models.ForeignKey(B)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>문자열로 관계 맺을 대상 모델을 지정하면 관계 맺을 대상 모델이 만들어졌다는 신호가 오기 전까지 관계를 맺지 않은 채 관계 맺는 연산을 지연시켜 놓습니다. 비유가 아니라 정말로 대상 모델 클래스(예 : <code class="highlighter-rouge">A</code> 모델)가 초기화 되면 모델 신호(<code class="highlighter-rouge">ModelSignal</code>)인 <code class="highlighter-rouge">class_prepared</code>를 일으키고(fire), 대상 모델을 바라보던 모델은(예 : <code class="highlighter-rouge">C</code> 모델) 이 신호을 받고선 비로소 실제 관계를 맺습니다.</p>
 
@@ -465,6 +449,15 @@ class A(models.Model):
     
       <li>
         <h3>
+          <a href="/2018/01/thinking-of-how-to-work/">
+            일하는 방식 고민.
+            <small>06 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2017/06/django-template-variabledoesnotexist-exception/">
             Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기
             <small>26 Jun 2017</small>
@@ -477,15 +470,6 @@ class A(models.Model):
           <a href="/2016/11/citroen-c4-cactus/">
             시트로엥 C4 칵투스 두 달 소감.
             <small>28 Nov 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/07/book-python-web-programming-with-flask/">
-            책, Flask 기반의 파이썬 웹 프로그래밍 소감
-            <small>08 Jul 2016</small>
           </a>
         </h3>
       </li>

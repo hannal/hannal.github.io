@@ -92,7 +92,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2017. All rights reserved.
+      &copy; 2018. All rights reserved.
     </p>
   </div>
 </div>
@@ -211,11 +211,10 @@
 
 <p>조합을 찾는 알고리즘은 Python에 이미 내장되어 있다. <code class="highlighter-rouge">itertools</code> 모듈에 여러 함수가 있는데, 그 중에서 <a href="https://docs.python.org/2/library/itertools.html#itertools.combinations">combinations</a>를 사용하면 건물에 속한 사무실을 조합 가능한 모든 경우를 한 줄로 산출해낸다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from itertools import combinations
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from itertools import combinations
 
 _combinated = combinations(('a', 'b', 'c', 'd',), 2)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>이 코드를 수행하면 <code class="highlighter-rouge">_combinated</code>엔 <code class="highlighter-rouge">[('a', 'b'), ('a', 'c'), ('a', 'd'), ('b', 'c'), ('b', 'd'), ('c', 'd')]</code>이 이터레이션 객체로 할당된다. 편하긴 했는데, 같은 기능을 하는 코드를 Go언어와 C언어로 짤 때엔 알고리즘을 직접 구현해야 했다. 재밌긴 했지만, 알고리즘 문제(issue)는 어딘가 알고리즘스러운(?) 코드로 짜고 싶은 욕심이 생겨서 스트레스를 받게 된다. 왜냐하면 알고리즘 자체가 모든 걸 해결해주는 은총알이 아니기 때문이다.</p>
 
@@ -313,6 +312,15 @@ _combinated = combinations(('a', 'b', 'c', 'd',), 2)
     
       <li>
         <h3>
+          <a href="/2018/01/thinking-of-how-to-work/">
+            일하는 방식 고민.
+            <small>06 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2017/06/django-template-variabledoesnotexist-exception/">
             Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기
             <small>26 Jun 2017</small>
@@ -325,15 +333,6 @@ _combinated = combinations(('a', 'b', 'c', 'd',), 2)
           <a href="/2016/11/citroen-c4-cactus/">
             시트로엥 C4 칵투스 두 달 소감.
             <small>28 Nov 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/07/book-python-web-programming-with-flask/">
-            책, Flask 기반의 파이썬 웹 프로그래밍 소감
-            <small>08 Jul 2016</small>
           </a>
         </h3>
       </li>

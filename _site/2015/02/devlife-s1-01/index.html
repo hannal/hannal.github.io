@@ -92,7 +92,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2017. All rights reserved.
+      &copy; 2018. All rights reserved.
     </p>
   </div>
 </div>
@@ -181,19 +181,17 @@
 
 <p>API Server에서 가져온 데이터를 어떻게 구조화 할까 고민하다 <a href="https://www.djangoproject.com/">Django</a>의 ORM을 흉내 내기로 했다. Django의 Model은 다음과 같이 데이터를 데이터베이스에서 가져온다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>building = Building.objects.get(id=3, status='open')
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>building = Building.objects.get(id=3, status='open')
 
 print building.name
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>내가 만든 건 이런 모양이다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>building = Building.filter(id=3, {'status': 'open'})
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>building = Building.filter(id=3, {'status': 'open'})
 
 print building.name
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>데이터베이스를 사용하지 않고 오직 REST API로 데이터를 가져오기 때문에 굳이 ORM처럼 만들 필요는 없었다. 데이터 모델 스키마는 API Server의 문서에 잘 나와 있기 때문에 문서 서버에서 모델을 정의하지 않아도 무방했다. Django ORM을 분석하면서 많이 배우긴 했지만 프로젝트 관리 관점에서 보면 초과 사양으로 보였다. 하지만, 자잘한 수정 사항이 매우 빈번하게 발생하자 그 나름대로 기준과 일관성이 있는 인터페이스 덕에 유연하게 대응할 수 있었다.</p>
 
@@ -203,7 +201,7 @@ print building.name
 
 <p>웹 브라우저가 웹 소켓을 열어 웹 소켓 서버와 연결을 유지하고, PDF 생성이 완료되면 서버가 클라이언트인 웹 브라우저로 푸시 알림으 보내는 기능도 간단히 구현했다. gevent 라이브러리를 사용하는 <a href="https://pypi.python.org/pypi/gevent-websocket/">gevent-websocket</a> 라이브러리를 이용하여 웹 소켓 서버를 만들었다. 처음엔 직접 구현하고 있었는데 때마침 열린 <a href="http://www.pycon.kr/2014">PYCON Korea 2014</a>에서 정민영님이 발표한 <a href="http://www.pycon.kr/2014/program/3">제약을 넘어 : Gevent</a>를 듣고 gevent와 gevent-websocket을 도입했다. 무척 간단했다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from gevent import monkey
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from gevent import monkey
 monkey.patch_all()
 
 from geventwebsocket import (
@@ -223,8 +221,7 @@ WebSocketServer(
     (notifier_host, notifier_port),
     Resource({'/': TaskChecker})
 ).serve_forever()
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>서버가 백그라운드에서 PDF를 생성하는 긴긴 시간 동안 이용자는 자신이 받을 제안서 PDF를 웹 화면으로 먼저 접하게 된다. 미리보기(preview) 역할을 하는 셈이다. 이용자에겐 별다른 기능이 없지만, 실제로는 제안서 HTML을 만드는 중요 역할을 한다. 이 웹 서버는 Flask를 이용해 만들었다. 내겐 Django가 더 익숙했지만, 경량 프레임워크이면서도 문서 서버의 웹 서버에 필요한 기능은 충분히 포함하고 있었고, Flask에 기본 탑재된 템플릿 엔진인 <code class="highlighter-rouge">jinja2</code>의 문법이 Django의 템플릿 문법과 거의 동일해서 금방 적응했다.</p>
 
@@ -285,6 +282,15 @@ WebSocketServer(
     
       <li>
         <h3>
+          <a href="/2018/01/thinking-of-how-to-work/">
+            일하는 방식 고민.
+            <small>06 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2017/06/django-template-variabledoesnotexist-exception/">
             Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기
             <small>26 Jun 2017</small>
@@ -297,15 +303,6 @@ WebSocketServer(
           <a href="/2016/11/citroen-c4-cactus/">
             시트로엥 C4 칵투스 두 달 소감.
             <small>28 Nov 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/07/book-python-web-programming-with-flask/">
-            책, Flask 기반의 파이썬 웹 프로그래밍 소감
-            <small>08 Jul 2016</small>
           </a>
         </h3>
       </li>

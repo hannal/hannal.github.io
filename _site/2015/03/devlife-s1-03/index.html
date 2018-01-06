@@ -92,7 +92,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2017. All rights reserved.
+      &copy; 2018. All rights reserved.
     </p>
   </div>
 </div>
@@ -221,7 +221,7 @@
 
 <p><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">편의점 프로젝트</a>과는 달리 postman 프로젝트는 <code class="highlighter-rouge">Celery</code>를 이용하여 일정 시간마다 지정한 작업이 진행되도록 하였다. <a href="http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html">Periodic Tasks</a>를 이용했는데, <code class="highlighter-rouge">periodic_task</code>라는 장식자(<code class="highlighter-rouge">decorator</code>)를 사용했다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from datetime import timedelta
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from datetime import timedelta
 
 from celery.decorators import periodic_task
 
@@ -234,27 +234,25 @@ notify_staff_settings = {
 @periodic_task(**notify_staff_settings)
 def notify_staff():
     pass
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>템플릿 엔진인 <code class="highlighter-rouge">Jinja2</code>는 <a href="http://www.djangoproject.com">Django</a>의 템플릿 문법과 유사하고, <a href="http://blog.hannal.com/2015/02/devlife-s1-01/">제안서를 PDF로 만드는 문서 서버</a>를 만들면서 다뤄서 친숙했다. 다만, 템플릿 전체가 아니라 블록 단위로 내용을 가져오려고 하는 부분은 문서에 예제가 자세히 나오지 않아서 조금 애먹었다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">block</span><span class="w"> </span><span class="err">subject</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
-</span><span class="p">[</span><span class="err">공실</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">building.name</span><span class="w"> </span><span class="p">}</span><span class="err">}에</span><span class="w"> </span><span class="err">새로운</span><span class="w"> </span><span class="err">공실</span><span class="w">
-</span><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">endblock</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% block subject %}
+[공실] {{ building.name }}에 새로운 공실
+{% endblock %}
 
-</span><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">block</span><span class="w"> </span><span class="err">body</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
-  </span><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">building.id</span><span class="w"> </span><span class="p">}</span><span class="err">}</span><span class="w"> </span><span class="err">-</span><span class="w"> </span><span class="p">{</span><span class="err">{</span><span class="w"> </span><span class="err">product.id</span><span class="w"> </span><span class="p">}</span><span class="err">}</span><span class="w">
-  </span><span class="err">Lorem</span><span class="w"> </span><span class="err">ipsum</span><span class="w"> </span><span class="err">dolor</span><span class="w"> </span><span class="err">sit</span><span class="w"> </span><span class="err">amet,</span><span class="w"> </span><span class="err">consectetur</span><span class="w"> </span><span class="err">adipiscing</span><span class="w"> </span><span class="err">elit,</span><span class="w"> </span><span class="err">sed</span><span class="w"> </span><span class="err">do</span><span class="w"> </span><span class="err">eiusmod</span><span class="w"> </span><span class="err">tempor</span><span class="w"> </span><span class="err">incididunt</span><span class="w"> </span><span class="err">ut</span><span class="w"> </span><span class="err">labore</span><span class="w"> </span><span class="err">et</span><span class="w"> </span><span class="err">dolore</span><span class="w"> </span><span class="err">magna</span><span class="w"> </span><span class="err">aliqua.</span><span class="w"> </span><span class="err">Ut</span><span class="w"> </span><span class="err">enim</span><span class="w"> </span><span class="err">ad</span><span class="w"> </span><span class="err">minim</span><span class="w"> </span><span class="err">veniam,</span><span class="w"> </span><span class="err">quis</span><span class="w"> </span><span class="err">nostrud</span><span class="w"> </span><span class="err">exercitation</span><span class="w"> </span><span class="err">ullamco</span><span class="w"> </span><span class="err">laboris</span><span class="w"> </span><span class="err">nisi</span><span class="w"> </span><span class="err">ut</span><span class="w"> </span><span class="err">aliquip</span><span class="w"> </span><span class="err">ex</span><span class="w"> </span><span class="err">ea</span><span class="w"> </span><span class="err">commodo</span><span class="w"> </span><span class="err">consequat.</span><span class="w"> </span><span class="err">Duis</span><span class="w"> </span><span class="err">aute</span><span class="w"> </span><span class="err">irure</span><span class="w"> </span><span class="err">dolor</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">reprehenderit</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">voluptate</span><span class="w"> </span><span class="err">velit</span><span class="w"> </span><span class="err">esse</span><span class="w"> </span><span class="err">cillum</span><span class="w"> </span><span class="err">dolore</span><span class="w"> </span><span class="err">eu</span><span class="w"> </span><span class="err">fugiat</span><span class="w"> </span><span class="err">nulla</span><span class="w"> </span><span class="err">pariatur.</span><span class="w"> </span><span class="err">Excepteur</span><span class="w"> </span><span class="err">sint</span><span class="w"> </span><span class="err">occaecat</span><span class="w"> </span><span class="err">cupidatat</span><span class="w"> </span><span class="err">non</span><span class="w"> </span><span class="err">proident,</span><span class="w"> </span><span class="err">sunt</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">culpa</span><span class="w"> </span><span class="err">qui</span><span class="w"> </span><span class="err">officia</span><span class="w"> </span><span class="err">deserunt</span><span class="w"> </span><span class="err">mollit</span><span class="w"> </span><span class="err">anim</span><span class="w"> </span><span class="err">id</span><span class="w"> </span><span class="err">est</span><span class="w"> </span><span class="err">laborum.</span><span class="w">
-</span><span class="p">{</span><span class="err">%</span><span class="w"> </span><span class="err">endblock</span><span class="w"> </span><span class="err">%</span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+{% block body %}
+  {{ building.id }} - {{ product.id }}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+{% endblock %}
+</code></pre></div></div>
 
 <p>이런 템플릿이 있는 경우, 전자우편 제목은 <code class="highlighter-rouge">subject</code> 블록에 있는 내용을, 본문은 <code class="highlighter-rouge">body</code> 블로에 있는 내용을 사용하는 것이다. 템플릿에서 전자우편 제목과 본문을 만들면 알림 전자우편 제목이나 본문 형식(format)이 바뀌어도 Python 애플리케이션 코드는 변동되지 않으므로 애플리케이션 서버를 재가동하지 않아도 되고, 템플릿이 읽히는 다음 작업 시기에 곧바로 변동 내역이 반영된다는 장점이 있다.</p>
 
 <p>Jinja에서 템플릿을 렌더링하면 템플릿 컨텍스트(변수나 필터 등)가 반영된 최종 결과물 문자열이 반환된다. 나는 이걸 <code class="highlighter-rouge">subject</code> 블록 따로, <code class="highlighter-rouge">body</code> 블록 따로 다루고 싶었고, 당연히(?) Jinja로 이런 처리가 가능하다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from jinja2 import (
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from jinja2 import (
     Environment,
     FileSystemLoader,
 )
@@ -271,37 +269,34 @@ _context = _template.new_context({
 
 email_subject = ''.join(_template.blocks['subject'](_context))
 email_body = ''.join(_template.blocks['body'](_context))
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>오류 내역은 벼르고 별렀던 <code class="highlighter-rouge">Sentry</code>를 도입하여 관리했다. 그동안은 로그를 쌓거나 출력하여 문제를 추적했는데, 로그가 쌓이면 문제를 추적하기 불편했고, <code class="highlighter-rouge">traceback</code> 정보가 제대로 나오지 않아 문제 파악도 힘들었다. Sentry 역시 전자우편 발송 서버와 마찬가지로 실 서버는 Sentry 회사가 제공하는 서비스를 이용하고, 개발 중에는 내 작업 PC에 직접 설치하여 관리했다. 사용법도 간단하다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>from raven import Client as RavenClient
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from raven import Client as RavenClient
 
 raven_client = RavenClient(SENTRY_APIKEY)
 
 @raven_client.capture_exceptions
 def notify_staff():
     pass
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="우여곡절">우여곡절</h5>
 
 <p>Mailjet에서 제공하는 <code class="highlighter-rouge">REST API</code>로 개별 전자우편을 발송하는 과정에서 적지않은 시행착오를 겪었다. REST API를 다루려고 <code class="highlighter-rouge">Requests</code> 라이브러리를 사용했는데 자꾸 요청이 Mailjet 서버로부터 거절되었다. <code class="highlighter-rouge">Curl</code>을 이용하면 잘 작동하였다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>curl -X POST --user "$MJ_APIKEY_PUBLIC:$MJ_APIKEY_PRIVATE" \
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -X POST --user "$MJ_APIKEY_PUBLIC:$MJ_APIKEY_PRIVATE" \
     https://api.mailjet.com/v3/send/message \
     -F from='Miss Mailjet &lt;ms.mailjet@example.com&gt;' \
     -F to=mr.mailjet@example.com \
     -F subject='Hello World!' \
     -F text='Greetings from Mailjet.'
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>이는 HTTP에서 <code class="highlighter-rouge">Post</code> 방식으로 데이터를 보낼 때 컨텐트 타입을 <code class="highlighter-rouge">multipart/form-data</code>로 보내는 <a href="https://www.ietf.org/rfc/rfc2388.txt">RFC 2388</a>를 따르는 것이며, 이를 Requests 라이브러리를 이용하여 다음과 같이 처리한다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>_res = requests.post(
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_res = requests.post(
     'https://api.mailjet.com/v3/send/message',
     auth=(
         '$MJ_APIKEY_PUBLIC',
@@ -314,8 +309,7 @@ def notify_staff():
         'text': 'Greetings from Mailjet.',
     },
 )
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>하지만, 무슨 이유에서인지 Mailjet쪽에서 발송을 거절했다. <a href="http://www.getpostman.com/">Postman</a>이라는 HTTP 클라이언트로 보내도 잘 작동했는데, 유독 Requests로는 실패했다. 그래서 HTTP Header를 하나씩 까보니 Requests는 파일을 첨부하면 Curl 등 다른 소프트웨어와는 미묘하게 다른 HTTP Header를 만든다는 걸 발견했고, Mailjet은 이런 요청은 거부하는 민감한 동작을 했다. 어차피 SMTP를 이용해 보낼 계획이어서 SMTP로 직접 발송하여 문제는 해결했지만, 찝찝한 마음이 남았다. 현재는(2015년 3월 기준) 문제없이 발송된다.</p>
 
@@ -329,12 +323,11 @@ def notify_staff():
 
 <p>Linux에서 프로세스를 관리하는 <code class="highlighter-rouge">upstart</code>용 프로세스 구동 스크립트를 작성하는 데 꽤 고생했다. 그동안 Linux의 init을 쓰거나 Python용 프로세스 관리 도구인 <a href="http://supervisord.org/">Supervisor</a>를 써왔는데, <a href="http://www.codeok.net/%EC%84%9C%EB%B2%84%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EB%A5%BC%20%EA%B4%80%EB%A6%AC%ED%95%98%EB%8A%94%20%EC%98%AC%EB%B0%94%EB%A5%B8%20%EB%B0%A9%EB%B2%95">서버 프로세스를 관리하는 올바른 방법</a>에 대한 글을 읽고 upstart를 사용하기로 했다. 그런데 AWS AMI에서 돌아가는 upstart는 상당히 오래된 버전이어서 웹에서 참고한 자료가 별 도움이 되지 않았다. 가령, <code class="highlighter-rouge">uid</code>나 <code class="highlighter-rouge">gid</code>, <code class="highlighter-rouge">chdir</code> 같은 명령어가 동작하지 않았다. 워낙 간단한 스크립트여서 무작정 시도했는데, 동작하지 않아 결국 로그를 찍으며 문제를 해결했다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>script
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>script
   exec &gt;/tmp/postman_sender.log 2&gt;&amp;1
   exec sudo -u ec2-user /bin/sh -c "/.../postman_run.sh"
 end script
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="정리">정리</h5>
 
@@ -376,6 +369,15 @@ end script
     
       <li>
         <h3>
+          <a href="/2018/01/thinking-of-how-to-work/">
+            일하는 방식 고민.
+            <small>06 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2017/06/django-template-variabledoesnotexist-exception/">
             Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기
             <small>26 Jun 2017</small>
@@ -388,15 +390,6 @@ end script
           <a href="/2016/11/citroen-c4-cactus/">
             시트로엥 C4 칵투스 두 달 소감.
             <small>28 Nov 2016</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2016/07/book-python-web-programming-with-flask/">
-            책, Flask 기반의 파이썬 웹 프로그래밍 소감
-            <small>08 Jul 2016</small>
           </a>
         </h3>
       </li>
