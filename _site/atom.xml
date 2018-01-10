@@ -3,13 +3,152 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2018-01-07T04:15:04+09:00</updated>
+  <updated>2018-01-10T13:39:21+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
   </author>
   <rights>copyright_details</rights>
 
+  
+  <entry>
+    <title>소울부스터 개발 후기</title>
+    <link href="/2018/01/soulbooster-production-story/"/>
+    <updated>2018-01-10T02:00:00+09:00</updated>
+    <id>/2018/01/soulbooster-production-story</id>
+    <content type="html">&lt;p&gt;최근에 1년 동안 여성 맞춤 속옷을 제조하고 판매하는 소울부스터와 함께 일했다. 지난 1년을 돌아보는 후기를 적어본다. 참고로 기술 얘기 보다는 개발 과정(production)을 이야기하는, 말 그대로 개발 후기이다.&lt;/p&gt;
+
+&lt;p&gt;이 글은 글자가 많다. 다 읽기 귀찮으면 “세 줄 요약”과 “마무리”만 봐도 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;세-줄-요약&quot;&gt;세 줄 요약&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;소울부스터에 임시 개발 총괄자로 참여하여 프로젝트를 개시하고, 출시하여 운영했다.&lt;/li&gt;
+  &lt;li&gt;함께 개발팀도 구축했다.&lt;/li&gt;
+  &lt;li&gt;소울부스터는 연 이륙하기 시작했고 개발자를 충원하고 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;1-첫-만남&quot;&gt;1. 첫 만남&lt;/h2&gt;
+
+&lt;p&gt;2년 다닌 회사를 퇴사한 지 얼마 안 되어 지인 소개로 &lt;a href=&quot;https://www.soulbooster.co.kr&quot;&gt;소울부스터&lt;/a&gt;를 만났다. 여성 맞춤 속옷을 직접 제조하고 판매하는 사업으로 창업한 지 얼마 안 된 시기였고, 온라인 서비스를 직접 개발하기 위해 소프트웨어 개발팀(이하 개발팀) 구축을 모색하고 있었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.soulbooster.co.kr&quot;&gt;&lt;img src=&quot;/assets/uploads/2018/01/soulbooster-image.png&quot; alt=&quot;사진 출처 : 소울부스터&quot; /&gt;&lt;/a&gt;
+&lt;a href=&quot;https://www.soulbooster.co.kr&quot;&gt;사진 출처 : 소울부스터&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;많은 회사가 소프트웨어 개발자(이하 개발자)를 뽑기 힘들고 어렵다며 아우성이다. 그들 말엔 온도 차가 있긴 하다만, 어쨌든 인력 시장이라는 측면에서 수요자는 다양해지고, 수는 늘고, 수요자의 사업 환경은 급변하여 수요는 빠르게 늘고 있는 데 반해 아직 공급은 수요를 못따라간다. 특히 괜찮은(?) 개발자 공급은 더욱 더 그렇다.&lt;/p&gt;
+
+&lt;p&gt;난 자체 개발하지 말고 쇼핑몰 제품을 구입하거나 쇼핑몰 호스팅 서비스로 먼저 서비스를 출시하는 걸 조심스레 권했다. 대개는 잘 만든 솔루션을 쓰는 것이 낫다. 일정이 변수가 아닌 상수에 가깝게 명확해져서 장사라는 쇼핑몰의 사업 본질을 실행하고 가설을 검증하는 데 필요한 기간이 짧고 예측 가능하기 때문이다. 물론 입맛에 딱 맞지 않은 부분도 있겠지만, 대개 그런 부분은 사업 운용에 핵심이 아닌 경우가 많다. 핵심은 팔려는 제품이 고객에게 가치를 전달하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;소울부스터 박수영 대표는 소울부스터가 제공하는 가치는 고객 마다 다른 체형을 진단하여 몸에 잘 맞는 속옷을 제안하는 것이라 했다. 체형 진단을 위한 퀴즈 알고리즘을 중요한 사용자 경험으로 제공하고, 그러한 고객 경험을 서비스 시작부터 내재화해야 하기 때문에 개발팀을 초기부터 구축해야 한다고 했다. 동의했다.&lt;/p&gt;
+
+&lt;p&gt;합류 논의는 서로 신중했다. 난 소울부스터가 추구하는 가치와 그 가치에 접근하는 방법에 공감했지만, 내가 잘 모르는 사업 아이템이어서 목표에 이르는 과정이 잘 그려지지 않아 조심스러웠다. 박수영 대표 역시 첫 개발자 영입을 신중하고 조심스러운 입장으로 진행하고 있었다. 서로 조심스러웠지만, 박수영 대표는 마냥 개발을 미룰 순 없다고 생각했는지 실행 방법을 논의하자고 했다. 우리는  고심한 끝에 실행 계획을 수립했다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;체형 진단 퀴즈 서비스와 쇼핑몰 개발을 내가 총괄하여 목표 일정에 맞춰 출시한다.&lt;/li&gt;
+  &lt;li&gt;소울부스터는 개발자 구인을 계속 진행한다.&lt;/li&gt;
+  &lt;li&gt;우리의 목표는 소울부스터에 개발팀이 구축되고 연이륙하는 것이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;내가 정식으로 합류할 지 여부는 프로토타입 버전을 개발한 뒤에 다시 논의하기로 했다. 그렇게 우리의 협업은 시작되었다.&lt;/p&gt;
+
+&lt;h2 id=&quot;2-소울부스터-개발-과정&quot;&gt;2. 소울부스터 개발 과정&lt;/h2&gt;
+&lt;p&gt;구현에 사용할 도구(기술 스택)를 선택하는 중요한 기준은 개발 공정과 개발팀 두 가지를 구축한다는 목표에 근간을 두었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;back-end&quot;&gt;Back-end&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Application Server : Python 3, Django&lt;/li&gt;
+  &lt;li&gt;DBMS, Storage : MySQL 5.7, Redis&lt;/li&gt;
+  &lt;li&gt;OS : Ubuntu 16 LTS&lt;/li&gt;
+  &lt;li&gt;Infrastructure : Amazon Web Service&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;소울부스터는 나와 처음 만나기 전에 체형을 진단하는 퀴즈 알고리즘을 이미 상당히 설계한 상태였다. 데이터 관계와 논리 체계가 상당히 정형화 되어 있었는데, 향후 더 확장해서 활용할 가능성과 의도가 보였다.&lt;/p&gt;
+
+&lt;p&gt;아니, 가능성과 의도가 보인 정도가 아니라 출시 버전에 넣기엔 너무 스펙이 크니 줄이자고 제안할 정도였다. 난 글자로 길게 설명하고 떠드는 걸 좋아하는데 박수영 대표는 나보다 더했다. 정말 온갖 정보를 고객에게 주고 싶어했다. 그 마음은 좋지만, 서비스 기획자 경험 상 우리만 힘들지 고객은 제대로 읽지 않을 가능성이 컸다. 박수영 대표 주변에서도 비슷한 피드백을 줬는지 알고리즘을 초기 기획에 비해 좀 더 압축하고(줄인 게 아니라 압축이다) 글자 양도 줄였는데, 여전히 내 기준으로는 너무 많았다. 너무 친절한데… 이것도 팀이 성장하는 과정이라 생각하고 더 잔소리(?)하지 않고 기획대로 구현하기로 했다.&lt;/p&gt;
+
+&lt;p&gt;그런 점에서 Back-end 프로그래밍 언어로 &lt;a href=&quot;https://www.python.org&quot;&gt;Python&lt;/a&gt;이 적합했다. Python은 쉽고 실용적이며 생산성이 좋다. 생태계가 활발하여 좋은 도구도 많으며, 다양한 용도로도 사용할 수 있다. 특히 최근엔 데이터 처리나 분석에 적극 활용되고 있다. 그래서 쇼핑몰과 퀴즈 서비스를 만들기에도 적절하고, 퀴즈 알고리즘이 더 고도화되고 데이터가 많아졌을 때에도 유용하며, 데이터 욕심이 많고 고객이 원하면 재빨리 제공하고 싶어 몸이 달아오르는 박수영 대표의 요청에 대응하려면 쉽고 유연한 Python이 제격이었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.djangoproject.com&quot;&gt;Django&lt;/a&gt;는 Python으로 웹 애플리케이션 서버를 개발할 때 많이 사용된다. 나는 Django의 여러 기능 중 Admin 기능을 무척 좋아하는데, Django Admin 기능을 이용하여 손쉽고 빠르게, 그리고 확장성 있게 서비스 관리 도구를 개발할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.facebook.com/hello.kaycha/photos/a.1543127105756752.1073741829.439007509502056/1542628302473299/&quot;&gt;&lt;img src=&quot;/assets/uploads/2018/01/django-admin-speech-on-djangogirls-seoul-2017.png&quot; alt=&quot;DjangoGirls Seoul 2017 11월 세미나에서 발표한 “날로 먹는 Django Admin 활용”&quot; /&gt;&lt;/a&gt;
+&lt;a href=&quot;https://www.facebook.com/hello.kaycha/photos/a.1543127105756752.1073741829.439007509502056/1542628302473299/&quot;&gt;DjangoGirls Seoul 2017 11월 세미나에서 발표한 “날로 먹는 Django Admin 활용”&lt;/a&gt; 중에서&lt;/p&gt;
+
+&lt;p&gt;서비스를 첫 출시할 때엔 관리 도구가 없더라도 당장 문제는 없다. 여차하면 개발자가 출동하여 해결해도 된다. 그러다보니 관리 도구 개발은 후순위로 밀리고 서비스 출시일까지 사용단 기능을 개발하는 데 일정을 맞추기 일쑤이다. 그래도 시간이 촉박하니 이해할 수 있긴 하지만, 달려야 할 때 관리 도구가 미비하여 발목을 잡을 우려가 있다. 서비스 사용량이 늘고 다뤄야 할 자료가 많아지면 협업과 분업이 중요하다. 잘 만든 서비스 관리 도구는 팀의 업무 효율을 높이고 안정성을 높이며, 팀에 필요한 정보를 유통하는 데 기여한다. 그래서 관리 도구를 제대로 준비해놓지 않으면 사업이 성장하느라 한창 바쁠 때 티도 안 나고 개발할 맛도 별로 없는 관리 도구 만드느라 개발팀이 병목이 되기 십상이다.&lt;/p&gt;
+
+&lt;p&gt;물론 서비스 관리 도구를 고도화하는 건 한도 끝도 없다. 저기 앉아 있는 개발자에게서 여유가 느껴지면 막 이것 저것 추가하고 고쳐달라고 말하고 싶다. 하다 못해 차트라도 그려주거나 버튼이라도 예쁘게 해달라고 하고 싶지 않던가. 하지만 한정된 자원으로 높은 실행력을 내야 하는 스타트업은 적정선에서 끊어야 한다. 그 적정선 수준까지는 Django Admin으로도 충분히 빠르고 강력하게 만들 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이외 환경은 사용자가 많거나 자료가 많거나 개발 편의성이 좋은 점을 기준으로 선택했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;front-end&quot;&gt;Front-end&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Web browser : IE 9 이상&lt;/li&gt;
+  &lt;li&gt;HTML 5, CSS 3, JavaScript(ECMA 6), Vue.js 2 + Webpack 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Front-end 기술스택은 기준이 명확했다. 인터넷 익스플로러 8(IE 8) 이하 버전은 지원하지 않는다. 2017년에도 여전히 한국에선 IE 8 점유율을 쓰는 시대 저항 세력이 있지만, 한정된 자원으로 서비스를 개발해야 하는 스타트업의 현실적인 한계가 있었다. 그리고 서비스 이용자 중 모바일 사용자가 훨씬 많을 것이라 확신했다. 난 서비스 출시 버전에선 IE 8를 지원하지 않는 대신 좀 더 나은 기술로 고객의 서비스 사용 경험을 증대시키고 개발 효율을 높이자고 제안했고, 박수영 대표는 흔쾌히 수용했다. 실은 제발 IE 8은 지원하지 맙시다! 에 가까웠다. 😭&lt;/p&gt;
+
+&lt;p&gt;소울부스터는 의류 쇼핑몰이라는 점과 박수영 대표의 성향을 고려 했을 때 사용단 UI 수정이 많을 거라 예상했다. 실제로 매우 많았다. 그래서 현대 UI 프로그래밍에 적합한 도구가 필요했는데, 지금이나 그 당시나 React.js, Angular가 주요 축이다. 난 React.js와 Angular의 장점을 제공하면서도 학습과 활용이 상대적으로 쉬운 &lt;a href=&quot;https://vue.js&quot;&gt;Vue.js&lt;/a&gt;를 선택했다. React.js와 Angular에 비해서는 사용자 층이나 생태계가 크진 않았지만, 빠르게 성장하고 있었고 사용하기 쉬웠으며, 무엇보다도 친절하고 다정한 한국어 자료가 잘 정리되어 있었다. React.js나 Angular 숙련자를 영입하기 쉽지 않다면 구인한 Front-end개발자가 학습해서라도 활용할 상황을 염두에 뒀다. React.js나 Agnular 경험자라면 어렵지 않게 Vue.js를 사용할 수 있으며, 이 셋과 관련된 기술을 모르더라도 Vue.js는  React.js나 Angular에 비해 쉽게 입문할 수 있다고 판단했다. 왜냐하면 내가 그랬으니까.&lt;/p&gt;
+
+&lt;p&gt;시행착오는 있었지만, Vue.js는 만족스러웠다. 부분적으로 그리고 보수적으로 도입했는데, 기술 스택이 너무 복잡해지지 않으면서도 개발 효율이 상승했으며 성능과 기능도 만족스러웠다. 그리고 반짝 두각을 드러내다 사라지지 않고 빠르게 점유율이 늘어서 Vue.js 경험자도 빠르게 늘고 있어서 면접 자리에서 Vue.js를 사용해봤거나 학습 중인 개발자를 만나는 빈도도 늘고 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;기타&quot;&gt;기타&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Slack/Jandi&lt;/li&gt;
+  &lt;li&gt;Trello&lt;/li&gt;
+  &lt;li&gt;Bitbucket&lt;/li&gt;
+  &lt;li&gt;MailChimp&lt;/li&gt;
+  &lt;li&gt;아임포트&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;나는 주로 원격 근무를 한다. 제품이나 서비스를 운영하고 있거나 개발 총괄자가 있는 프로젝트에서 원격 근무는 해봤지만, 프로젝트 시작부터 원격 근무를 해본 적은 없었다. 프로젝트 초기엔 팀과 소통을 많이 하기 때문에 다소 걱정이 들었다. 하지만 소프트웨어 개발자는 나 한 명이니 개발 관련하여 얼굴 맞대고 논의하는 일은 바보같은 코드를 짠 3일 전의 나를 오늘의 내가 구박하는 그런 경우가 대부분이었다. 그래서 일주일에 1~2회 정도 사무실에 출근하고, 소통 채널을 적극 활용하여 원격 근무를 해도 협업에 큰 지장이 없도록 노력했다.&lt;/p&gt;
+
+&lt;p&gt;이슈 빈도가 빈번하지 않거나 외부 상황에 의존하는 일이 일정할 땐 원격 근무가 별 문제는 없었다. 물론 비동기로 소통을 나누기 때문에 동기식 소통에 익숙한 사람에겐 불편할 수도 있다. 다행히 박수영 대표는 팀에 엄청 많은 일을 할당했고, 동기식으로 협업해서는 도저히 일정을 맞출 수 없었다. 각자 알아서 업무 맥락(context)을 관리하며 비동기로 업무를 해치워야 했고, 뜻하지 않게 비동기식 협업이 동작했다. 😂&lt;/p&gt;
+
+&lt;p&gt;나는 온라인 협업 도구 사용으로 비동기로 협업하더라도 효율이 떨어지지 않게 유도하려고 노력했다. 그렇다고 엄격하게 도구 사용 규칙을 정하거나 강제하지 않았다. 핵심 원칙을 하나 정하고, 그 원칙을 지키도록 유도했다. 그 원칙이란 바로 공개와 개방이다. 되도록이면 &lt;a href=&quot;https://trello.com&quot;&gt;Trello&lt;/a&gt;와 &lt;a href=&quot;https://slack.com&quot;&gt;Slack&lt;/a&gt;/&lt;a href=&quot;https://www.jandi.com&quot;&gt;Jandi&lt;/a&gt;를 사용하여 이슈를 팀 내에서는 누구나 확인할 수 있게 공개했다. Slack/Jandi나 email, Trello 어디에도 기록이 남지 않은 업무 요청을 가끔 반려하기도 했다.&lt;/p&gt;
+
+&lt;p&gt;박수영 대표는 서비스 기획자 역할도 하고 있었으므로 사소한 이슈라도 거의 모든 email에 참조자에 참여시켰다. 그래도 정보 불일치 상황을 피하고자 출근할 땐 진행 상황과 주요 이슈를 동기화했다. 몇 가지 아쉬운 점은 있지만, 아직 출시하지 않은 제품이나 서비스를 개발하는 단계에서도 원격 근무가 동작할 수 있는 가능성을 발견하기도 했고, 해결해야 할 문제도 발견했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://iamport.kr&quot;&gt;아임포트&lt;/a&gt;는 결제 대행(Payment Gateway) 서비스 연동을 대신해주는 중개 서비스이다. 대행을 대신한다니 뭔가 복잡하게 보이는데, 아임포트를 사용하면 번거롭고 짜증나는 PG연동 작업을 아주 간편하게 해치울 수 있다. 게다가 PG를 하나만 연동할 경우 무료이며, 복수 개 PG를 연동하더라도 한 번만 결제하면 되므로 사용하지 않을 이유가 없었다. 게다가 아임포트는 결제 기능 구현 일정에 영향을 미치는 외부 의존도를 상당히 낮춰줬다. 외부 의존도가 높은 이슈가 많을수록 일정 추정이 어려워지고 팀 스트레스를 높이기 때문에 우린 아임포트에게 많은 도움을 받은 셈이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://mailchimp.com&quot;&gt;MailChimp&lt;/a&gt;는 Non-paid 마케팅 채널 중 하나인 email 마케팅을 하는 데 매우 유용하다. 개발자의 지원이 없이도 email 마케팅을 수행하고 운영하는 데 필요한 기술 요소를 활용할 수 있으며, MailChimp가 머신러닝으로 최적화하여 제안하는 여러 가설과 실행 방법은 비숙련자의 가설과 계획보다 나은 경우가 많다. 그래서 email 마케팅에 필요한 기술 지원에 내가 손을 쓸 일은 없었으며, 회원가입, 주문 안내 등 안내 email을 발송하는 용도로 MailChimp의 서비스 중 하나인 Mandrill사용했다.&lt;/p&gt;
+
+&lt;h2 id=&quot;3-소프트웨어-개발팀-구축&quot;&gt;3. 소프트웨어 개발팀 구축&lt;/h2&gt;
+&lt;p&gt;소프트웨어 개발을 해본 적이 없거나 모르는 창업자는 어떤 분야 개발자가 팀에 필요한 지, 경력은 어느 정도여야 하는 지, 어떤 사람이어야 하고, 어떤 기술을 다룰 줄 알아야 하는 지 궁금해하곤 한다. 모두 챙겨야 할 요건이긴 하다. 하지만 전제해야 할 것이 두 가지 있다. 스타트업 팀 구축(building)을 주제로 강연할 때 마다 일관된게 주장하는 내용이기도 하다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;창업자가 해결하고자 하는 문제를 풀고 싶어 하는 사람이어야 한다.&lt;/li&gt;
+  &lt;li&gt;회사와 함께 성장하는 지속 가능한 팀을 함께 만들어야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;많은 창업자가 개발팀이 필요하다고 하지만 대화를 나눠보면 실제로는 개발팀이 목표가 아니라 제품이나 서비스가 목표인 경우가 많다. 사업의 목적과 목표가 소프트웨어 개발이 아니라면 틀린 생각은 아니지만, 개발팀이 필요한 것과 개발팀이 만들어낼 결과물이 필요한 것은 구분해야 한다. 후자라면 꼭 내부 개발팀을 고집할 필요가 없다. 오히려 내부 개발팀을 구축해서 실행력이 더뎌지거나 품질 낮은 제품을 만들기도 하고, 적지 않은 돈과 시간과 정신 에너지를 쓰고 개발팀을 해체하는 경우가 무척 많다.&lt;/p&gt;
+
+&lt;p&gt;개발팀과 함께 창업의 이유(why)를 함께 고민하고, 그 문제를 풀 방법을(how) 모색하여 고객에게 적합한 제품이나 서비스(what)가 나와야 한다. 그래서 개발자 개개인은 전문 기술 분야를 갖고 있더라도 팀은 문제를 해결하는 데 필요한 기술 스택을 어떻게든 소화할 수(풀스택) 있어야 한다. 풀스택이라 함은 능력이나 경력이 될 수도 있지만 더 중요한 건 문제를 풀겠다는 태도(마음)이다.&lt;/p&gt;
+
+&lt;p&gt;그런 점에서 소울부스터는 개발자 영입이 쉽진 않았다. 아무래도 여성 맞춤 속옷 사업 아이템에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;여성&lt;/code&gt;이 큰 인상을 끼치고, 적어도 내 지인이나 인터뷰를 본 남성 개발자 중에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;여성&lt;/code&gt; 속옷과 관련된 주제에 문제를 고민하는 경우는 없었다. 그래서 인터뷰를 볼 때 소울부스터가 해결하고자 하는 문제는 &lt;code class=&quot;highlighter-rouge&quot;&gt;맞춤&lt;/code&gt;이라는 것에 초점을 두고자 했다. 박수영 대표가 내게 들려준 비전과 창업 이유를 최대한 기술과 개발로 풀어서 전달하려 노력했다.&lt;/p&gt;
+
+&lt;p&gt;인터뷰 볼 때 중요시 여긴 또다른 요소는 서비스 운영 경험이었다. 박수영 대표는 실행력이 좋았고, 또 성격도 급한 편이다. 필요하거나 중요한 일이면 설령 그게 하기 싫거나 까다로운 일이라도 망설이지 않고 기꺼이 직접 실행하는 사람이었다. 이런 대표자의 실행력은 서비스를 운영하여 사업 실적이 바로 바로 발생하는 실 운영 환경에서 개발자에게 압박과 부담으로 작용한다. 그런 상황에 일정 기간 노출된 경험이 필요했다.&lt;/p&gt;
+
+&lt;p&gt;개발팀의 중요 고객 중 하나인 내부 고객, 그러니까 개발팀이 만든 도구를 사용하는 비개발팀 동료을 위한 관리 도구를 고도화하는 업무도 지루하고 재미없는 경우가 많다. 잘 드러나지 않는달까? 그래서 새로운 제품이나 기능을 만드는 건 좋아하지만 서비스 운영에 필요한 개발 업무는 싫어하는 개발자도 있다. 먹고 살아야 하니 일은 하지만 발휘하는 집중력에 차이가 크면 개발자 개인과 개발팀 혹은 회사 모두 불행한 상황에 놓인 것이나 마찬가지이다. 인내할 줄 알아야 한다. 더 나아가 그런 환경에서도 같은 문제에 대해서 더 나은 해결책을 모색하는 호기심을 유지하고 실행하는 체력과 자기 관리를 할 수 있어야 한다. 그걸 넘어서 아예 서비스 운영 개발을 좋아하면 더 좋고.&lt;/p&gt;
+
+&lt;p&gt;박수영 대표에게 이런 생각을 피력했고, 이럴 경우 생각보다 개발팀 구축에 시간이 오래 걸릴 수 있다는 걸 일러두었다. 그 생각보다 오래 걸린 시간이 그 생각보다 더 오래 걸리긴 했지만, 마침내 Front-end와 Back-end 각 한 명씩 구인하는 데 성공했다.&lt;/p&gt;
+
+&lt;p&gt;서비스를 출시한 이후 한결 개발자 구인 기회가 많아졌다. 출시 전에는 아무리 잘 설명해봐야 실제로 동작하는 눈에 보이는 실체가 없으니 회사 정체성은 여성 속옷 쇼핑몰에 그쳤다. 소울부스터에서 고심 끝에 만들고 계속 진보하는 체형 진단 퀴즈 알고리즘이 고객에게 어떤 가치를 주는 지 입사 지원자에게 확신시키기 어려웠다. 하지만 서비스를 출시하고 직접 공장에서 제조한 제품을 고객에게 팔고, 퀴즈 알고리즘을 사용하는 고객 경험과 고객 응대 경험이 쌓이자 팀의 정체성은 더 뚜렷해졌다. 나는 그런 점들이 어우러져 입사 지원 수도 늘고 회사의 비전을 미리 살펴보고 관심있는 사람이 지원하는 빈도가 늘었다고 생각한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;마무리&quot;&gt;마무리&lt;/h2&gt;
+&lt;p&gt;함께 프로젝트를 하기로 한 지 만 1년이 됐다. 나는 시간 당 비용을 청구했는데, 서비스 안정화 이후 내가 프로젝트에 들이는 시간이 확 줄었고 그만큼 내 수입도 (무척) 줄었다 😔. 그렇다. 박수영 대표와 함께 정한 우리의 목표에 도달한 것이다. 개발팀을 구축했고, 회사와 팀은 성장하고 매출도 상승하며 연 이륙을 시작하고 있었다.&lt;/p&gt;
+
+&lt;p&gt;얼마 전 우리는 계약을 공식 종료했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/uploads/2018/01/soulbooster-product-unboxing.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;소울부스터 팀은 여전히 실행력을 유지하고 있고, 제품에 만족하는 고객도 계속 늘고 있는 것 같다. 직접 돈 주고 제품을 산 내 아내도 소울부스터 제품에 만족하고 있다. 그래서 두 번 샀다. 난 프로젝트를 개시하여 출시하고, 운영하며 안정화하고, 개발팀 구축도 함께 하며 작지만 야무지고 단단하게 성장하는 팀을 곁에서 보았기에 여러모로 소울부스터에 정이 간다. 소울부스터의 성공을 기원하며 개발 후기를 마쳐본다.&lt;/p&gt;
+
+&lt;p&gt;아참, 소울부스터에서 시니어 개발자를 충원하고 있다고 한다. 소프트웨어적 상상력을 발휘하기 좋은 사업 아이템이자 사업 비전이라 생각한다. 관심있는 개발자는 recruit@soulbooster.co.kr 로 문을 두드려 보길 추천해 본다. 추천인 코드는 hannal (농담). 아니면 내게 자리를 마련해달라고 연락을 해도 좋다. 위에 명기된 기술 스택을 경험했다면 좋겠지만, 그렇지 않더라도 서로 적합하다면 문제 될 것 없다. 문제가 안 된다는 건 현 소울부스터 개발팀이 살아있는 사례라서 말할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;One more thing. 소울부스터처럼 서비스 개발부터 개발팀 구축, 운영까지, 혹은 프로젝트를 의뢰나 문의하실 분은 kay@hannal.net 으로 문의하세요. 😍&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>일하는 방식 고민.</title>
@@ -3004,237 +3143,6 @@ hello_func(1, 2, '3', 'a')
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>개발 생활 - 3</title>
-    <link href="/2015/03/devlife-s1-03/"/>
-    <updated>2015-03-04T22:05:40+09:00</updated>
-    <id>/2015/03/devlife-03</id>
-    <content type="html">&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;개발 생활 - 1&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;개발 생활 - 3&lt;/code&gt;&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;개발 생활 - 6&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;2-개발-프로젝트&quot;&gt;2. 개발 프로젝트&lt;/h3&gt;
-
-&lt;h4 id=&quot;2-3-전자우편-알림-서버&quot;&gt;2-3. 전자우편 알림 서버&lt;/h4&gt;
-
-&lt;h5 id=&quot;개요&quot;&gt;개요&lt;/h5&gt;
-
-&lt;p&gt;전자우편 알림 서버는 특정 사건(event)이 발생하면 관련된 사람에게 그 사건에 대해 알리는 역할을 한다. 가령, K와 C영업인이 한날이라는 고객을 담당하고 있는데, C담당자가 고객과 영업 관련 일정을 잡을 경우, K담당자에게도 이에 대한 내용을 전자우편으로 안내하는 것이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;요구사항
-    &lt;ol&gt;
-      &lt;li&gt;사건이나 상황(event)이 발생하면, 이와 관련된 담당자나 팀에 즉시 전자우편으로 그 내용을 보낸다.&lt;/li&gt;
-      &lt;li&gt;비밀번호 찾기 등 고객 홈페이지에서 발생하는 안내나 통지 행위도 처리한다.&lt;/li&gt;
-      &lt;li&gt;여러 상황에 처한 고객에게 상황에 맞는 전자우편을 자동으로 보낸다.
-        &lt;ul&gt;
-          &lt;li&gt;예) 특정 기간 이상 접속하지 않은 고객에게 서비스 이용 안내와 매물을 추천&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;내가 정한 추가 목표치
-    &lt;ul&gt;
-      &lt;li&gt;Python 3로 작성한다.&lt;/li&gt;
-      &lt;li&gt;프로그래밍 언어나 라이브러리, 프레임워크를 이전(migration)할 가능성을 염두에 두고 구조를 짠다.&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-0008/&quot;&gt;PEP 8&lt;/a&gt;을 최대한 지킨다.&lt;/li&gt;
-      &lt;li&gt;병렬로 작업(알림 처리)을 수행한다.&lt;/li&gt;
-      &lt;li&gt;Unittest를 작성한다.&lt;/li&gt;
-      &lt;li&gt;오류 내역을 효율성 있게 관리한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;개발-환경&quot;&gt;개발 환경&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;언어 : Python 3.4, Go 1.3&lt;/li&gt;
-  &lt;li&gt;사용 라이브러리, 프레임워크
-    &lt;ul&gt;
-      &lt;li&gt;ORM : &lt;a href=&quot;http://www.sqlalchemy.org/&quot;&gt;SQLAlchemy&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;반복 예약과 분산 처리 : &lt;a href=&quot;http://www.celeryproject.org/&quot;&gt;Celery&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;템플릿 : &lt;a href=&quot;http://jinja.pocoo.org/&quot;&gt;Jinja2&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;오류 내역 관리 : &lt;a href=&quot;http://www.getsentry.com&quot;&gt;Sentry&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;PEP 8 검사 : &lt;a href=&quot;https://pypi.python.org/pypi/flake8&quot;&gt;Flake 8&lt;/a&gt;, &lt;a href=&quot;https://github.com/SublimeLinter/SublimeLinter3&quot;&gt;SublimeLinter&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;HTTP 처리 : &lt;a href=&quot;http://docs.python-requests.org/en/latest/&quot;&gt;Requests&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;개발-과정&quot;&gt;개발 과정&lt;/h5&gt;
-
-&lt;p&gt;먼저 이름부터 붙였다. Mailer라는 비공식 이름이 통용되었지만 좀 더 일상과 대중에 친숙한 단어인 postman이라 프로젝트 이름을 붙였다. 보이지 않는 곳에서 나대지 않고 조용히 일하는 느낌이 들도록 머릿글자도 소문자로 표기했다.&lt;/p&gt;
-
-&lt;p&gt;작동 흐름은 간단했다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;알림 전자우편
-    &lt;ol&gt;
-      &lt;li&gt;전자우편 발송 요청(request)을 API Server가 받으면 각 요청을 발송 대기함에 쌓음.&lt;/li&gt;
-      &lt;li&gt;발송 작업자(worker)가 대기함에 있는 발송 대상을 가지고 와서 전자우편 발송 서비스에 전달.&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;개인 또는 그룹을 대상으로 하는 소식지(newsletter)
-    &lt;ol&gt;
-      &lt;li&gt;일정 주기 마다 소식지 주제 별 수신자를 수집(build).
-        &lt;ul&gt;
-          &lt;li&gt;예) 가입 후 일정 기간 동안 로그인을 안 한 이용자들에게 서비스 안내 전자우편 발송.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;수신자 그룹을 전자우편 발송 서비스에 생성.&lt;/li&gt;
-      &lt;li&gt;생성한 수신자 그룹으로 전자우편 발송.&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;SMTP 서버를 직접 구축하진 않기로 했다. 개발팀에서 프로그래머는 개발과 운영, 관리를 수행하고 있는데다 여러 개 제품이 이미 운영되고 있었기 때문에 되도록 관리할 대상을 줄여야 했기 때문이다. 그래서 전자우편 발송 서비스를 이용하기로 하고, 몇 개 업체를 검토한 끝에 &lt;a href=&quot;https://www.mailjet.com&quot;&gt;Mailjet&lt;/a&gt;을 이용하기로 결정했다. API도 잘 만들어져 있고, SMTP를 제공하며, 이미 쓰고 있는 지인이 소개해주어 무료 서비스를 사용해봤는데 기대만큼 만족스러웠다.&lt;/p&gt;
-
-&lt;p&gt;또한, 고객 지원도 아주 빠르고 친절했다. 예를 들어, 무료 서비스는 한 달에 발송 가능한 전자우편 개수가 무척 적게 제한되어 있는데, 이 개수를 모르던 나는 몇 백 개째부터는 전자우편이 발송이 안 되고 대기 상태에 머물러있자 이것 저것 설정을 변경하며 방황하고 있었다. 그러자 놀랍게도 몇 십 분 후에 대시보드 페이지에 도움이 필요하느냐는 안내 버튼이 출력되었고, 이 버튼을 눌러 실시간 대화를 나누어 문제를 파악하고 처리할 수 있었다. 그때가 한국 시간으로 14~15시 경이었기에 꽤 놀랐다. 비용도 한 달에 30,000건 발송하는 정도는 한 달에 약 9 USD이면 되는 수준이라 바로 유료 전환했다.&lt;/p&gt;
-
-&lt;p&gt;postman 프로젝트는 여러 차례 구조를 세웠다 무너뜨리며 설계를 되풀이했다. 그렇다고 해서 처음부터 크게 구조를 잡은 건 아니고, 1차 버전은 특정 상황(event)이 발생하면 담당자에게 이에 대해 개별 전자우편을 보내어 알리는 기능만 개발하는 범위여서 확장하거나 변경될 여지를 두고 구조를 잡았다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;발송부(sender)
-    &lt;ul&gt;
-      &lt;li&gt;발송 서버에 연결하는 API&lt;/li&gt;
-      &lt;li&gt;일정 시간 마다 발송 대기함에서 대기 작업물 처리자(periodic worker)&lt;/li&gt;
-      &lt;li&gt;각 전자우편에 지정된 템플릿으로 전자우편 제목과 본문을 만드는 서식부&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;발송 대기함에 쌓는 기능부&lt;/li&gt;
-  &lt;li&gt;수신자 구성부(builder)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Mailjet에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;REST API&lt;/code&gt;로 개별 전자우편을 발송하는 API를 제공했지만, 발송 서버에 연결하는 부분은 SMTP로 처리하였다. 이 방식이 HTTP로 연결하여 요청하는 것보다 좀 더 빨랐다. 쌓인 전자우편을 여러 개 보내야 하는 경우가 생기는데, HTTP/1.x는 매 요청마다 Mailjet 서버에 연결하고 끊기를 되풀이한다. 그에 반해 SMTP는 연결을 유지한다.&lt;/p&gt;
-
-&lt;p&gt;Python으로 SMTP는 &lt;code class=&quot;highlighter-rouge&quot;&gt;smtplib&lt;/code&gt; 모듈을 이용하여 간단하게 다룬다. 다만, 웹에 있는 대부분 예제는 Python 2용이어서 Python 3.4에서는 문제가 발생하는데, 원인은 패키지나 모듈 배치가 바뀐 탓이다. 다행히 Python 공식 문서에 &lt;a href=&quot;https://docs.python.org/3/library/email-examples.html&quot;&gt;email: Examples&lt;/a&gt;라는 문서에 아주 자세한 예제가 나와있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;편의점 프로젝트&lt;/a&gt;과는 달리 postman 프로젝트는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Celery&lt;/code&gt;를 이용하여 일정 시간마다 지정한 작업이 진행되도록 하였다. &lt;a href=&quot;http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html&quot;&gt;Periodic Tasks&lt;/a&gt;를 이용했는데, &lt;code class=&quot;highlighter-rouge&quot;&gt;periodic_task&lt;/code&gt;라는 장식자(&lt;code class=&quot;highlighter-rouge&quot;&gt;decorator&lt;/code&gt;)를 사용했다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from datetime import timedelta
-
-from celery.decorators import periodic_task
-
-notify_staff_settings = {
-    'notify_staff': {
-        'run_every': timedelta(minutes=1),
-    },
-}
-
-@periodic_task(**notify_staff_settings)
-def notify_staff():
-    pass
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;템플릿 엔진인 &lt;code class=&quot;highlighter-rouge&quot;&gt;Jinja2&lt;/code&gt;는 &lt;a href=&quot;http://www.djangoproject.com&quot;&gt;Django&lt;/a&gt;의 템플릿 문법과 유사하고, &lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;제안서를 PDF로 만드는 문서 서버&lt;/a&gt;를 만들면서 다뤄서 친숙했다. 다만, 템플릿 전체가 아니라 블록 단위로 내용을 가져오려고 하는 부분은 문서에 예제가 자세히 나오지 않아서 조금 애먹었다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{% block subject %}
-[공실] {{ building.name }}에 새로운 공실
-{% endblock %}
-
-{% block body %}
-  {{ building.id }} - {{ product.id }}
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-{% endblock %}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이런 템플릿이 있는 경우, 전자우편 제목은 &lt;code class=&quot;highlighter-rouge&quot;&gt;subject&lt;/code&gt; 블록에 있는 내용을, 본문은 &lt;code class=&quot;highlighter-rouge&quot;&gt;body&lt;/code&gt; 블로에 있는 내용을 사용하는 것이다. 템플릿에서 전자우편 제목과 본문을 만들면 알림 전자우편 제목이나 본문 형식(format)이 바뀌어도 Python 애플리케이션 코드는 변동되지 않으므로 애플리케이션 서버를 재가동하지 않아도 되고, 템플릿이 읽히는 다음 작업 시기에 곧바로 변동 내역이 반영된다는 장점이 있다.&lt;/p&gt;
-
-&lt;p&gt;Jinja에서 템플릿을 렌더링하면 템플릿 컨텍스트(변수나 필터 등)가 반영된 최종 결과물 문자열이 반환된다. 나는 이걸 &lt;code class=&quot;highlighter-rouge&quot;&gt;subject&lt;/code&gt; 블록 따로, &lt;code class=&quot;highlighter-rouge&quot;&gt;body&lt;/code&gt; 블록 따로 다루고 싶었고, 당연히(?) Jinja로 이런 처리가 가능하다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from jinja2 import (
-    Environment,
-    FileSystemLoader,
-)
-
-_template_engine = Environment(
-    loader=FileSystemLoader(settings.TEMPLATE_PATH),
-    trim_blocks=True,
-)
-
-_template = _template_engine.get_template('test.html')
-_context = _template.new_context({
-    'title': 'Hello world',
-})
-
-email_subject = ''.join(_template.blocks['subject'](_context))
-email_body = ''.join(_template.blocks['body'](_context))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;오류 내역은 벼르고 별렀던 &lt;code class=&quot;highlighter-rouge&quot;&gt;Sentry&lt;/code&gt;를 도입하여 관리했다. 그동안은 로그를 쌓거나 출력하여 문제를 추적했는데, 로그가 쌓이면 문제를 추적하기 불편했고, &lt;code class=&quot;highlighter-rouge&quot;&gt;traceback&lt;/code&gt; 정보가 제대로 나오지 않아 문제 파악도 힘들었다. Sentry 역시 전자우편 발송 서버와 마찬가지로 실 서버는 Sentry 회사가 제공하는 서비스를 이용하고, 개발 중에는 내 작업 PC에 직접 설치하여 관리했다. 사용법도 간단하다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from raven import Client as RavenClient
-
-raven_client = RavenClient(SENTRY_APIKEY)
-
-@raven_client.capture_exceptions
-def notify_staff():
-    pass
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;우여곡절&quot;&gt;우여곡절&lt;/h5&gt;
-
-&lt;p&gt;Mailjet에서 제공하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;REST API&lt;/code&gt;로 개별 전자우편을 발송하는 과정에서 적지않은 시행착오를 겪었다. REST API를 다루려고 &lt;code class=&quot;highlighter-rouge&quot;&gt;Requests&lt;/code&gt; 라이브러리를 사용했는데 자꾸 요청이 Mailjet 서버로부터 거절되었다. &lt;code class=&quot;highlighter-rouge&quot;&gt;Curl&lt;/code&gt;을 이용하면 잘 작동하였다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -X POST --user &quot;$MJ_APIKEY_PUBLIC:$MJ_APIKEY_PRIVATE&quot; \
-    https://api.mailjet.com/v3/send/message \
-    -F from='Miss Mailjet &amp;lt;ms.mailjet@example.com&amp;gt;' \
-    -F to=mr.mailjet@example.com \
-    -F subject='Hello World!' \
-    -F text='Greetings from Mailjet.'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이는 HTTP에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;Post&lt;/code&gt; 방식으로 데이터를 보낼 때 컨텐트 타입을 &lt;code class=&quot;highlighter-rouge&quot;&gt;multipart/form-data&lt;/code&gt;로 보내는 &lt;a href=&quot;https://www.ietf.org/rfc/rfc2388.txt&quot;&gt;RFC 2388&lt;/a&gt;를 따르는 것이며, 이를 Requests 라이브러리를 이용하여 다음과 같이 처리한다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;_res = requests.post(
-    'https://api.mailjet.com/v3/send/message',
-    auth=(
-        '$MJ_APIKEY_PUBLIC',
-        '$MJ_APIKEY_PRIVATE'
-    ),
-    data={
-        'from': 'Miss Mailjet &amp;lt;ms.mailjet@example.com&amp;gt;',
-        'to': 'mr.mailjet@example.com',
-        'subject': 'Hello World!',
-        'text': 'Greetings from Mailjet.',
-    },
-)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;하지만, 무슨 이유에서인지 Mailjet쪽에서 발송을 거절했다. &lt;a href=&quot;http://www.getpostman.com/&quot;&gt;Postman&lt;/a&gt;이라는 HTTP 클라이언트로 보내도 잘 작동했는데, 유독 Requests로는 실패했다. 그래서 HTTP Header를 하나씩 까보니 Requests는 파일을 첨부하면 Curl 등 다른 소프트웨어와는 미묘하게 다른 HTTP Header를 만든다는 걸 발견했고, Mailjet은 이런 요청은 거부하는 민감한 동작을 했다. 어차피 SMTP를 이용해 보낼 계획이어서 SMTP로 직접 발송하여 문제는 해결했지만, 찝찝한 마음이 남았다. 현재는(2015년 3월 기준) 문제없이 발송된다.&lt;/p&gt;
-
-&lt;p&gt;Celery를 사용하는 인터페이스 부분을 추상화하는 과정도 뜻대로 되지 않은 부분이 많았다. 언제든지 Celery를 걷어내고 다른 라이브러리를 사용해도 문제가 없도록 패키지와 모듈 구성을 구성하였는데, 문제가 발생했을 때 문제를 추적하기 불편하였고 추상화 한 것에 비해 실제 Celery를 사용하는 부분 인터페이스가 많지 않았다. 결국은 Celery 인터페이스 이름만 바꾼 것에 가까운 반쪽짜리 추상화가 되고 말았다. 어설픈 추상화는 안 하느니만 못 하다.&lt;/p&gt;
-
-&lt;p&gt;Python 3를 사용하는 데엔 별다른 시행착오를 겪지 않았다. Python 3 기능을 그다지 깊게 사용하지 않기도 했지만, 지난 프로젝트부터 Python 3를 대비하고 준비한 게 도움이 됐다. 그리고, postman 프로젝트에 사용한 외부 라이브러리도 모두 Python 3를 지원했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://spoqa.github.io/2012/08/03/about-python-coding-convention.html&quot;&gt;PEP 8&lt;/a&gt;을 도입하는 것도 무난했다. PEP 8 검사에 사용한 Flake8의 Sublime Text용 부가기능(plugin)이 Sublime Text 2에서 잘 작동하지 않아 엉겁결에 Sublime Text 3로 이전한 것 빼고는 별달리 어렵거나 힘든 상황은 맞이하지 않았다. &lt;a href=&quot;https://www.python.org/dev/peps/pep-0008/#maximum-line-length&quot;&gt;한 줄을 80열 미만으로 코드를 작성하는 것&lt;/a&gt;을 제외하면.&lt;/p&gt;
-
-&lt;p&gt;Unittest는 만족스럽게 사용하진 못 했다. 딸 출산이 임박한 시기에 이르자 마음이 급해져 다시 원래 개발하던 방식으로 돌아가고 말았던 것이다. 결국 Unittest를 쓰지 않아 겪는 불편을 개발 막바지에 그대로 다시 겪었다.&lt;/p&gt;
-
-&lt;p&gt;Linux에서 프로세스를 관리하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;upstart&lt;/code&gt;용 프로세스 구동 스크립트를 작성하는 데 꽤 고생했다. 그동안 Linux의 init을 쓰거나 Python용 프로세스 관리 도구인 &lt;a href=&quot;http://supervisord.org/&quot;&gt;Supervisor&lt;/a&gt;를 써왔는데, &lt;a href=&quot;http://www.codeok.net/%EC%84%9C%EB%B2%84%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EB%A5%BC%20%EA%B4%80%EB%A6%AC%ED%95%98%EB%8A%94%20%EC%98%AC%EB%B0%94%EB%A5%B8%20%EB%B0%A9%EB%B2%95&quot;&gt;서버 프로세스를 관리하는 올바른 방법&lt;/a&gt;에 대한 글을 읽고 upstart를 사용하기로 했다. 그런데 AWS AMI에서 돌아가는 upstart는 상당히 오래된 버전이어서 웹에서 참고한 자료가 별 도움이 되지 않았다. 가령, &lt;code class=&quot;highlighter-rouge&quot;&gt;uid&lt;/code&gt;나 &lt;code class=&quot;highlighter-rouge&quot;&gt;gid&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;chdir&lt;/code&gt; 같은 명령어가 동작하지 않았다. 워낙 간단한 스크립트여서 무작정 시도했는데, 동작하지 않아 결국 로그를 찍으며 문제를 해결했다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;script
-  exec &amp;gt;/tmp/postman_sender.log 2&amp;gt;&amp;amp;1
-  exec sudo -u ec2-user /bin/sh -c &quot;/.../postman_run.sh&quot;
-end script
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;정리&quot;&gt;정리&lt;/h5&gt;
-
-&lt;p&gt;postman 프로젝트는 코딩보다는 설계와 추상화, 그리고 외부 도구 연계에 시간을 많이 썼다. 그동안 Celery나 SQLAlchemy 등 도구의 단편만 다뤘는데, 이번 프로젝트를 진행하면서 좀 더 깊게 들여다보고 시험해 보았다.&lt;/p&gt;
-
-&lt;p&gt;이번 프로젝트는 여러 모로 무척 바빠서 공부를 많이 하지 못 했다. 이 프로젝트에 사용한 기술의 하부 영역을 더 이해하려고 리눅스 시스템 프로그래밍(C언어)과 Python twisted를 공부하였지만, 다소 지지부진하게 진도가 나갔다.&lt;/p&gt;
-
-&lt;p&gt;Go 언어로 작성한 코드는 Go 언어에 좀 더 친숙해진 정도 성과를 거두었다. 워낙 간단한 코드이기 때문이다. 나중에 시간을 내어 발송할 전자우편을 구성(build)하는 부분과 발송 부분을 분리하여 발송 부분을 Go 언어로 재작성하면 좋을 것 같다.&lt;/p&gt;
-
 </content>
   </entry>
   
