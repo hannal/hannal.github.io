@@ -3,7 +3,7 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2018-01-11T17:15:42+09:00</updated>
+  <updated>2018-01-12T15:52:05+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
@@ -147,6 +147,10 @@
 &lt;p&gt;아참, 소울부스터에서 시니어 개발자를 충원하고 있다고 한다. 소프트웨어적 상상력을 발휘하기 좋은 사업 아이템이자 사업 비전이라 생각한다. 관심있는 개발자는 recruit@soulbooster.co.kr 로 문을 두드려 보길 추천해 본다. 추천인 코드는 hannal (농담). 아니면 내게 자리를 마련해달라고 연락을 해도 좋다. 위에 명기된 기술 스택을 경험했다면 좋겠지만, 그렇지 않더라도 서로 적합하다면 문제 될 것 없다. 문제가 안 된다는 건 현 소울부스터 개발팀이 살아있는 사례라서 말할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;One more thing. 소울부스터처럼 서비스 개발부터 개발팀 구축, 운영까지, 혹은 프로젝트를 의뢰나 문의하실 분은 kay@hannal.net 으로 문의하세요. 😍&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;2018년 1월 12일 추가 : 소울부스터에서는 샘 방지 위생 팬티인 시즈더데이를 전문으로 취급하는 쇼핑몰인 &lt;a href=&quot;http://www.seizetheday.co.kr/&quot;&gt;시즈더데이&lt;/a&gt;를 2017년 12월에 출시했다. 팬티 제품은 브레지어와 달리 가슴 체형 진단을 하지 않아도 되고, 회원가입을 하지 않아도 손쉽게 주문할 수 있도록 별도 쇼핑몰을 구축한 것인데, 흥미로운 점은 쇼핑몰 호스팅 서비스를 사용한 점이다. 개발팀을 보유한 회사의 대표가 이런 판단을 실제로 실행하는 게 생각보다 쉽지 않다. 정말 사업 측면에서 놀라운 실행력이다. 개발자로서 이런 사업 실행력과 판단에 박수를 보내본다.&lt;/p&gt;
 </content>
   </entry>
   
