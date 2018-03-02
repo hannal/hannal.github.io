@@ -137,9 +137,9 @@ else:
 </code></pre>
 </blockquote>
 <p>마지막으로 write.html 에서 글 갈래를 출력한다.</p>
-<blockquote><p><xmp>&#123;&#37; for category in categories &#37;&#125;</p>
-<option value="{{category.id}}">{{category.Title}}</option>
-<p>&#123;&#37; endfor &#37;&#125;</xmp></p></blockquote>
+<blockquote><p>&#123;&#37; for category in categories &#37;&#125;</p>
+&lt;option value="{{category.id}}">{{category.Title}}&lt;/option>
+<p>&#123;&#37; endfor &#37;&#125;</p></blockquote>
 <p>간단하다. 새로운 내용은 없으며 이미 우리가 이 강좌에서 익힌 내용들이다. 이제는 글 쓰기 화면에 글 갈래도 나열되어 글 쓸 때 하나 고를 수 있다.</p>
 <p>글 쓰기 화면에서 글 갈래를 골랐다면 서버로 글 내용을 보냈을 때 글 갈래 정보를 가져와야 한다. 이용자 글쓰기 화면에서 글 갈래를 고르면 그 글 갈래의 일련번호(id)가 서버로 날아가는데, 서버에서는 이 숫자를 그대로 넣으면 안된다. <strong>그 숫자(id)가 실제로 글 갈래 모델(Categories)에 있는 것인지 확인한 뒤에 글 정보 모델(Entries) 관계 상황에 맞게 넣어야</strong> 한다. 말은 복잡하지만 한 두 줄로 처리할 수 있으니 겁 먹을 필요는 없다.</p>
 <p>먼저 이용자가 입력한 글 갈래 정보가 DB 에 있는지 확인하여 있으면 그 글 정보를 가져오고, 없으면 잘못된 글 갈래 정보라고 안내하는 코드를 만든다. 말은 복잡하지만 구현은 아주 단순하다.</p>
