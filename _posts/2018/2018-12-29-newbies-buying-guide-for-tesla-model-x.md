@@ -105,7 +105,7 @@ permalink: "/2018/12/newbies-buying-guide-for-tesla-model-x/"
 - BC그린카드
 - 신한EV카드
 
-이 부분에 대한 자세한 내용은 [한국 테슬라 오우너 클럽](https://cafe.naver.com/teslaownersclub)에 잘 정리된 글, [충전 카드와 할인용 신용 카드에 대한 이해
+이 부분에 대한 자세한 내용은 [한국 테슬라 오너스 클럽](https://cafe.naver.com/teslaownersclub)에 잘 정리된 글, [충전 카드와 할인용 신용 카드에 대한 이해
 충전 카드와 할인용 신용 카드에 대한 이해](https://cafe.naver.com/teslaownersclub/2274)를 참고하자. 이 글에서는 내 상황에 맞춘 내용만 정리하자면,
 
 - 거주지 주차장에 공용 완속 충전기(파워큐브)가 있어서 이 충전 시설 이용하는 데 신한EV 카드 사용
@@ -146,7 +146,7 @@ OBD 2에 연결하여 사용하는 데 성공한 차주에 따르면 아직 별 
 
 ## 커뮤니티
 
-테슬라 관련 커뮤니티가 몇 곳 있는데, [한국 테슬라 오우너 클럽](https://cafe.naver.com/teslaownersclub)은 기본으로 가입하길 추천한다. 이름처럼 꼭 테슬라 차주가 아니더라도 가입하고 활동할 수 있으며, 유용한 정보가 많다.
+테슬라 관련 커뮤니티가 몇 곳 있는데, [한국 테슬라 오너스 클럽](https://cafe.naver.com/teslaownersclub)은 기본으로 가입하길 추천한다. 이름처럼 꼭 테슬라 차주가 아니더라도 가입하고 활동할 수 있으며, 유용한 정보가 많다.
 
 
 ## 출고
