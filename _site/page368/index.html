@@ -115,6 +115,90 @@
   
   <div class="post">
     <h2 class="post-title">
+      <a href="/2005/1/609/">
+        한날의 공책이 바뀌었습니다.
+      </a>
+    </h2>
+
+    <span class="post-date">20 Jan 2005</span>
+
+    <p>안녕하세요.</p>
+<p>1달의 휴식에 앞서 &lt;span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')&gt;한날&lt;/span&gt;의 공책에 약간의 변화를 주었습니다. 제가 만들고 있는 블로그 도구로 구성하려 했으나 약간의 문제가 있어 시간 내에 변경을 할 수 없다는 판단을 했고, 그로 인해 기존의 &lt;span class=key1 onclick=keyword_open('./kview.php?kd=%C5%C2%C5%CD%C5%F8%C1%EE')&gt;태터툴즈&lt;/span&gt;를 계속 사용하되 제 블로그 도구에서 선보일 기능을 &lt;span class=key1 onclick=keyword_open('./kview.php?kd=%C5%C2%C5%CD%C5%F8%C1%EE')&gt;태터툴즈&lt;/span&gt;에 적용하였습니다.</p>
+<p>
+<b><u>1. 단축키 기능 추가</u></b><br />
+단축키 기능이 추가되었습니다. 이제 언제든지 다음의 단축키를 통해 좀 더 편리하게 제 블로그를 이용하실 수 있습니다. 대부분의 행위는 마우스 없이 키보드만으로 할 수 있습니다.<br />
+자세한 내용은 h 키를 누르면 나옵니다.</p>
+<p>
+<b><u>2. 변경 사항</u></b><br />
+주제별 분류(Category)와 월별 글 목록(Archive), 최근 댓글, 최근에 받은 엮인 글(Trackback)은 선택 상자(SelectBox)로 옮겼습니다. 다만, 불여우(Firefox)와 익스플로러(IE)간의 차이점에 의해 바로 가기 단축키는 서로 다릅니다.</p>
+<p>- 바로가기 -<br />
+주제별 분류 : alt+q, q (IE), ; (Firefox)<br />
+월별 글 목록 : alt+w (IE), ' (Firefox)<br />
+최근 댓글 : alt+e (IE), [ (Firefox)<br />
+최근 엮인 글 : alt+r(IE), ] (Firefox)</p>
+<p><b><u>3. 일부 정책 변경</u></b><br />
+구글 Adsense 를 삭제했습니다. 노출이 괜찮으면 정산해서 제 블로그에서 만남을 가질 때 맥주값에 보탤까 했는데 쌓이는 돈의 양과 <a href="http://www.hof.pe.kr/b2/index.php?p=995&amp;amp;more=1&amp;amp;c=1&amp;amp;tb=1">변경된 구글의 정산 정책</a>을 감안하면 거의 불가능에 가깝더군요. 결국 화면 구성에 방해만 된다는 판단하에 남 좋은 일 하기 싫어서(심술) 구글 Adsense에서 탈퇴했습니다.<br />
+또 다른 정책 변경은 이제 글자 크기는 이용자가 웹 브라우저 차원에서 변경하도록 한 점입니다. 기존에는 제 홈페이지 차원에서 지원한 기능이었는데, 이젠 웹 브라우저에서 글자 크기 변경을 감안하여 블로그 표면을 만들었기 때문에 이용자의 웹 브라우저에서 글자 크기를 변경할 수 있도록 정책을 변경하였습니다. 개인적으로 '보통' 크기일 때 글씨가 큼직 큼직하여 보기 좋더군요.</p>
+<p>
+<b><u>4. 질문 사항</u></b><br />
+<center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0120/050120034155519920/790837.gif" width="287" height="117" /></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> firefox 에서 보이는 화면</td>
+</tr>
+</table>
+<p>&lt;/center&gt;<br />
+<center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/0120/050120034155519920/703727.gif" width="297" height="98" /></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> ie에서 보이는 화면</td>
+</tr>
+</table>
+<p>&lt;/center&gt;</p>
+<p>위와 같은 문제에 봉착했습니다. CSS 의도는 firefox 가 맞고, ie에서는 제 의도대로 출력되고 있지 않는 건데, 뭐가 문제인지 모르겠습니다. 훌쩍. 이 부분에 대한 명쾌한 해결 방안을 부탁드립니다.</p>
+<p><b>HTML code</b><br />
+<code><xmp>&lt;/p&gt;
+<div id="TopMenu">
+<ul>
+<li /><a href="/blog" class="current" accesskey="`">공책 (`)</a>&lt;/p&gt;
+<li /><a href="#">도움말</a>
+<li /><a href="/blog/index.php?pl=90" accesskey="g">방명록 (g)</a>&lt;/xmp&gt;&lt;/code&gt;
+<p><b>CSS code</b><br />
+<code><br />
+  #TopMenu {<br />
+&nbsp;&nbsp; width: 70%;<br />
+  }<br />
+  #TopMenu ul {<br />
+&nbsp;&nbsp; margin: 0;<br />
+&nbsp;&nbsp; padding: 0;<br />
+  }<br />
+  #TopMenu li {<br />
+&nbsp;&nbsp; margin: 2px 2px 1px 2px;<br />
+&nbsp;&nbsp; padding: 3px 8px 3px 8px;<br />
+&nbsp;&nbsp; display: inline;<br />
+&nbsp;&nbsp; font-size: 13px;<br />
+&nbsp;&nbsp; font-family: 굴림, Arial;<br />
+&nbsp;&nbsp; background-color: #ffffff;<br />
+&nbsp;&nbsp; border-top: solid 2px #E79E9C;<br />
+  }<br />
+</code></p>
+<p>
+<b><u>5. 이외</u></b><br />
+전반적으로 소스의 상당 부분을 고쳤지만 눈에 보이는 부분은 거의 없습니다. -_- 그냥 저냥 내부가 좀 누더기가 되었군요. :D</p>
+<p>그리고 Javascript 문제에 몇 가지 난관에 부딪혔을 때 물심양면으로 도와주신 <a href="http://www.blogmeme.com/stardust">꺼칠이</a>님께 감사의 인사를 다시 드립니다.</p>
+</ul></div></xmp></code></p></center></p></center></p>
+
+  </div>
+  <hr class="post-parting-line" />
+  
+  <div class="post">
+    <h2 class="post-title">
       <a href="/2005/1/606/">
         내가 꼽는 2004년의 글 10개
       </a>
@@ -145,40 +229,6 @@ P2P와 펌질을 연관시키는 나의 논리 비약이 새삼 놀랍다. 궤�
 이글루스 플러스에 대한 글을 써야한다는 부담감을 안겨주는 글. 괜히 썼다.</ol>
 <p>좀 느즈막하게 .. <a href="http://www.blogtop10.info/">애착이 가는 2004년의 내 글</a>을 정리해봤다. 재미있는 점은 나는 토론이 왕성한 내 글을 좋아하지만, 내가 꼽은 위 글들 중 토론이 왕성하게 오간 글은 없다. "펌질은 대세이다"가 좀 오갔지만 기대치에는 미치지 못했다.</p>
 <p>정리해보니 2004년 한 해 참 많은 말 장난을 했다는 사실을 깨달았다. 애착이 가는 글이라고 하기에는 다들 매우 부족한 글들이라 10개를 꼽는데 많은 어려움이 있었다. 민망했다. 적어도 거름으로 쓸 수 있을 거라 생각했던 나의 배설물은 단지 똥일 뿐이었다. 2005년 한 해에는 더 자기 계발하여 거름으로 쓸 만한 배설을 하도록 노력을 해야겠다.</p>
-
-  </div>
-  <hr class="post-parting-line" />
-  
-  <div class="post">
-    <h2 class="post-title">
-      <a href="/2005/1/596/">
-        한날의 공책을 접습니다.
-      </a>
-    </h2>
-
-    <span class="post-date">17 Jan 2005</span>
-
-    <p>그동안 &lt;span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')&gt;한날&lt;/span&gt;의 공책에 제가 올리던 각종 궤변을 읽어주시고, 건전한 토론을 하셨던 분들께 감사의 인사를 드립니다.</p>
-<p>&lt;span class=key1 onclick=keyword_open('./kview.php?kd=%C7%D1%B3%AF')&gt;한날&lt;/span&gt;의 공책은 2005년 1월 24일자로 휴식에 들어갑니다. 휴식에 들어가 수면 밖으로 나오지 않더라도 한달만, 더도 말고 한달만이라도 저를 기억해주신다면, 저의 블로그 운영에서 가장 큰 수확이라 생각할 것입니다.</p>
-<p>그럼 ..</p>
-<p>
-<center><br />
-<table>
-<tr>
-<td><center><img src="http://blog.hannal.com/tt-attach/0106/050106172133653975/663977.gif" width="456" height="125" /></center></td>
-</tr>
-<tr>
-<td class="centerphoto"> </td>
-</tr>
-</table>
-<p>&lt;/center&gt;<br />
-이런 이유로 한달간 휴식을 갖습니다. 하하핫. 저의 기나긴 병특도 이제 몇 개월 뒤면 끝나려나 봅니다. 이런 것도 나오고 말이죠. :D</p>
-<p>훈련 가기 전에 블로그 화면 구성(Page design)이 바뀔 예정입니다. 시간이 좀 더 허락한다면 블로그툴도 자작툴로 변경할 예정인데 이건 불확실하군요.</p>
-<p>또한 제가 4주 훈련을 간 동안 제가 미리 써놓은 글들은 예약 설정을 통해 일정한 날이 되면 자동으로 글이 올라올 것입니다. 그렇다할지라도 제가 직접 발표(Release)한 글은 아니고, 이전에 써놓은 글이 자동으로 공개되는 것이오니 참고해주세요. :D</p>
-<p>그럼 2005년 3월 1일에 뵙겠습니다. 꾸벅.</p>
-<p>
-덧쓰기 : 좀 느지막한(?) 나이에 군 훈련 받을 생각하니 괜시리 관절들이 쑤시는군요. 아이고, 삭신이야.</p>
-</center></p>
 
   </div>
   <hr class="post-parting-line" />

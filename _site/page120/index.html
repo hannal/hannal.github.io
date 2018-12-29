@@ -115,6 +115,39 @@
   
   <div class="post">
     <h2 class="post-title">
+      <a href="/2008/4/django-097-encoding_error_on_mac/">
+        Django 0.97에서 unknown encoding: X-MAC-KOREAN 문제
+      </a>
+    </h2>
+
+    <span class="post-date">09 Apr 2008</span>
+
+    <p>맥(Mac OS X)에서 Django 0.97 pre1판을 기반으로 개발을 할 때 디버깅 화면이 나오지 않고</p>
+<blockquote><p>unknown encoding: X-MAC-KOREAN</p></blockquote>
+<p>위와 같은 문자열이 들어간 오류 화면이 뜹니다. 저는 맥 언어 환경을 우리말로 했기 때문에 X-MAC-KOREAN 이라고 뜨는 것이죠.</p>
+<p>이것은 Django에 있는 tzinfo.py (timezone 정보 관리하는 역할)가 기본 locale 을 가져와서 그럴싸한 문자열을 만들려 하기 때문에 맥 환경에서 발생하는 문제입니다. 이게 0.97 언제쯤 고쳐질지는 모르겠으니 일단 아쉬운대로 고쳐서 써봅시다. (음냐. 이러면 svn update 할 때 conflict 뜨는데 그 해결은 알아서 하세요)</p>
+<p>대상 소스 파일 : <strong>django/utils/tzinfo.py</strong></p>
+<p>위 파일을 열면</p>
+<pre>try:
+    DEFAULT_ENCODING = locale.getdefaultlocale()[1] or 'ascii'
+except:
+    # Any problems at all determining the locale and we fallback. See #5846.
+    DEFAULT_ENCODING = 'ascii'</pre>
+<p>이런 부분이 나옵니다. 소스 파일 안에서 거의 맨 위에 있지요. 여기서 문제가 되는 부분이 바로 try 안에 있는 녀석입니다. 맥에서는 저걸 실행하면 <strong>X-MAC-뭐시기</strong>라고 가져옵니다. 그런 게 없으니 오류가 나는 것이고요. 그 아래에 <strong>DEFAULT_ENCODING = 'utf-8'</strong>을 넣어주면 오류 안납니다.</p>
+<pre>try:
+    DEFAULT_ENCODING = locale.getdefaultlocale()[1] or 'ascii'
+    <strong>DEFAULT_ENCODING = 'utf-8'</strong>
+except:
+    # Any problems at all determining the locale and we fallback. See #5846.
+    DEFAULT_ENCODING = 'ascii'</pre>
+<p>이러면 django의 디버깅 화면이 잘 나옵니다. 찝찝하면 DEFAULT_ENCODING = locale.getdefaultlocale()[1] or 'ascii' 를 주석으로 하세요.</p>
+<p>여기서 교훈 한 마디. 역시 시험판, 특히 미리맛보기판(pre version)은 안쓰는게 정신 건강에 좋다.</p>
+
+  </div>
+  <hr class="post-parting-line" />
+  
+  <div class="post">
+    <h2 class="post-title">
       <a href="/2008/4/choise_200/">
         저는 내일 투표 합니다.
       </a>
@@ -126,43 +159,6 @@
 <p>저는 정치인이 될 생각이 없으며 정치권에서 활동하지 않기 때문에 현 사회에 제 목소리를 내기 매우 어렵지만, 4년에 한 번, 혹은 5년에 한 번씩 제 목소리를 낼 수 있는 이런 귀중한 기회를 헛되이 날리지 않으려 투표를 합니다. 이런 때 아니면 정치인들이 언제 우리네 말을 들어나 주던가요. 이런 좋은 기회를 놓칠 순 없지요.</p>
 <p>그래서.</p>
 <p><strong>저</strong>는 내일 <strong>유권자</strong>로서 <strong>권리를 행사</strong>하기 위해 <strong>2008 총선 투표</strong>를 합니다.</p>
-
-  </div>
-  <hr class="post-parting-line" />
-  
-  <div class="post">
-    <h2 class="post-title">
-      <a href="/2008/4/some_news_for_apr_first_day_2008/">
-        몇 가지 소식
-      </a>
-    </h2>
-
-    <span class="post-date">01 Apr 2008</span>
-
-    <h3>1. 애드클릭스 광고 수익 기부 내역 공개</h3>
-<p>지난 1월 16일부터 <a href="http://blog.hannal.com/adclix_on_my_blog/">제 블로그에 공익 광고를 달았고</a>, 어느 덧 두 달이 지났습니다. 총 401만원 수익이 났고, 전액을 기부했습니다. 손수 광고를 클릭하시어 적잖은 돈을 기부할 수 있게 도와주신 많은 분들께 고맙다는 인사 올립니다.</p>
-<h3>2. 게임 같은 인연 찾기 SNS</h3>
-<p>지난 해 7월에 <a href="http://www.tnccompany.com">TNC</a>에 입사한 이래 새로운 프로젝트에 매달려 왔는데 마침내 공개합니다. 게임 기획자가 뜬금없이 웹 기획자로 변신한 데에는 다 이유가 있지요. 그간 인터넷 관련 모임에 나가면 Web 2.0과 비유하며 Game 2.0을 만들어 내겠다고 말해왔습니다. 이 이야기에 흥미를 가지셨던 <a href="http://www.moreover.co.kr">Chester</a>님께서 함께 일해보자는 제의를 하셨고, 마침내 9개여월 만에 프로젝트를 1차 완료 했습니다.</p>
-<p>이 자리를 빌어 소개합니다. 기존 Social Networking Service에 게임 같은 놀이 요소를 넣은 새로운 인연 찾기 서비스인 <strong><a href="http://danchu.com/">단추닷컴</a></strong>입니다. 서로의 인연이 서로 엮인다는 뜻을 가진 이름입니다.</p>
-<p>서비스 가입도 Web 2.0 시대에 맞게 구성했습니다. 4월 1일부터 아침 무가지 신문들 마다 작은 단추가 첨부되어 있는데 이 단추 뒷면에 고유한 일련번호가 있습니다. 이 번호로 가입하시면 됩니다.</p>
-<p>덧쓰기 : 현재 가입자 폭주로 잠시 서비스가 뻗었네요. 얼른 복구하겠습니다. ㅜㅜ</p>
-<h3>3. 청혼</h3>
-<p><a href="http://blog.hannal.com/happy_birthday_to_soya_2008/">지난 3월 27일은 제 여자 친구 생일</a>이었습니다. 먼거리 연애를 하고 있는데 모처럼 만나서 즐거운 시간을 보냈습니다. 그리고 청혼을 했습니다. ^^ 대답은? 물론 허락이지요! 조만간 좋은 소식 올리겠습니다.</p>
-<h3>4. 국내 최초 Django 서적 출판</h3>
-<p>최근 RoR이라고 해서 Ruby라는 프로그래밍 언어를 기반으로 하는 Rails라는 웹 프레임워크가 인기를 끌고 있습니다. Python 진영에는 Rails 못지 않은 인기를 누리고 있는 웹 프레임워크로 <a href="http://www.djangoproject.com">Django</a>가 있습니다. 저는 지난 해부터 본격 Django를 써왔는데, <a href="http://www.aircornpub.co.kr/">에어콘 출판사</a>에서 제의가 와서 책을 써왔습니다. 제가 알기론 국내 저서로 Python + Django 책은 제 책이 최초입니다. :)</p>
-<p>잠정 확정한 책 이름은 <strong>기획자의, 기획자를 위한, 기획자에 의한 Django 웹 개발</strong>입니다.</p>
-<h3>5. 국가도덕지수 소식</h3>
-<p>실천력 강한 NGO 중 하나인 <strong>세계 도덕 확산 기구</strong>에서 발표한 <a href="http://www.google.co.kr/search?source=ig&amp;hl=ko&amp;rlz=&amp;q=국가도덕지수&amp;btnG=Google+검색&amp;meta=">2007 국가도덕지수에서 우리나라가 AB+를 획득하여 2위</a>를 했다고 합니다. 1위는 AA-를 획득한 중국이, 3위는 AC+를 획득한 미국이 차지했다고 하네요.</p>
-<p>다만, 2007년 조사에서 우리나라 대선 과정은 반영되지 않았으며 이 내용이 반영되는 2008년에서는 다소 순위가 떨어질 것으로 예상되나, 최근 중국의 티베트 무력 침공이 있어서 2위를 유지할 가능성이 높게 점쳐지고 있습니다.</p>
-<h3>6. 마지막 소식</h3>
-<p>.<br />
-.<br />
-.<br />
-.<br />
-.<br />
-.</p>
-<p>이상으로 2008년 만우절을 맞이하여 제 희망 소식을 나열해 봤습니다. ^^ 다 이뤄졌으면 좋겠네요.</p>
-<p>아참, 낚이셨거나 피식 미소 한 번 지으셨다면 댓글 하나 부탁합니다. 굽신 굽신.</p>
 
   </div>
   <hr class="post-parting-line" />
