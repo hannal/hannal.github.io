@@ -1,0 +1,192 @@
+I"�,<p>Python 3에 도입된 함수 선언 문법 중 키워드 인자를 강제하는 방법과 주석문(<code class="highlighter-rouge">annotation</code>)이 있다. Python의 매력 요소 중 하나가 깔끔하고 명료한 코드라 생각하는데, 이 두 문법은 기호를 남발하는 코드처럼 보여서 좀 불만스럽지만 코드 문맥(context)을 읽는 데엔 참 유익하다. 그나마 <code class="highlighter-rouge">$</code> 기호가 사용되는 건 아니라서 다행이랄까?! :)</p>
+
+<h3 id="위치-인자-개수-지정">위치 인자 개수 지정</h3>
+
+<p>Python은 함수 매개 인자 방식으로 위치 인자(positional argument)와 키워드 인자(keywords argument)를 지원한다. 위치 인자는 함수로 전달하는 매개 인자를 순서대로 나열하는 것이고, 키워드 인자는 인자 이름과 인자에 할당할 값을 특정하는 것이다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def args_func(arg1, arg2, arg3):
+    print(arg1, arg2, arg3)
+
+args_func('hello', 'world', '!')
+args_func('!', arg3='hello', arg2='world')
+args_func('world', arg3='!', arg2='hello')
+args_func('hello', '!', arg3='world')
+</code></pre></div></div>
+
+<p>위 코드에서</p>
+
+<ul>
+  <li><code class="highlighter-rouge">args_func('hello', 'world', '!')</code>는 <code class="highlighter-rouge">hello world !</code>를 출력하고,</li>
+  <li><code class="highlighter-rouge">args_func('!', arg3='hello', arg2='world')</code>는 <code class="highlighter-rouge">! world hello</code>를 출력한다.</li>
+  <li><code class="highlighter-rouge">args_func('world', arg3='!', arg2='hello')</code>는 <code class="highlighter-rouge">world hello !</code>를 출력하며,</li>
+  <li><code class="highlighter-rouge">args_func('hello', '!', arg3='world')</code>는 <code class="highlighter-rouge">hello ! world</code>를</li>
+</ul>
+
+<p>출력한다. 위치 인자, 키워드 인자 순서로 전달만 하면 어떤 인자를 위치 인자로 전달하고, 어떤 인자를 키워드 인자로 전달하는지에 별다른 제한은 없다.</p>
+
+<p>Python 3는 키워드 인자를 강제하는 문법을 지원한다. 바로 <code class="highlighter-rouge">*</code> 문자를 쓰는 것이다<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def args2_func(arg1, *, arg2, arg3):
+    print(arg1, arg2, arg3)
+
+args2_func('hello', 'world', '!')
+args2_func('!', arg3='hello', arg2='world')
+args2_func('world', arg3='!', arg2='hello')
+args2_func('hello', '!', arg3='world')
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">*</code> 이후에 나열된 매개 인자는 반드시 키워드 인자로 전달돼야 한다. 위 코드에서 <code class="highlighter-rouge">args2_func</code> 함수를 실행하는 네 개 실행 줄 중 첫 번째와 네 번째는 <code class="highlighter-rouge">TypeError</code> 예외가 일어난다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: args2_func() takes 1 positional argument but 3 were given
+</code></pre></div></div>
+
+<p>즉, <code class="highlighter-rouge">args2_func</code> 함수는 위치 인자를 1개 취하는데, 이 개수보다 많은 인자가 위치 인자로 전달되었다는 뜻이다.</p>
+
+<p>그렇다면 <code class="highlighter-rouge">*</code> 이전에 나열된 매개 인자를 키워드 인자로 값을 전달하면 어떻게 될까?</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>args2_func(arg1='hello', arg2='world', arg3='!')
+</code></pre></div></div>
+
+<p>아무 문제도 발생하지 않는다. 즉, <code class="highlighter-rouge">*</code>는 위치 인자 개수를 특정하거나(exact) <code class="highlighter-rouge">*</code> 앞에 나열된 인자를 위치 인자로 강제하는 것이 아니라 <code class="highlighter-rouge">*</code> 이후에 나열되는 인자는 반드시 키워드 인자로 전달 받도록 강제하는 것이다. 만약 위치 인자를 단 한 개도 허용하지 않고자 한다면 다음과 같이 함수 매개 인자를 선언하면 된다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def kwargs_func(*, arg1, arg2, arg3):
+    print(arg1, arg2, arg3)
+</code></pre></div></div>
+
+<p>이 함수는 모든 매개 인자를 키워드 인자로 전달해야 한다.</p>
+
+<h3 id="주석문-annotation">주석문 (annotation)</h3>
+
+<p>annotation 문법은 함수 매개 인자와 반환 값에 대한 주석(annotation)을 지정하는 것이다<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def anno_func(arg1: str, arg2: 'also str', arg3: 1 is True) -&gt; bool:
+    print(arg1, arg2, arg3)
+</code></pre></div></div>
+
+<p>표현된 코드를 보면 마치 인자의 형(<code class="highlighter-rouge">type</code>)을 지정하는 것 같지만, 실제로는 주석이기 때문에 인자의 형이 무엇이 되든 영향을 받지 않아서 다음과 같이 함수를 호출해도 아무 문제가 발생하지 않는다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>anno_func(1, True, 'world')
+</code></pre></div></div>
+
+<p>반환하는(return) 값의 형도 주석으로 설명한 것과 달라도 무방하다. <code class="highlighter-rouge">anno_func</code>은 주석으로 반환 값을 <code class="highlighter-rouge">bool</code>이라 명기했지만, 실제로는 <code class="highlighter-rouge">return</code>문이 따로 없기 때문에 <code class="highlighter-rouge">None</code> 값을 반환한다. 물론, 아무 문제도 없다.</p>
+
+<p>이렇게 지정한 주석은 함수 객체에 <code class="highlighter-rouge">__annotations__</code> 속성에 담겨 있으며, 사전형(<code class="highlighter-rouge">dict</code>) 객체이다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print(anno_func.__annotations__)
+print(anno_func.__annotations__['arg1'])
+</code></pre></div></div>
+
+<p>재밌는 점은 <code class="highlighter-rouge">__annotations__</code>에는 주석으로 지정한 값(<code class="highlighter-rouge">value</code>)이 그대로 할당되어 있다는 점이다. 이 점을 이용하면 함수 매개 인자를 특정할 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def static_args_func(arg1: str, arg2: str, arg3: int) -&gt; bool:
+    args = locals()
+    for _k, _v in args.items():
+        arg_type = static_args_func.__annotations__[_k]
+
+        if isinstance(_v, arg_type):
+            continue
+
+        raise TypeError(
+            "The type of '{}' does not match '{}' type".format(
+                _k, arg_type.__name__
+            )
+        )
+    print(arg1, arg2, arg3)
+
+static_args_func(1, 2, 3)
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">static_args_func</code> 함수의 <code class="highlighter-rouge">arg1</code>, <code class="highlighter-rouge">arg2</code> 인자는 주석으로 <code class="highlighter-rouge">str</code>형을 명기했다. 그래서 사전형 속성인 <code class="highlighter-rouge">__annotations__</code>의 <code class="highlighter-rouge">arg1</code>키에는 명기한 값인 <code class="highlighter-rouge">str</code>이 할당되어 있다. <code class="highlighter-rouge">__annotations__</code>에 할당되어 있는 주석 값을 이용해 <code class="highlighter-rouge">arg1</code>과 같은 함수 매개 인자의 형을(<code class="highlighter-rouge">type</code>) 검사한 것이 <code class="highlighter-rouge">if not isinstance(_v, arg_type):</code> 부분이다.</p>
+
+<p>이 함수를 <code class="highlighter-rouge">static_args_func(1, 2, 3)</code>와 같이 호출하면 <code class="highlighter-rouge">arg1</code>과 <code class="highlighter-rouge">arg2</code>에 대해 코드에서 지정한 <code class="highlighter-rouge">TypeError</code> 예외가 일어난다.</p>
+
+<p>다음 코드는 가변 매개 인자도 형 검사를 한다. 더이상 형 검사를 하지 않는 위치부터 나머지 인자까지는 <code class="highlighter-rouge">Ellipsis</code> 형(<code class="highlighter-rouge">...</code>)을 썼다. 즉, 두 번째 인자까지는 형 검사를 하고, 이후 인자는 형 검사를 생략한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def type_checking_func(*args: (int, int, ...)):
+    annotations = type_checking_func.__annotations__
+
+    if (
+        not isinstance(annotations, dict) or
+        len(annotations) == 0
+    ):
+        return type_checking_func(*args)
+
+    try:
+        _check_index = annotations['args'].index(Ellipsis)
+    except ValueError:
+        _check_index = len(annotations) - 1
+
+    for i, _v in enumerate(args[:_check_index]):
+        arg_type = annotations['args'][i]
+
+        if isinstance(_v, arg_type):
+            continue
+
+        raise TypeError(
+            "The type of '{}' does not match '{}' type".format(
+                _v, arg_type.__name__
+            )
+        )
+    print(*args)
+
+type_checking_func(1, 2, '3', 'a')
+</code></pre></div></div>
+
+<p>인자의 형을 검사하는 기능을 장식자(<code class="highlighter-rouge">decorator</code>)로 만들어서 여러 함수에 간편하게 사용하면 더 낫다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def check_argument_type(func):
+    def wrapper(*args):
+        annotations = func.__annotations__
+        if (
+            not isinstance(annotations, dict) or
+            len(annotations) == 0
+        ):
+            return func(*args)
+
+        try:
+            check_index = annotations['args'].index(Ellipsis)
+        except ValueError:
+            check_index = len(annotations['args']) - 1
+
+        for _i, _v in enumerate(args[:check_index]):
+            _arg_type = annotations['args'][_i]
+
+            if isinstance(_v, _arg_type):
+                continue
+
+            raise TypeError(
+                "The type of '{}' does not match '{}' type".format(
+                    _v, _arg_type.__name__
+                )
+            )
+        return func(*args)
+    return wrapper
+
+@check_argument_type
+def hello_func(*args: (int, int, ...)):
+    print(*args)
+
+hello_func(1, 2, '3', 'a')
+</code></pre></div></div>
+
+<p>Python스러운 구현인 지 아닌 지 모르겠지만, 함수 매개 인자가 어떤 자료형으로 넘어올 지 몰라서 받는 스트레스는 줄어들 것 같다. :)</p>
+
+<ul>
+  <li><a href="https://gist.github.com/hannal/12597a1466307f4290a4">Python 3에서 함수의 키워드 인자 강제와 주석문 예제 코드</a></li>
+</ul>
+
+<hr />
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p><a href="https://www.python.org/dev/peps/pep-3102/">PEP-3102 : Keyword-Only Arguments</a> <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p><a href="https://www.python.org/dev/peps/pep-3107/">PEP-3107 : Function Annotations</a> <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET

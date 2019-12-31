@@ -1,0 +1,22 @@
+I"v<p>u config.sys<br />
+q config.sys<br />
+dir /w<br />
+xcopy /e<br />
+unzip hannal.zip<br />
+rar<br />
+arj a hannal.arj *.* -v1440<br />
+vpic hannal.pcx<br />
+sea<br />
+m<br />
+ndd<br />
+sd<br />
+format a: /q /u<br />
+AT&amp;F&amp;C1&amp;D2S7=60<br />
+chkdsk /f</p>
+<p>위 내용들을 다 이해하신다면...<br />
+.<br />
+.<br />
+.<br />
+.<br />
+반갑습니다. -_-</p>
+:ET

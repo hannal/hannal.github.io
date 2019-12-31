@@ -3,13 +3,62 @@
   <title type="text" xml:lang="en">Kay on the rails</title>
   <link type="application/atom+xml" href="atom_feed_url" rel="self"/>
   <link type="text/html" href="home_url_canonical" rel="alternate"/>
-  <updated>2019-01-16T22:43:34+09:00</updated>
+  <updated>2019-12-31T13:30:10+09:00</updated>
   <id>unique_feed_identifier</id>
   <author>
     <name>author_name</name>
   </author>
   <rights>copyright_details</rights>
 
+  
+  <entry>
+    <title>2019년을 마치며</title>
+    <link href="/2019/12/closing/"/>
+    <updated>2019-12-31T11:00:00+09:00</updated>
+    <id>/2019/12/closing</id>
+    <content type="html">&lt;p&gt;2019년을 회고하는 글을 쓰려 했는데 2019년엔 블로그에 글을 하나도 안 썼더라. 2019년에 쓴 블로그 첫 글이 2019년 회고 글이라니 웬지 맥이 빠져서 간결하게 2019년을 정리만 해본다.&lt;/p&gt;
+
+&lt;h3 id=&quot;방송통신대학교-졸업&quot;&gt;방송통신대학교 졸업&lt;/h3&gt;
+
+&lt;p&gt;2016년에 신입생으로 방송통신대학교(이하 방송대)에 입학했고, 얼마 전 마지막 학기의 기말시험을 마쳤다. 목표대로 4년 만에 졸업하여 기쁘다. 매 학기에 여섯 과목 중 한두 과목은 날로 먹었는데, 그래도 성적 중 70%를 차지하는 객관식 기말시험은 부담스러웠다. 성적이 아주 높진 않지만, 장학금도 반 정도 받았고 대학원에 응시할 정도는 달성했다. 물론 대학원엔 안 갈 거지만.&lt;/p&gt;
+
+&lt;p&gt;방송대를 적극 추천한다. 나를 비롯해서 많은 사람이 자신의 의지력을 과대 평가하는데, 방송대는 자신의 의지력을 파악하는 아주 좋은 측정자이다. 커리큘럼과 교수진도 좋으며, MS Office, GitHub 등 학생 혜택도 받는다.&lt;/p&gt;
+
+&lt;h3 id=&quot;프리랜서-생활을-마치다&quot;&gt;프리랜서 생활을 마치다&lt;/h3&gt;
+
+&lt;p&gt;2016년 3분기부터 프리랜서 생활을 시작했다. 만 3년 했는데, 이렇게 오래 할 줄 몰랐다. 프리랜서 생활이 방송통신대학교 학업 진행에 딱히 더 유리하거나 불리한 건 없었다. 직장인에 비해 출석 수업에 나가기 편하긴 했지만, 늘 여러 일을 진행했기 때문에 일정하게 공부할 시간 자체를 확보하기 힘들었다.&lt;/p&gt;
+
+&lt;p&gt;매년 직전 년도 기준으로 평균 30~40%씩 성장했던 건 고객 덕분이다. 유연하고 기민하게 협업하려는 목적으로 진행한 협업 방식이 중장기 프로젝트에서는 기대만큼 잘 동작하지 않았는데, 후반 프로젝트들은 중장기 계획으로 진행하여 나나 고색사들 모두 고생했다. 아쉬운 마음이 많이 남는다.&lt;/p&gt;
+
+&lt;h3 id=&quot;회사-입사&quot;&gt;회사 입사&lt;/h3&gt;
+
+&lt;p&gt;프리랜서 생활을 마치고 &lt;a href=&quot;http://fitpet.co.kr&quot;&gt;핏펫&lt;/a&gt;에 합류했다. 주변 사람들은 내가 1. 프리랜서 생활을 뜬금없이 그리고 갑자기 마치고선 회사에, 2. 그 회사의 사업 분야가 반려동물라는 점, 3. 개발 실무자가 아니라 관리자로 합류했다는 사실을 놀라워하거나 신기해했다. 공감한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;1년에-3만km&quot;&gt;1년에 3만km&lt;/h3&gt;
+
+&lt;p&gt;테슬라 모델X를 출고하고 만 1년 만에 주행거리 3만km를 돌파했다. 그동안 들어간 에너지 비용이 대략 35만원으로 1km 당 12원 정도 들었다. 이전에 타던 차가 디젤이고 리터 당 17~20km 정도 달렸는데, 리터 당 1,400원으로 계산하여 3만km를 달렸다면 대략 230만원 정도 연료비가 들었을 것이다.&lt;/p&gt;
+
+&lt;p&gt;출고 1년 동안 여러 펌웨어 업데이트가 이뤄져 기능과 성능만 놓고 보면 1년 전에 산 그 차가 맞는 지 의심될 수준이다. 배터리는 1% 정도 열화되어 주행거리 20만km까지는 많이 불편하지 않을 것 같다.&lt;/p&gt;
+
+&lt;h3 id=&quot;책&quot;&gt;책&lt;/h3&gt;
+
+&lt;p&gt;한 해를 정신없이 보내서 책은 거의 안 읽었다고 생각했는데, 세보니 40권 정도 읽었다. 개발 관련 책은 필요한 부분만 보다보니 완독한 책은 몇 권 없다. 4분기엔 평일 두 시간씩 운전하다 보니 전자책을 TTS로 듣는다. 처음 읽는 책을 TTS로 들으니 개운하지 않다. 정독하기 전이나 후에 TTS로 듣는 게 나을 것 같다.&lt;/p&gt;
+
+&lt;h3 id=&quot;개발-프로그래밍&quot;&gt;개발, 프로그래밍&lt;/h3&gt;
+
+&lt;p&gt;알고리즘과 자료구조, 수학에 취약하다. 방송대 3학년부터 슬슬 압박을 받는 요인이었다. 공부하고 끝! 하는 게 아니라 그냥 평생 취미로 재미로 붙들고 살아야겠다.&lt;/p&gt;
+
+&lt;p&gt;이런 저런 언어나 도구를 여럿 익혔지만, 별 감흥이 없다. 모래성 위에 깃발 꽂은들.&lt;/p&gt;
+
+&lt;h3 id=&quot;영어&quot;&gt;영어&lt;/h3&gt;
+
+&lt;p&gt;Safari Books online에서 낑낑대며 원서 읽고 있는데 번역서가 나온 적이 있다. 듣고 싶은 강의가 자막도 없이 영어로만 진행된 게 좀 있다. 영어가 발목을 잡은 적이 한두 번이 아니긴 했지만, 최근 유독 영어가 학습하는 데 제약이 되는 빈도가 늘었다. 의도적 수련으로 다시 공부하겠다.&lt;/p&gt;
+
+&lt;h3 id=&quot;건강&quot;&gt;건강&lt;/h3&gt;
+
+&lt;p&gt;중년에 들어섰다는 걸 절감한다. 손목, 어깨, 손가락, 허리 부근 직업병은 갈수록 심해지고, 체력 저하도 심각하다. 집중력과 의지력, 친절과 배려심은 체력에서 나오더라. 크로스핏을 사랑하지만 또 다치고 나서 잠정 중단했다. 체형 교정과 유연성을 개선하기 전엔 재개하면 안 될 것 같다.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>테슬라 모델 X 구매기</title>
@@ -2857,167 +2906,6 @@ hello_func(1, 2, '3', 'a')
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
       &lt;p&gt;&lt;a href=&quot;https://www.python.org/dev/peps/pep-3107/&quot;&gt;PEP-3107 : Function Annotations&lt;/a&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <title>개발 생활 - 6</title>
-    <link href="/2015/03/devlife-s1-06/"/>
-    <updated>2015-03-17T04:13:40+09:00</updated>
-    <id>/2015/03/devlife-06</id>
-    <content type="html">&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-01/&quot;&gt;개발 생활 - 1&lt;/a&gt; : PDF 문서 생성 서버&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;개발 생활 - 2&lt;/a&gt; : 연산된 데이터 수집 작업자&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-03/&quot;&gt;개발 생활 - 3&lt;/a&gt; : 전자우편 알림 서버&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;개발 생활 - 4&lt;/a&gt; : Python과 Django 강의&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-05/&quot;&gt;개발 생활 - 5&lt;/a&gt; : 공부 자료&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-06/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;개발 생활 - 6&lt;/code&gt;&lt;/a&gt; : 앞으로 계획&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;5-앞으로-계획&quot;&gt;5. 앞으로 계획&lt;/h3&gt;
-
-&lt;h4 id=&quot;개요&quot;&gt;개요&lt;/h4&gt;
-
-&lt;p&gt;지난 6~7개월 동안 학습과 실무가 겹친 개발 생활을 보냈다. 내가 뭘 할 수 있고, 하고 싶은 건 무엇인지, 재밌다고 여기는 건 무엇이며, 앞으로 뭘 할 것인지를 찾는 시간이었다.&lt;/p&gt;
-
-&lt;p&gt;다음 단계는 현재 내가 맡고 있는 분야와 관심 갖고 있는 분야에 대한 기초와 기본부터 계발하여 제대로 이해한 기술로 구현하려 한다.&lt;/p&gt;
-
-&lt;p&gt;프로그래밍 언어는 Python을 주력으로 사용하고, Go 비중을 높여갈 계획이다. 추후엔 주 Go를 주로 사용하고 Python을 특정 목적용으로 사용할 것으로 예상한다. &lt;a href=&quot;http://julialang.org/&quot;&gt;Julia&lt;/a&gt;, &lt;a href=&quot;http://nim-lang.org/&quot;&gt;Nim&lt;/a&gt;가 재밌어 보이고, Scala, Java, C++은 별로 끌리진 않지만 공부할 필요성을 느낀다. 하지만 현재 진행하고 있거나 계획한 공부 대상으로도 벅차서 Scala, Java, C++은 당분간 공부하진 않을 것이다.&lt;/p&gt;
-
-&lt;p&gt;테스트 케이스, 문서화, 배포/배치 등 여러 부분을 자동화하고 있고 더 많이 자동화 할 예정이다. 맡은 프로젝트가 늘어나고 각 프로젝트 구현단이 확장되면서 개발과 운영 복잡도가 증가하다 보니 자연스레 기존 자동화 도구나 방법이 필요한 이유를 이해하여 필요로 하게 됐다.&lt;/p&gt;
-
-&lt;h4 id=&quot;pdf-문서-생성-서버&quot;&gt;PDF 문서 생성 서버&lt;/h4&gt;
-
-&lt;p&gt;현재(2015년 3월 기준) PDF 문서 생성 서버를 리팩토링하고 있으며, 리팩토링 후 신규 버전을 개발할 예정이다. 신규 버전은 다음 내용을 목표로 한다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;메모리 사용량 줄이기 (lazy evaluation)&lt;/li&gt;
-  &lt;li&gt;PDF 생성을 병렬로 처리&lt;/li&gt;
-  &lt;li&gt;Python 3 지원&lt;/li&gt;
-  &lt;li&gt;캐쉬(cache) 강화&lt;/li&gt;
-  &lt;li&gt;전자우편 알림 서버(&lt;code class=&quot;highlighter-rouge&quot;&gt;postman&lt;/code&gt;) 연동&lt;/li&gt;
-  &lt;li&gt;통계 기능 추가&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Sentry&lt;/code&gt; 연동&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;편의점-프로젝트-연산된-데이터-수집-작업자&quot;&gt;편의점 프로젝트 (연산된 데이터 수집 작업자)&lt;/h4&gt;
-
-&lt;p&gt;4월 이후에 리팩토링을 한 후 소소한 업그레이드를 계획하고 있다. 회사 개발 일정이나 계획에 따로 잡은 건 아니어서 짬짬히 시간 내어 해결할 범위로 구상하고 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PyPy&lt;/code&gt;로 이전&lt;/li&gt;
-  &lt;li&gt;통계 기능 추가&lt;/li&gt;
-  &lt;li&gt;Sentry 연동&lt;/li&gt;
-  &lt;li&gt;CEP(Complex Event Processing) 적용&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;전자우편-알림-서버&quot;&gt;전자우편 알림 서버&lt;/h4&gt;
-
-&lt;p&gt;현재 새로운 알림 조건을 추가하고 있으며, 4월 이후 개인화 된 소식지(newsletter) 기능을 준비한다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;전자우편 발송부를 Go 언어로 이전&lt;/li&gt;
-  &lt;li&gt;애플리케이션 서버들 간 통신 방법 변경&lt;/li&gt;
-  &lt;li&gt;알림 조건 종류 확장&lt;/li&gt;
-  &lt;li&gt;모바일 푸시 알림 기능 추가 (&lt;code class=&quot;highlighter-rouge&quot;&gt;mqtt&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;개인화 된 소식지 기능 추가 (data processing, batch)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;공부&quot;&gt;공부&lt;/h4&gt;
-
-&lt;p&gt;공부할 게 많은데, 책을 기준으로 나열하면 다음과 같다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;동시성, 병렬성
-    &lt;ul&gt;
-      &lt;li&gt;입문자를 위한 병렬 프로그래밍 (ISBN : 9791185890159)&lt;/li&gt;
-      &lt;li&gt;Pattern-Oriented Software Architecture, Volume 2: Patterns for Concurrent and Networked Objects (ISBN : 0471606956)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;프로그래밍
-    &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;클린 코드&lt;/em&gt; (ISBN : 9788966260959)&lt;/li&gt;
-      &lt;li&gt;&lt;em&gt;프로그램 디자인, 어떻게 할 것인가&lt;/em&gt; (ISBN : 9788991268975)&lt;/li&gt;
-      &lt;li&gt;Pattern-Oriented Software Architecture, Volume 1: A System of Patterns (ISBN : 9780471958697)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;시스템
-    &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;리눅스 시스템 프로그래밍&lt;/em&gt; (ISBN : 9788968481482)&lt;/li&gt;
-      &lt;li&gt;컴퓨터 구조 및 설계 (ISBN : 9788996276531)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;네트워크
-    &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;트위스티드&lt;/em&gt; (ISBN : 9788966261154)&lt;/li&gt;
-      &lt;li&gt;컴퓨터 네트워킹 하향식 접근 (ISBN : 9788945006585)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;언어
-    &lt;ul&gt;
-      &lt;li&gt;Programming in Go (ISBN : 9780321774637)&lt;/li&gt;
-      &lt;li&gt;The Go Programming Language (ISBN : 9780134190440. 2015년 8월 출간 예정)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;데이터, 통계 관련
-    &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;파이썬을 활용한 베이지안 통계&lt;/em&gt; (ISBN : 9788968481147)&lt;/li&gt;
-      &lt;li&gt;파이썬 라이브러리를 활용한 데이터 분석 (ISBN : 9788968480478)&lt;/li&gt;
-      &lt;li&gt;Building Machine Learning Systems with Python (ISBN : 9788960775367)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;알고리즘
-    &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;알고리즘 기초&lt;/em&gt; (ISBN : 9791156000129)&lt;/li&gt;
-      &lt;li&gt;문제로 풀어보는 알고리즘 (ISBN : 9788966260461)&lt;/li&gt;
-      &lt;li&gt;알고리즘 문제 해결 전략 (ISBN : 9788966260546)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;수학
-    &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;수학독본&lt;/em&gt; (ISBN : 9788935640379)&lt;/li&gt;
-      &lt;li&gt;착한 수학 (ISBN : 9788993827866)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;현재(2015년 3월 기준) 보고 있는 책은 따로 표시했으며, 이외엔 다음에 읽거나 틈틈히 부분 참고하며 읽을 책들이다.&lt;/p&gt;
-
-&lt;h4 id=&quot;잉여&quot;&gt;잉여&lt;/h4&gt;
-
-&lt;p&gt;잉여 시간이 나면 Lego mindstorm과 Arduino를 갖고 놀며, &lt;code class=&quot;highlighter-rouge&quot;&gt;Docker&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;Open stack&lt;/code&gt;을 구현 관점에서 분석할 계획이다.&lt;/p&gt;
-
-&lt;h4 id=&quot;집필&quot;&gt;집필&lt;/h4&gt;
-
-&lt;p&gt;Python과 Django를 도구로 삼은 입문서를 준비하고 있다. 함께 논의하고 있는 편집자가 믿음직스러워서 정말 출간할 수 있겠다는 기대감이 든다. 학습하고, 개발하고, 가르치는 경험을 잘 녹여내어 올해 안에 출간하고 싶다.&lt;/p&gt;
-
-&lt;h4 id=&quot;개발-환경&quot;&gt;개발 환경&lt;/h4&gt;
-
-&lt;p&gt;대개는 문서를 &lt;code class=&quot;highlighter-rouge&quot;&gt;markdown&lt;/code&gt;으로 작성하는데, &lt;a href=&quot;http://blog.hannal.com/2015/03/devlife-s1-04/&quot;&gt;Python과 Django 강의&lt;/a&gt; 이후로 IPython을 사용하는 빈도가 늘고 있다. 최근엔 Python 뿐만 아니라 다른 프로그래밍 언어도 지원하는 &lt;a href=&quot;http://jupyter.org/&quot;&gt;Jupyter&lt;/a&gt;를 사용하고 있다. 앞으로 많은 문서를 Jupyter를 이용할 생각이다.&lt;/p&gt;
-
-&lt;p&gt;코드 편집기는 Sublime text 3를 주로 사용하며, &lt;code class=&quot;highlighter-rouge&quot;&gt;PyCharm&lt;/code&gt; 등 JetBrains사의 도구를 사용하려 몇 번 시도했으나 좀처럼 적응하지 못하고 있다. 마음에 드는 기능이 많은데, 미묘하게 느린 화면 반응을 견디기 힘들다. &lt;a href=&quot;http://www.sourcetreeapp.com/&quot;&gt;SourceTree&lt;/a&gt;도 답답해서 터미널에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt;을 콘솔로 쓰고 있으니, 당분간 IDE에 적응하는 데 적지않은 노력을 들이거나 결국 포기할 것 같다.&lt;/p&gt;
-
-&lt;h4 id=&quot;마치며&quot;&gt;마치며&lt;/h4&gt;
-
-&lt;p&gt;전업 프로그래머가 된 이후로도 사업 개발이나 기획 업무를 맡아달라는 제안을 받고 있지만, 현재 내가 참여하는 조직들(?)에서는 전부 프로그래밍 관련 일만 하고 있다. 이 조직들 모두 내게 권한과 기회를 위임하고 지원해주는 덕분에 힘든 시기를 즐겁게 보냈다.&lt;/p&gt;
-
-&lt;p&gt;미숙해서 문제를 푸느라 고생하는 상황에 처했을 때, 누군가에게 물어봐서 문제를 빨리 해결하고 싶은 충동을 많이 느꼈다. 이 문제 좀 풀어주세요, 라는 말이 목까지 치밀어 올라온 문제도 몇 개 있었다. 하지만, 내가 부딪힌 문제 대부분은 스스로 해결해야 의미있는 단계라는 걸 알고 있었고, 거의 모두 스스로 해결했다&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;p&gt;지인이 (프로그래밍으로)개발하는 생활을 만족하느냐고 물었다. 재밌고 만족한다고 답했는데, 아직은 혼자 고민하여 스스로 문제를 해결하는 데 들이는 노력이 크지 않은 단계여서 재밌다고 여기는 것일 것이다. 여태껏 겪어 온 문제보다 더 어려운 난관에 부딪히면 그 재미는 (아마도) 줄어들 것이고, 끝내 내 능력으로 풀어내지 못해 좌절할 지도 모른다.&lt;/p&gt;
-
-&lt;p&gt;괜찮다. 프로그래머 생활을 만족하는 이유는 난관을 극복하며 성장하는 즐거움 뿐만 아니라 내 생각을 표현하는 방법으로써 매력과 재미를 느끼기 때문이다. 가령, 요리나 춤, 노래, 대화는 취미나 관심사로 재밌을지 몰라도 직업으로 내 생각을 표현할 방법으로 삼을만큼 재밌지도 매력있게 느껴지지도 않는다.&lt;/p&gt;
-
-&lt;p&gt;지난 6~8개월 동안 겪은 개발 생활은 즐거웠다. 더 재밌고 즐겁고 만족스러운 개발 생활을 보내기 위해 계속 노력하려 한다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;&lt;a href=&quot;http://blog.hannal.com/2015/02/devlife-s1-02/&quot;&gt;편의점 프로젝트&lt;/a&gt;에서 SQL Query를 짜는 문제 하나는 결국 동료가 해결해 주었다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;

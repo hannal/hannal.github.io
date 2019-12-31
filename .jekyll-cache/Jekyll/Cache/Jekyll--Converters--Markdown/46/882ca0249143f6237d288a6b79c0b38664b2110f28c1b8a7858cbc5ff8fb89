@@ -1,0 +1,30 @@
+I"�<p>오홋. 현재 열심히 코딩 중입니다.</p>
+<p>현재 완성된 부분은
+<ul>
+<li />기존 DB를 새 DB로 이전 (이건 &lt;span class=key1 onclick=keyword_open('./kview.php?kd=%C5%C2%C5%CD%C5%F8%C1%EE')&gt;태터툴즈&lt;/span&gt; to 블로그밈 변환기용을 살짝 수정해서 사용)&lt;/p&gt;
+<li />글 목록 화면에 출력</ul>
+<p>까지 했습니다. 아주 기본적인 것까지만 한 것인데, php library 완전히 새로 구축하고 템플릿(스킨)도 새로 작성 중이라 의외로 시간이 많이 소요됐습니다. 즉, 현재까지는 &lt;span class=key1 onclick=keyword_open('./kview.php?kd=%C5%C2%C5%CD%C5%F8%C1%EE')&gt;태터툴즈&lt;/span&gt;를 사용하지만 조만간 자작 툴을 사용한다는 의미입니다.</p>
+<p><center><br />
+<table>
+<tr>
+<td><center><img src="http://blog.hannal.com/tt-attach/1022/041022004411859073/034716.gif" width="402" height="313" /></center></td>
+</tr>
+<tr>
+<td class="centerphoto"> 대략 이런 모습? <br />
+기본 CSS로의 출력이며, 여러 CSS와 스킨 중 하나를 고르면 출력 형태가 변경 됨.</td>
+</tr>
+</table>
+<p>&lt;/center&gt;</p>
+<p>기존 데이터들의 호환성은 일단 Permalink 는 계속 유지됩니다. 물론 새로 바뀐 &lt;span class=key1 onclick=keyword_open('./kview.php?kd=%B9%F6%C0%FC')&gt;버전&lt;/span&gt;에서는 새로운 Permalink 를 제공합니다.</p>
+<p>현재와 같은 속도라면 예정대로 올해 말에(12월 중순) 공개할 듯 싶습니다. 사실 별 일이 없으면 11월 중에도 가능하지만 11월은 지옥같은 바쁜 시기라서 11월에는 개발을 진행하기 힘들 거 같군요. 새 서비스는 12월 중에 하고, 테스트를 거쳐서 개발한 툴은 내년 초에 공개할까 합니다.</p>
+<p>현재 확정된 것은 아니지만 새 &lt;span class=key1 onclick=keyword_open('./kview.php?kd=%B9%F6%C0%FC')&gt;버전&lt;/span&gt;에서는 정책이 몇 가지 바뀌게 됩니다.
+<ul>
+<li />라이센스<br />
+현재에는 출처를 명시하는 조건하에 누구든지 재배포가 가능했지만, 새 &lt;span class=key1 onclick=keyword_open('./kview.php?kd=%B9%F6%C0%FC')&gt;버전&lt;/span&gt;에서는 출처를 표시하고 원본을 첨부하는 조건하에 재배포와 <b>수정</b>까지 허용하며, 상업적 이용도 허용합니다. 출처를 표시하고 원본을 첨부한다면 글자 몇 개 고쳐서 <b>내꺼</b>라고 우겨도 괜찮다는 의미입니다.&lt;/p&gt;
+<li />회원 가입<br />
+현재는 비회원제이지만 새 &lt;span class=key1 onclick=keyword_open('./kview.php?kd=%B9%F6%C0%FC')&gt;버전&lt;/span&gt;에서는 회원제로 바뀝니다. 물론 회원 가입하지 않아도 대부분의 행위는 다 할 수 있으며, 회원은 약간의 편의 기능이 제공되며 일부 서비스를 더 사용할 수 있지요. 회원 편의 기능이란, CSS를 자기 취향대로 (제한적으로) 선택할 수 있거나 갈무리를 해두는 기능 등입니다. 물론 회원이라고 해서 제출해야하는 필수 개인 정보는 사용할 id와 비밀 번호가 전부입니다.&lt;/p&gt;
+<li />문자 셋(Set)<br />
+기본 문자 셋은 UTF-8로 변경되지만, 트랙백은 euc_kr 로 제공됩니다.</ul>
+<p>뭐 이외 몇 가지 요소들을 생각하고 있는데, 나머지는 완성된 모습으로 보여드리거나 나중에 다시 이야기하도록 하지요. ^^;</p>
+</p></center></p></p>
+:ET
