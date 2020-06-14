@@ -83,7 +83,6 @@
 
   <nav class="sidebar-nav" style="margin-top: 1.2em;">
     <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
-    <a class="sidebar-nav-item" href="/fingers/">손 끝에 맺힌 글</a>
     <a class="sidebar-nav-item" href="/copyright/">저작권</a>
 
     
@@ -92,7 +91,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2019. All rights reserved.
+      &copy; 2020. All rights reserved.
     </p>
   </div>
 </div>
@@ -112,81 +111,6 @@
 
       <div class="container content">
         <div class="posts">
-  
-  <div class="post">
-    <h2 class="post-title">
-      <a href="/2008/1/django_096_to_0961/">
-        django 0.96 에서 0.96.1로 판올림 할 때 주의할 점
-      </a>
-    </h2>
-
-    <span class="post-date">29 Jan 2008</span>
-
-    <p>python에서 쓸만한 웹 프레임워크인 django를 0.96에서 0.96.1로 판올림 할 때 주의할 점이 있습니다. Django 공식 누리집에는 0.96을 기준으로 문서가 나와있어서 무작정 django를 최신판으로 판올림하면 오류가 발생합니다. 잘 되던 소스가 갑자기 뻗어서 깜짝 놀랐네요.</p>
-<h3>DB Model</h3>
-<p>기존엔 문자열 최대 길이를 지정할 때 <strong>maxlength</strong> 라는 예약어를 썼는데 0.96.1부터는 <strong>max_length</strong>를 씁니다.</p>
-<pre>class Entries(models.Model):
-	me2permalink = models.CharField(<strong>max_length</strong>=250, null=False)
-	content = models.TextField(<strong>max_length</strong>=150, null=True)
-	comment_count = models.SmallIntegerField(default=0, null=True)
-	voted = models.SmallIntegerField(default=0, null=True)
-	reg_date = models.DateTimeField(auto_now_add=True)
-	channel = models.SmallIntegerField(default=1, null=False)
-</pre>
-<p>위 예제는 <a href="http://shadow.hannal.com/me2day">미투데이용 그림자놀이</a>에서 쓰고 있는 글 저장 테이블.</p>
-<h3>i18n에서 ugettext 오류</h3>
-<p>0.96.1에선 <strong>ugettext</strong> 가 빠졌습니다. 그냥 <strong>gettext</strong>를 쓰면 됩니다. 어차피 python 자체도 unicode 기반으로 돌아가는데 ugettext가 좀 무의미하긴 했죠.</p>
-<pre>from django.utils.translation import <strong>gettext</strong> as _</pre>
-<h3>HttpResponse에서 content_type</h3>
-<p>HttpResponse로 문자열을 뿌릴 때 <strong>content_type='text/javascript'</strong> 이런 식으로 content_type을 쓰면 안됩니다. 0.96.1부터 없어졌기 때문이죠. 원래 있던 mimetype만 쓰면 됩니다.</p>
-<pre>HttpResponse(ret_data, <strong>mimetype</strong>='text/javascript')</pre>
-<h3>template tag로 문자열 넘길 때 utf-8 문제</h3>
-<p>django에서 템플릿 태그를 만들어서 쓰고 있습니다. 문자열을 넘기면 일부를 잘라다 출력합니다.</p>
-<p></p>
-<p>이러면 comment.entry.content 에 들어가 있는 문자열을 내가 만든 cutstring이라는 함수로 넘깁니다. 이 함수는 이렇게 생겼습니다.</p>
-<pre>def cutstring(value, length):
-	if len(value) &gt; length:
-		return value[0:length] + '...'
-	return value
-cutstring = stringfilter(cutstring)
-</pre>
-<p>보시다시피 아주 간단하죠. 근데 0.96.1로 판올림을 하니까 value로 넘겨 받은 문자가 utf-8가 아니라 ascii였습니다. 언제나 그런 것도 아니고 어떨 때는 unicode로 넘기고 어떨 때는 ascii. -_-; 이 둘 큰 차이점은 ascii는 위와 같이 문자열을 자를 때 byte 단위로 자르고, unicode는 글자 단위로 자르는 데 있습니다. 이때문에</p>
-<pre>s1 = '안녕? 반가워'
-s2 = u'안녕? 반가워'</pre>
-<p>라고 하고, s1[0:5] 라고 하면 '안녕?'이 나오고, s2[0:5]라고 하면 '안녕? 반'이 나옵니다.</p>
-<p>실제로 utf-8로 처리 됐으면 '나만의 (자칭 귀여운) 강박증. 걸을' 이라고 잘려야 할 문자열이 ascii로 되면서 '나만의 (자칭 �'라고 잘렸습니다.</p>
-<p>이런 경우 <a href="http://www.djangoproject.com/documentation/unicode/#conversion-functions">문서에서는 force_unicode()</a>를 쓰라고 하지만, svn이나 웹으로 받은 django 0.96.1 어디에도 저런 놈은 없었습니다. 문서대로라면 django/utils/encode.py 에 있어야 하는데, 0.96.1엔 없고 <strong><ins datetime="2008-02-09T09:57:10+00:00">0.97 pre판부터 django/utils/encoding.py 에 있습니다</ins></strong>.</p>
-<p>결국, 강제로 unicode로 문자열을 바꿔서 해결했습니다.</p>
-<pre>def cutstring(value, length):
-	<strong>if type(value) != 'unicode':
-		value = unicode(value, 'utf-8')</strong>
-	if len(value) &gt; length:
-		return value[0:length] + '...'
-	return value
-cutstring = stringfilter(cutstring)
-</pre>
-<p>단, 0.97 pre판부터는 위와 같이 하면 unicode는 지원하지 않는다며 오류가 납니다. 이때에는 value = unicode(value, 'utf-8') 이라고 하지 말고 <strong>value = force_unicode(value)</strong>이라고 해야 합니다. 이런 식으로 처리하면 되겠죠. (start_unicode 같은 애들도 있는데, 각 각의 차이점은 <a href="http://www.djangoproject.com/documentation/unicode/#conversion-functions">Unicode data in Django</a> (공식 문서)를 참조하세요.)</p>
-<pre>
-import django
-<strong>if django.VERSION[0] == 0 and django.VERSION[1] &gt;= 97:
-    from django.utils.encoding import force_unicode</strong>
-
-def cutstring(value, length):
-	if type(value) != 'unicode':
-            <strong>if django.VERSION[0] == 0 and django.VERSION[1] &lt; 97:
-		value = unicode(value, 'utf-8')
-            else:
-                value = force_unicode(value)</strong>
-
-	if len(value) &gt; length:
-		return value[0:length] + '...'
-	return value
-cutstring = stringfilter(cutstring)
-&lt;/strong&gt;</pre>
-<p>아참. 넘어오는 문자열이 혹시 utf-8가 아니라 euc-kr 같은 것이라면 unicode(value, 'utf-8') 가 아니라 unicode(value, 'euc-kr') 이라고 해야 합니다..</p>
-
-  </div>
-  <hr class="post-parting-line" />
   
   <div class="post">
     <h2 class="post-title">
@@ -228,6 +152,23 @@ cutstring = stringfilter(cutstring)
 <p>최근 몇 년 동안 RoR이라고 불리우는, Ruby라는 프로그래밍 언어를 기반으로 하는 Rails라는 웹 프레임워크가 인기를 끌었습니다. 미투데이도 RoR 기반이지요. 저도 RoR에 관심이 많았지만, Python이라는 프로그래밍 언어에 관심이 더 많았던지라 Python 언어를 기반으로 하는 <a href="http://www.djangoproject.com">django</a>라는 웹 프레임워크를 이용해 그림자 놀이를 만들었습니다.</p>
 <p>현재 Python 2.5, django 0.96, mysql 5 조합으로 운영되고 있으며, python 코드는 Fast cgi로 돌아가고 있습니다. 반응이 상당히 빠르고 좋아요. :D</p>
 <p>아직 능숙하게 다루지는 못하지만, 나중에 짬이 되면 python + django로 뭔가를 만드는 강좌를 써볼까 생각 중입니다. 이미 좋은 참고 글이 많지만 상당 수가 영문 글이거나 한글 글이더라도 수가 적어 이래 저래 고생을 했습니다. 그래서 좀 더 여러 이야기를 다뤄보고 싶긴 하네요.</p>
+
+  </div>
+  <hr class="post-parting-line" />
+  
+  <div class="post">
+    <h2 class="post-title">
+      <a href="/2008/1/adclix_on_my_blog/">
+        광고를 블로그에 다시 달겠습니다.
+      </a>
+    </h2>
+
+    <span class="post-date">16 Jan 2008</span>
+
+    <p>구글 Adsense 초기였던 몇 년 전에 잠깐(?) 광고를 제 블로그에 달았던 적이 있습니다. 큰 욕심 보다는 과연 얼마나 벌리나 시험 해보려는 목적이었기에, 오랜 기간에 걸쳐 힘겹게 100달러를 받은 뒤 바로 광고를 내렸지요. 그래서 지금은 제 블로그 어디에도 상업 광고는 없습니다.</p>
+<p>딱히 상업 광고를 달 생각은 없습니다. 돈이야 늘 아쉽지만, 어줍잖은 글 몇 개로 광고 수익을 내는 것이 민망하기 때문입니다. 스스로 만족할 글이 나오면 그때는 좀 생각 해보겠지만 아직은 아니라는 생각을 합니다.</p>
+<p>이제부터, 그러니까 2007년 1월 16일인 오늘부터 광고 하나를 달겠습니다. 잘 살펴 보시면 “공익기부 광고”라는 녀석이 있는데, 바로 다음에서 운영하는 <a href="http://adclix.daum.net/walkon/event/adc_walkon_intro.html">워크 온 (Walk on)</a>이라는 광고 체계입니다. <a href="http://adclix.daum.net">다음 애드클릭스</a>라는 광고 게재 기능을 이용하여 수익을 내면, 그 수익금을 그대로 기부금으로 쓰는 방식입니다.</p>
+<p>제가 <strong>싼</strong> 글이 똥이 되기 보다는 거름이 되어 널리 두루 사람을 이롭게 하고 싶지만, 아직 부족하니 제 글씀판이 그런 역할이라도 조금 하도록 한 것입니다. :) 기부에 도움이 될 저 광고 보시면 부디 그냥 지나치지 마시고, 광고 한 번씩 눌러 한 번 스쳐 지나갈 손가락으로 세상을 보다 따뜻히 하는 데 동참 하시길 바라봅니다.</p>
 
   </div>
   <hr class="post-parting-line" />
