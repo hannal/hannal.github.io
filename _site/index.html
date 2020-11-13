@@ -233,7 +233,9 @@ import django_filters as filters
 
 
 class NullLastOrderingFilter(filters.OrderingFilter):
-    def filter(self, qs, value: typing.List[str]):
+    def filter(self, qs, value):
+        if not value:
+            return qs
         for _v in value:
             is_desc = _v.startswith('-')
             field = self.param_map.get(_v[1:] if is_desc else _v)
