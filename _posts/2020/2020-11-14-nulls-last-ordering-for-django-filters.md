@@ -157,6 +157,10 @@ class HannalFilter(filters.FilterSet):
           ('related__name', 'kayname', ),
       ),
     )
+
+    class Meta:
+        model = Hannal
+        fields = ('name', 'birthday', )
 ```
 
 위에서 설명한 내용을 모두 반영한 코드이다. `filter()` 메서드는 django-filter 가 넘겨받은 QuerySet 객체이다. DRF에 연동해 사용한다면 DRF가 이런 저런 조치를 취한 QuerySet일테고, 사용자가 만든 filter 들을 거친 QuerySet이기도 하다.

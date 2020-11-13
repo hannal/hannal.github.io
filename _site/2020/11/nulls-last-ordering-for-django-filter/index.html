@@ -218,36 +218,40 @@ class Hannal(models.Model):
 
 <p>편하다. 근데 django-filter <code class="highlighter-rouge">2.4.0</code> 버전 기준까지는 <code class="highlighter-rouge">NULLS LAST</code>와 <code class="highlighter-rouge">NULLS FIRST</code>를 지원하지 않는다. 그러므로 따로 구현해야 한다. <code class="highlighter-rouge">OrderingFilter</code>가 제공하는 기능은 그대로 쓰되 QuerySet 만들 때 null 정렬만 추가하면 되니 이 클래스를 상속받아 쓴다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import typing
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="n">typing</span>
 
-from django.db.models import F
-import django_filters as filters
-
-
-class NullLastOrderingFilter(filters.OrderingFilter):
-    def filter(self, qs, value):
-        if not value:
-            return qs
-        for _v in value:
-            is_desc = _v.startswith('-')
-            field = self.param_map.get(_v[1:] if is_desc else _v)
-            if not field:
-                continue
-            if is_desc:
-                qs = qs.order_by(F(field).desc(nulls_last=True))
-            else:
-                qs = qs.order_by(F(field).asc(nulls_last=True))
-        return qs
+<span class="k">from</span> <span class="n">django</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">models</span> <span class="n">import</span> <span class="n">F</span>
+<span class="n">import</span> <span class="n">django_filters</span> <span class="k">as</span> <span class="n">filters</span>
 
 
-class HannalFilter(filters.FilterSet):
-    ordering = NullLastOrderingFilter(
-      fields=(
-          ('name', 'name', ),
-          ('birthday', 'saengil', ),
-          ('related__name', 'kayname', ),
-      ),
-    )
+<span class="n">class</span> <span class="n">NullLastOrderingFilter</span><span class="p">(</span><span class="n">filters</span><span class="p">.</span><span class="n">OrderingFilter</span><span class="p">):</span>
+    <span class="n">def</span> <span class="n">filter</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">qs</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="k">not</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">return</span> <span class="n">qs</span>
+        <span class="n">for</span> <span class="n">_v</span> <span class="k">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">is_desc</span> <span class="p">=</span> <span class="n">_v</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)</span>
+            <span class="n">field</span> <span class="p">=</span> <span class="n">self</span><span class="p">.</span><span class="n">param_map</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">_v</span><span class="p">[</span><span class="m">1</span><span class="p">:]</span> <span class="k">if</span> <span class="n">is_desc</span> <span class="k">else</span> <span class="n">_v</span><span class="p">)</span>
+            <span class="k">if</span> <span class="k">not</span> <span class="n">field</span><span class="p">:</span>
+                <span class="n">continue</span>
+            <span class="k">if</span> <span class="n">is_desc</span><span class="p">:</span>
+                <span class="n">qs</span> <span class="p">=</span> <span class="n">qs</span><span class="p">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">field</span><span class="p">).</span><span class="n">desc</span><span class="p">(</span><span class="n">nulls_last</span><span class="p">=</span><span class="nb">True</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">qs</span> <span class="p">=</span> <span class="n">qs</span><span class="p">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">field</span><span class="p">).</span><span class="n">asc</span><span class="p">(</span><span class="n">nulls_last</span><span class="p">=</span><span class="nb">True</span><span class="p">))</span>
+        <span class="n">return</span> <span class="n">qs</span>
+
+
+<span class="n">class</span> <span class="n">HannalFilter</span><span class="p">(</span><span class="n">filters</span><span class="p">.</span><span class="n">FilterSet</span><span class="p">):</span>
+    <span class="n">ordering</span> <span class="p">=</span> <span class="n">NullLastOrderingFilter</span><span class="p">(</span>
+      <span class="n">fields</span><span class="p">=(</span>
+          <span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="p">),</span>
+          <span class="p">(</span><span class="s1">'birthday'</span><span class="p">,</span> <span class="s1">'saengil'</span><span class="p">,</span> <span class="p">),</span>
+          <span class="p">(</span><span class="s1">'related__name'</span><span class="p">,</span> <span class="s1">'kayname'</span><span class="p">,</span> <span class="p">),</span>
+      <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">class</span> <span class="n">Meta</span><span class="p">:</span>
+        <span class="k">model</span> <span class="p">=</span> <span class="n">Hannal</span>
+        <span class="n">fields</span> <span class="p">=</span> <span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'birthday'</span><span class="p">,</span> <span class="p">)</span>
 </code></pre></div></div>
 
 <p>위에서 설명한 내용을 모두 반영한 코드이다. <code class="highlighter-rouge">filter()</code> 메서드는 django-filter 가 넘겨받은 QuerySet 객체이다. DRF에 연동해 사용한다면 DRF가 이런 저런 조치를 취한 QuerySet일테고, 사용자가 만든 filter 들을 거친 QuerySet이기도 하다.</p>
