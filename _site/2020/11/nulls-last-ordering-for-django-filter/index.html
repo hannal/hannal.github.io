@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <script src="//cdn.optimizely.com/js/3144930209.js"></script>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="icon" type="image/png" href="http://blog.hannal.com/favicon.ico" />
+  <link rel="alternate" type="application/rss+xml" title="Kay on the rails RSS Feed" href="http://blog.hannal.com/feed.xml" />
+  <title>
+    
+      django-filter용 NULLS LAST 정렬 필터. &middot; Kay on the rails
+    
+  </title>
+  <meta property="og:title" content="django-filter용 NULLS LAST 정렬 필터. &middot; Kay on the rails" />
+  <meta property="og:site_name" content="Kay on the rails"/>
+  <meta property="og:url" content="http://blog.hannal.com/2020/11/nulls-last-ordering-for-django-filter/" />
+  <meta property="fb:app_id" content="308847979152210" />
+  <meta property="og:type" content="article" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <style>
+  .posts h2.post-title {
+    font-size: 1.6em !important;
+  }
+
+  .post-parting-line {
+    border-top: 7px solid #eee !important;
+    border-bottom: 7px solid #fff !important;
+  }
+  </style>
+</head>
+
+
+  <body>
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=308847979152210&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/devlife/">개발 생활</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">django-filter용 NULLS LAST 정렬 필터.</h1>
+  <span class="post-date">13 Nov 2020</span>
+  <p>이 글 내용은 PostgreSQL을 기반으로 하며, 다른 RDBMS 에서는 확인 안 해봤다.</p>
+
+<h3 id="django-orm으로-nulls-last-정렬">Django ORM으로 NULLS LAST 정렬</h3>
+
+<p><code class="highlighter-rouge">Hannal</code>이라는 모델이 있고 <code class="highlighter-rouge">name</code> 필드는 <code class="highlighter-rouge">null</code>을 허용한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Hannal(models.Model):
+    name = models.CharField(max_length=32, null=True, blank=True)
+    birthday = models.DateField(null=True, blank=True)
+</code></pre></div></div>
+
+<p>여러 데이터의 <code class="highlighter-rouge">name</code> 필드의 값이 다음과 같이 들어갔다고 가정하자.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">'abc'</code></li>
+  <li><code class="highlighter-rouge">'zyx'</code></li>
+  <li><code class="highlighter-rouge">None</code></li>
+  <li><code class="highlighter-rouge">'lmn'</code></li>
+</ul>
+
+<p>이제 <code class="highlighter-rouge">name</code> 필드로 오름차순(Ascending) 정렬해보자.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Customer.objects.order_by('name')
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">None</code></li>
+  <li><code class="highlighter-rouge">'abc'</code></li>
+  <li><code class="highlighter-rouge">'lmn'</code></li>
+  <li><code class="highlighter-rouge">'zyx'</code></li>
+</ul>
+
+<p>결과는 <code class="highlighter-rouge">null</code>이 먼저 나온다. 만약 <code class="highlighter-rouge">null</code>이 아닌 데이터를 먼저 정렬하고 그 이후에 <code class="highlighter-rouge">null</code>인 데이터를 나열하려면 <code class="highlighter-rouge">NULLS LAST</code>로 정렬해야 한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.db.models import F
+
+Customer.objects.order_by(F('name').desc(nulls_last=True))
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">'abc'</code></li>
+  <li><code class="highlighter-rouge">'lmn'</code></li>
+  <li><code class="highlighter-rouge">'zyx'</code></li>
+  <li><code class="highlighter-rouge">None</code></li>
+</ul>
+
+<p>우리가 원하는 대로 정렬됐다.</p>
+
+<h3 id="django-filter의-orderingfilter">django-filter의 OrderingFilter</h3>
+
+<p>이번엔 이를 <a href="https://django-filter.readthedocs.io/">django-filter</a>에 적용해보자. django-filter에 정렬 필터인 <a href="https://django-filter.readthedocs.io/en/stable/ref/filters.html#orderingfilter">OrderingFilter</a>를 사용하면 간편하게 정렬 필터를 적용할 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import django_filters as filters
+
+
+class HannalFilter(filters.FilterSet):
+    ordering = filters.OrderingFilter(
+      fields=(
+          ('name', 'name', ),
+          ('birthday', 'saengil', ),
+      ),
+    )
+</code></pre></div></div>
+
+<p>자세한 내용은 공식 문서에 나와있지만, 영문 싫어하는 사람도 많고 공식 문서가 썩 친절하진 않으니 설명하겠다.</p>
+
+<p><code class="highlighter-rouge">fields</code>로 모델의 필드와 HTTP Query String에서 넘겨 받을 필드를 짝지어야 한다. 뒤(<code class="highlighter-rouge">name</code>과 <code class="highlighter-rouge">saengil</code>)는 Query string으로 받을 값, 앞(<code class="highlighter-rouge">name</code>과 <code class="highlighter-rouge">birthday</code>)은 모델의 필드/필드표현식을 뜻한다. 보통은 모델 필드명과 동일하게 하는 게 알아보기 좋지만, 다르게 해야 할 경우도 많다.</p>
+
+<p>우선 요청자(client)측에서 다른 이름을 쓰고 싶은 경우이다. Python 관례에 따르면 snake case 표기를 쓰겠지만, Front-end쪽에서는 camel case 표기를 대개 쓴다. 예를 들어 모델 필드명은 <code class="highlighter-rouge">birth_day</code>인데 요청자는 굳이 <code class="highlighter-rouge">birthDay</code>나 <code class="highlighter-rouge">saengil</code>을 쓰고 싶은 경우이다.</p>
+
+<p>다른 경우가 더 흔한 경우인데, 모델 관계(model relationship)를 필드 표현식으로 다뤄야 하는 경우이다. 예를 들어 <code class="highlighter-rouge">Kay</code>라는 모델이 있고 <code class="highlighter-rouge">Hannal</code> 모델과 1:N 관계를 맺고 있다고 하자.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Kay(models.Model):
+    name = models.CharField(max_length=32, null=True, blank=True)
+
+
+class Hannal(models.Model):
+    name = models.CharField(max_length=32, null=True, blank=True)
+    birthday = models.DateField(null=True, blank=True)
+    related = models.ForeignKey('Kay', on_delete=models.CASCADE)
+</code></pre></div></div>
+
+<p>그리고 <code class="highlighter-rouge">Kay</code> 모델의 <code class="highlighter-rouge">name</code> 필드를 기준으로 정렬한 <code class="highlighter-rouge">Hannal</code> 모델의 데이터를 가져오려면 다음과 같이 한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hannal.objects.order_by('related__name')
+</code></pre></div></div>
+
+<p>여기서 <code class="highlighter-rouge">related__name</code>을 django-filter 에서도 사용할 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class HannalFilter(filters.FilterSet):
+    ordering = filters.OrderingFilter(
+      fields=(
+          ('name', 'name', ),
+          ('birthday', 'saengil', ),
+          ('related__name', 'kayname', ),
+      ),
+    )
+</code></pre></div></div>
+
+<p>이렇게 <code class="highlighter-rouge">fields</code>를 지정하면 <code class="highlighter-rouge">ordering</code>키의 값으로 <code class="highlighter-rouge">name</code>, <code class="highlighter-rouge">saengil</code>, <code class="highlighter-rouge">kayname</code>을 사용할 수 있다. <a href="https://www.django-rest-framework.org/">Django REST framework</a>(이하 DRF)에 적용하면 URL을 <code class="highlighter-rouge">?ordering=name</code>로 하여 <code class="highlighter-rouge">name</code> 필드에 대해 오름차순 정렬하거나 <code class="highlighter-rouge">?ordering=-name</code>로 하여 내림차순 정렬한다. 이 뿐만 아니라 여러 개 필드를 정렬할 수도 있다. 예를 들어 <code class="highlighter-rouge">name</code> 필드는 오름차순, <code class="highlighter-rouge">birthday</code> 필드는 내림차순으로 정렬하고자 한다면 HTTP Query String 으로 <code class="highlighter-rouge">?ordering=name,-birthday</code>라고 하면 된다.</p>
+
+<h3 id="orderingfilter에-nulls-last-적용">OrderingFilter에 NULLS LAST 적용</h3>
+
+<p>편하다. 근데 django-filter <code class="highlighter-rouge">2.4.0</code> 버전 기준까지는 <code class="highlighter-rouge">NULLS LAST</code>와 <code class="highlighter-rouge">NULLS FIRST</code>를 지원하지 않는다. 그러므로 따로 구현해야 한다. <code class="highlighter-rouge">OrderingFilter</code>가 제공하는 기능은 그대로 쓰되 QuerySet 만들 때 null 정렬만 추가하면 되니 이 클래스를 상속받아 쓴다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import typing
+
+from django.db.models import F
+import django_filters as filters
+
+
+class NullLastOrderingFilter(filters.OrderingFilter):
+    def filter(self, qs, value: typing.List[str]):
+        for _v in value:
+            is_desc = _v.startswith('-')
+            field = self.param_map.get(_v[1:] if is_desc else _v)
+            if not field:
+                continue
+            if is_desc:
+                qs = qs.order_by(F(field).desc(nulls_last=True))
+            else:
+                qs = qs.order_by(F(field).asc(nulls_last=True))
+        return qs
+
+
+class HannalFilter(filters.FilterSet):
+    ordering = NullLastOrderingFilter(
+      fields=(
+          ('name', 'name', ),
+          ('birthday', 'saengil', ),
+          ('related__name', 'kayname', ),
+      ),
+    )
+</code></pre></div></div>
+
+<p>위에서 설명한 내용을 모두 반영한 코드이다. <code class="highlighter-rouge">filter()</code> 메서드는 django-filter 가 넘겨받은 QuerySet 객체이다. DRF에 연동해 사용한다면 DRF가 이런 저런 조치를 취한 QuerySet일테고, 사용자가 만든 filter 들을 거친 QuerySet이기도 하다.</p>
+
+<p><code class="highlighter-rouge">NULLS FIRST</code>를 적용하려면 <code class="highlighter-rouge">nulls_last</code> 대신 <code class="highlighter-rouge">nulls_first</code>를 <code class="highlighter-rouge">True</code>로 지정하면 된다.</p>
+
+
+</div>
+
+<!--
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="hannal">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-like" data-href="http://localhost:4000/2020/11/nulls-last-ordering-for-django-filter/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+-->
+<!--
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  var disqus_url = 'http://localhost:4000/2020/11/nulls-last-ordering-for-django-filter/';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+-->
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2019/12/closing/">
+            2019년을 마치며
+            <small>31 Dec 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/12/newbies-buying-guide-for-tesla-model-x/">
+            테슬라 모델 X 구매기
+            <small>29 Dec 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2018/02/the-filters/">
+            생각 출력거름망
+            <small>05 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-33535239-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KS9HDB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KS9HDB');</script>
+<!-- End Google Tag Manager -->
+ <!--[if lt IE 9]>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--<![endif]-->
+    </body>
+</html>
