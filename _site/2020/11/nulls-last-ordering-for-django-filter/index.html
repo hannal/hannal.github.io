@@ -135,7 +135,7 @@
 
 <p>이제 <code class="highlighter-rouge">name</code> 필드로 오름차순(Ascending) 정렬해보자.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Customer.objects.order_by('name')
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hannal.objects.order_by('name')
 </code></pre></div></div>
 
 <ul>
@@ -149,7 +149,7 @@
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.db.models import F
 
-Customer.objects.order_by(F('name').desc(nulls_last=True))
+Hannal.objects.order_by(F('name').desc(nulls_last=True))
 </code></pre></div></div>
 
 <ul>
@@ -218,13 +218,11 @@ class Hannal(models.Model):
 
 <p>편하다. 근데 django-filter <code class="highlighter-rouge">2.4.0</code> 버전 기준까지는 <code class="highlighter-rouge">NULLS LAST</code>와 <code class="highlighter-rouge">NULLS FIRST</code>를 지원하지 않는다. 그러므로 따로 구현해야 한다. <code class="highlighter-rouge">OrderingFilter</code>가 제공하는 기능은 그대로 쓰되 QuerySet 만들 때 null 정렬만 추가하면 되니 이 클래스를 상속받아 쓴다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="n">typing</span>
-
-<span class="k">from</span> <span class="n">django</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">models</span> <span class="n">import</span> <span class="n">F</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">from</span> <span class="n">django</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">models</span> <span class="n">import</span> <span class="n">F</span>
 <span class="n">import</span> <span class="n">django_filters</span> <span class="k">as</span> <span class="n">filters</span>
 
 
-<span class="n">class</span> <span class="n">NullLastOrderingFilter</span><span class="p">(</span><span class="n">filters</span><span class="p">.</span><span class="n">OrderingFilter</span><span class="p">):</span>
+<span class="n">class</span> <span class="n">NullsLastOrderingFilter</span><span class="p">(</span><span class="n">filters</span><span class="p">.</span><span class="n">OrderingFilter</span><span class="p">):</span>
     <span class="n">def</span> <span class="n">filter</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">qs</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="k">not</span> <span class="n">value</span><span class="p">:</span>
             <span class="n">return</span> <span class="n">qs</span>
@@ -241,7 +239,7 @@ class Hannal(models.Model):
 
 
 <span class="n">class</span> <span class="n">HannalFilter</span><span class="p">(</span><span class="n">filters</span><span class="p">.</span><span class="n">FilterSet</span><span class="p">):</span>
-    <span class="n">ordering</span> <span class="p">=</span> <span class="n">NullLastOrderingFilter</span><span class="p">(</span>
+    <span class="n">ordering</span> <span class="p">=</span> <span class="n">NullsLastOrderingFilter</span><span class="p">(</span>
       <span class="n">fields</span><span class="p">=(</span>
           <span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="p">),</span>
           <span class="p">(</span><span class="s1">'birthday'</span><span class="p">,</span> <span class="s1">'saengil'</span><span class="p">,</span> <span class="p">),</span>

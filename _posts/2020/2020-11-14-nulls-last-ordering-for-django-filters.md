@@ -42,7 +42,7 @@ class Hannal(models.Model):
 이제 `name` 필드로 오름차순(Ascending) 정렬해보자.
 
 ```
-Customer.objects.order_by('name')
+Hannal.objects.order_by('name')
 ```
 
 - `None`
@@ -55,7 +55,7 @@ Customer.objects.order_by('name')
 ```
 from django.db.models import F
 
-Customer.objects.order_by(F('name').desc(nulls_last=True))
+Hannal.objects.order_by(F('name').desc(nulls_last=True))
 ```
 
 - `'abc'`
@@ -127,13 +127,11 @@ class HannalFilter(filters.FilterSet):
 편하다. 근데 django-filter `2.4.0` 버전 기준까지는 `NULLS LAST`와 `NULLS FIRST`를 지원하지 않는다. 그러므로 따로 구현해야 한다. `OrderingFilter`가 제공하는 기능은 그대로 쓰되 QuerySet 만들 때 null 정렬만 추가하면 되니 이 클래스를 상속받아 쓴다.
 
 ```
-import typing
-
 from django.db.models import F
 import django_filters as filters
 
 
-class NullLastOrderingFilter(filters.OrderingFilter):
+class NullsLastOrderingFilter(filters.OrderingFilter):
     def filter(self, qs, value):
         if not value:
             return qs
@@ -150,7 +148,7 @@ class NullLastOrderingFilter(filters.OrderingFilter):
 
 
 class HannalFilter(filters.FilterSet):
-    ordering = NullLastOrderingFilter(
+    ordering = NullsLastOrderingFilter(
       fields=(
           ('name', 'name', ),
           ('birthday', 'saengil', ),

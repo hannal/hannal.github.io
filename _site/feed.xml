@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 13 Nov 2020 23:19:00 +0900</pubDate>
-    <lastBuildDate>Fri, 13 Nov 2020 23:19:00 +0900</lastBuildDate>
+    <pubDate>Mon, 16 Nov 2020 12:08:32 +0900</pubDate>
+    <lastBuildDate>Mon, 16 Nov 2020 12:08:32 +0900</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -34,7 +34,7 @@
 
 &lt;p&gt;이제 &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드로 오름차순(Ascending) 정렬해보자.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Customer.objects.order_by('name')
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Hannal.objects.order_by('name')
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
@@ -48,7 +48,7 @@
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from django.db.models import F
 
-Customer.objects.order_by(F('name').desc(nulls_last=True))
+Hannal.objects.order_by(F('name').desc(nulls_last=True))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
@@ -117,13 +117,11 @@ class Hannal(models.Model):
 
 &lt;p&gt;편하다. 근데 django-filter &lt;code class=&quot;highlighter-rouge&quot;&gt;2.4.0&lt;/code&gt; 버전 기준까지는 &lt;code class=&quot;highlighter-rouge&quot;&gt;NULLS LAST&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;NULLS FIRST&lt;/code&gt;를 지원하지 않는다. 그러므로 따로 구현해야 한다. &lt;code class=&quot;highlighter-rouge&quot;&gt;OrderingFilter&lt;/code&gt;가 제공하는 기능은 그대로 쓰되 QuerySet 만들 때 null 정렬만 추가하면 되니 이 클래스를 상속받아 쓴다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;typing&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;django&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;django&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;django_filters&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;
 
 
-&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NullLastOrderingFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OrderingFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NullsLastOrderingFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OrderingFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qs&lt;/span&gt;
@@ -140,7 +138,7 @@ class Hannal(models.Model):
 
 
 &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HannalFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FilterSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ordering&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NullLastOrderingFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ordering&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NullsLastOrderingFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
       &lt;span class=&quot;n&quot;&gt;fields&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=(&lt;/span&gt;
           &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
           &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'birthday'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'saengil'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
