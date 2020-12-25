@@ -114,6 +114,172 @@
   
   <div class="post">
     <h2 class="post-title">
+      <a href="/2015/03/devlife-s1-06/">
+        개발 생활 - 6
+      </a>
+    </h2>
+
+    <span class="post-date">17 Mar 2015</span>
+
+    <ol>
+  <li><a href="http://blog.hannal.com/2015/02/devlife-s1-01/">개발 생활 - 1</a> : PDF 문서 생성 서버</li>
+  <li><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">개발 생활 - 2</a> : 연산된 데이터 수집 작업자</li>
+  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-03/">개발 생활 - 3</a> : 전자우편 알림 서버</li>
+  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-04/">개발 생활 - 4</a> : Python과 Django 강의</li>
+  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-05/">개발 생활 - 5</a> : 공부 자료</li>
+  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-06/"><code class="highlighter-rouge">개발 생활 - 6</code></a> : 앞으로 계획</li>
+</ol>
+
+<h3 id="5-앞으로-계획">5. 앞으로 계획</h3>
+
+<h4 id="개요">개요</h4>
+
+<p>지난 6~7개월 동안 학습과 실무가 겹친 개발 생활을 보냈다. 내가 뭘 할 수 있고, 하고 싶은 건 무엇인지, 재밌다고 여기는 건 무엇이며, 앞으로 뭘 할 것인지를 찾는 시간이었다.</p>
+
+<p>다음 단계는 현재 내가 맡고 있는 분야와 관심 갖고 있는 분야에 대한 기초와 기본부터 계발하여 제대로 이해한 기술로 구현하려 한다.</p>
+
+<p>프로그래밍 언어는 Python을 주력으로 사용하고, Go 비중을 높여갈 계획이다. 추후엔 주 Go를 주로 사용하고 Python을 특정 목적용으로 사용할 것으로 예상한다. <a href="http://julialang.org/">Julia</a>, <a href="http://nim-lang.org/">Nim</a>가 재밌어 보이고, Scala, Java, C++은 별로 끌리진 않지만 공부할 필요성을 느낀다. 하지만 현재 진행하고 있거나 계획한 공부 대상으로도 벅차서 Scala, Java, C++은 당분간 공부하진 않을 것이다.</p>
+
+<p>테스트 케이스, 문서화, 배포/배치 등 여러 부분을 자동화하고 있고 더 많이 자동화 할 예정이다. 맡은 프로젝트가 늘어나고 각 프로젝트 구현단이 확장되면서 개발과 운영 복잡도가 증가하다 보니 자연스레 기존 자동화 도구나 방법이 필요한 이유를 이해하여 필요로 하게 됐다.</p>
+
+<h4 id="pdf-문서-생성-서버">PDF 문서 생성 서버</h4>
+
+<p>현재(2015년 3월 기준) PDF 문서 생성 서버를 리팩토링하고 있으며, 리팩토링 후 신규 버전을 개발할 예정이다. 신규 버전은 다음 내용을 목표로 한다.</p>
+
+<ul>
+  <li>메모리 사용량 줄이기 (lazy evaluation)</li>
+  <li>PDF 생성을 병렬로 처리</li>
+  <li>Python 3 지원</li>
+  <li>캐쉬(cache) 강화</li>
+  <li>전자우편 알림 서버(<code class="highlighter-rouge">postman</code>) 연동</li>
+  <li>통계 기능 추가</li>
+  <li><code class="highlighter-rouge">Sentry</code> 연동</li>
+</ul>
+
+<h4 id="편의점-프로젝트-연산된-데이터-수집-작업자">편의점 프로젝트 (연산된 데이터 수집 작업자)</h4>
+
+<p>4월 이후에 리팩토링을 한 후 소소한 업그레이드를 계획하고 있다. 회사 개발 일정이나 계획에 따로 잡은 건 아니어서 짬짬히 시간 내어 해결할 범위로 구상하고 있다.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">PyPy</code>로 이전</li>
+  <li>통계 기능 추가</li>
+  <li>Sentry 연동</li>
+  <li>CEP(Complex Event Processing) 적용</li>
+</ul>
+
+<h4 id="전자우편-알림-서버">전자우편 알림 서버</h4>
+
+<p>현재 새로운 알림 조건을 추가하고 있으며, 4월 이후 개인화 된 소식지(newsletter) 기능을 준비한다.</p>
+
+<ul>
+  <li>전자우편 발송부를 Go 언어로 이전</li>
+  <li>애플리케이션 서버들 간 통신 방법 변경</li>
+  <li>알림 조건 종류 확장</li>
+  <li>모바일 푸시 알림 기능 추가 (<code class="highlighter-rouge">mqtt</code>)</li>
+  <li>개인화 된 소식지 기능 추가 (data processing, batch)</li>
+</ul>
+
+<h4 id="공부">공부</h4>
+
+<p>공부할 게 많은데, 책을 기준으로 나열하면 다음과 같다.</p>
+
+<ul>
+  <li>동시성, 병렬성
+    <ul>
+      <li>입문자를 위한 병렬 프로그래밍 (ISBN : 9791185890159)</li>
+      <li>Pattern-Oriented Software Architecture, Volume 2: Patterns for Concurrent and Networked Objects (ISBN : 0471606956)</li>
+    </ul>
+  </li>
+  <li>프로그래밍
+    <ul>
+      <li><em>클린 코드</em> (ISBN : 9788966260959)</li>
+      <li><em>프로그램 디자인, 어떻게 할 것인가</em> (ISBN : 9788991268975)</li>
+      <li>Pattern-Oriented Software Architecture, Volume 1: A System of Patterns (ISBN : 9780471958697)</li>
+    </ul>
+  </li>
+  <li>시스템
+    <ul>
+      <li><em>리눅스 시스템 프로그래밍</em> (ISBN : 9788968481482)</li>
+      <li>컴퓨터 구조 및 설계 (ISBN : 9788996276531)</li>
+    </ul>
+  </li>
+  <li>네트워크
+    <ul>
+      <li><em>트위스티드</em> (ISBN : 9788966261154)</li>
+      <li>컴퓨터 네트워킹 하향식 접근 (ISBN : 9788945006585)</li>
+    </ul>
+  </li>
+  <li>언어
+    <ul>
+      <li>Programming in Go (ISBN : 9780321774637)</li>
+      <li>The Go Programming Language (ISBN : 9780134190440. 2015년 8월 출간 예정)</li>
+    </ul>
+  </li>
+  <li>데이터, 통계 관련
+    <ul>
+      <li><em>파이썬을 활용한 베이지안 통계</em> (ISBN : 9788968481147)</li>
+      <li>파이썬 라이브러리를 활용한 데이터 분석 (ISBN : 9788968480478)</li>
+      <li>Building Machine Learning Systems with Python (ISBN : 9788960775367)</li>
+    </ul>
+  </li>
+  <li>알고리즘
+    <ul>
+      <li><em>알고리즘 기초</em> (ISBN : 9791156000129)</li>
+      <li>문제로 풀어보는 알고리즘 (ISBN : 9788966260461)</li>
+      <li>알고리즘 문제 해결 전략 (ISBN : 9788966260546)</li>
+    </ul>
+  </li>
+  <li>수학
+    <ul>
+      <li><em>수학독본</em> (ISBN : 9788935640379)</li>
+      <li>착한 수학 (ISBN : 9788993827866)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>현재(2015년 3월 기준) 보고 있는 책은 따로 표시했으며, 이외엔 다음에 읽거나 틈틈히 부분 참고하며 읽을 책들이다.</p>
+
+<h4 id="잉여">잉여</h4>
+
+<p>잉여 시간이 나면 Lego mindstorm과 Arduino를 갖고 놀며, <code class="highlighter-rouge">Docker</code>와 <code class="highlighter-rouge">Open stack</code>을 구현 관점에서 분석할 계획이다.</p>
+
+<h4 id="집필">집필</h4>
+
+<p>Python과 Django를 도구로 삼은 입문서를 준비하고 있다. 함께 논의하고 있는 편집자가 믿음직스러워서 정말 출간할 수 있겠다는 기대감이 든다. 학습하고, 개발하고, 가르치는 경험을 잘 녹여내어 올해 안에 출간하고 싶다.</p>
+
+<h4 id="개발-환경">개발 환경</h4>
+
+<p>대개는 문서를 <code class="highlighter-rouge">markdown</code>으로 작성하는데, <a href="http://blog.hannal.com/2015/03/devlife-s1-04/">Python과 Django 강의</a> 이후로 IPython을 사용하는 빈도가 늘고 있다. 최근엔 Python 뿐만 아니라 다른 프로그래밍 언어도 지원하는 <a href="http://jupyter.org/">Jupyter</a>를 사용하고 있다. 앞으로 많은 문서를 Jupyter를 이용할 생각이다.</p>
+
+<p>코드 편집기는 Sublime text 3를 주로 사용하며, <code class="highlighter-rouge">PyCharm</code> 등 JetBrains사의 도구를 사용하려 몇 번 시도했으나 좀처럼 적응하지 못하고 있다. 마음에 드는 기능이 많은데, 미묘하게 느린 화면 반응을 견디기 힘들다. <a href="http://www.sourcetreeapp.com/">SourceTree</a>도 답답해서 터미널에서 <code class="highlighter-rouge">git</code>을 콘솔로 쓰고 있으니, 당분간 IDE에 적응하는 데 적지않은 노력을 들이거나 결국 포기할 것 같다.</p>
+
+<h4 id="마치며">마치며</h4>
+
+<p>전업 프로그래머가 된 이후로도 사업 개발이나 기획 업무를 맡아달라는 제안을 받고 있지만, 현재 내가 참여하는 조직들(?)에서는 전부 프로그래밍 관련 일만 하고 있다. 이 조직들 모두 내게 권한과 기회를 위임하고 지원해주는 덕분에 힘든 시기를 즐겁게 보냈다.</p>
+
+<p>미숙해서 문제를 푸느라 고생하는 상황에 처했을 때, 누군가에게 물어봐서 문제를 빨리 해결하고 싶은 충동을 많이 느꼈다. 이 문제 좀 풀어주세요, 라는 말이 목까지 치밀어 올라온 문제도 몇 개 있었다. 하지만, 내가 부딪힌 문제 대부분은 스스로 해결해야 의미있는 단계라는 걸 알고 있었고, 거의 모두 스스로 해결했다<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
+
+<p>지인이 (프로그래밍으로)개발하는 생활을 만족하느냐고 물었다. 재밌고 만족한다고 답했는데, 아직은 혼자 고민하여 스스로 문제를 해결하는 데 들이는 노력이 크지 않은 단계여서 재밌다고 여기는 것일 것이다. 여태껏 겪어 온 문제보다 더 어려운 난관에 부딪히면 그 재미는 (아마도) 줄어들 것이고, 끝내 내 능력으로 풀어내지 못해 좌절할 지도 모른다.</p>
+
+<p>괜찮다. 프로그래머 생활을 만족하는 이유는 난관을 극복하며 성장하는 즐거움 뿐만 아니라 내 생각을 표현하는 방법으로써 매력과 재미를 느끼기 때문이다. 가령, 요리나 춤, 노래, 대화는 취미나 관심사로 재밌을지 몰라도 직업으로 내 생각을 표현할 방법으로 삼을만큼 재밌지도 매력있게 느껴지지도 않는다.</p>
+
+<p>지난 6~8개월 동안 겪은 개발 생활은 즐거웠다. 더 재밌고 즐겁고 만족스러운 개발 생활을 보내기 위해 계속 노력하려 한다.</p>
+
+<hr />
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">편의점 프로젝트</a>에서 SQL Query를 짜는 문제 하나는 결국 동료가 해결해 주었다. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+  <hr class="post-parting-line" />
+  
+  <div class="post">
+    <h2 class="post-title">
       <a href="/2015/03/devlife-s1-05/">
         개발 생활 - 5
       </a>
@@ -290,140 +456,6 @@
   <li><a href="http://bespokebytes.com/start-getting-up-and-running-with-upstart/">Start getting up and running with Upstart</a></li>
   <li><a href="http://lqez.github.io/blog/fool-upstart.html">Fool Upstart</a></li>
 </ul>
-
-  </div>
-  <hr class="post-parting-line" />
-  
-  <div class="post">
-    <h2 class="post-title">
-      <a href="/2015/03/devlife-s1-04/">
-        개발 생활 - 4
-      </a>
-    </h2>
-
-    <span class="post-date">09 Mar 2015</span>
-
-    <ol>
-  <li><a href="http://blog.hannal.com/2015/02/devlife-s1-01/">개발 생활 - 1</a> : PDF 문서 생성 서버</li>
-  <li><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">개발 생활 - 2</a> : 연산된 데이터 수집 작업자</li>
-  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-03/">개발 생활 - 3</a> : 전자우편 알림 서버</li>
-  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-04/"><code class="highlighter-rouge">개발 생활 - 4</code></a> : Python과 Django 강의</li>
-  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-05/">개발 생활 - 5</a> : 공부 자료</li>
-  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-06/">개발 생활 - 6</a> : 앞으로 계획</li>
-</ol>
-
-<h3 id="3-python과-django-강의">3. Python과 Django 강의</h3>
-
-<h4 id="개요">개요</h4>
-
-<p>2014년 12월 4일부터 2015년 1월 31일까지 <a href="http://www.fastcampus.co.kr">패스트캠퍼스</a>에서 Python과 Django를 이용해 <a href="http://www.fastcampus.co.kr/camp_wpa/">웹서비스를 개발하는 커리큘럼으로 강의</a>를 했다. 나는 이론 부분을, 함께 강의한 고빈섭님은 실습 부분을 담당했고, 김구영님은 조교로 강의를 도와주셨다.</p>
-
-<p>패스트캠퍼스에는 <a href="http://www.fastcampus.co.kr/camp_wpb/">웹 프로그래밍 입문</a> 과정이 있는데, 내가 강의를 맡은 <code class="highlighter-rouge">웹 서비스 개발</code> 과정은 입문 과정의 후속 과정이다. 그래서 초기 교육 과정 이름은 가칭 웹 프로그래밍 중급이었다가 실전 웹 서비스 개발에 초점을 맞추어 교육 과정 이름이 웹 서비스 개발로 바뀌었다.</p>
-
-<p>패스트캠퍼스에서 내게 제안한 중급 과정 강의를 수락한 동기는 집필이었다. 내가 프로그래머로 전업을 결심하기 전에 한 출판사로부터 집필 제안을 받아서, 몇 몇 개발자에게 의견을 구하고 Django 입문 강좌의 후속 강좌인 <a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크</a> 강좌 연재를 시작하면서 집필을 준비하고 있었다. 하지만 목차를 구상하는 게 쉽지 않아 좀처럼 진도를 나가지 못하고 있던 차에 패스트캠퍼스로부터 제안을 받은 것이다.</p>
-
-<h4 id="교육-재료-환경">교육 재료, 환경</h4>
-
-<ul>
-  <li>프로그래밍 재료 : Python 2.7, Django 1.7</li>
-  <li>교재 재료 : 수강생 교재는 IPython으로 작성, 강사 발표는 Apple Keynote로 작성</li>
-  <li>소통 공간 : 페이스북 비공개 그룹</li>
-</ul>
-
-<h4 id="강의-준비-과정">강의 준비 과정</h4>
-
-<p>교육 과정이 시작되기 전에 나부터 교육할 필요가 있었다. 경험이나 직관으로 알던 것에서 그치지 않고, 제대로 설명하여 정확히 이해시켜야 하기 때문이다. 더구나 나는 입문 과정을 강의하는 게 아니기 때문에 명확하게  이해시키는 걸 넘어 더 깊은 내용을 설명할 줄 알아야 했다.</p>
-
-<p>곧바로 여러 Python 책과 공식 문서로 공부했다. 한창 <a href="http://blog.hannal.com/2015/02/devlife-s1-02/">편의점 프로젝트</a>를 진행하던 시기였기 때문에 내 서재 책상엔 개발 관련 책 대여섯 권이 늘 펼쳐져 있었고, 웹브라우저엔 관련 자료에 대한 탭이 스무 개 이상 열려 있었다. 한 달 동안 책 다섯 권을 정독하고, 모든 예제를 실습하였다.</p>
-
-<p>그 다음 공부 주제는 Django로 잡았다. 내가 Django를 얼마만큼 제대로 알고 있는 지 파악해야 해서 Django를 이용해 인스타그램 같은 웹 서비스를 서로 다른 구현 방법과 구조로 세 번 만들었다. 그 중 한 버전은 블로그에 연재 중인 강좌에 사용하고<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>, 다른 한 버전은 강의 실습용으로 정했다. 그러고나서 Django 공식 문서를 보며 하나 하나 뜯어보고 다듬었는데, 각 기능마다 다른 사람이 구현한 방법을 웹에서 찾아다녔고, 구현 방법이 다른 경우 Django 소스를 열어서 Django의 작동 방식이나 의도를 분석했다. 이 과정에 약 4주가 걸렸고, Django 소스 코드 중 많은 부분에 대해 리뷰 아닌 리뷰를 두 차례 했다.</p>
-
-<p>마지막으로 Django 릴리즈 노트와 <a href="https://github.com/django/django/commits/master">Django의 master 브랜치</a>에 쌓인 commit들을 훑으며 주목할만한 변화를 찾아 보았다. Django 1.0 이후로 Django를 사용하지 않아서 주요 변동 이력을 알지 못했기 때문이다.</p>
-
-<p>학습을 일단락하고 강의를 준비했다. 나는 markdown 문서 형식을 애용하지만, <a href="http://ipython.org/">IPython</a>으로 교재를 만들어 보기로 했다. IPython은 2014년 초에 회사 개발 프로젝트에 도입하면서<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> 처음 접했는데, 상상력을 일으키는 재밌는 도구라 여겨왔다. 프로젝터에 띄울 강의 자료도 IPython으로 작성하려 했지만, 가독성이 좋지 않아 Apple Keynote로 작성하기로 했다.</p>
-
-<h4 id="강의-과정">강의 과정</h4>
-
-<p>첫 수업에서 나는 무척 당황했다. 여러 수강자가 예상보다 내 강의를 어려워했기 때문이다. 입문 단계는 뗀 사람을 대상으로 하는 커리큘럼이니 입문서나 자료에 나오는 내용에서 그치지 않고 좀 더 이론 부분을 다뤘는데, 일부 수강자를 보니 무척 혼란스러워 하는 표정이었다. 가령, Python에서 모든 데이터는 객체라는 내용을 설명할 때, <strong>Python에서 객체가 무엇인지</strong> 설명했다.</p>
-
-<ul>
-  <li>모든 데이터는 객체(object)
-    <ul>
-      <li>객체 구조 : 신원(identity), 타입(type, class), 값(value)</li>
-      <li><code class="highlighter-rouge">number = 1</code>에서 <code class="highlighter-rouge">number</code>는 신원, <code class="highlighter-rouge">1</code>은 값, 이 값이 할당된(assigned) 객체의 타입은 <code class="highlighter-rouge">int</code></li>
-      <li>모든 객체의 조상은 <code class="highlighter-rouge">object</code>이며, <code class="highlighter-rouge">type</code>은 모든 타입의 조상. <code class="highlighter-rouge">object</code>는 <code class="highlighter-rouge">type</code>의 인스턴스이며, <code class="highlighter-rouge">type</code>은 <code class="highlighter-rouge">object</code>의 하위 클래스. <code class="highlighter-rouge">type</code>은 자기 자신에 대한 <code class="highlighter-rouge">type</code>.</li>
-    </ul>
-  </li>
-  <li>동적 형(type) 변환 : 객체의 타입이 변하는 게 아니라 객체의 신원이 가리키는(reference) 대상(값)이 바뀌는 것.</li>
-  <li>변수, 즉 신원 자체는 객체나 값이 아니다.</li>
-  <li><code class="highlighter-rouge">del</code>문은 객체를 지우는 것이 아니라 객체 참고 관계를 끊는 것.</li>
-  <li><code class="highlighter-rouge">1 == True</code>와 <code class="highlighter-rouge">1 is True</code>의 차이
-    <ul>
-      <li><code class="highlighter-rouge">True</code>의 값은 <code class="highlighter-rouge">1</code>이고, <code class="highlighter-rouge">False</code>의 값은 <code class="highlighter-rouge">0</code>.</li>
-      <li>값 비교는 <code class="highlighter-rouge">==</code> 연산자로, 신원 비교는 <code class="highlighter-rouge">is</code> 연산자로 평가.</li>
-    </ul>
-  </li>
-</ul>
-
-<p>하지만, 일부 수강자가 “객체”라는 것 자체를 생소해 하거나 잘 모르는 상황이었다. 그들 입장에선 내가 어렵게 강의를 준비하고 설명한 것이었고, 결국 미리 준비한 강의 자료와 교재를 전면 수정해야 했다.</p>
-
-<p>커리큘럼은 이론 부분과 실습 부분으로 구성했고, 나는 이론을 담당했다. 그러다보니 실습할 내용에 대해 이론 부분을 여러 방면으로 준비했다.</p>
-
-<p>가령, Django의 모델 필드형 중 <code class="highlighter-rouge">TextField</code>를 Django 공식 문서에서는 큰(large) 텍스트를 담는 필드라고 설명하는데, 나는 SQLite 3는 <code class="highlighter-rouge">text</code>형으로 약 1기가 바이트, PostgreSQL은 길이 제한이 없는 <code class="highlighter-rouge">text</code>, MySQL은 <code class="highlighter-rouge">longtext</code>형으로 약 4기가 바이트, Oracle은 8~12테라 바이트를 담는 <code class="highlighter-rouge">NCLOB</code>형이라고 설명하는 것이다. 수강자가 얼마나 긴 문자열을 담느냐는 질문을 하는데 <code class="highlighter-rouge">CharField</code>보다 긴, 게시판의 글 본문에 쓸만큼 긴 문자열이라고 대답하고 싶진 않았다.</p>
-
-<p>또는, 흥미롭게 구현된 Django 기능이 있는 경우, 그 기능이 작성된 Django 소스를 직접 설명하기도 했다. 예를 들어, Django의 <code class="highlighter-rouge">settings</code>는 수강자들이 재밌다고 느낄만한 Python 기법이 잘 녹아있는 모듈이라서 가볍게 훑고 지나가지 않고 동작하는 방식에 대해 설명했다. Django 자체보다는 Python 기법에 대한 내용이다보니 다른 Django 자료에서는 잘 다루지 않는 내용이고, 내 강의를 듣기 때문에 접하는 내용이었다. 가능하면 이런 내용을 다루려 했다.</p>
-
-<p><img src="/assets/uploads/2015/03/django_conf_settings.png" alt="" /></p>
-
-<p>수업은 4회차부터 강의 목표와 계획을 완전히 수정했다. 수강자들이 수업 당시에는 수업 내용을 완전히 이해하지 못하더라도 교재를 보며 복습하여 언젠가는 이해하는 것으로 목표를 바꿨다. 일명 “교재라도 남기자”. 그래서 교재도 최대한 서술형으로 풀어서 문장을 작성했다. 마치 내가 교재를 강의 원고로 삼아 그대로 읽는 것처럼 작성했고, 발표용 슬라이드는 목차처럼 활용하도록 작성했다. 그러다보니 매 수업에 사용하는 교재는 100여 장을 넘기곤 했다. 한 수강자는 우스개소리로 100만원이 넘는 Python + Django 책이라고 말하기도 했다.</p>
-
-<p>서술형 교재는 IPython으로 작성했다. 의도와 목표는 교재를 IPython으로 열어서 코드를 교재 안에서 직접 실행(run)하고 실습하는 상호작용 교재로 활용하도록 하는 것이었지만, 의도대로 활용되는 것 같진 않았다. 그래서 소스 문법 강조가(highlighting) 잘 된 문서로라도 활용하였고, 실제로 교재도 IPython 파일을 HTML 파일로 내보낸(export) 문서도 함께 배포하였다.</p>
-
-<p>실습을 본격 시작한 수업부터는 매 수업에 진행한 전체 소스 코드도 배포하였다. 그러니까, 4회 수업까지 진행한 소스 코드, 5회 수업까지 진행한 소스 코드를 구분하여 매 수업 때 마다 배포한 것이다. 처음엔 <code class="highlighter-rouge">git</code>으로 관리하여 각 수업에 진행한 소스 이력에 tag를 달아서 접근하도록 하려 했다. 하지만, 이 교육 과정으로 입문한 것이나 마찬가지인 수강자는 새로운 개념이 등장할 때마다 힘들어해서 git을 수업에 도입하진 않았다.</p>
-
-<p>이렇게 교재를 만들어 배포하다보니 일단 수업엔 참여해서 최대한 듣고 따라오고, 수업 이후엔 내가 작성한 소스 코드를 기반으로 실습하거나 복습하고, 설명은 교재를 읽는 사례가 나타났다. 수강자 나름대로 적응하고 수업과 교재를 활용하는 것이다.</p>
-
-<p>점차 강의에 익숙해지다보니 분량 조절이 맞아서 수업 시간 운용도 안정되었다. 교재를 만드는 건 여전히 힘들었지만, 강의 진행은 한결 편안해졌다. 수강자 개개인을 알아가면서 강의와 교재에 예제나 보충 설명을 반영하기도 했다. 글로 강좌를 연재하는 것과는 다른 매력이었다.</p>
-
-<p><a href="http://getbootstrap.com/">Bootstrap</a>을 적용하고, <a href="https://www.heroku.com/">Heroku</a>에 개발한 프로젝트를 배치(deployment)하는 것으로 전체 강의를 마쳤다. Heroku 무료판은 무척 느린데다 국내에서 사용 사례가 많지 않아서 Heroku에 서비스를 배치하는 것에 주제를 맞추지 않고, 프로젝트를 배치하고 배포하는 과정을 이해하는 데 맞추었다. 즉, Heroku가 자동으로 처리해주는 부분은 무엇이고, Amazon Web Service 등을 이용할 경우 어느 부분까지 사람이 해야 하며, 어떻게 하는 것이 좋은 지 설명하였다.</p>
-
-<h4 id="우여곡절">우여곡절</h4>
-
-<p>초반 3주는 무척 힘든 시간을 보냈다. 강의 자료와 교재를 전면 재작성 하다보니 매주 시간에 쫓겼고, 회사 업무도 마감에 임박한 상황이라 정신 없는 나날이었다. 무엇보다도 내가 과의욕 상태이다보니 난이도나 분량을 조절하지 못하여 스트레스를 자초한 탓이 가장 컸다.</p>
-
-<p>개인 사정으로 수업을 목요일과 토요일로 잡은 것도 좋지 않았다. 수업 간격이 좁다보니 수강자는 복습할 시간 여력이 없었고, 매 수업마다 100여 장이 넘는 교재를 작성하는 나 역시 수업 자료를 만들 시간이 부족했다. 특히 초반 2주는 주말에도 내 수업이 잡혀있다 보니 밤샘하기 일쑤였다.</p>
-
-<p>실습 환경을 맞추어 예외 상황을 피하려는 목적으로 VirtualBox에 Ubuntu를 가상으로 설치한 건 득보다는 실이 컸다. 대다수가 VirtualBox에 Ubuntu를 설치하는 것에서부터 난관에 부딪혔고, 너무 느리게 동작하여 답답했다. 또, 시간이 부족하여 Linux 사용법에 대해서는 전혀 다루지 않다보니 디렉터리 이동과 같은 쉘 사용 기초를 어려워하는 수강자도 있었다. 그에 반해 한 수강자는 끝까지 Windows에서 개발과 실습을 했는데, 자잘한 문제에 부딪혔지만 그래도 실습 전 과정을 무사히 치러내 다행스러우면서도 다소 허무하기도 했다. 난 Debian 계열 Linux를 좋아하지만, 실제로는 개발은 Mac OS X에서 하고 실 서비스는 Redhat 계열 Linux에서 하다보니 나 조차도 강의 진행에 시행착오를 겪기도 했다.</p>
-
-<p>강의에 대해서도 고민이 많았다. 나는 <a href="http://www.slideshare.net/yongho">하용호</a>님의 발표나 강의를 좋아하여 그의 강의 방식을 분석하고 좇으려 했지만, 교재 작성하는 데 시간에 쫓겨서 흉내조차 내지 못 했다. “교재라도 남기자”로 강의 계획을 변경한 요인엔 내 강의 운영이 부족한 탓도 있다.</p>
-
-<p>수강자들마다 프로그래밍 소양이나 수준이 상당히 다르다보니 수강자가 할 만한 질문이나 겪을만한 오류 상황을 최대한 폭넓게 예측하고 준비하는 것도 힘들었다. 그런 강의 준비 과정에서 <a href="https://github.com/django/django/compare/master...hannal:ticket_24181">number format의 구분자 문자열이 뒤집히는 Django의 버그</a>를 발견해 Django 프로젝트에 소스를 제출하는 즐거운 경험을 했지만<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>, 강의 준비 자체는 무척 고되었다. 실제로 준비한 강의 자료 대부분은 수업 시간이 부족하기도 하고 수강자가 질문하지 않아서 활용되지 못하였다.</p>
-
-<h4 id="정리">정리</h4>
-
-<p>초반 혼란기를 극복한 60% 수강자는 마지막 수업까지 남아 함께 했다. VirtualBox에 Ubuntu Linux를 설치하면서 Linux를 제대로 접한 한 수강자는 아예 자신의 랩탑에 Linux를 설치하여 다루었고, 굉장히 사소한 오타나 실수로 Python 인터프리터 오류를 일으켜 어쩔 줄 몰라하던 수강자는 내가 힌트를 주는 것만으로도 문제 원인을 파악해 스스로 해결할만큼 성장했다. 놀랍고 기뻤다.</p>
-
-<p>잔존율 50%를 목표로 두었는데 예상보다 높은 잔존율을 달성한 점도, 질문 수준이 나날이 높아진 점도 보람찼다. 질문과 답변이 왕성하게 오간 교육 과정이라는 패스트캠퍼스측 피드백도 기분 좋았다. 누군가 성장하는 데 기여하는 건 정말 뿌듯하다. 그리고, 다른 이가 성장하도록 돕는 과정에서 나 역시 성장하는 것도 좋은 경험이다.</p>
-
-<p>곧 <a href="http://www.fastcampus.co.kr/camp_wpa/">웹 서비스 개발 2기</a>를 시작한다. 1기 때 구축한 수업 자료도 있고 내 강의량을 좀 줄였기에 1기 때에 비해 좀 더 수월하길 바라본다.</p>
-
-<p>아참, 애초 강의의 목적이었던 집필에 대해 조금 언급하자면, 목차 작업을 얼추 마쳐가고 있다. :)</p>
-
-<hr />
-
-<div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>이 말은 연재 중인 강좌에 필요한 기반 마련은 진작 끝냈다는 뜻이다. 단지 너무 바빠서 강좌 글 자체를 작성하지 못하고 있다. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-    <li id="fn:2">
-      <p>당시 우리 회사 CTO이자 공동창업자인 Spike^ekipS님이 도입했는데, IPython을 비롯해 내가 접한 개발 도구나 라이브러리, 기술 상당 수는 그가 알려준 것이며, 코드도 그에게서 영향을 받았다. 개발자로서 내게 영향을 준 사람은 두 명(Spike^ekipS, cpascal)인데, 두 사람 모두 뛰어난 해커이다. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
-    </li>
-    <li id="fn:3">
-      <p>Django 1.8판에 반영되었다. <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
 
   </div>
   <hr class="post-parting-line" />
