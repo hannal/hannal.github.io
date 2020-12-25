@@ -167,6 +167,11 @@
 
 <p>아직은 얕고 넓게 아는 걸 좋아하는 성향과 깊게 잘 알려는 태도 사이에서 흔들리는데, 깊게 파고드는 매력 중 하나를 이제나마 깨달아서 다행이면서도 지난 세월이 아쉽다.</p>
 
+<h3 id="손그림">손그림</h3>
+<p>꼬맹이가 미술에 관심과 집중력을 보여서 공통 취미나 관심사를 하나 정도 만들고자 손그림을 취미 생활 중 하나로 시작했다. 힘들고 어렵지만 재밌다. 내년엔 총 네 개 주제를 그리는 걸 목표로 삼았다.</p>
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/2XKOkWCAD5w" frameborder="0" allowfullscreen=""></iframe>
+
 
   </div>
   <hr class="post-parting-line" />
@@ -184,46 +189,46 @@
 
 <h3 id="django-orm으로-nulls-last-정렬">Django ORM으로 NULLS LAST 정렬</h3>
 
-<p><code class="highlighter-rouge">Hannal</code>이라는 모델이 있고 <code class="highlighter-rouge">name</code> 필드는 <code class="highlighter-rouge">null</code>을 허용한다.</p>
+<p><code class="language-plaintext highlighter-rouge">Hannal</code>이라는 모델이 있고 <code class="language-plaintext highlighter-rouge">name</code> 필드는 <code class="language-plaintext highlighter-rouge">null</code>을 허용한다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Hannal(models.Model):
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Hannal(models.Model):
     name = models.CharField(max_length=32, null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
 </code></pre></div></div>
 
-<p>여러 데이터의 <code class="highlighter-rouge">name</code> 필드의 값이 다음과 같이 들어갔다고 가정하자.</p>
+<p>여러 데이터의 <code class="language-plaintext highlighter-rouge">name</code> 필드의 값이 다음과 같이 들어갔다고 가정하자.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">'abc'</code></li>
-  <li><code class="highlighter-rouge">'zyx'</code></li>
-  <li><code class="highlighter-rouge">None</code></li>
-  <li><code class="highlighter-rouge">'lmn'</code></li>
+  <li><code class="language-plaintext highlighter-rouge">'abc'</code></li>
+  <li><code class="language-plaintext highlighter-rouge">'zyx'</code></li>
+  <li><code class="language-plaintext highlighter-rouge">None</code></li>
+  <li><code class="language-plaintext highlighter-rouge">'lmn'</code></li>
 </ul>
 
-<p>이제 <code class="highlighter-rouge">name</code> 필드로 오름차순(Ascending) 정렬해보자.</p>
+<p>이제 <code class="language-plaintext highlighter-rouge">name</code> 필드로 오름차순(Ascending) 정렬해보자.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hannal.objects.order_by('name')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hannal.objects.order_by('name')
 </code></pre></div></div>
 
 <ul>
-  <li><code class="highlighter-rouge">None</code></li>
-  <li><code class="highlighter-rouge">'abc'</code></li>
-  <li><code class="highlighter-rouge">'lmn'</code></li>
-  <li><code class="highlighter-rouge">'zyx'</code></li>
+  <li><code class="language-plaintext highlighter-rouge">None</code></li>
+  <li><code class="language-plaintext highlighter-rouge">'abc'</code></li>
+  <li><code class="language-plaintext highlighter-rouge">'lmn'</code></li>
+  <li><code class="language-plaintext highlighter-rouge">'zyx'</code></li>
 </ul>
 
-<p>결과는 <code class="highlighter-rouge">null</code>이 먼저 나온다. 만약 <code class="highlighter-rouge">null</code>이 아닌 데이터를 먼저 정렬하고 그 이후에 <code class="highlighter-rouge">null</code>인 데이터를 나열하려면 <code class="highlighter-rouge">NULLS LAST</code>로 정렬해야 한다.</p>
+<p>결과는 <code class="language-plaintext highlighter-rouge">null</code>이 먼저 나온다. 만약 <code class="language-plaintext highlighter-rouge">null</code>이 아닌 데이터를 먼저 정렬하고 그 이후에 <code class="language-plaintext highlighter-rouge">null</code>인 데이터를 나열하려면 <code class="language-plaintext highlighter-rouge">NULLS LAST</code>로 정렬해야 한다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.db.models import F
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.db.models import F
 
 Hannal.objects.order_by(F('name').desc(nulls_last=True))
 </code></pre></div></div>
 
 <ul>
-  <li><code class="highlighter-rouge">'abc'</code></li>
-  <li><code class="highlighter-rouge">'lmn'</code></li>
-  <li><code class="highlighter-rouge">'zyx'</code></li>
-  <li><code class="highlighter-rouge">None</code></li>
+  <li><code class="language-plaintext highlighter-rouge">'abc'</code></li>
+  <li><code class="language-plaintext highlighter-rouge">'lmn'</code></li>
+  <li><code class="language-plaintext highlighter-rouge">'zyx'</code></li>
+  <li><code class="language-plaintext highlighter-rouge">None</code></li>
 </ul>
 
 <p>우리가 원하는 대로 정렬됐다.</p>
@@ -232,7 +237,7 @@ Hannal.objects.order_by(F('name').desc(nulls_last=True))
 
 <p>이번엔 이를 <a href="https://django-filter.readthedocs.io/">django-filter</a>에 적용해보자. django-filter에 정렬 필터인 <a href="https://django-filter.readthedocs.io/en/stable/ref/filters.html#orderingfilter">OrderingFilter</a>를 사용하면 간편하게 정렬 필터를 적용할 수 있다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import django_filters as filters
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import django_filters as filters
 
 
 class HannalFilter(filters.FilterSet):
@@ -246,13 +251,13 @@ class HannalFilter(filters.FilterSet):
 
 <p>자세한 내용은 공식 문서에 나와있지만, 영문 싫어하는 사람도 많고 공식 문서가 썩 친절하진 않으니 설명하겠다.</p>
 
-<p><code class="highlighter-rouge">fields</code>로 모델의 필드와 HTTP Query String에서 넘겨 받을 필드를 짝지어야 한다. 뒤(<code class="highlighter-rouge">name</code>과 <code class="highlighter-rouge">saengil</code>)는 Query string으로 받을 값, 앞(<code class="highlighter-rouge">name</code>과 <code class="highlighter-rouge">birthday</code>)은 모델의 필드/필드표현식을 뜻한다. 보통은 모델 필드명과 동일하게 하는 게 알아보기 좋지만, 다르게 해야 할 경우도 많다.</p>
+<p><code class="language-plaintext highlighter-rouge">fields</code>로 모델의 필드와 HTTP Query String에서 넘겨 받을 필드를 짝지어야 한다. 뒤(<code class="language-plaintext highlighter-rouge">name</code>과 <code class="language-plaintext highlighter-rouge">saengil</code>)는 Query string으로 받을 값, 앞(<code class="language-plaintext highlighter-rouge">name</code>과 <code class="language-plaintext highlighter-rouge">birthday</code>)은 모델의 필드/필드표현식을 뜻한다. 보통은 모델 필드명과 동일하게 하는 게 알아보기 좋지만, 다르게 해야 할 경우도 많다.</p>
 
-<p>우선 요청자(client)측에서 다른 이름을 쓰고 싶은 경우이다. Python 관례에 따르면 snake case 표기를 쓰겠지만, Front-end쪽에서는 camel case 표기를 대개 쓴다. 예를 들어 모델 필드명은 <code class="highlighter-rouge">birth_day</code>인데 요청자는 굳이 <code class="highlighter-rouge">birthDay</code>나 <code class="highlighter-rouge">saengil</code>을 쓰고 싶은 경우이다.</p>
+<p>우선 요청자(client)측에서 다른 이름을 쓰고 싶은 경우이다. Python 관례에 따르면 snake case 표기를 쓰겠지만, Front-end쪽에서는 camel case 표기를 대개 쓴다. 예를 들어 모델 필드명은 <code class="language-plaintext highlighter-rouge">birth_day</code>인데 요청자는 굳이 <code class="language-plaintext highlighter-rouge">birthDay</code>나 <code class="language-plaintext highlighter-rouge">saengil</code>을 쓰고 싶은 경우이다.</p>
 
-<p>다른 경우가 더 흔한 경우인데, 모델 관계(model relationship)를 필드 표현식으로 다뤄야 하는 경우이다. 예를 들어 <code class="highlighter-rouge">Kay</code>라는 모델이 있고 <code class="highlighter-rouge">Hannal</code> 모델과 1:N 관계를 맺고 있다고 하자.</p>
+<p>다른 경우가 더 흔한 경우인데, 모델 관계(model relationship)를 필드 표현식으로 다뤄야 하는 경우이다. 예를 들어 <code class="language-plaintext highlighter-rouge">Kay</code>라는 모델이 있고 <code class="language-plaintext highlighter-rouge">Hannal</code> 모델과 1:N 관계를 맺고 있다고 하자.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Kay(models.Model):
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Kay(models.Model):
     name = models.CharField(max_length=32, null=True, blank=True)
 
 
@@ -262,14 +267,14 @@ class Hannal(models.Model):
     related = models.ForeignKey('Kay', on_delete=models.CASCADE)
 </code></pre></div></div>
 
-<p>그리고 <code class="highlighter-rouge">Kay</code> 모델의 <code class="highlighter-rouge">name</code> 필드를 기준으로 정렬한 <code class="highlighter-rouge">Hannal</code> 모델의 데이터를 가져오려면 다음과 같이 한다.</p>
+<p>그리고 <code class="language-plaintext highlighter-rouge">Kay</code> 모델의 <code class="language-plaintext highlighter-rouge">name</code> 필드를 기준으로 정렬한 <code class="language-plaintext highlighter-rouge">Hannal</code> 모델의 데이터를 가져오려면 다음과 같이 한다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hannal.objects.order_by('related__name')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hannal.objects.order_by('related__name')
 </code></pre></div></div>
 
-<p>여기서 <code class="highlighter-rouge">related__name</code>을 django-filter 에서도 사용할 수 있다.</p>
+<p>여기서 <code class="language-plaintext highlighter-rouge">related__name</code>을 django-filter 에서도 사용할 수 있다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class HannalFilter(filters.FilterSet):
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class HannalFilter(filters.FilterSet):
     ordering = filters.OrderingFilter(
       fields=(
           ('name', 'name', ),
@@ -279,49 +284,49 @@ class Hannal(models.Model):
     )
 </code></pre></div></div>
 
-<p>이렇게 <code class="highlighter-rouge">fields</code>를 지정하면 <code class="highlighter-rouge">ordering</code>키의 값으로 <code class="highlighter-rouge">name</code>, <code class="highlighter-rouge">saengil</code>, <code class="highlighter-rouge">kayname</code>을 사용할 수 있다. <a href="https://www.django-rest-framework.org/">Django REST framework</a>(이하 DRF)에 적용하면 URL을 <code class="highlighter-rouge">?ordering=name</code>로 하여 <code class="highlighter-rouge">name</code> 필드에 대해 오름차순 정렬하거나 <code class="highlighter-rouge">?ordering=-name</code>로 하여 내림차순 정렬한다. 이 뿐만 아니라 여러 개 필드를 정렬할 수도 있다. 예를 들어 <code class="highlighter-rouge">name</code> 필드는 오름차순, <code class="highlighter-rouge">birthday</code> 필드는 내림차순으로 정렬하고자 한다면 HTTP Query String 으로 <code class="highlighter-rouge">?ordering=name,-birthday</code>라고 하면 된다.</p>
+<p>이렇게 <code class="language-plaintext highlighter-rouge">fields</code>를 지정하면 <code class="language-plaintext highlighter-rouge">ordering</code>키의 값으로 <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">saengil</code>, <code class="language-plaintext highlighter-rouge">kayname</code>을 사용할 수 있다. <a href="https://www.django-rest-framework.org/">Django REST framework</a>(이하 DRF)에 적용하면 URL을 <code class="language-plaintext highlighter-rouge">?ordering=name</code>로 하여 <code class="language-plaintext highlighter-rouge">name</code> 필드에 대해 오름차순 정렬하거나 <code class="language-plaintext highlighter-rouge">?ordering=-name</code>로 하여 내림차순 정렬한다. 이 뿐만 아니라 여러 개 필드를 정렬할 수도 있다. 예를 들어 <code class="language-plaintext highlighter-rouge">name</code> 필드는 오름차순, <code class="language-plaintext highlighter-rouge">birthday</code> 필드는 내림차순으로 정렬하고자 한다면 HTTP Query String 으로 <code class="language-plaintext highlighter-rouge">?ordering=name,-birthday</code>라고 하면 된다.</p>
 
 <h3 id="orderingfilter에-nulls-last-적용">OrderingFilter에 NULLS LAST 적용</h3>
 
-<p>편하다. 근데 django-filter <code class="highlighter-rouge">2.4.0</code> 버전 기준까지는 <code class="highlighter-rouge">NULLS LAST</code>와 <code class="highlighter-rouge">NULLS FIRST</code>를 지원하지 않는다. 그러므로 따로 구현해야 한다. <code class="highlighter-rouge">OrderingFilter</code>가 제공하는 기능은 그대로 쓰되 QuerySet 만들 때 null 정렬만 추가하면 되니 이 클래스를 상속받아 쓴다.</p>
+<p>편하다. 근데 django-filter <code class="language-plaintext highlighter-rouge">2.4.0</code> 버전 기준까지는 <code class="language-plaintext highlighter-rouge">NULLS LAST</code>와 <code class="language-plaintext highlighter-rouge">NULLS FIRST</code>를 지원하지 않는다. 그러므로 따로 구현해야 한다. <code class="language-plaintext highlighter-rouge">OrderingFilter</code>가 제공하는 기능은 그대로 쓰되 QuerySet 만들 때 null 정렬만 추가하면 되니 이 클래스를 상속받아 쓴다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">from</span> <span class="n">django</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">models</span> <span class="n">import</span> <span class="n">F</span>
-<span class="n">import</span> <span class="n">django_filters</span> <span class="k">as</span> <span class="n">filters</span>
-
-
-<span class="n">class</span> <span class="n">NullsLastOrderingFilter</span><span class="p">(</span><span class="n">filters</span><span class="p">.</span><span class="n">OrderingFilter</span><span class="p">):</span>
-    <span class="n">def</span> <span class="n">filter</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">qs</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="k">not</span> <span class="n">value</span><span class="p">:</span>
-            <span class="n">return</span> <span class="n">qs</span>
-        <span class="n">for</span> <span class="n">_v</span> <span class="k">in</span> <span class="n">value</span><span class="p">:</span>
-            <span class="n">is_desc</span> <span class="p">=</span> <span class="n">_v</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)</span>
-            <span class="n">field</span> <span class="p">=</span> <span class="n">self</span><span class="p">.</span><span class="n">param_map</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">_v</span><span class="p">[</span><span class="m">1</span><span class="p">:]</span> <span class="k">if</span> <span class="n">is_desc</span> <span class="k">else</span> <span class="n">_v</span><span class="p">)</span>
-            <span class="k">if</span> <span class="k">not</span> <span class="n">field</span><span class="p">:</span>
-                <span class="n">continue</span>
-            <span class="k">if</span> <span class="n">is_desc</span><span class="p">:</span>
-                <span class="n">qs</span> <span class="p">=</span> <span class="n">qs</span><span class="p">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">field</span><span class="p">).</span><span class="n">desc</span><span class="p">(</span><span class="n">nulls_last</span><span class="p">=</span><span class="nb">True</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">qs</span> <span class="p">=</span> <span class="n">qs</span><span class="p">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="n">field</span><span class="p">).</span><span class="n">asc</span><span class="p">(</span><span class="n">nulls_last</span><span class="p">=</span><span class="nb">True</span><span class="p">))</span>
-        <span class="n">return</span> <span class="n">qs</span>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.db.models import F
+import django_filters as filters
 
 
-<span class="n">class</span> <span class="n">HannalFilter</span><span class="p">(</span><span class="n">filters</span><span class="p">.</span><span class="n">FilterSet</span><span class="p">):</span>
-    <span class="n">ordering</span> <span class="p">=</span> <span class="n">NullsLastOrderingFilter</span><span class="p">(</span>
-      <span class="n">fields</span><span class="p">=(</span>
-          <span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="p">),</span>
-          <span class="p">(</span><span class="s1">'birthday'</span><span class="p">,</span> <span class="s1">'saengil'</span><span class="p">,</span> <span class="p">),</span>
-          <span class="p">(</span><span class="s1">'related__name'</span><span class="p">,</span> <span class="s1">'kayname'</span><span class="p">,</span> <span class="p">),</span>
-      <span class="p">),</span>
-    <span class="p">)</span>
+class NullsLastOrderingFilter(filters.OrderingFilter):
+    def filter(self, qs, value):
+        if not value:
+            return qs
+        for _v in value:
+            is_desc = _v.startswith('-')
+            field = self.param_map.get(_v[1:] if is_desc else _v)
+            if not field:
+                continue
+            if is_desc:
+                qs = qs.order_by(F(field).desc(nulls_last=True))
+            else:
+                qs = qs.order_by(F(field).asc(nulls_last=True))
+        return qs
 
-    <span class="n">class</span> <span class="n">Meta</span><span class="p">:</span>
-        <span class="k">model</span> <span class="p">=</span> <span class="n">Hannal</span>
-        <span class="n">fields</span> <span class="p">=</span> <span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'birthday'</span><span class="p">,</span> <span class="p">)</span>
+
+class HannalFilter(filters.FilterSet):
+    ordering = NullsLastOrderingFilter(
+      fields=(
+          ('name', 'name', ),
+          ('birthday', 'saengil', ),
+          ('related__name', 'kayname', ),
+      ),
+    )
+
+    class Meta:
+        model = Hannal
+        fields = ('name', 'birthday', )
 </code></pre></div></div>
 
-<p>위에서 설명한 내용을 모두 반영한 코드이다. <code class="highlighter-rouge">filter()</code> 메서드는 django-filter 가 넘겨받은 QuerySet 객체이다. DRF에 연동해 사용한다면 DRF가 이런 저런 조치를 취한 QuerySet일테고, 사용자가 만든 filter 들을 거친 QuerySet이기도 하다.</p>
+<p>위에서 설명한 내용을 모두 반영한 코드이다. <code class="language-plaintext highlighter-rouge">filter()</code> 메서드는 django-filter 가 넘겨받은 QuerySet 객체이다. DRF에 연동해 사용한다면 DRF가 이런 저런 조치를 취한 QuerySet일테고, 사용자가 만든 filter 들을 거친 QuerySet이기도 하다.</p>
 
-<p><code class="highlighter-rouge">NULLS FIRST</code>를 적용하려면 <code class="highlighter-rouge">nulls_last</code> 대신 <code class="highlighter-rouge">nulls_first</code>를 <code class="highlighter-rouge">True</code>로 지정하면 된다.</p>
+<p><code class="language-plaintext highlighter-rouge">NULLS FIRST</code>를 적용하려면 <code class="language-plaintext highlighter-rouge">nulls_last</code> 대신 <code class="language-plaintext highlighter-rouge">nulls_first</code>를 <code class="language-plaintext highlighter-rouge">True</code>로 지정하면 된다.</p>
 
 
   </div>

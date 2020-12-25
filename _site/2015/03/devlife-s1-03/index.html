@@ -116,7 +116,7 @@
   <ol>
   <li><a href="http://blog.hannal.com/2015/02/devlife-s1-01/">개발 생활 - 1</a> : PDF 문서 생성 서버</li>
   <li><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">개발 생활 - 2</a> : 연산된 데이터 수집 작업자</li>
-  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-03/"><code class="highlighter-rouge">개발 생활 - 3</code></a> : 전자우편 알림 서버</li>
+  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-03/"><code class="language-plaintext highlighter-rouge">개발 생활 - 3</code></a> : 전자우편 알림 서버</li>
   <li><a href="http://blog.hannal.com/2015/03/devlife-s1-04/">개발 생활 - 4</a> : Python과 Django 강의</li>
   <li><a href="http://blog.hannal.com/2015/03/devlife-s1-05/">개발 생활 - 5</a> : 공부 자료</li>
   <li><a href="http://blog.hannal.com/2015/03/devlife-s1-06/">개발 생활 - 6</a> : 앞으로 계획</li>
@@ -214,13 +214,13 @@
   <li>수신자 구성부(builder)</li>
 </ul>
 
-<p>Mailjet에서 <code class="highlighter-rouge">REST API</code>로 개별 전자우편을 발송하는 API를 제공했지만, 발송 서버에 연결하는 부분은 SMTP로 처리하였다. 이 방식이 HTTP로 연결하여 요청하는 것보다 좀 더 빨랐다. 쌓인 전자우편을 여러 개 보내야 하는 경우가 생기는데, HTTP/1.x는 매 요청마다 Mailjet 서버에 연결하고 끊기를 되풀이한다. 그에 반해 SMTP는 연결을 유지한다.</p>
+<p>Mailjet에서 <code class="language-plaintext highlighter-rouge">REST API</code>로 개별 전자우편을 발송하는 API를 제공했지만, 발송 서버에 연결하는 부분은 SMTP로 처리하였다. 이 방식이 HTTP로 연결하여 요청하는 것보다 좀 더 빨랐다. 쌓인 전자우편을 여러 개 보내야 하는 경우가 생기는데, HTTP/1.x는 매 요청마다 Mailjet 서버에 연결하고 끊기를 되풀이한다. 그에 반해 SMTP는 연결을 유지한다.</p>
 
-<p>Python으로 SMTP는 <code class="highlighter-rouge">smtplib</code> 모듈을 이용하여 간단하게 다룬다. 다만, 웹에 있는 대부분 예제는 Python 2용이어서 Python 3.4에서는 문제가 발생하는데, 원인은 패키지나 모듈 배치가 바뀐 탓이다. 다행히 Python 공식 문서에 <a href="https://docs.python.org/3/library/email-examples.html">email: Examples</a>라는 문서에 아주 자세한 예제가 나와있다.</p>
+<p>Python으로 SMTP는 <code class="language-plaintext highlighter-rouge">smtplib</code> 모듈을 이용하여 간단하게 다룬다. 다만, 웹에 있는 대부분 예제는 Python 2용이어서 Python 3.4에서는 문제가 발생하는데, 원인은 패키지나 모듈 배치가 바뀐 탓이다. 다행히 Python 공식 문서에 <a href="https://docs.python.org/3/library/email-examples.html">email: Examples</a>라는 문서에 아주 자세한 예제가 나와있다.</p>
 
-<p><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">편의점 프로젝트</a>과는 달리 postman 프로젝트는 <code class="highlighter-rouge">Celery</code>를 이용하여 일정 시간마다 지정한 작업이 진행되도록 하였다. <a href="http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html">Periodic Tasks</a>를 이용했는데, <code class="highlighter-rouge">periodic_task</code>라는 장식자(<code class="highlighter-rouge">decorator</code>)를 사용했다.</p>
+<p><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">편의점 프로젝트</a>과는 달리 postman 프로젝트는 <code class="language-plaintext highlighter-rouge">Celery</code>를 이용하여 일정 시간마다 지정한 작업이 진행되도록 하였다. <a href="http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html">Periodic Tasks</a>를 이용했는데, <code class="language-plaintext highlighter-rouge">periodic_task</code>라는 장식자(<code class="language-plaintext highlighter-rouge">decorator</code>)를 사용했다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from datetime import timedelta
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from datetime import timedelta
 
 from celery.decorators import periodic_task
 
@@ -235,9 +235,9 @@ def notify_staff():
     pass
 </code></pre></div></div>
 
-<p>템플릿 엔진인 <code class="highlighter-rouge">Jinja2</code>는 <a href="http://www.djangoproject.com">Django</a>의 템플릿 문법과 유사하고, <a href="http://blog.hannal.com/2015/02/devlife-s1-01/">제안서를 PDF로 만드는 문서 서버</a>를 만들면서 다뤄서 친숙했다. 다만, 템플릿 전체가 아니라 블록 단위로 내용을 가져오려고 하는 부분은 문서에 예제가 자세히 나오지 않아서 조금 애먹었다.</p>
+<p>템플릿 엔진인 <code class="language-plaintext highlighter-rouge">Jinja2</code>는 <a href="http://www.djangoproject.com">Django</a>의 템플릿 문법과 유사하고, <a href="http://blog.hannal.com/2015/02/devlife-s1-01/">제안서를 PDF로 만드는 문서 서버</a>를 만들면서 다뤄서 친숙했다. 다만, 템플릿 전체가 아니라 블록 단위로 내용을 가져오려고 하는 부분은 문서에 예제가 자세히 나오지 않아서 조금 애먹었다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% block subject %}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% block subject %}
 [공실] {{ building.name }}에 새로운 공실
 {% endblock %}
 
@@ -247,11 +247,11 @@ def notify_staff():
 {% endblock %}
 </code></pre></div></div>
 
-<p>이런 템플릿이 있는 경우, 전자우편 제목은 <code class="highlighter-rouge">subject</code> 블록에 있는 내용을, 본문은 <code class="highlighter-rouge">body</code> 블로에 있는 내용을 사용하는 것이다. 템플릿에서 전자우편 제목과 본문을 만들면 알림 전자우편 제목이나 본문 형식(format)이 바뀌어도 Python 애플리케이션 코드는 변동되지 않으므로 애플리케이션 서버를 재가동하지 않아도 되고, 템플릿이 읽히는 다음 작업 시기에 곧바로 변동 내역이 반영된다는 장점이 있다.</p>
+<p>이런 템플릿이 있는 경우, 전자우편 제목은 <code class="language-plaintext highlighter-rouge">subject</code> 블록에 있는 내용을, 본문은 <code class="language-plaintext highlighter-rouge">body</code> 블로에 있는 내용을 사용하는 것이다. 템플릿에서 전자우편 제목과 본문을 만들면 알림 전자우편 제목이나 본문 형식(format)이 바뀌어도 Python 애플리케이션 코드는 변동되지 않으므로 애플리케이션 서버를 재가동하지 않아도 되고, 템플릿이 읽히는 다음 작업 시기에 곧바로 변동 내역이 반영된다는 장점이 있다.</p>
 
-<p>Jinja에서 템플릿을 렌더링하면 템플릿 컨텍스트(변수나 필터 등)가 반영된 최종 결과물 문자열이 반환된다. 나는 이걸 <code class="highlighter-rouge">subject</code> 블록 따로, <code class="highlighter-rouge">body</code> 블록 따로 다루고 싶었고, 당연히(?) Jinja로 이런 처리가 가능하다.</p>
+<p>Jinja에서 템플릿을 렌더링하면 템플릿 컨텍스트(변수나 필터 등)가 반영된 최종 결과물 문자열이 반환된다. 나는 이걸 <code class="language-plaintext highlighter-rouge">subject</code> 블록 따로, <code class="language-plaintext highlighter-rouge">body</code> 블록 따로 다루고 싶었고, 당연히(?) Jinja로 이런 처리가 가능하다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from jinja2 import (
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from jinja2 import (
     Environment,
     FileSystemLoader,
 )
@@ -270,9 +270,9 @@ email_subject = ''.join(_template.blocks['subject'](_context))
 email_body = ''.join(_template.blocks['body'](_context))
 </code></pre></div></div>
 
-<p>오류 내역은 벼르고 별렀던 <code class="highlighter-rouge">Sentry</code>를 도입하여 관리했다. 그동안은 로그를 쌓거나 출력하여 문제를 추적했는데, 로그가 쌓이면 문제를 추적하기 불편했고, <code class="highlighter-rouge">traceback</code> 정보가 제대로 나오지 않아 문제 파악도 힘들었다. Sentry 역시 전자우편 발송 서버와 마찬가지로 실 서버는 Sentry 회사가 제공하는 서비스를 이용하고, 개발 중에는 내 작업 PC에 직접 설치하여 관리했다. 사용법도 간단하다.</p>
+<p>오류 내역은 벼르고 별렀던 <code class="language-plaintext highlighter-rouge">Sentry</code>를 도입하여 관리했다. 그동안은 로그를 쌓거나 출력하여 문제를 추적했는데, 로그가 쌓이면 문제를 추적하기 불편했고, <code class="language-plaintext highlighter-rouge">traceback</code> 정보가 제대로 나오지 않아 문제 파악도 힘들었다. Sentry 역시 전자우편 발송 서버와 마찬가지로 실 서버는 Sentry 회사가 제공하는 서비스를 이용하고, 개발 중에는 내 작업 PC에 직접 설치하여 관리했다. 사용법도 간단하다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from raven import Client as RavenClient
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from raven import Client as RavenClient
 
 raven_client = RavenClient(SENTRY_APIKEY)
 
@@ -283,9 +283,9 @@ def notify_staff():
 
 <h5 id="우여곡절">우여곡절</h5>
 
-<p>Mailjet에서 제공하는 <code class="highlighter-rouge">REST API</code>로 개별 전자우편을 발송하는 과정에서 적지않은 시행착오를 겪었다. REST API를 다루려고 <code class="highlighter-rouge">Requests</code> 라이브러리를 사용했는데 자꾸 요청이 Mailjet 서버로부터 거절되었다. <code class="highlighter-rouge">Curl</code>을 이용하면 잘 작동하였다.</p>
+<p>Mailjet에서 제공하는 <code class="language-plaintext highlighter-rouge">REST API</code>로 개별 전자우편을 발송하는 과정에서 적지않은 시행착오를 겪었다. REST API를 다루려고 <code class="language-plaintext highlighter-rouge">Requests</code> 라이브러리를 사용했는데 자꾸 요청이 Mailjet 서버로부터 거절되었다. <code class="language-plaintext highlighter-rouge">Curl</code>을 이용하면 잘 작동하였다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -X POST --user "$MJ_APIKEY_PUBLIC:$MJ_APIKEY_PRIVATE" \
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -X POST --user "$MJ_APIKEY_PUBLIC:$MJ_APIKEY_PRIVATE" \
     https://api.mailjet.com/v3/send/message \
     -F from='Miss Mailjet &lt;ms.mailjet@example.com&gt;' \
     -F to=mr.mailjet@example.com \
@@ -293,9 +293,9 @@ def notify_staff():
     -F text='Greetings from Mailjet.'
 </code></pre></div></div>
 
-<p>이는 HTTP에서 <code class="highlighter-rouge">Post</code> 방식으로 데이터를 보낼 때 컨텐트 타입을 <code class="highlighter-rouge">multipart/form-data</code>로 보내는 <a href="https://www.ietf.org/rfc/rfc2388.txt">RFC 2388</a>를 따르는 것이며, 이를 Requests 라이브러리를 이용하여 다음과 같이 처리한다.</p>
+<p>이는 HTTP에서 <code class="language-plaintext highlighter-rouge">Post</code> 방식으로 데이터를 보낼 때 컨텐트 타입을 <code class="language-plaintext highlighter-rouge">multipart/form-data</code>로 보내는 <a href="https://www.ietf.org/rfc/rfc2388.txt">RFC 2388</a>를 따르는 것이며, 이를 Requests 라이브러리를 이용하여 다음과 같이 처리한다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_res = requests.post(
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_res = requests.post(
     'https://api.mailjet.com/v3/send/message',
     auth=(
         '$MJ_APIKEY_PUBLIC',
@@ -320,9 +320,9 @@ def notify_staff():
 
 <p>Unittest는 만족스럽게 사용하진 못 했다. 딸 출산이 임박한 시기에 이르자 마음이 급해져 다시 원래 개발하던 방식으로 돌아가고 말았던 것이다. 결국 Unittest를 쓰지 않아 겪는 불편을 개발 막바지에 그대로 다시 겪었다.</p>
 
-<p>Linux에서 프로세스를 관리하는 <code class="highlighter-rouge">upstart</code>용 프로세스 구동 스크립트를 작성하는 데 꽤 고생했다. 그동안 Linux의 init을 쓰거나 Python용 프로세스 관리 도구인 <a href="http://supervisord.org/">Supervisor</a>를 써왔는데, <a href="http://www.codeok.net/%EC%84%9C%EB%B2%84%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EB%A5%BC%20%EA%B4%80%EB%A6%AC%ED%95%98%EB%8A%94%20%EC%98%AC%EB%B0%94%EB%A5%B8%20%EB%B0%A9%EB%B2%95">서버 프로세스를 관리하는 올바른 방법</a>에 대한 글을 읽고 upstart를 사용하기로 했다. 그런데 AWS AMI에서 돌아가는 upstart는 상당히 오래된 버전이어서 웹에서 참고한 자료가 별 도움이 되지 않았다. 가령, <code class="highlighter-rouge">uid</code>나 <code class="highlighter-rouge">gid</code>, <code class="highlighter-rouge">chdir</code> 같은 명령어가 동작하지 않았다. 워낙 간단한 스크립트여서 무작정 시도했는데, 동작하지 않아 결국 로그를 찍으며 문제를 해결했다.</p>
+<p>Linux에서 프로세스를 관리하는 <code class="language-plaintext highlighter-rouge">upstart</code>용 프로세스 구동 스크립트를 작성하는 데 꽤 고생했다. 그동안 Linux의 init을 쓰거나 Python용 프로세스 관리 도구인 <a href="http://supervisord.org/">Supervisor</a>를 써왔는데, <a href="http://www.codeok.net/%EC%84%9C%EB%B2%84%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EB%A5%BC%20%EA%B4%80%EB%A6%AC%ED%95%98%EB%8A%94%20%EC%98%AC%EB%B0%94%EB%A5%B8%20%EB%B0%A9%EB%B2%95">서버 프로세스를 관리하는 올바른 방법</a>에 대한 글을 읽고 upstart를 사용하기로 했다. 그런데 AWS AMI에서 돌아가는 upstart는 상당히 오래된 버전이어서 웹에서 참고한 자료가 별 도움이 되지 않았다. 가령, <code class="language-plaintext highlighter-rouge">uid</code>나 <code class="language-plaintext highlighter-rouge">gid</code>, <code class="language-plaintext highlighter-rouge">chdir</code> 같은 명령어가 동작하지 않았다. 워낙 간단한 스크립트여서 무작정 시도했는데, 동작하지 않아 결국 로그를 찍으며 문제를 해결했다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>script
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>script
   exec &gt;/tmp/postman_sender.log 2&gt;&amp;1
   exec sudo -u ec2-user /bin/sh -c "/.../postman_run.sh"
 end script
@@ -343,7 +343,7 @@ end script
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="hannal">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-<div class="fb-like" data-href="http://localhost:4000/2015/03/devlife-s1-03/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div class="fb-like" data-href="http://blog.hannal.com/2015/03/devlife-s1-03/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 -->
 <!--
 <div class="comments">
@@ -351,7 +351,7 @@ end script
   <script type="text/javascript">
   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
   var disqus_shortname = 'hannal';
-  var disqus_url = 'http://localhost:4000/2015/03/devlife-s1-03/';
+  var disqus_url = 'http://blog.hannal.com/2015/03/devlife-s1-03/';
 
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {

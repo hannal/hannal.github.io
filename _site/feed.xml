@@ -4,11 +4,11 @@
     <title>Kay on the rails</title>
     <description>Kay as known as Hannal walks on the rails
 </description>
-    <link>http://localhost:4000//</link>
-    <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 25 Dec 2020 22:00:38 +0900</pubDate>
-    <lastBuildDate>Fri, 25 Dec 2020 22:00:38 +0900</lastBuildDate>
-    <generator>Jekyll v4.0.0</generator>
+    <link>http://blog.hannal.com//</link>
+    <atom:link href="http://blog.hannal.com//feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Fri, 25 Dec 2020 22:27:00 +0900</pubDate>
+    <lastBuildDate>Fri, 25 Dec 2020 22:27:00 +0900</lastBuildDate>
+    <generator>Jekyll v4.2.0</generator>
     
       <item>
         <title>2020년을 마치며</title>
@@ -58,10 +58,15 @@
 
 &lt;p&gt;아직은 얕고 넓게 아는 걸 좋아하는 성향과 깊게 잘 알려는 태도 사이에서 흔들리는데, 깊게 파고드는 매력 중 하나를 이제나마 깨달아서 다행이면서도 지난 세월이 아쉽다.&lt;/p&gt;
 
+&lt;h3 id=&quot;손그림&quot;&gt;손그림&lt;/h3&gt;
+&lt;p&gt;꼬맹이가 미술에 관심과 집중력을 보여서 공통 취미나 관심사를 하나 정도 만들고자 손그림을 취미 생활 중 하나로 시작했다. 힘들고 어렵지만 재밌다. 내년엔 총 네 개 주제를 그리는 걸 목표로 삼았다.&lt;/p&gt;
+
+&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/2XKOkWCAD5w&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
 </description>
         <pubDate>Fri, 25 Dec 2020 13:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2020/12/closing/</link>
-        <guid isPermaLink="true">http://localhost:4000//2020/12/closing/</guid>
+        <link>http://blog.hannal.com//2020/12/closing/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2020/12/closing/</guid>
         
         <category>회고</category>
         
@@ -76,46 +81,46 @@
 
 &lt;h3 id=&quot;django-orm으로-nulls-last-정렬&quot;&gt;Django ORM으로 NULLS LAST 정렬&lt;/h3&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Hannal&lt;/code&gt;이라는 모델이 있고 &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드는 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt;을 허용한다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hannal&lt;/code&gt;이라는 모델이 있고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;null&lt;/code&gt;을 허용한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Hannal(models.Model):
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Hannal(models.Model):
     name = models.CharField(max_length=32, null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;여러 데이터의 &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드의 값이 다음과 같이 들어갔다고 가정하자.&lt;/p&gt;
+&lt;p&gt;여러 데이터의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드의 값이 다음과 같이 들어갔다고 가정하자.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'abc'&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'zyx'&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'lmn'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'abc'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'zyx'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;None&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'lmn'&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;이제 &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드로 오름차순(Ascending) 정렬해보자.&lt;/p&gt;
+&lt;p&gt;이제 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드로 오름차순(Ascending) 정렬해보자.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Hannal.objects.order_by('name')
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Hannal.objects.order_by('name')
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'abc'&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'lmn'&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'zyx'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;None&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'abc'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'lmn'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'zyx'&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;결과는 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt;이 먼저 나온다. 만약 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt;이 아닌 데이터를 먼저 정렬하고 그 이후에 &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt;인 데이터를 나열하려면 &lt;code class=&quot;highlighter-rouge&quot;&gt;NULLS LAST&lt;/code&gt;로 정렬해야 한다.&lt;/p&gt;
+&lt;p&gt;결과는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;null&lt;/code&gt;이 먼저 나온다. 만약 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;null&lt;/code&gt;이 아닌 데이터를 먼저 정렬하고 그 이후에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;null&lt;/code&gt;인 데이터를 나열하려면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NULLS LAST&lt;/code&gt;로 정렬해야 한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from django.db.models import F
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from django.db.models import F
 
 Hannal.objects.order_by(F('name').desc(nulls_last=True))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'abc'&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'lmn'&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'zyx'&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'abc'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'lmn'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'zyx'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;None&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;우리가 원하는 대로 정렬됐다.&lt;/p&gt;
@@ -124,7 +129,7 @@ Hannal.objects.order_by(F('name').desc(nulls_last=True))
 
 &lt;p&gt;이번엔 이를 &lt;a href=&quot;https://django-filter.readthedocs.io/&quot;&gt;django-filter&lt;/a&gt;에 적용해보자. django-filter에 정렬 필터인 &lt;a href=&quot;https://django-filter.readthedocs.io/en/stable/ref/filters.html#orderingfilter&quot;&gt;OrderingFilter&lt;/a&gt;를 사용하면 간편하게 정렬 필터를 적용할 수 있다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import django_filters as filters
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import django_filters as filters
 
 
 class HannalFilter(filters.FilterSet):
@@ -138,13 +143,13 @@ class HannalFilter(filters.FilterSet):
 
 &lt;p&gt;자세한 내용은 공식 문서에 나와있지만, 영문 싫어하는 사람도 많고 공식 문서가 썩 친절하진 않으니 설명하겠다.&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fields&lt;/code&gt;로 모델의 필드와 HTTP Query String에서 넘겨 받을 필드를 짝지어야 한다. 뒤(&lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;saengil&lt;/code&gt;)는 Query string으로 받을 값, 앞(&lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;과 &lt;code class=&quot;highlighter-rouge&quot;&gt;birthday&lt;/code&gt;)은 모델의 필드/필드표현식을 뜻한다. 보통은 모델 필드명과 동일하게 하는 게 알아보기 좋지만, 다르게 해야 할 경우도 많다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fields&lt;/code&gt;로 모델의 필드와 HTTP Query String에서 넘겨 받을 필드를 짝지어야 한다. 뒤(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;saengil&lt;/code&gt;)는 Query string으로 받을 값, 앞(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;birthday&lt;/code&gt;)은 모델의 필드/필드표현식을 뜻한다. 보통은 모델 필드명과 동일하게 하는 게 알아보기 좋지만, 다르게 해야 할 경우도 많다.&lt;/p&gt;
 
-&lt;p&gt;우선 요청자(client)측에서 다른 이름을 쓰고 싶은 경우이다. Python 관례에 따르면 snake case 표기를 쓰겠지만, Front-end쪽에서는 camel case 표기를 대개 쓴다. 예를 들어 모델 필드명은 &lt;code class=&quot;highlighter-rouge&quot;&gt;birth_day&lt;/code&gt;인데 요청자는 굳이 &lt;code class=&quot;highlighter-rouge&quot;&gt;birthDay&lt;/code&gt;나 &lt;code class=&quot;highlighter-rouge&quot;&gt;saengil&lt;/code&gt;을 쓰고 싶은 경우이다.&lt;/p&gt;
+&lt;p&gt;우선 요청자(client)측에서 다른 이름을 쓰고 싶은 경우이다. Python 관례에 따르면 snake case 표기를 쓰겠지만, Front-end쪽에서는 camel case 표기를 대개 쓴다. 예를 들어 모델 필드명은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;birth_day&lt;/code&gt;인데 요청자는 굳이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;birthDay&lt;/code&gt;나 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;saengil&lt;/code&gt;을 쓰고 싶은 경우이다.&lt;/p&gt;
 
-&lt;p&gt;다른 경우가 더 흔한 경우인데, 모델 관계(model relationship)를 필드 표현식으로 다뤄야 하는 경우이다. 예를 들어 &lt;code class=&quot;highlighter-rouge&quot;&gt;Kay&lt;/code&gt;라는 모델이 있고 &lt;code class=&quot;highlighter-rouge&quot;&gt;Hannal&lt;/code&gt; 모델과 1:N 관계를 맺고 있다고 하자.&lt;/p&gt;
+&lt;p&gt;다른 경우가 더 흔한 경우인데, 모델 관계(model relationship)를 필드 표현식으로 다뤄야 하는 경우이다. 예를 들어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Kay&lt;/code&gt;라는 모델이 있고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hannal&lt;/code&gt; 모델과 1:N 관계를 맺고 있다고 하자.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Kay(models.Model):
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Kay(models.Model):
     name = models.CharField(max_length=32, null=True, blank=True)
 
 
@@ -154,14 +159,14 @@ class Hannal(models.Model):
     related = models.ForeignKey('Kay', on_delete=models.CASCADE)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;그리고 &lt;code class=&quot;highlighter-rouge&quot;&gt;Kay&lt;/code&gt; 모델의 &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드를 기준으로 정렬한 &lt;code class=&quot;highlighter-rouge&quot;&gt;Hannal&lt;/code&gt; 모델의 데이터를 가져오려면 다음과 같이 한다.&lt;/p&gt;
+&lt;p&gt;그리고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Kay&lt;/code&gt; 모델의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드를 기준으로 정렬한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hannal&lt;/code&gt; 모델의 데이터를 가져오려면 다음과 같이 한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Hannal.objects.order_by('related__name')
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Hannal.objects.order_by('related__name')
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;여기서 &lt;code class=&quot;highlighter-rouge&quot;&gt;related__name&lt;/code&gt;을 django-filter 에서도 사용할 수 있다.&lt;/p&gt;
+&lt;p&gt;여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;related__name&lt;/code&gt;을 django-filter 에서도 사용할 수 있다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class HannalFilter(filters.FilterSet):
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class HannalFilter(filters.FilterSet):
     ordering = filters.OrderingFilter(
       fields=(
           ('name', 'name', ),
@@ -171,54 +176,54 @@ class Hannal(models.Model):
     )
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;이렇게 &lt;code class=&quot;highlighter-rouge&quot;&gt;fields&lt;/code&gt;를 지정하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;ordering&lt;/code&gt;키의 값으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;saengil&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;kayname&lt;/code&gt;을 사용할 수 있다. &lt;a href=&quot;https://www.django-rest-framework.org/&quot;&gt;Django REST framework&lt;/a&gt;(이하 DRF)에 적용하면 URL을 &lt;code class=&quot;highlighter-rouge&quot;&gt;?ordering=name&lt;/code&gt;로 하여 &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드에 대해 오름차순 정렬하거나 &lt;code class=&quot;highlighter-rouge&quot;&gt;?ordering=-name&lt;/code&gt;로 하여 내림차순 정렬한다. 이 뿐만 아니라 여러 개 필드를 정렬할 수도 있다. 예를 들어 &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드는 오름차순, &lt;code class=&quot;highlighter-rouge&quot;&gt;birthday&lt;/code&gt; 필드는 내림차순으로 정렬하고자 한다면 HTTP Query String 으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;?ordering=name,-birthday&lt;/code&gt;라고 하면 된다.&lt;/p&gt;
+&lt;p&gt;이렇게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fields&lt;/code&gt;를 지정하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ordering&lt;/code&gt;키의 값으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;saengil&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kayname&lt;/code&gt;을 사용할 수 있다. &lt;a href=&quot;https://www.django-rest-framework.org/&quot;&gt;Django REST framework&lt;/a&gt;(이하 DRF)에 적용하면 URL을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?ordering=name&lt;/code&gt;로 하여 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드에 대해 오름차순 정렬하거나 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?ordering=-name&lt;/code&gt;로 하여 내림차순 정렬한다. 이 뿐만 아니라 여러 개 필드를 정렬할 수도 있다. 예를 들어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt; 필드는 오름차순, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;birthday&lt;/code&gt; 필드는 내림차순으로 정렬하고자 한다면 HTTP Query String 으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?ordering=name,-birthday&lt;/code&gt;라고 하면 된다.&lt;/p&gt;
 
 &lt;h3 id=&quot;orderingfilter에-nulls-last-적용&quot;&gt;OrderingFilter에 NULLS LAST 적용&lt;/h3&gt;
 
-&lt;p&gt;편하다. 근데 django-filter &lt;code class=&quot;highlighter-rouge&quot;&gt;2.4.0&lt;/code&gt; 버전 기준까지는 &lt;code class=&quot;highlighter-rouge&quot;&gt;NULLS LAST&lt;/code&gt;와 &lt;code class=&quot;highlighter-rouge&quot;&gt;NULLS FIRST&lt;/code&gt;를 지원하지 않는다. 그러므로 따로 구현해야 한다. &lt;code class=&quot;highlighter-rouge&quot;&gt;OrderingFilter&lt;/code&gt;가 제공하는 기능은 그대로 쓰되 QuerySet 만들 때 null 정렬만 추가하면 되니 이 클래스를 상속받아 쓴다.&lt;/p&gt;
+&lt;p&gt;편하다. 근데 django-filter &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.4.0&lt;/code&gt; 버전 기준까지는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NULLS LAST&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NULLS FIRST&lt;/code&gt;를 지원하지 않는다. 그러므로 따로 구현해야 한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderingFilter&lt;/code&gt;가 제공하는 기능은 그대로 쓰되 QuerySet 만들 때 null 정렬만 추가하면 되니 이 클래스를 상속받아 쓴다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;django&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;django_filters&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;
-
-
-&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NullsLastOrderingFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OrderingFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qs&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;is_desc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;startswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'-'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;field&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param_map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_desc&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;continue&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_desc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;qs&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;order_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nulls_last&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;qs&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;order_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;asc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nulls_last&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qs&lt;/span&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from django.db.models import F
+import django_filters as filters
 
 
-&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HannalFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FilterSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ordering&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NullsLastOrderingFilter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;fields&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=(&lt;/span&gt;
-          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'birthday'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'saengil'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'related__name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'kayname'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+class NullsLastOrderingFilter(filters.OrderingFilter):
+    def filter(self, qs, value):
+        if not value:
+            return qs
+        for _v in value:
+            is_desc = _v.startswith('-')
+            field = self.param_map.get(_v[1:] if is_desc else _v)
+            if not field:
+                continue
+            if is_desc:
+                qs = qs.order_by(F(field).desc(nulls_last=True))
+            else:
+                qs = qs.order_by(F(field).asc(nulls_last=True))
+        return qs
 
-    &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hannal&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;fields&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'birthday'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+class HannalFilter(filters.FilterSet):
+    ordering = NullsLastOrderingFilter(
+      fields=(
+          ('name', 'name', ),
+          ('birthday', 'saengil', ),
+          ('related__name', 'kayname', ),
+      ),
+    )
+
+    class Meta:
+        model = Hannal
+        fields = ('name', 'birthday', )
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;위에서 설명한 내용을 모두 반영한 코드이다. &lt;code class=&quot;highlighter-rouge&quot;&gt;filter()&lt;/code&gt; 메서드는 django-filter 가 넘겨받은 QuerySet 객체이다. DRF에 연동해 사용한다면 DRF가 이런 저런 조치를 취한 QuerySet일테고, 사용자가 만든 filter 들을 거친 QuerySet이기도 하다.&lt;/p&gt;
+&lt;p&gt;위에서 설명한 내용을 모두 반영한 코드이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;filter()&lt;/code&gt; 메서드는 django-filter 가 넘겨받은 QuerySet 객체이다. DRF에 연동해 사용한다면 DRF가 이런 저런 조치를 취한 QuerySet일테고, 사용자가 만든 filter 들을 거친 QuerySet이기도 하다.&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NULLS FIRST&lt;/code&gt;를 적용하려면 &lt;code class=&quot;highlighter-rouge&quot;&gt;nulls_last&lt;/code&gt; 대신 &lt;code class=&quot;highlighter-rouge&quot;&gt;nulls_first&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt;로 지정하면 된다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NULLS FIRST&lt;/code&gt;를 적용하려면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nulls_last&lt;/code&gt; 대신 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nulls_first&lt;/code&gt;를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;True&lt;/code&gt;로 지정하면 된다.&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 13 Nov 2020 11:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2020/11/nulls-last-ordering-for-django-filter/</link>
-        <guid isPermaLink="true">http://localhost:4000//2020/11/nulls-last-ordering-for-django-filter/</guid>
+        <link>http://blog.hannal.com//2020/11/nulls-last-ordering-for-django-filter/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2020/11/nulls-last-ordering-for-django-filter/</guid>
         
         <category>django filter</category>
         
@@ -278,8 +283,8 @@ class Hannal(models.Model):
 &lt;p&gt;중년에 들어섰다는 걸 절감한다. 손목, 어깨, 손가락, 허리 부근 직업병은 갈수록 심해지고, 체력 저하도 심각하다. 집중력과 의지력, 친절과 배려심은 체력에서 나오더라. 크로스핏을 사랑하지만 또 다치고 나서 잠정 중단했다. 체형 교정과 유연성을 개선하기 전엔 재개하면 안 될 것 같다.&lt;/p&gt;
 </description>
         <pubDate>Tue, 31 Dec 2019 11:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2019/12/closing/</link>
-        <guid isPermaLink="true">http://localhost:4000//2019/12/closing/</guid>
+        <link>http://blog.hannal.com//2019/12/closing/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2019/12/closing/</guid>
         
         <category>회고</category>
         
@@ -447,8 +452,8 @@ class Hannal(models.Model):
 
 </description>
         <pubDate>Sat, 29 Dec 2018 02:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2018/12/newbies-buying-guide-for-tesla-model-x/</link>
-        <guid isPermaLink="true">http://localhost:4000//2018/12/newbies-buying-guide-for-tesla-model-x/</guid>
+        <link>http://blog.hannal.com//2018/12/newbies-buying-guide-for-tesla-model-x/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2018/12/newbies-buying-guide-for-tesla-model-x/</guid>
         
         <category>테슬라</category>
         
@@ -474,8 +479,8 @@ class Hannal(models.Model):
 &lt;p&gt;개인 홈페이지부터 시작해 20년 넘게 유지한 개인 공간을 앞으로 어떡할 지 고민해본다.&lt;/p&gt;
 </description>
         <pubDate>Mon, 05 Feb 2018 02:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2018/02/the-filters/</link>
-        <guid isPermaLink="true">http://localhost:4000//2018/02/the-filters/</guid>
+        <link>http://blog.hannal.com//2018/02/the-filters/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2018/02/the-filters/</guid>
         
         <category>생각표현</category>
         
@@ -601,7 +606,7 @@ class Hannal(models.Model):
 
 &lt;p&gt;개발팀과 함께 창업의 이유(why)를 함께 고민하고, 그 문제를 풀 방법을(how) 모색하여 고객에게 적합한 제품이나 서비스(what)가 나와야 한다. 그래서 개발자 개개인은 전문 기술 분야를 갖고 있더라도 팀은 문제를 해결하는 데 필요한 기술 스택을 어떻게든 소화할 수(풀스택) 있어야 한다. 풀스택이라 함은 능력이나 경력이 될 수도 있지만 더 중요한 건 문제를 풀겠다는 태도(마음)이다.&lt;/p&gt;
 
-&lt;p&gt;그런 점에서 소울부스터는 개발자 영입이 쉽진 않았다. 아무래도 여성 맞춤 속옷 사업 아이템에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;여성&lt;/code&gt;이 큰 인상을 끼치고, 적어도 내 지인이나 인터뷰를 본 남성 개발자 중에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;여성&lt;/code&gt; 속옷과 관련된 주제에 문제를 고민하는 경우는 없었다. 그래서 인터뷰를 볼 때 소울부스터가 해결하고자 하는 문제는 &lt;code class=&quot;highlighter-rouge&quot;&gt;맞춤&lt;/code&gt;이라는 것에 초점을 두고자 했다. 박수영 대표가 내게 들려준 비전과 창업 이유를 최대한 기술과 개발로 풀어서 전달하려 노력했다.&lt;/p&gt;
+&lt;p&gt;그런 점에서 소울부스터는 개발자 영입이 쉽진 않았다. 아무래도 여성 맞춤 속옷 사업 아이템에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;여성&lt;/code&gt;이 큰 인상을 끼치고, 적어도 내 지인이나 인터뷰를 본 남성 개발자 중에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;여성&lt;/code&gt; 속옷과 관련된 주제에 문제를 고민하는 경우는 없었다. 그래서 인터뷰를 볼 때 소울부스터가 해결하고자 하는 문제는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;맞춤&lt;/code&gt;이라는 것에 초점을 두고자 했다. 박수영 대표가 내게 들려준 비전과 창업 이유를 최대한 기술과 개발로 풀어서 전달하려 노력했다.&lt;/p&gt;
 
 &lt;p&gt;인터뷰 볼 때 중요시 여긴 또다른 요소는 서비스 운영 경험이었다. 박수영 대표는 실행력이 좋고, 또 성격도 급한 편이다. 필요하거나 중요한 일이면 설령 그게 하기 싫거나 까다로운 일이라도 망설이지 않고 기꺼이 직접 실행하는 사람이다. 이런 대표자의 실행력은 서비스를 운영하여 사업 실적이 바로 바로 발생하는 실 운영 환경에서 개발자에게 압박과 부담으로 작용한다. 그런 상황에 일정 기간 노출된 경험이 필요했다.&lt;/p&gt;
 
@@ -629,8 +634,8 @@ class Hannal(models.Model):
 &lt;p&gt;2018년 1월 12일 추가 : 소울부스터에서는 샘 방지 위생 팬티인 시즈더데이를 전문으로 취급하는 쇼핑몰인 &lt;a href=&quot;http://www.seizetheday.co.kr/&quot;&gt;시즈더데이&lt;/a&gt;를 2017년 12월에 출시했다. 팬티 제품은 브레지어와 달리 가슴 체형 진단을 하지 않아도 되고, 회원가입을 하지 않아도 손쉽게 주문할 수 있도록 별도 쇼핑몰을 구축한 것인데, 흥미로운 점은 쇼핑몰 호스팅 서비스를 사용한 점이다. 개발팀을 보유한 회사의 대표가 이런 판단을 실제로 실행하는 게 생각보다 쉽지 않다. 정말 사업 측면에서 놀라운 실행력이다. 개발자로서 이런 사업 실행력과 판단에 박수를 보내본다.&lt;/p&gt;
 </description>
         <pubDate>Wed, 10 Jan 2018 02:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2018/01/soulbooster-production-story/</link>
-        <guid isPermaLink="true">http://localhost:4000//2018/01/soulbooster-production-story/</guid>
+        <link>http://blog.hannal.com//2018/01/soulbooster-production-story/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2018/01/soulbooster-production-story/</guid>
         
         <category>소울부스터</category>
         
@@ -674,8 +679,8 @@ class Hannal(models.Model):
 &lt;p&gt;그렇다고 같은 일을 많은 사람이 한 팀으로 모이는 건 아니다. 오히려 일을 쪼개고 쪼갠 일에 대해 온전히 위임하고 권한을 발휘하도록 하여 개개인 간 의존성을 낮춰야 한다. 팀은 다른 조직에 비해 오히려 큰데 일은 다른 조직보다 더 원자화 되어 동작하는 그런 조직을 어떻게 만들어야 할 지 아직은 잘 모르겠다.&lt;/p&gt;
 </description>
         <pubDate>Sat, 06 Jan 2018 10:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2018/01/thinking-of-how-to-work/</link>
-        <guid isPermaLink="true">http://localhost:4000//2018/01/thinking-of-how-to-work/</guid>
+        <link>http://blog.hannal.com//2018/01/thinking-of-how-to-work/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2018/01/thinking-of-how-to-work/</guid>
         
         <category>조직</category>
         
@@ -696,16 +701,16 @@ class Hannal(models.Model):
 
 &lt;p&gt;Django Template은 없는 템플릿 변수나 템플릿 변수의 속성, 키, 색인이 없어도 오류 상황을 일으키지 않고 조용히 오류 상황을 잠재운다. 일명 Silent failure 동작이다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{{ lorem.ipsum.hello.world }}
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{{ lorem.ipsum.hello.world }}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lorem&lt;/code&gt;이라는 템플릿 변수가 없든 &lt;code class=&quot;highlighter-rouge&quot;&gt;lorem&lt;/code&gt; 템플릿 변수는 있는데 이 객체에 &lt;code class=&quot;highlighter-rouge&quot;&gt;ipsum&lt;/code&gt;이라는 키나 속성이 없다고 가정하자. 최종 템플릿 맥락이 출력(치환)이면 Django는 변수나 키, 속성이 없다는 오류 상황을 일으키지 않으며, 저 템플릿 변수 위치엔 아무것도 출력되지 않는다. 템플릿 변수를 출력(render)하거나 템플릿 태그에서 사용할 때는 이처럼 Silent failure로 동작한다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lorem&lt;/code&gt;이라는 템플릿 변수가 없든 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lorem&lt;/code&gt; 템플릿 변수는 있는데 이 객체에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ipsum&lt;/code&gt;이라는 키나 속성이 없다고 가정하자. 최종 템플릿 맥락이 출력(치환)이면 Django는 변수나 키, 속성이 없다는 오류 상황을 일으키지 않으며, 저 템플릿 변수 위치엔 아무것도 출력되지 않는다. 템플릿 변수를 출력(render)하거나 템플릿 태그에서 사용할 때는 이처럼 Silent failure로 동작한다.&lt;/p&gt;
 
-&lt;p&gt;하지만 템플릿 필터를 거치는 경우엔 &lt;code class=&quot;highlighter-rouge&quot;&gt;VariableDoesNotExist&lt;/code&gt; 예외(exception)가 발생한다. 예외 이름에서 드러나듯이 템플릿 변수가 없다는 뜻이다.&lt;/p&gt;
+&lt;p&gt;하지만 템플릿 필터를 거치는 경우엔 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;VariableDoesNotExist&lt;/code&gt; 예외(exception)가 발생한다. 예외 이름에서 드러나듯이 템플릿 변수가 없다는 뜻이다.&lt;/p&gt;
 
-&lt;p&gt;예를 들어, 존재하지 않는 템플릿 변수인 &lt;code class=&quot;highlighter-rouge&quot;&gt;not_exist_var&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;divisibleby&lt;/code&gt; 템플릿 필터에 사용하면 예외 오류가 발생한다.&lt;/p&gt;
+&lt;p&gt;예를 들어, 존재하지 않는 템플릿 변수인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;not_exist_var&lt;/code&gt;를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;divisibleby&lt;/code&gt; 템플릿 필터에 사용하면 예외 오류가 발생한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{{ '1234'|divisibleby:not_exist_var }}
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{{ '1234'|divisibleby:not_exist_var }}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;이에 대해 Django 공식 문서에서는 다음과 같이 설명한다.&lt;/p&gt;
@@ -714,38 +719,38 @@ class Hannal(models.Model):
   &lt;p&gt;Thus, filter functions should avoid raising exceptions if there is a reasonable fallback value to return. In case of input that represents a clear bug in a template, raising an exception may still be better than silent failure which hides the bug. ( 출처 : &lt;a href=&quot;https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/#writing-custom-template-filters&quot;&gt;custom-template-tags - writing-custom-template-filter&lt;/a&gt; )&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;간단히 말해서 템플릿 필터 함수에서는 버그를 숨기는 Silent failure 보다는 예외를 일으키는 게 낫다고 한다. 실제로 Django 내장 템플릿 필터를 보면 대체물을 대신 반환해도 될 만한 경우엔 Exception 처리를 잡아내서 오류 상황을 피하지만, 그 외의 경우엔 Exception이 발생하게 냅둔다. 문제는 그 정책이 예상을 벗어나는 경우에 발생한다. 난 &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터에서 조용한 실패 처리를 하지 않는 상황을 만났다. &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터는 대개 다음과 같이 사용한다.&lt;/p&gt;
+&lt;p&gt;간단히 말해서 템플릿 필터 함수에서는 버그를 숨기는 Silent failure 보다는 예외를 일으키는 게 낫다고 한다. 실제로 Django 내장 템플릿 필터를 보면 대체물을 대신 반환해도 될 만한 경우엔 Exception 처리를 잡아내서 오류 상황을 피하지만, 그 외의 경우엔 Exception이 발생하게 냅둔다. 문제는 그 정책이 예상을 벗어나는 경우에 발생한다. 난 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터에서 조용한 실패 처리를 하지 않는 상황을 만났다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터는 대개 다음과 같이 사용한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{{ empty_var|default:'비었수다' }}
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{{ empty_var|default:'비었수다' }}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;나도 비슷하게 사용했다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{{ apple.attr3|default:lemon.attrdict.color }}
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{{ apple.attr3|default:lemon.attrdict.color }}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Django 템플릿 엔진 동작에 익숙하다면 다음과 같이 동작하길 기대(예상)한다.&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apple.attr3&lt;/code&gt;가 없으면 &lt;code class=&quot;highlighter-rouge&quot;&gt;lemon.attrdict['color']&lt;/code&gt;를 대신 출력&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;lemon.attrdict&lt;/code&gt;에 &lt;code class=&quot;highlighter-rouge&quot;&gt;color&lt;/code&gt; 키가 없으면 결국 아무것도 출력하지 않고 Silent failure.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apple.attr3&lt;/code&gt;가 없으면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lemon.attrdict['color']&lt;/code&gt;를 대신 출력&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lemon.attrdict&lt;/code&gt;에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;color&lt;/code&gt; 키가 없으면 결국 아무것도 출력하지 않고 Silent failure.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;딱히 Exception이 발생할만한 로직이 아니고, &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 필터 함수를 봐도 인자 두 개 받아서 &lt;code class=&quot;highlighter-rouge&quot;&gt;return value or arg&lt;/code&gt;로 동작하는 것 뿐이다. 다시 말해 &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터인 Python 함수는 두 개 인자를 받는데, 첫 번째 인자로 받는 &lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt; 앞에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;apple.attr3&lt;/code&gt;가 있으면 해당 객체를 반환하고, 없으면 두 번째 인자로 받는 &lt;code class=&quot;highlighter-rouge&quot;&gt;:&lt;/code&gt; 뒤에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;lemon.attrdict.color&lt;/code&gt;를 반환한다.&lt;/p&gt;
+&lt;p&gt;딱히 Exception이 발생할만한 로직이 아니고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; 필터 함수를 봐도 인자 두 개 받아서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;return value or arg&lt;/code&gt;로 동작하는 것 뿐이다. 다시 말해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; 템플릿 필터인 Python 함수는 두 개 인자를 받는데, 첫 번째 인자로 받는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;|&lt;/code&gt; 앞에 있는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apple.attr3&lt;/code&gt;가 있으면 해당 객체를 반환하고, 없으면 두 번째 인자로 받는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:&lt;/code&gt; 뒤에 있는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lemon.attrdict.color&lt;/code&gt;를 반환한다.&lt;/p&gt;
 
-&lt;p&gt;하지만 실제로는 &lt;code class=&quot;highlighter-rouge&quot;&gt;VariableDoesNotExist&lt;/code&gt; 예외 오류가 발생한다. 이 예외는 &lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그로 해결하면 된다.&lt;/p&gt;
+&lt;p&gt;하지만 실제로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;VariableDoesNotExist&lt;/code&gt; 예외 오류가 발생한다. 이 예외는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그로 해결하면 된다.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://gist.github.com/hannal/9de33b54a749457d7f29c5f30c5e9136&quot;&gt;with 템플릿 태그로 VariableDoesNotExist 예방&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그는 Silent failure 처리를 해주니 &lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그로 만든 임시 템플릿 변수인 &lt;code class=&quot;highlighter-rouge&quot;&gt;colour&lt;/code&gt;엔 출력할(render) 게 없는 빈 객체가 할당이 된다. &lt;code class=&quot;highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그를 안 쓴 경우엔 Silent failure를 해주는 놈이 없다보니 Exception이 그대로 나버린 것이다. 이 문제가 까다로운 이유는 Django 디버깅 화면에서는 문제가 있는 템플릿 줄(line)을 가리키지 않고 Exception이 발생한 Django 소스를 보여주는 데 있다. 평범한 속성명이나 키 이름을 쓰다가는 고생하기 십상이다.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그는 Silent failure 처리를 해주니 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그로 만든 임시 템플릿 변수인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;colour&lt;/code&gt;엔 출력할(render) 게 없는 빈 객체가 할당이 된다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;with&lt;/code&gt; 템플릿 태그를 안 쓴 경우엔 Silent failure를 해주는 놈이 없다보니 Exception이 그대로 나버린 것이다. 이 문제가 까다로운 이유는 Django 디버깅 화면에서는 문제가 있는 템플릿 줄(line)을 가리키지 않고 Exception이 발생한 Django 소스를 보여주는 데 있다. 평범한 속성명이나 키 이름을 쓰다가는 고생하기 십상이다.&lt;/p&gt;
 
-&lt;p&gt;흔히 겪는 상황은 아닐 것 같다. 나는 모델에 &lt;code class=&quot;highlighter-rouge&quot;&gt;JSONField&lt;/code&gt;를 썼고, 이 모델필드의 &lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt; 객체에 특정 키(위 예제 기준으로는 &lt;code class=&quot;highlighter-rouge&quot;&gt;colour&lt;/code&gt;키)가 없어서 발생한 거였다. 뷰 함수에서 넘겨주는 템플릿 변수 이름대로라면 금방 발견했을 것 같다.&lt;/p&gt;
+&lt;p&gt;흔히 겪는 상황은 아닐 것 같다. 나는 모델에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JSONField&lt;/code&gt;를 썼고, 이 모델필드의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; 객체에 특정 키(위 예제 기준으로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;colour&lt;/code&gt;키)가 없어서 발생한 거였다. 뷰 함수에서 넘겨주는 템플릿 변수 이름대로라면 금방 발견했을 것 같다.&lt;/p&gt;
 
 &lt;p&gt;삼천포 요약 : 변수 네이밍을 괴랄하게 하면 디버깅에 도움이 된다.&lt;/p&gt;
 </description>
         <pubDate>Mon, 26 Jun 2017 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2017/06/django-template-variabledoesnotexist-exception/</link>
-        <guid isPermaLink="true">http://localhost:4000//2017/06/django-template-variabledoesnotexist-exception/</guid>
+        <link>http://blog.hannal.com//2017/06/django-template-variabledoesnotexist-exception/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2017/06/django-template-variabledoesnotexist-exception/</guid>
         
         <category>django</category>
         
@@ -841,8 +846,8 @@ class Hannal(models.Model):
 &lt;p&gt;사람은 자신의 몸이 움직이는 공간을 인지하고 있다. 부딪히지 않고 좁은 틈을 지나갈 수 있는지, 줄넘기를 하는 저 사람과 어느 정도 떨어져야 안전한지 무의식 중에 파악한다. 운전석에 앉으면 자신의 몸을 기준으로 인식된 개인 공간이 차체만큼 확장된다. 마치 차체가 내 몸이 된 것처럼. 이 인지와 실제 차체와 동기화되는 비율이 높을수록 마음이 편하고 안정되는데, 동기화 수준을 떨어뜨리는 요소가 몇 가지 있다. 운전석 기준으로 사각, 후사경에서 인식되는 차 뒷쪽 공간과 실제 차 엉덩이 위치의 위치 차이, 운전석에서 보이는 후드(보닛) 거리와 실제 후드 길이 차이 등이다. 이 차는 내 체형에 잘 맞아서 시야가 좋다. 차체가 SUV에 비해선 낮고, 세단보다는 아주 조금 더 높아서 운전석 높이가 적당하다. 그리고 사각(죽은 시야각)이 거의 없다.&lt;/p&gt;
 </description>
         <pubDate>Mon, 28 Nov 2016 11:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2016/11/citroen-c4-cactus/</link>
-        <guid isPermaLink="true">http://localhost:4000//2016/11/citroen-c4-cactus/</guid>
+        <link>http://blog.hannal.com//2016/11/citroen-c4-cactus/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2016/11/citroen-c4-cactus/</guid>
         
         <category>citroen</category>
         
@@ -876,8 +881,8 @@ class Hannal(models.Model):
 &lt;p&gt;이 책은 출판사 &lt;a href=&quot;http://www.jpub.kr&quot;&gt;제이펍&lt;/a&gt;에서 내게 증정해준 것이다. 내게 리뷰 같은 걸 요구하지 않고 보내준 것이지만, 국내에 Flask를 다루는 국내 집필서가 없어서 반가운 마음에 나 스스로 쓴 비대가성 글이다.&lt;/p&gt;
 </description>
         <pubDate>Fri, 08 Jul 2016 01:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2016/07/book-python-web-programming-with-flask/</link>
-        <guid isPermaLink="true">http://localhost:4000//2016/07/book-python-web-programming-with-flask/</guid>
+        <link>http://blog.hannal.com//2016/07/book-python-web-programming-with-flask/</link>
+        <guid isPermaLink="true">http://blog.hannal.com//2016/07/book-python-web-programming-with-flask/</guid>
         
         <category>python</category>
         
