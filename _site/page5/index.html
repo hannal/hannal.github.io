@@ -91,7 +91,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2020. All rights reserved.
+      &copy; 2021. All rights reserved.
     </p>
   </div>
 </div>
@@ -111,6 +111,71 @@
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h2 class="post-title">
+      <a href="/2017/06/django-template-variabledoesnotexist-exception/">
+        Django 템플릿에서 VariableDoesNotExist 예외 오류 대응하기
+      </a>
+    </h2>
+
+    <span class="post-date">26 Jun 2017</span>
+
+    <p>한 줄 요약 : Django 템플릿 엔진은 템플릿 필터에 대해서 항상 조용한 실패 처리(silent failure)를 하진 않는다.</p>
+
+<hr />
+
+<p>Django Template은 없는 템플릿 변수나 템플릿 변수의 속성, 키, 색인이 없어도 오류 상황을 일으키지 않고 조용히 오류 상황을 잠재운다. 일명 Silent failure 동작이다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ lorem.ipsum.hello.world }}
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">lorem</code>이라는 템플릿 변수가 없든 <code class="highlighter-rouge">lorem</code> 템플릿 변수는 있는데 이 객체에 <code class="highlighter-rouge">ipsum</code>이라는 키나 속성이 없다고 가정하자. 최종 템플릿 맥락이 출력(치환)이면 Django는 변수나 키, 속성이 없다는 오류 상황을 일으키지 않으며, 저 템플릿 변수 위치엔 아무것도 출력되지 않는다. 템플릿 변수를 출력(render)하거나 템플릿 태그에서 사용할 때는 이처럼 Silent failure로 동작한다.</p>
+
+<p>하지만 템플릿 필터를 거치는 경우엔 <code class="highlighter-rouge">VariableDoesNotExist</code> 예외(exception)가 발생한다. 예외 이름에서 드러나듯이 템플릿 변수가 없다는 뜻이다.</p>
+
+<p>예를 들어, 존재하지 않는 템플릿 변수인 <code class="highlighter-rouge">not_exist_var</code>를 <code class="highlighter-rouge">divisibleby</code> 템플릿 필터에 사용하면 예외 오류가 발생한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ '1234'|divisibleby:not_exist_var }}
+</code></pre></div></div>
+
+<p>이에 대해 Django 공식 문서에서는 다음과 같이 설명한다.</p>
+
+<blockquote>
+  <p>Thus, filter functions should avoid raising exceptions if there is a reasonable fallback value to return. In case of input that represents a clear bug in a template, raising an exception may still be better than silent failure which hides the bug. ( 출처 : <a href="https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/#writing-custom-template-filters">custom-template-tags - writing-custom-template-filter</a> )</p>
+</blockquote>
+
+<p>간단히 말해서 템플릿 필터 함수에서는 버그를 숨기는 Silent failure 보다는 예외를 일으키는 게 낫다고 한다. 실제로 Django 내장 템플릿 필터를 보면 대체물을 대신 반환해도 될 만한 경우엔 Exception 처리를 잡아내서 오류 상황을 피하지만, 그 외의 경우엔 Exception이 발생하게 냅둔다. 문제는 그 정책이 예상을 벗어나는 경우에 발생한다. 난 <code class="highlighter-rouge">default</code> 템플릿 필터에서 조용한 실패 처리를 하지 않는 상황을 만났다. <code class="highlighter-rouge">default</code> 템플릿 필터는 대개 다음과 같이 사용한다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ empty_var|default:'비었수다' }}
+</code></pre></div></div>
+
+<p>나도 비슷하게 사용했다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ apple.attr3|default:lemon.attrdict.color }}
+</code></pre></div></div>
+
+<p>Django 템플릿 엔진 동작에 익숙하다면 다음과 같이 동작하길 기대(예상)한다.</p>
+
+<ol>
+  <li><code class="highlighter-rouge">apple.attr3</code>가 없으면 <code class="highlighter-rouge">lemon.attrdict['color']</code>를 대신 출력</li>
+  <li><code class="highlighter-rouge">lemon.attrdict</code>에 <code class="highlighter-rouge">color</code> 키가 없으면 결국 아무것도 출력하지 않고 Silent failure.</li>
+</ol>
+
+<p>딱히 Exception이 발생할만한 로직이 아니고, <code class="highlighter-rouge">default</code> 필터 함수를 봐도 인자 두 개 받아서 <code class="highlighter-rouge">return value or arg</code>로 동작하는 것 뿐이다. 다시 말해 <code class="highlighter-rouge">default</code> 템플릿 필터인 Python 함수는 두 개 인자를 받는데, 첫 번째 인자로 받는 <code class="highlighter-rouge">|</code> 앞에 있는 <code class="highlighter-rouge">apple.attr3</code>가 있으면 해당 객체를 반환하고, 없으면 두 번째 인자로 받는 <code class="highlighter-rouge">:</code> 뒤에 있는 <code class="highlighter-rouge">lemon.attrdict.color</code>를 반환한다.</p>
+
+<p>하지만 실제로는 <code class="highlighter-rouge">VariableDoesNotExist</code> 예외 오류가 발생한다. 이 예외는 <code class="highlighter-rouge">with</code> 템플릿 태그로 해결하면 된다.</p>
+
+<p><a href="https://gist.github.com/hannal/9de33b54a749457d7f29c5f30c5e9136">with 템플릿 태그로 VariableDoesNotExist 예방</a></p>
+
+<p><code class="highlighter-rouge">with</code> 템플릿 태그는 Silent failure 처리를 해주니 <code class="highlighter-rouge">with</code> 템플릿 태그로 만든 임시 템플릿 변수인 <code class="highlighter-rouge">colour</code>엔 출력할(render) 게 없는 빈 객체가 할당이 된다. <code class="highlighter-rouge">with</code> 템플릿 태그를 안 쓴 경우엔 Silent failure를 해주는 놈이 없다보니 Exception이 그대로 나버린 것이다. 이 문제가 까다로운 이유는 Django 디버깅 화면에서는 문제가 있는 템플릿 줄(line)을 가리키지 않고 Exception이 발생한 Django 소스를 보여주는 데 있다. 평범한 속성명이나 키 이름을 쓰다가는 고생하기 십상이다.</p>
+
+<p>흔히 겪는 상황은 아닐 것 같다. 나는 모델에 <code class="highlighter-rouge">JSONField</code>를 썼고, 이 모델필드의 <code class="highlighter-rouge">dict</code> 객체에 특정 키(위 예제 기준으로는 <code class="highlighter-rouge">colour</code>키)가 없어서 발생한 거였다. 뷰 함수에서 넘겨주는 템플릿 변수 이름대로라면 금방 발견했을 것 같다.</p>
+
+<p>삼천포 요약 : 변수 네이밍을 괴랄하게 하면 디버깅에 도움이 된다.</p>
+
+  </div>
+  <hr class="post-parting-line" />
   
   <div class="post">
     <h2 class="post-title">
@@ -200,34 +265,6 @@
 <p>방향 전환과 제동하는 느낌도 묵직해서 밀리지 않아 안전감 있다. 급곡선을 돌 때는 차 중안 부근이, 급제동을 걸 때는 차 엉덩이 부근이 땅으로 꾹 눌리는 느낌이 든달까? 주행감은 상당히 가벼워서 과속 방지턱도 퉁퉁 튀듯 넘는 기분이 드는데, 방향 전환과 제동은 묵직해서 비교되어 재밌다. 상대적으로 묵직한 게 아니라 정말 묵직하다. 새 차라 그런가? 마음에 든다.</p>
 
 <p>사람은 자신의 몸이 움직이는 공간을 인지하고 있다. 부딪히지 않고 좁은 틈을 지나갈 수 있는지, 줄넘기를 하는 저 사람과 어느 정도 떨어져야 안전한지 무의식 중에 파악한다. 운전석에 앉으면 자신의 몸을 기준으로 인식된 개인 공간이 차체만큼 확장된다. 마치 차체가 내 몸이 된 것처럼. 이 인지와 실제 차체와 동기화되는 비율이 높을수록 마음이 편하고 안정되는데, 동기화 수준을 떨어뜨리는 요소가 몇 가지 있다. 운전석 기준으로 사각, 후사경에서 인식되는 차 뒷쪽 공간과 실제 차 엉덩이 위치의 위치 차이, 운전석에서 보이는 후드(보닛) 거리와 실제 후드 길이 차이 등이다. 이 차는 내 체형에 잘 맞아서 시야가 좋다. 차체가 SUV에 비해선 낮고, 세단보다는 아주 조금 더 높아서 운전석 높이가 적당하다. 그리고 사각(죽은 시야각)이 거의 없다.</p>
-
-  </div>
-  <hr class="post-parting-line" />
-  
-  <div class="post">
-    <h2 class="post-title">
-      <a href="/2016/07/book-python-web-programming-with-flask/">
-        책, Flask 기반의 파이썬 웹 프로그래밍 소감
-      </a>
-    </h2>
-
-    <span class="post-date">08 Jul 2016</span>
-
-    <p>Flask 입문서가 국내 집필서로 나왔다. <a href="http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=83637353">Flask 기반의 파이썬 웹 프로그래밍</a>인데 국내 집필서로는 처음으로 보인다.</p>
-
-<p>Flask는 경량 웹 프레임웍이다. 경량이라지만 꼭 필요한 건 갖춰져 있어서 바퀴 재발명하는 재미(?)를 만끽하기에도 좋고, 유연해서 확장하기도 좋다. 나도 애용하는데, 한 가지 아쉬운 점이 있고 한 가지 궁금한 점이 있다.</p>
-
-<p>아쉬운 점은 공식 문서가 불친절하다는 것이다. 방향 제시 수준으로만 설명하고 나머지는 알아서 하라는 식이다. 그래서 종종 flask 소스 코드를 까보곤 하며, 내가 VIM이나 Sublime text를 쓰다가 PyCharm을 쓰게 된 것도 구현체 이동 기능으로 Flask 소스 코드를 편하게 까보기 위해서이다. 문서 보다 Flask 소스 코드 보는 경우가 더 많다. 그래서 Python으로 웹 프로그래밍에 입문하려는 사람에겐 Django를 추천한다. 도구 자체를 익히기엔 Flask가 간결해서 좋지만, 입문자가 독학하는 데 도움이 될 만한 친절한 문서가 많지 않다.</p>
-
-<p>궁금한 점은 다른 사람은 어떻게 구조를 잡고 쓰고 있는가 이다. 자기 입맛대로 쓰면 그만인 웹 프레임웍이긴 하지만, 그래도 궁금하긴 하다. <a href="https://github.com/teampopong/pokr.kr">팀 포퐁의 pokr 소스 코드</a>를 본 뒤로는 더 궁금해졌다. Django는 구조가 그래도 고만고만한 경향이 있는데, Flask는 정말 다양하겠다는 생각이 들었다.</p>
-
-<p>이 책은 두 가지 중 하나는 꽤 충족시켜 준다. 공식 문서보다 친절한데 그렇다고 막 장황하지도 않다. 공식 문서를 보고 “설명이 이게 끝?”이라 생각이 든다면, 이 책은 거기서 한 수준 정도 더 설명한다. 설명을 하는 기반 코드가 대체로 공식 문서에 나온 예제이고 거의 동일한데, 그래서 좋은 점은 공식 문서를 볼 때 좀 더 친근하게 느낄 것이고 정석(?) 활용을 학습한다는 점이다. 아쉬운 점은 내가 궁금해하는 걸 해소하진 않는다는 점이다.</p>
-
-<p>Flask이든 Django이든 잘 활용하려면 각 도구가 지향하는 철학이나 방향을 공감하고 이해해야 한다고 본다. 이 책은 그런 공감을 일으키기엔 얕지만, 얕아서 편하게 읽기에 좋다. 자취생을 위한 간편 요리법을 다루는 책 같다. 입문자를 위한 책인지는 잘 모르겠고, 웹 프로그래밍을 해본 사람이 Flask에 얼른 입문해서 써먹을 때 더 유용해 보인다.</p>
-
-<hr />
-
-<p>이 책은 출판사 <a href="http://www.jpub.kr">제이펍</a>에서 내게 증정해준 것이다. 내게 리뷰 같은 걸 요구하지 않고 보내준 것이지만, 국내에 Flask를 다루는 국내 집필서가 없어서 반가운 마음에 나 스스로 쓴 비대가성 글이다.</p>
 
   </div>
   <hr class="post-parting-line" />

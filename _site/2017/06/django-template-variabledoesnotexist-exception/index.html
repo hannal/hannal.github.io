@@ -91,7 +91,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2020. All rights reserved.
+      &copy; 2021. All rights reserved.
     </p>
   </div>
 </div>
@@ -119,16 +119,16 @@
 
 <p>Django Template은 없는 템플릿 변수나 템플릿 변수의 속성, 키, 색인이 없어도 오류 상황을 일으키지 않고 조용히 오류 상황을 잠재운다. 일명 Silent failure 동작이다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ lorem.ipsum.hello.world }}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ lorem.ipsum.hello.world }}
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">lorem</code>이라는 템플릿 변수가 없든 <code class="language-plaintext highlighter-rouge">lorem</code> 템플릿 변수는 있는데 이 객체에 <code class="language-plaintext highlighter-rouge">ipsum</code>이라는 키나 속성이 없다고 가정하자. 최종 템플릿 맥락이 출력(치환)이면 Django는 변수나 키, 속성이 없다는 오류 상황을 일으키지 않으며, 저 템플릿 변수 위치엔 아무것도 출력되지 않는다. 템플릿 변수를 출력(render)하거나 템플릿 태그에서 사용할 때는 이처럼 Silent failure로 동작한다.</p>
+<p><code class="highlighter-rouge">lorem</code>이라는 템플릿 변수가 없든 <code class="highlighter-rouge">lorem</code> 템플릿 변수는 있는데 이 객체에 <code class="highlighter-rouge">ipsum</code>이라는 키나 속성이 없다고 가정하자. 최종 템플릿 맥락이 출력(치환)이면 Django는 변수나 키, 속성이 없다는 오류 상황을 일으키지 않으며, 저 템플릿 변수 위치엔 아무것도 출력되지 않는다. 템플릿 변수를 출력(render)하거나 템플릿 태그에서 사용할 때는 이처럼 Silent failure로 동작한다.</p>
 
-<p>하지만 템플릿 필터를 거치는 경우엔 <code class="language-plaintext highlighter-rouge">VariableDoesNotExist</code> 예외(exception)가 발생한다. 예외 이름에서 드러나듯이 템플릿 변수가 없다는 뜻이다.</p>
+<p>하지만 템플릿 필터를 거치는 경우엔 <code class="highlighter-rouge">VariableDoesNotExist</code> 예외(exception)가 발생한다. 예외 이름에서 드러나듯이 템플릿 변수가 없다는 뜻이다.</p>
 
-<p>예를 들어, 존재하지 않는 템플릿 변수인 <code class="language-plaintext highlighter-rouge">not_exist_var</code>를 <code class="language-plaintext highlighter-rouge">divisibleby</code> 템플릿 필터에 사용하면 예외 오류가 발생한다.</p>
+<p>예를 들어, 존재하지 않는 템플릿 변수인 <code class="highlighter-rouge">not_exist_var</code>를 <code class="highlighter-rouge">divisibleby</code> 템플릿 필터에 사용하면 예외 오류가 발생한다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ '1234'|divisibleby:not_exist_var }}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ '1234'|divisibleby:not_exist_var }}
 </code></pre></div></div>
 
 <p>이에 대해 Django 공식 문서에서는 다음과 같이 설명한다.</p>
@@ -137,32 +137,32 @@
   <p>Thus, filter functions should avoid raising exceptions if there is a reasonable fallback value to return. In case of input that represents a clear bug in a template, raising an exception may still be better than silent failure which hides the bug. ( 출처 : <a href="https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/#writing-custom-template-filters">custom-template-tags - writing-custom-template-filter</a> )</p>
 </blockquote>
 
-<p>간단히 말해서 템플릿 필터 함수에서는 버그를 숨기는 Silent failure 보다는 예외를 일으키는 게 낫다고 한다. 실제로 Django 내장 템플릿 필터를 보면 대체물을 대신 반환해도 될 만한 경우엔 Exception 처리를 잡아내서 오류 상황을 피하지만, 그 외의 경우엔 Exception이 발생하게 냅둔다. 문제는 그 정책이 예상을 벗어나는 경우에 발생한다. 난 <code class="language-plaintext highlighter-rouge">default</code> 템플릿 필터에서 조용한 실패 처리를 하지 않는 상황을 만났다. <code class="language-plaintext highlighter-rouge">default</code> 템플릿 필터는 대개 다음과 같이 사용한다.</p>
+<p>간단히 말해서 템플릿 필터 함수에서는 버그를 숨기는 Silent failure 보다는 예외를 일으키는 게 낫다고 한다. 실제로 Django 내장 템플릿 필터를 보면 대체물을 대신 반환해도 될 만한 경우엔 Exception 처리를 잡아내서 오류 상황을 피하지만, 그 외의 경우엔 Exception이 발생하게 냅둔다. 문제는 그 정책이 예상을 벗어나는 경우에 발생한다. 난 <code class="highlighter-rouge">default</code> 템플릿 필터에서 조용한 실패 처리를 하지 않는 상황을 만났다. <code class="highlighter-rouge">default</code> 템플릿 필터는 대개 다음과 같이 사용한다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ empty_var|default:'비었수다' }}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ empty_var|default:'비었수다' }}
 </code></pre></div></div>
 
 <p>나도 비슷하게 사용했다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ apple.attr3|default:lemon.attrdict.color }}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ apple.attr3|default:lemon.attrdict.color }}
 </code></pre></div></div>
 
 <p>Django 템플릿 엔진 동작에 익숙하다면 다음과 같이 동작하길 기대(예상)한다.</p>
 
 <ol>
-  <li><code class="language-plaintext highlighter-rouge">apple.attr3</code>가 없으면 <code class="language-plaintext highlighter-rouge">lemon.attrdict['color']</code>를 대신 출력</li>
-  <li><code class="language-plaintext highlighter-rouge">lemon.attrdict</code>에 <code class="language-plaintext highlighter-rouge">color</code> 키가 없으면 결국 아무것도 출력하지 않고 Silent failure.</li>
+  <li><code class="highlighter-rouge">apple.attr3</code>가 없으면 <code class="highlighter-rouge">lemon.attrdict['color']</code>를 대신 출력</li>
+  <li><code class="highlighter-rouge">lemon.attrdict</code>에 <code class="highlighter-rouge">color</code> 키가 없으면 결국 아무것도 출력하지 않고 Silent failure.</li>
 </ol>
 
-<p>딱히 Exception이 발생할만한 로직이 아니고, <code class="language-plaintext highlighter-rouge">default</code> 필터 함수를 봐도 인자 두 개 받아서 <code class="language-plaintext highlighter-rouge">return value or arg</code>로 동작하는 것 뿐이다. 다시 말해 <code class="language-plaintext highlighter-rouge">default</code> 템플릿 필터인 Python 함수는 두 개 인자를 받는데, 첫 번째 인자로 받는 <code class="language-plaintext highlighter-rouge">|</code> 앞에 있는 <code class="language-plaintext highlighter-rouge">apple.attr3</code>가 있으면 해당 객체를 반환하고, 없으면 두 번째 인자로 받는 <code class="language-plaintext highlighter-rouge">:</code> 뒤에 있는 <code class="language-plaintext highlighter-rouge">lemon.attrdict.color</code>를 반환한다.</p>
+<p>딱히 Exception이 발생할만한 로직이 아니고, <code class="highlighter-rouge">default</code> 필터 함수를 봐도 인자 두 개 받아서 <code class="highlighter-rouge">return value or arg</code>로 동작하는 것 뿐이다. 다시 말해 <code class="highlighter-rouge">default</code> 템플릿 필터인 Python 함수는 두 개 인자를 받는데, 첫 번째 인자로 받는 <code class="highlighter-rouge">|</code> 앞에 있는 <code class="highlighter-rouge">apple.attr3</code>가 있으면 해당 객체를 반환하고, 없으면 두 번째 인자로 받는 <code class="highlighter-rouge">:</code> 뒤에 있는 <code class="highlighter-rouge">lemon.attrdict.color</code>를 반환한다.</p>
 
-<p>하지만 실제로는 <code class="language-plaintext highlighter-rouge">VariableDoesNotExist</code> 예외 오류가 발생한다. 이 예외는 <code class="language-plaintext highlighter-rouge">with</code> 템플릿 태그로 해결하면 된다.</p>
+<p>하지만 실제로는 <code class="highlighter-rouge">VariableDoesNotExist</code> 예외 오류가 발생한다. 이 예외는 <code class="highlighter-rouge">with</code> 템플릿 태그로 해결하면 된다.</p>
 
 <p><a href="https://gist.github.com/hannal/9de33b54a749457d7f29c5f30c5e9136">with 템플릿 태그로 VariableDoesNotExist 예방</a></p>
 
-<p><code class="language-plaintext highlighter-rouge">with</code> 템플릿 태그는 Silent failure 처리를 해주니 <code class="language-plaintext highlighter-rouge">with</code> 템플릿 태그로 만든 임시 템플릿 변수인 <code class="language-plaintext highlighter-rouge">colour</code>엔 출력할(render) 게 없는 빈 객체가 할당이 된다. <code class="language-plaintext highlighter-rouge">with</code> 템플릿 태그를 안 쓴 경우엔 Silent failure를 해주는 놈이 없다보니 Exception이 그대로 나버린 것이다. 이 문제가 까다로운 이유는 Django 디버깅 화면에서는 문제가 있는 템플릿 줄(line)을 가리키지 않고 Exception이 발생한 Django 소스를 보여주는 데 있다. 평범한 속성명이나 키 이름을 쓰다가는 고생하기 십상이다.</p>
+<p><code class="highlighter-rouge">with</code> 템플릿 태그는 Silent failure 처리를 해주니 <code class="highlighter-rouge">with</code> 템플릿 태그로 만든 임시 템플릿 변수인 <code class="highlighter-rouge">colour</code>엔 출력할(render) 게 없는 빈 객체가 할당이 된다. <code class="highlighter-rouge">with</code> 템플릿 태그를 안 쓴 경우엔 Silent failure를 해주는 놈이 없다보니 Exception이 그대로 나버린 것이다. 이 문제가 까다로운 이유는 Django 디버깅 화면에서는 문제가 있는 템플릿 줄(line)을 가리키지 않고 Exception이 발생한 Django 소스를 보여주는 데 있다. 평범한 속성명이나 키 이름을 쓰다가는 고생하기 십상이다.</p>
 
-<p>흔히 겪는 상황은 아닐 것 같다. 나는 모델에 <code class="language-plaintext highlighter-rouge">JSONField</code>를 썼고, 이 모델필드의 <code class="language-plaintext highlighter-rouge">dict</code> 객체에 특정 키(위 예제 기준으로는 <code class="language-plaintext highlighter-rouge">colour</code>키)가 없어서 발생한 거였다. 뷰 함수에서 넘겨주는 템플릿 변수 이름대로라면 금방 발견했을 것 같다.</p>
+<p>흔히 겪는 상황은 아닐 것 같다. 나는 모델에 <code class="highlighter-rouge">JSONField</code>를 썼고, 이 모델필드의 <code class="highlighter-rouge">dict</code> 객체에 특정 키(위 예제 기준으로는 <code class="highlighter-rouge">colour</code>키)가 없어서 발생한 거였다. 뷰 함수에서 넘겨주는 템플릿 변수 이름대로라면 금방 발견했을 것 같다.</p>
 
 <p>삼천포 요약 : 변수 네이밍을 괴랄하게 하면 디버깅에 도움이 된다.</p>
 
@@ -172,7 +172,7 @@
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="hannal">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-<div class="fb-like" data-href="http://blog.hannal.com/2017/06/django-template-variabledoesnotexist-exception/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div class="fb-like" data-href="http://localhost:4000/2017/06/django-template-variabledoesnotexist-exception/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 -->
 <!--
 <div class="comments">
@@ -180,7 +180,7 @@
   <script type="text/javascript">
   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
   var disqus_shortname = 'hannal';
-  var disqus_url = 'http://blog.hannal.com/2017/06/django-template-variabledoesnotexist-exception/';
+  var disqus_url = 'http://localhost:4000/2017/06/django-template-variabledoesnotexist-exception/';
 
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
@@ -200,6 +200,15 @@
     
       <li>
         <h3>
+          <a href="/2021/12/closing/">
+            2021년을 마치며
+            <small>31 Dec 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2020/12/closing/">
             2020년을 마치며
             <small>25 Dec 2020</small>
@@ -212,15 +221,6 @@
           <a href="/2020/11/nulls-last-ordering-for-django-filter/">
             django-filter용 NULLS LAST 정렬 필터.
             <small>13 Nov 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2019/12/closing/">
-            2019년을 마치며
-            <small>31 Dec 2019</small>
           </a>
         </h3>
       </li>

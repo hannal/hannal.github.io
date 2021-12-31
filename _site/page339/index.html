@@ -91,7 +91,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2020. All rights reserved.
+      &copy; 2021. All rights reserved.
     </p>
   </div>
 </div>
@@ -114,6 +114,25 @@
   
   <div class="post">
     <h2 class="post-title">
+      <a href="/2005/4/change_rss_address/">
+        한날의 공책 RSS 주소 변경
+      </a>
+    </h2>
+
+    <span class="post-date">23 Apr 2005</span>
+
+    <p>안녕하세요. 한날입니다.</p>
+<p>블로그 도구의 변경으로 RSS주소가 변경되었습니다.</p>
+<p>기존 RSS 주소 : http://blog.hannal.com/index.xml<br />
+변경된 RSS 주소 : http://blog.hannal.com/feed/</p>
+<p>제 블로그를 RSS로 구독하시던 분들께서는 새 주소로 변경해주시길 바랍니다. :)</p>
+<p>덧쓰기 : RSS는 UTF-8이며,  EUC-KR용은 따로 준비하겠습니다.</p>
+
+  </div>
+  <hr class="post-parting-line" />
+  
+  <div class="post">
+    <h2 class="post-title">
       <a href="/2005/4/hannal_move_to_wordpress/">
         블로그 도구 이동
       </a>
@@ -124,46 +143,6 @@
     <p>안녕하세요. 한날입니다.</p>
 <p>2005년 4월 23일자로 제 블로그의 도구를 태터툴즈에서 워드프레스로 변경했습니다.</p>
 <p>블로그 외형은 차차 바꾸기로 하고, 우선 게시물 옮기기와 첨부 파일 옮기기만 했습니다. 혹시 제대로 글이 보이지 않거나 작동하지 않을 시 제보를 부탁드립니다.</p>
-
-  </div>
-  <hr class="post-parting-line" />
-  
-  <div class="post">
-    <h2 class="post-title">
-      <a href="/2005/4/693/">
-        태터툴즈-&gt;워드프레스 시, Permalink 유지하기
-      </a>
-    </h2>
-
-    <span class="post-date">23 Apr 2005</span>
-
-    <p>태터툴즈의 게시물을 워드프레스로 옮기고, 블로그 도구의 위치를 동일하게 할 경우, Permalink가 문제가 됩니다. 예를 들어 태터툴즈로 운영하던 블로그 주소는 http://도메인/tt 이고 워드프레스로 운영할 블로그 주소는 http://도메인/wp 로 한다면 아무 문제가 없지만, 곧 죽어도 블로그 주소는 http://도메인/blog 로 해야할 경우 태터툴즈가 사용하던 고유 주소와 워드프레스의 고유 주소가 달라지는 문제가 발생합니다. 이 문제는 태터툴즈의 게시물을 워드프레스로 옮기는 과정에서 약간의 손을 써주고, 워드프레스의 index.php 파일을 고침으로써 아주 쉽게 해결할 수 있습니다.</p>
-<p><u><b>1. 태터툴즈의 게시물을 워드프레스로 옮기기</b></u><br />
-워드프레스에는 게시물 이름(postname)이 존재합니다. 이걸 고유 주소(Permalink)로 사용할 수도 있지요. 이런 정책을 활용합시다.<br />
-태터툴즈의 게시물을 워드프레스로 옮길 때 게시물 이름(postname)을 태터툴즈의 글 번호(no)로 지정하면 됩니다.<br />
-<a href="http://heygom.com/blog/?p=244">곰</a>님께서 만든 걸 <a href="http://blog.hannal.com/index.php?pl=692">제가 수정한 태터툴즈에서 워드프레스로 게시물 옮기는 도구</a>에는 이런 지정이 되어 있습니다.</p>
-<p><u><b>2. 변하지 않는 링크(Permalink) 형태 변경</b></u><br />
-이제 워드프레스의 관리자 영역으로 가서 "변하지 않는 링크" 형태를 수정합니다. [설정]-[변하지 않는 링크]로 가면 됩니다.<br />
-이곳에 가서 변하지 않는 링크 모양을 <b>/%postname%/</b>라고 입력하십시오.</p>
-<p><u><b>3. index.php 수정</b></u><br />
-마지막 단계입니다. 워드프레스의 index.php 파일 내용 맨 위에 다음 내용을 넣습니다.</p>
-<p><textarea language="php" name="code"><br />
-if ( $_GET["pl"] )<br />
-	Header("Location: {$_GET["pl"]}/");<br />
-</textarea></p>
-<p>위 내용을 추가하면 워드프레스의 index.php 파일 내용은 다음과 같이 됩니다.</p>
-<p><textarea language="php" name="code"><br />
-&lt; ?php<br />
-if ( $_GET["pl"] )<br />
-	Header("Location: {$_GET["pl"]}/");&lt;/p&gt;
-<p>/* Short and sweet */<br />
-define("WP_USE_THEMES", true);<br />
-require("./wp-blog-header.php");<br />
-?&gt;<br />
-&lt;/textarea&gt;</p>
-<p><u><b>4. 완료</b></u><br />
-모든 과정이 완료됐습니다. 이제 워드프레스이지만 태터툴즈 때의 고유 주소는 계속 유지됩니다. 만일 위 과정을 아무 문제 없이 완료했다면 태터툴즈 때의 고유 주소로 접근해보세요. 글이 잘 나옵니다.</p>
-</textarea></p>
 
   </div>
   <hr class="post-parting-line" />

@@ -1,10 +1,10 @@
-I""(<ol>
+I"'<ol>
   <li><a href="http://blog.hannal.com/2015/02/devlife-s1-01/">개발 생활 - 1</a> : PDF 문서 생성 서버</li>
   <li><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">개발 생활 - 2</a> : 연산된 데이터 수집 작업자</li>
   <li><a href="http://blog.hannal.com/2015/03/devlife-s1-03/">개발 생활 - 3</a> : 전자우편 알림 서버</li>
   <li><a href="http://blog.hannal.com/2015/03/devlife-s1-04/">개발 생활 - 4</a> : Python과 Django 강의</li>
   <li><a href="http://blog.hannal.com/2015/03/devlife-s1-05/">개발 생활 - 5</a> : 공부 자료</li>
-  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-06/"><code class="language-plaintext highlighter-rouge">개발 생활 - 6</code></a> : 앞으로 계획</li>
+  <li><a href="http://blog.hannal.com/2015/03/devlife-s1-06/"><code class="highlighter-rouge">개발 생활 - 6</code></a> : 앞으로 계획</li>
 </ol>
 
 <h3 id="5-앞으로-계획">5. 앞으로 계획</h3>
@@ -28,9 +28,9 @@
   <li>PDF 생성을 병렬로 처리</li>
   <li>Python 3 지원</li>
   <li>캐쉬(cache) 강화</li>
-  <li>전자우편 알림 서버(<code class="language-plaintext highlighter-rouge">postman</code>) 연동</li>
+  <li>전자우편 알림 서버(<code class="highlighter-rouge">postman</code>) 연동</li>
   <li>통계 기능 추가</li>
-  <li><code class="language-plaintext highlighter-rouge">Sentry</code> 연동</li>
+  <li><code class="highlighter-rouge">Sentry</code> 연동</li>
 </ul>
 
 <h4 id="편의점-프로젝트-연산된-데이터-수집-작업자">편의점 프로젝트 (연산된 데이터 수집 작업자)</h4>
@@ -38,7 +38,7 @@
 <p>4월 이후에 리팩토링을 한 후 소소한 업그레이드를 계획하고 있다. 회사 개발 일정이나 계획에 따로 잡은 건 아니어서 짬짬히 시간 내어 해결할 범위로 구상하고 있다.</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">PyPy</code>로 이전</li>
+  <li><code class="highlighter-rouge">PyPy</code>로 이전</li>
   <li>통계 기능 추가</li>
   <li>Sentry 연동</li>
   <li>CEP(Complex Event Processing) 적용</li>
@@ -52,7 +52,7 @@
   <li>전자우편 발송부를 Go 언어로 이전</li>
   <li>애플리케이션 서버들 간 통신 방법 변경</li>
   <li>알림 조건 종류 확장</li>
-  <li>모바일 푸시 알림 기능 추가 (<code class="language-plaintext highlighter-rouge">mqtt</code>)</li>
+  <li>모바일 푸시 알림 기능 추가 (<code class="highlighter-rouge">mqtt</code>)</li>
   <li>개인화 된 소식지 기능 추가 (data processing, batch)</li>
 </ul>
 
@@ -118,7 +118,7 @@
 
 <h4 id="잉여">잉여</h4>
 
-<p>잉여 시간이 나면 Lego mindstorm과 Arduino를 갖고 놀며, <code class="language-plaintext highlighter-rouge">Docker</code>와 <code class="language-plaintext highlighter-rouge">Open stack</code>을 구현 관점에서 분석할 계획이다.</p>
+<p>잉여 시간이 나면 Lego mindstorm과 Arduino를 갖고 놀며, <code class="highlighter-rouge">Docker</code>와 <code class="highlighter-rouge">Open stack</code>을 구현 관점에서 분석할 계획이다.</p>
 
 <h4 id="집필">집필</h4>
 
@@ -126,15 +126,15 @@
 
 <h4 id="개발-환경">개발 환경</h4>
 
-<p>대개는 문서를 <code class="language-plaintext highlighter-rouge">markdown</code>으로 작성하는데, <a href="http://blog.hannal.com/2015/03/devlife-s1-04/">Python과 Django 강의</a> 이후로 IPython을 사용하는 빈도가 늘고 있다. 최근엔 Python 뿐만 아니라 다른 프로그래밍 언어도 지원하는 <a href="http://jupyter.org/">Jupyter</a>를 사용하고 있다. 앞으로 많은 문서를 Jupyter를 이용할 생각이다.</p>
+<p>대개는 문서를 <code class="highlighter-rouge">markdown</code>으로 작성하는데, <a href="http://blog.hannal.com/2015/03/devlife-s1-04/">Python과 Django 강의</a> 이후로 IPython을 사용하는 빈도가 늘고 있다. 최근엔 Python 뿐만 아니라 다른 프로그래밍 언어도 지원하는 <a href="http://jupyter.org/">Jupyter</a>를 사용하고 있다. 앞으로 많은 문서를 Jupyter를 이용할 생각이다.</p>
 
-<p>코드 편집기는 Sublime text 3를 주로 사용하며, <code class="language-plaintext highlighter-rouge">PyCharm</code> 등 JetBrains사의 도구를 사용하려 몇 번 시도했으나 좀처럼 적응하지 못하고 있다. 마음에 드는 기능이 많은데, 미묘하게 느린 화면 반응을 견디기 힘들다. <a href="http://www.sourcetreeapp.com/">SourceTree</a>도 답답해서 터미널에서 <code class="language-plaintext highlighter-rouge">git</code>을 콘솔로 쓰고 있으니, 당분간 IDE에 적응하는 데 적지않은 노력을 들이거나 결국 포기할 것 같다.</p>
+<p>코드 편집기는 Sublime text 3를 주로 사용하며, <code class="highlighter-rouge">PyCharm</code> 등 JetBrains사의 도구를 사용하려 몇 번 시도했으나 좀처럼 적응하지 못하고 있다. 마음에 드는 기능이 많은데, 미묘하게 느린 화면 반응을 견디기 힘들다. <a href="http://www.sourcetreeapp.com/">SourceTree</a>도 답답해서 터미널에서 <code class="highlighter-rouge">git</code>을 콘솔로 쓰고 있으니, 당분간 IDE에 적응하는 데 적지않은 노력을 들이거나 결국 포기할 것 같다.</p>
 
 <h4 id="마치며">마치며</h4>
 
 <p>전업 프로그래머가 된 이후로도 사업 개발이나 기획 업무를 맡아달라는 제안을 받고 있지만, 현재 내가 참여하는 조직들(?)에서는 전부 프로그래밍 관련 일만 하고 있다. 이 조직들 모두 내게 권한과 기회를 위임하고 지원해주는 덕분에 힘든 시기를 즐겁게 보냈다.</p>
 
-<p>미숙해서 문제를 푸느라 고생하는 상황에 처했을 때, 누군가에게 물어봐서 문제를 빨리 해결하고 싶은 충동을 많이 느꼈다. 이 문제 좀 풀어주세요, 라는 말이 목까지 치밀어 올라온 문제도 몇 개 있었다. 하지만, 내가 부딪힌 문제 대부분은 스스로 해결해야 의미있는 단계라는 걸 알고 있었고, 거의 모두 스스로 해결했다<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup>.</p>
+<p>미숙해서 문제를 푸느라 고생하는 상황에 처했을 때, 누군가에게 물어봐서 문제를 빨리 해결하고 싶은 충동을 많이 느꼈다. 이 문제 좀 풀어주세요, 라는 말이 목까지 치밀어 올라온 문제도 몇 개 있었다. 하지만, 내가 부딪힌 문제 대부분은 스스로 해결해야 의미있는 단계라는 걸 알고 있었고, 거의 모두 스스로 해결했다<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
 
 <p>지인이 (프로그래밍으로)개발하는 생활을 만족하느냐고 물었다. 재밌고 만족한다고 답했는데, 아직은 혼자 고민하여 스스로 문제를 해결하는 데 들이는 노력이 크지 않은 단계여서 재밌다고 여기는 것일 것이다. 여태껏 겪어 온 문제보다 더 어려운 난관에 부딪히면 그 재미는 (아마도) 줄어들 것이고, 끝내 내 능력으로 풀어내지 못해 좌절할 지도 모른다.</p>
 
@@ -144,10 +144,10 @@
 
 <hr />
 
-<div class="footnotes" role="doc-endnotes">
+<div class="footnotes">
   <ol>
-    <li id="fn:1" role="doc-endnote">
-      <p><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">편의점 프로젝트</a>에서 SQL Query를 짜는 문제 하나는 결국 동료가 해결해 주었다. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    <li id="fn:1">
+      <p><a href="http://blog.hannal.com/2015/02/devlife-s1-02/">편의점 프로젝트</a>에서 SQL Query를 짜는 문제 하나는 결국 동료가 해결해 주었다. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>

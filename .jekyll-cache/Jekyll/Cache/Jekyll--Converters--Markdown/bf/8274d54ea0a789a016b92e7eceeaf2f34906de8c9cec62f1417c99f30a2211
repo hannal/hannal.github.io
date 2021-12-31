@@ -1,4 +1,4 @@
-I"��<ul>
+I"7�<ul>
   <li><a href="http://blog.hannal.com/category/start-with-django-webframework/">날로 먹는 Django 웹프레임워크 강좌 목차</a></li>
   <li>마지막 갱신일시 : 2017년 1월 29일 23시 40분</li>
 </ul>
@@ -17,15 +17,15 @@
 
 <p>운영 측면에서 대응해야 할 대응은 반복되는 처리가 많습니다. 예를 들어, 숫자만 입력받을 항목에 숫자 외 다른 글자가 입력되었는지 검사하고 들어 있으면 예외 처리하거나 첨부한 이미지 파일이 제대로 된 파일인지 검사하는 처리는 항목 개수만큼이나 반복되는 과정입니다. 이를 일일이 코드로 검사한다면 실수할 가능성이 큽니다. 일관성과 관리 차원에서 그러한 역할을 하는 검사기(validator)를 만들어 처리하는 게 좋습니다.</p>
 
-<p>이렇게 클라이언트로부터 전송받은 데이터가 유효한지 검사하고 걸러내는 역할을 Django Form가 합니다. Django Form을 사용하면 상당히 다양한 입력 형식에 대해 수 년에 걸쳐 쌓인 경험으로 유효성을 검사합니다. 가령, Django Form의 <code class="language-plaintext highlighter-rouge">EmailField</code> 폼 필드를 사용하면, 다국어나 <code class="language-plaintext highlighter-rouge">.wiki</code>나 <code class="language-plaintext highlighter-rouge">.google</code>과 같은 새로운 최상위 도메인(Top-level domain), 심지어 IPv4나 IPv6와 같이 IP주소로 구성된 전자우편 주소에 대응 가능합니다.</p>
+<p>이렇게 클라이언트로부터 전송받은 데이터가 유효한지 검사하고 걸러내는 역할을 Django Form가 합니다. Django Form을 사용하면 상당히 다양한 입력 형식에 대해 수 년에 걸쳐 쌓인 경험으로 유효성을 검사합니다. 가령, Django Form의 <code class="highlighter-rouge">EmailField</code> 폼 필드를 사용하면, 다국어나 <code class="highlighter-rouge">.wiki</code>나 <code class="highlighter-rouge">.google</code>과 같은 새로운 최상위 도메인(Top-level domain), 심지어 IPv4나 IPv6와 같이 IP주소로 구성된 전자우편 주소에 대응 가능합니다.</p>
 
-<p>물론 어디까지나 유효성을 검사하는 것이므로 제가 앞서 언급한 보안성에 대해 무결하지는 않습니다. 예를 들어, Django Form의 <code class="language-plaintext highlighter-rouge">ImageField</code> 폼 필드는 클라이언트가 제출한 파일이 <a href="https://github.com/django/django/blob/1.8.1/django/forms/fields.py#L691">이미지 파일로 유효한지 확인하는 방법을 Image Library인 PIL이나 Pillow의 <code class="language-plaintext highlighter-rouge">verify()</code>에 의존</a>합니다. <code class="language-plaintext highlighter-rouge">verify()</code> 메서드는 파일의 헤더 영역을 읽어 들여서 유효한 파일인지 검사할 뿐입니다. 그 마저도 일부 파일에 대해서만 제공하여, <a href="https://github.com/python-pillow/Pillow/blob/master/PIL/GifImagePlugin.py">GIF 파일</a>을 처리하는 모듈엔 <code class="language-plaintext highlighter-rouge">verify()</code>가 아예 없습니다. GIF, PNG, Jpeg과 같은 이미지 파일은 일반 문자열을 담는 Metadata 영역(chunk)을 지원하는데, 이 요소를 악용하여 보안을 위협하는 코드를 삽입하여 서버나 클라이언트(방문자)에게 해를 끼칠 가능성이 있습니다<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup>.</p>
+<p>물론 어디까지나 유효성을 검사하는 것이므로 제가 앞서 언급한 보안성에 대해 무결하지는 않습니다. 예를 들어, Django Form의 <code class="highlighter-rouge">ImageField</code> 폼 필드는 클라이언트가 제출한 파일이 <a href="https://github.com/django/django/blob/1.8.1/django/forms/fields.py#L691">이미지 파일로 유효한지 확인하는 방법을 Image Library인 PIL이나 Pillow의 <code class="highlighter-rouge">verify()</code>에 의존</a>합니다. <code class="highlighter-rouge">verify()</code> 메서드는 파일의 헤더 영역을 읽어 들여서 유효한 파일인지 검사할 뿐입니다. 그 마저도 일부 파일에 대해서만 제공하여, <a href="https://github.com/python-pillow/Pillow/blob/master/PIL/GifImagePlugin.py">GIF 파일</a>을 처리하는 모듈엔 <code class="highlighter-rouge">verify()</code>가 아예 없습니다. GIF, PNG, Jpeg과 같은 이미지 파일은 일반 문자열을 담는 Metadata 영역(chunk)을 지원하는데, 이 요소를 악용하여 보안을 위협하는 코드를 삽입하여 서버나 클라이언트(방문자)에게 해를 끼칠 가능성이 있습니다<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
 
 <p>하지만, 이는 Django Form이 보안에 초점을 맞춘 기능은 아니니 보안 대응용으로 Django Form에 의존하지 않아야 한다는 의미이며, 입력 항목이 유효한 지에 대한 필수 검사 요소는 갖추고 있으므로 Django Form을 가장 기본으로 사용하고 보안에 필요한 조치를 추가하는 것이 나을 것입니다.</p>
 
 <h4 id="form과-modelform">Form과 ModelForm</h4>
 
-<p>Django Form은 <code class="language-plaintext highlighter-rouge">django.forms</code> 모듈에서 <code class="language-plaintext highlighter-rouge">Form</code>과 <code class="language-plaintext highlighter-rouge">ModelForm</code> 클래스로 제공됩니다. <code class="language-plaintext highlighter-rouge">Form</code>은 앞서 설명한 내용을 그대로 담고 있는 클래스입니다. <code class="language-plaintext highlighter-rouge">ModelForm</code>은 Django Model과 연계한 Form 클래스입니다. Django Model을 사용한다면 <code class="language-plaintext highlighter-rouge">ModelForm</code>을 이용하여 입력 양식과 입력 항목 검증, 그리고 검증된 입력 데이터를 데이터베이스에 저장하는 과정을 편하게 처리합니다.</p>
+<p>Django Form은 <code class="highlighter-rouge">django.forms</code> 모듈에서 <code class="highlighter-rouge">Form</code>과 <code class="highlighter-rouge">ModelForm</code> 클래스로 제공됩니다. <code class="highlighter-rouge">Form</code>은 앞서 설명한 내용을 그대로 담고 있는 클래스입니다. <code class="highlighter-rouge">ModelForm</code>은 Django Model과 연계한 Form 클래스입니다. Django Model을 사용한다면 <code class="highlighter-rouge">ModelForm</code>을 이용하여 입력 양식과 입력 항목 검증, 그리고 검증된 입력 데이터를 데이터베이스에 저장하는 과정을 편하게 처리합니다.</p>
 
 <p>자세한 건 코드로 구현하면서 다루겠습니다.</p>
 
@@ -33,35 +33,35 @@
 
 <h4 id="form-만들기">Form 만들기</h4>
 
-<p><code class="language-plaintext highlighter-rouge">photos</code> 디렉터리에 <code class="language-plaintext highlighter-rouge">forms.py</code> 파일을 만듭니다. 앞으로 <code class="language-plaintext highlighter-rouge">photos</code> 앱에서 사용하는 Form은 이 모듈에 만듭니다. 이제 사진 게시물을 편집하는(생성하거나 수정) 폼을 <code class="language-plaintext highlighter-rouge">PhotoForm</code>이라는 이름으로 만듭니다.</p>
+<p><code class="highlighter-rouge">photos</code> 디렉터리에 <code class="highlighter-rouge">forms.py</code> 파일을 만듭니다. 앞으로 <code class="highlighter-rouge">photos</code> 앱에서 사용하는 Form은 이 모듈에 만듭니다. 이제 사진 게시물을 편집하는(생성하거나 수정) 폼을 <code class="highlighter-rouge">PhotoForm</code>이라는 이름으로 만듭니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from __future__ import unicode_literals
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">from</span> <span class="n">__future__</span> <span class="n">import</span> <span class="n">unicode_literals</span>
 
-from django import forms
+<span class="k">from</span> <span class="n">django</span> <span class="n">import</span> <span class="n">forms</span>
 
-from .models import Photo
+<span class="k">from</span> <span class="p">.</span><span class="n">models</span> <span class="n">import</span> <span class="n">Photo</span>
 
 
-class PhotoForm(forms.ModelForm):
-    class Meta:
-        model = Photo
-        fields = ('image', 'content', )
+<span class="n">class</span> <span class="n">PhotoForm</span><span class="p">(</span><span class="n">forms</span><span class="p">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="n">class</span> <span class="n">Meta</span><span class="p">:</span>
+        <span class="k">model</span> <span class="p">=</span> <span class="n">Photo</span>
+        <span class="n">fields</span> <span class="p">=</span> <span class="p">(</span><span class="s1">'image'</span><span class="p">,</span> <span class="s1">'content'</span><span class="p">,</span> <span class="p">)</span>
 </code></pre></div></div>
 
-<p>아주 간결한 코드입니다. <code class="language-plaintext highlighter-rouge">forms</code> 모듈에 있는 <code class="language-plaintext highlighter-rouge">ModelForm</code> 클래스를 상속받는 <code class="language-plaintext highlighter-rouge">PhotoForm</code> 클래스를 만들면 이 클래스는 Form 클래스입니다. <code class="language-plaintext highlighter-rouge">ModelForm</code>이므로 클래스 안에 <code class="language-plaintext highlighter-rouge">Meta</code> 클래스를 또 만들고, 그 안에 <code class="language-plaintext highlighter-rouge">model = Photo</code>라는 코드로 이 Model form에 연계하는 Model을 <code class="language-plaintext highlighter-rouge">Photo</code>로 지정한 것입니다. 이 <code class="language-plaintext highlighter-rouge">Photo</code> 모델 클래스는 <code class="language-plaintext highlighter-rouge">photos</code> 앱 디렉터리의 <code class="language-plaintext highlighter-rouge">models.py</code> 모듈에 있으니 <code class="language-plaintext highlighter-rouge">from .models import Photo</code>로 읽어 들인 것입니다. <code class="language-plaintext highlighter-rouge">Meta</code> 클래스의 <code class="language-plaintext highlighter-rouge">fields</code> 속성은 폼에 사용할 모델의 모델 필드를 지정하는 데 사용합니다. <code class="language-plaintext highlighter-rouge">fields = ('image', 'content', )</code> 이 코드는 <code class="language-plaintext highlighter-rouge">Photo</code> 모델의 <code class="language-plaintext highlighter-rouge">image</code>와 <code class="language-plaintext highlighter-rouge">content</code> 모델 필드를 폼 필드로 만드는 설정인 셈입니다.</p>
+<p>아주 간결한 코드입니다. <code class="highlighter-rouge">forms</code> 모듈에 있는 <code class="highlighter-rouge">ModelForm</code> 클래스를 상속받는 <code class="highlighter-rouge">PhotoForm</code> 클래스를 만들면 이 클래스는 Form 클래스입니다. <code class="highlighter-rouge">ModelForm</code>이므로 클래스 안에 <code class="highlighter-rouge">Meta</code> 클래스를 또 만들고, 그 안에 <code class="highlighter-rouge"><span class="k">model</span> <span class="p">=</span> <span class="n">Photo</span></code>라는 코드로 이 Model form에 연계하는 Model을 <code class="highlighter-rouge">Photo</code>로 지정한 것입니다. 이 <code class="highlighter-rouge">Photo</code> 모델 클래스는 <code class="highlighter-rouge">photos</code> 앱 디렉터리의 <code class="highlighter-rouge">models.py</code> 모듈에 있으니 <code class="highlighter-rouge">from .models import Photo</code>로 읽어 들인 것입니다. <code class="highlighter-rouge">Meta</code> 클래스의 <code class="highlighter-rouge">fields</code> 속성은 폼에 사용할 모델의 모델 필드를 지정하는 데 사용합니다. <code class="highlighter-rouge">fields = ('image', 'content', )</code> 이 코드는 <code class="highlighter-rouge">Photo</code> 모델의 <code class="highlighter-rouge">image</code>와 <code class="highlighter-rouge">content</code> 모델 필드를 폼 필드로 만드는 설정인 셈입니다.</p>
 
-<p><code class="language-plaintext highlighter-rouge">ModelForm</code>은 Form에 연결한 Model의 모델 필드를 기반으로 폼 필드를 만듭니다.</p>
+<p><code class="highlighter-rouge">ModelForm</code>은 Form에 연결한 Model의 모델 필드를 기반으로 폼 필드를 만듭니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Photo(models.Model):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Photo(models.Model):
     image = models.ImageField(upload_to='%Y/%m/%d/orig')
     filtered_image = models.ImageField(upload_to='%Y/%m/%d/filtered')
     content = models.TextField(max_length=500, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">Photo</code> 모델이 이와 같은 모델 필드로 구성되어 있으니 <code class="language-plaintext highlighter-rouge">PhotoForm</code>을 일반 <code class="language-plaintext highlighter-rouge">Form</code> 클래스를 상속받아 만든다면 다음과 같이 만드는 셈입니다.</p>
+<p><code class="highlighter-rouge">Photo</code> 모델이 이와 같은 모델 필드로 구성되어 있으니 <code class="highlighter-rouge">PhotoForm</code>을 일반 <code class="highlighter-rouge">Form</code> 클래스를 상속받아 만든다면 다음과 같이 만드는 셈입니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class PhotoForm(forms.Form):
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class PhotoForm(forms.Form):
     image = forms.ImageField()
     filtered_image = forms.ImageField()
     content = forms.CharField(
@@ -74,13 +74,13 @@ class PhotoForm(forms.ModelForm):
 
 <p>Model과 비슷하게 생겼습니다. 웹페이지에 사용할 HTML도 거의 비슷합니다.</p>
 
-<p>Model은 데이터베이스와 연관되어 있어서 모델 필드형(type)이 데이터베이스의 컬럼(column)형(type)에 맞추어져 있고, Form은 웹 입력 양식인 form 관련 태그의 종류에 맞추어져 소소한 차이가 있지만, 결국 웹에서 넘겨받은 데이터를 데이터베이스에 넣는 것이라 서로 비슷한 인터페이스를 갖습니다. <code class="language-plaintext highlighter-rouge">ModelForm</code>을 쓰면 모델 필드와 폼 필드 간 차이 마저도 별로 의식하지 않습니다. 그래서 Model을 잘 만들고 <code class="language-plaintext highlighter-rouge">ModelForm</code>을 이용하여 Model form을 만들면 우리는 데이터 유효성을 검사하고 이를 데이터베이스에 넣거나 찾아 쓰는 데이터 관리와 처리를 날로 먹게 됩니다.</p>
+<p>Model은 데이터베이스와 연관되어 있어서 모델 필드형(type)이 데이터베이스의 컬럼(column)형(type)에 맞추어져 있고, Form은 웹 입력 양식인 form 관련 태그의 종류에 맞추어져 소소한 차이가 있지만, 결국 웹에서 넘겨받은 데이터를 데이터베이스에 넣는 것이라 서로 비슷한 인터페이스를 갖습니다. <code class="highlighter-rouge">ModelForm</code>을 쓰면 모델 필드와 폼 필드 간 차이 마저도 별로 의식하지 않습니다. 그래서 Model을 잘 만들고 <code class="highlighter-rouge">ModelForm</code>을 이용하여 Model form을 만들면 우리는 데이터 유효성을 검사하고 이를 데이터베이스에 넣거나 찾아 쓰는 데이터 관리와 처리를 날로 먹게 됩니다.</p>
 
 <h4 id="사진-게시물-작성-화면-만들기">사진 게시물 작성 화면 만들기</h4>
 
-<p>사진 게시물을 게시하려면 사진 파일을 선택하고, 사진을 설명하는 본문 등 사진 게시물에 필요한 사항을 입력해야 합니다. 본 강좌 중 <a href="http://blog.hannal.com/2014/8/start_with_django_webframework_01/">Pystagram 기획</a>편에서 사진 게시물을 작성하고 게시하는 URL을 <code class="language-plaintext highlighter-rouge">/photos/upload/</code>로 하기로 했으니 <code class="language-plaintext highlighter-rouge">urls.py</code>에 이 주소 패턴을 등록합니다. 시작 패키지(<code class="language-plaintext highlighter-rouge">settings.py</code> 파일이 있는 디렉터리)에 있는 <code class="language-plaintext highlighter-rouge">urls.py</code> 파일을 열고 다음 URL 패턴을 추가합니다.</p>
+<p>사진 게시물을 게시하려면 사진 파일을 선택하고, 사진을 설명하는 본문 등 사진 게시물에 필요한 사항을 입력해야 합니다. 본 강좌 중 <a href="http://blog.hannal.com/2014/8/start_with_django_webframework_01/">Pystagram 기획</a>편에서 사진 게시물을 작성하고 게시하는 URL을 <code class="highlighter-rouge">/photos/upload/</code>로 하기로 했으니 <code class="highlighter-rouge">urls.py</code>에 이 주소 패턴을 등록합니다. 시작 패키지(<code class="highlighter-rouge">settings.py</code> 파일이 있는 디렉터리)에 있는 <code class="highlighter-rouge">urls.py</code> 파일을 열고 다음 URL 패턴을 추가합니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 생략 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 생략 
 from photos.views import hello
 from photos.views import detail
 from photos.views import create  # 이 줄 추가
@@ -95,11 +95,11 @@ urlpatterns = [
 # 생략
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">/photos/upload/</code> URL에 <code class="language-plaintext highlighter-rouge">photos</code> 앱 디렉터리에 있는 <code class="language-plaintext highlighter-rouge">views.py</code> 모듈의 <code class="language-plaintext highlighter-rouge">create</code> 뷰 함수를 연결(mapping)한 것입니다.</p>
+<p><code class="highlighter-rouge">/photos/upload/</code> URL에 <code class="highlighter-rouge">photos</code> 앱 디렉터리에 있는 <code class="highlighter-rouge">views.py</code> 모듈의 <code class="highlighter-rouge">create</code> 뷰 함수를 연결(mapping)한 것입니다.</p>
 
-<p>이번엔 <code class="language-plaintext highlighter-rouge">views.py</code> 파일에 <code class="language-plaintext highlighter-rouge">create</code> 뷰 함수를 만듭니다.</p>
+<p>이번엔 <code class="highlighter-rouge">views.py</code> 파일에 <code class="highlighter-rouge">create</code> 뷰 함수를 만듭니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 생략
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 생략
 from .forms import PhotoForm
 
 
@@ -111,21 +111,21 @@ def create(request):
     return render(request, 'edit.html', ctx)
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">edit.html</code> 템플릿 파일에 템플릿 맥락 요소(Context)로 앞서 만든 <code class="language-plaintext highlighter-rouge">PhotoForm</code> 클래스 객체를 전달하는데, 폼 클래스 자체가 아니라 폼 클래스를 인스턴스 객체로 생성하여 <code class="language-plaintext highlighter-rouge">form</code>에 할당하고, 이 <code class="language-plaintext highlighter-rouge">form</code>을 전달합니다.</p>
+<p><code class="highlighter-rouge">edit.html</code> 템플릿 파일에 템플릿 맥락 요소(Context)로 앞서 만든 <code class="highlighter-rouge">PhotoForm</code> 클래스 객체를 전달하는데, 폼 클래스 자체가 아니라 폼 클래스를 인스턴스 객체로 생성하여 <code class="highlighter-rouge">form</code>에 할당하고, 이 <code class="highlighter-rouge">form</code>을 전달합니다.</p>
 
-<p><code class="language-plaintext highlighter-rouge">render()</code> 함수는 <a href="http://blog.hannal.com/2014/11/start_with_django_webframework_05/">5. url에 view 함수 연결해서 사진 출력하기</a> 편에서 역할을 설명했고, 이번 편에서 처음 사용합니다. 이 함수는 대개 세 가지 인자를 필요로 합니다.</p>
+<p><code class="highlighter-rouge">render()</code> 함수는 <a href="http://blog.hannal.com/2014/11/start_with_django_webframework_05/">5. url에 view 함수 연결해서 사진 출력하기</a> 편에서 역할을 설명했고, 이번 편에서 처음 사용합니다. 이 함수는 대개 세 가지 인자를 필요로 합니다.</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">request</code></li>
+  <li><code class="highlighter-rouge">request</code></li>
   <li>템플릿 파일 이름</li>
-  <li>사전형(<code class="language-plaintext highlighter-rouge">dict</code>) 객체로 전달되는 템플릿 맥락 요소(context)</li>
+  <li>사전형(<code class="highlighter-rouge">dict</code>) 객체로 전달되는 템플릿 맥락 요소(context)</li>
 </ul>
 
-<p><code class="language-plaintext highlighter-rouge">request</code> 객체는 뷰 함수에 첫 번째 인자로 전달되는 객체입니다. <a href="https://docs.djangoproject.com/en/1.10/ref/request-response/#httprequest-objects">HTTP Request</a>를 뜻합니다. 뷰 함수는 언제나 첫 번째 인자로 <code class="language-plaintext highlighter-rouge">request</code> 객체를 전달 받는데, 이 객체를 <code class="language-plaintext highlighter-rouge">render()</code> 함수의 첫 번째 인자로 전달합니다. 템플릿에서 템플릿 맥락 요소로 <code class="language-plaintext highlighter-rouge">request</code> 객체를 지정하는(mapping) 데 사용됩니다. 두 번째 인자는 템플릿 파일 경로를 문자열로 지정하며, 이 인자 역시 필수 인자입니다. 마지막으로, 세 번째 인자는 템플릿 파일 안에서 사용할 템플릿 맥락 요소를 사전형(<code class="language-plaintext highlighter-rouge">dict</code>) 객체로 전달합니다. <code class="language-plaintext highlighter-rouge">{'form': form}</code>에서 <code class="language-plaintext highlighter-rouge">Key</code>인 <code class="language-plaintext highlighter-rouge">'form'</code>은 템플릿 파일 안에서 <code class="language-plaintext highlighter-rouge">form</code>이라는 이름으로 사용하는 템플릿 변수가 되고, <code class="language-plaintext highlighter-rouge">Value</code>인 <code class="language-plaintext highlighter-rouge">form</code>(<code class="language-plaintext highlighter-rouge">PhotoForm()</code>의 인스턴스 객체)가 이 템플릿 변수에 연결된(mapped) 객체인 셈이지요.</p>
+<p><code class="highlighter-rouge">request</code> 객체는 뷰 함수에 첫 번째 인자로 전달되는 객체입니다. <a href="https://docs.djangoproject.com/en/1.10/ref/request-response/#httprequest-objects">HTTP Request</a>를 뜻합니다. 뷰 함수는 언제나 첫 번째 인자로 <code class="highlighter-rouge">request</code> 객체를 전달 받는데, 이 객체를 <code class="highlighter-rouge">render()</code> 함수의 첫 번째 인자로 전달합니다. 템플릿에서 템플릿 맥락 요소로 <code class="highlighter-rouge">request</code> 객체를 지정하는(mapping) 데 사용됩니다. 두 번째 인자는 템플릿 파일 경로를 문자열로 지정하며, 이 인자 역시 필수 인자입니다. 마지막으로, 세 번째 인자는 템플릿 파일 안에서 사용할 템플릿 맥락 요소를 사전형(<code class="highlighter-rouge">dict</code>) 객체로 전달합니다. <code class="highlighter-rouge">{'form': form}</code>에서 <code class="highlighter-rouge">Key</code>인 <code class="highlighter-rouge">'form'</code>은 템플릿 파일 안에서 <code class="highlighter-rouge">form</code>이라는 이름으로 사용하는 템플릿 변수가 되고, <code class="highlighter-rouge">Value</code>인 <code class="highlighter-rouge">form</code>(<code class="highlighter-rouge">PhotoForm()</code>의 인스턴스 객체)가 이 템플릿 변수에 연결된(mapped) 객체인 셈이지요.</p>
 
-<p>이번엔 템플릿 파일인 <code class="language-plaintext highlighter-rouge">edit.html</code>을 만듭니다. <code class="language-plaintext highlighter-rouge">photo</code> 디렉터리에 <code class="language-plaintext highlighter-rouge">templates</code> 디렉터리를 만들고, 그 안에 <code class="language-plaintext highlighter-rouge">edit.html</code> 파일을 만들어 다음 내용을 담습니다.</p>
+<p>이번엔 템플릿 파일인 <code class="highlighter-rouge">edit.html</code>을 만듭니다. <code class="highlighter-rouge">photo</code> 디렉터리에 <code class="highlighter-rouge">templates</code> 디렉터리를 만들고, 그 안에 <code class="highlighter-rouge">edit.html</code> 파일을 만들어 다음 내용을 담습니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% extends 'layout.html' %}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% extends 'layout.html' %}
 
 {% block content %}
 &lt;form
@@ -144,55 +144,55 @@ def create(request):
 {% endblock %}
 </code></pre></div></div>
 
-<p>Django Template은 추후 연재에서 자세히 다루겠습니다. 이 <code class="language-plaintext highlighter-rouge">edit.html</code>는 뷰 함수에서 지정한 템플릿 파일이니 이후엔 <strong>뷰 템플릿 파일</strong>이라 부르겠습니다. 템플릿 내용 중 눈여겨 볼 점은 <code class="language-plaintext highlighter-rouge">{{ form.as_p }}</code> 코드입니다. <code class="language-plaintext highlighter-rouge">form</code>은 <code class="language-plaintext highlighter-rouge">create</code> 뷰 함수가 <code class="language-plaintext highlighter-rouge">form</code> 폼 객체를 <code class="language-plaintext highlighter-rouge">form</code>이라는 템플릿 변수로 지정해 전달한 것입니다. 이 객체의 인스턴스 메서드인 <code class="language-plaintext highlighter-rouge">as_p()</code>를 호출하면 각 폼 필드를 HTML 태그인 <code class="language-plaintext highlighter-rouge">&lt;p&gt;&lt;/p&gt;</code>(paragraph, 문단 태그)로 감싸서 출력합니다. 실제로 출력되는 HTML 코드는 다음과 같습니다.</p>
+<p>Django Template은 추후 연재에서 자세히 다루겠습니다. 이 <code class="highlighter-rouge">edit.html</code>는 뷰 함수에서 지정한 템플릿 파일이니 이후엔 <strong>뷰 템플릿 파일</strong>이라 부르겠습니다. 템플릿 내용 중 눈여겨 볼 점은 <code class="highlighter-rouge">{{ form.as_p }}</code> 코드입니다. <code class="highlighter-rouge">form</code>은 <code class="highlighter-rouge">create</code> 뷰 함수가 <code class="highlighter-rouge">form</code> 폼 객체를 <code class="highlighter-rouge">form</code>이라는 템플릿 변수로 지정해 전달한 것입니다. 이 객체의 인스턴스 메서드인 <code class="highlighter-rouge">as_p()</code>를 호출하면 각 폼 필드를 HTML 태그인 <code class="highlighter-rouge">&lt;p&gt;&lt;/p&gt;</code>(paragraph, 문단 태그)로 감싸서 출력합니다. 실제로 출력되는 HTML 코드는 다음과 같습니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;p&gt;&lt;label for="id_image"&gt;Image file:&lt;/label&gt; &lt;input id="id_image" name="image" type="file" /&gt;&lt;/p&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;p&gt;&lt;label for="id_image"&gt;Image file:&lt;/label&gt; &lt;input id="id_image" name="image" type="file" /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;label for="id_content"&gt;Content:&lt;/label&gt; &lt;textarea cols="40" id="id_content" maxlength="500" name="content" rows="10"&gt;
 &lt;/textarea&gt;&lt;/p&gt;
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">Photo</code> 모델에 있는 모델 필드 중 두 개가 HTML form 입력항목 태그로 표현 되었습니다. <code class="language-plaintext highlighter-rouge">created_at</code>은 없는데, 날짜나 시간 관련 모델 필드(<code class="language-plaintext highlighter-rouge">DateTimeField</code>, <code class="language-plaintext highlighter-rouge">DateField</code>, <code class="language-plaintext highlighter-rouge">TimeField</code>)에 <code class="language-plaintext highlighter-rouge">auto_now_add</code>나 <code class="language-plaintext highlighter-rouge">auto_now</code> 필드 옵션 중 하나라도 <code class="language-plaintext highlighter-rouge">True</code>로 지정되면 Model form으로 폼 필드를 만들 때 기본 입력 항목으로 지정되지 않고, 그래서 HTML 태그로도 만들어 내지 않습니다.</p>
+<p><code class="highlighter-rouge">Photo</code> 모델에 있는 모델 필드 중 두 개가 HTML form 입력항목 태그로 표현 되었습니다. <code class="highlighter-rouge">created_at</code>은 없는데, 날짜나 시간 관련 모델 필드(<code class="highlighter-rouge">DateTimeField</code>, <code class="highlighter-rouge">DateField</code>, <code class="highlighter-rouge">TimeField</code>)에 <code class="highlighter-rouge">auto_now_add</code>나 <code class="highlighter-rouge">auto_now</code> 필드 옵션 중 하나라도 <code class="highlighter-rouge">True</code>로 지정되면 Model form으로 폼 필드를 만들 때 기본 입력 항목으로 지정되지 않고, 그래서 HTML 태그로도 만들어 내지 않습니다.</p>
 
-<p><code class="language-plaintext highlighter-rouge">{% csrf_token %}</code>는 <a href="https://goo.gl/Bw90sV">CSRF(Cross Site Request Forgery)</a> 토큰을 만드는 템플릿 태그입니다. Django로 만든 웹 페이지에 접속하면 각 세션을 기반으로 CSRF 토큰을 만들며, 이 토큰이 조작되거나 존재하지 않으면 Form 데이터를 Django로 동작하는 웹 애플리케이션 서버에 보내지 못합니다<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">2</a></sup>. CSRF 토큰 검사를 하지 않도록 하면 되지만, 보안 상 좋지 않으니 HTML 폼 영역에 CSRF 토큰을 생성하도록 <code class="language-plaintext highlighter-rouge">{% csrf_token %}</code>을 습관처럼 넣길 권합니다. 빠뜨리면 CSRF 검증을 실패하였다는 오류가 발생합니다.</p>
+<p><code class="highlighter-rouge">{% csrf_token %}</code>는 <a href="https://goo.gl/Bw90sV">CSRF(Cross Site Request Forgery)</a> 토큰을 만드는 템플릿 태그입니다. Django로 만든 웹 페이지에 접속하면 각 세션을 기반으로 CSRF 토큰을 만들며, 이 토큰이 조작되거나 존재하지 않으면 Form 데이터를 Django로 동작하는 웹 애플리케이션 서버에 보내지 못합니다<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>. CSRF 토큰 검사를 하지 않도록 하면 되지만, 보안 상 좋지 않으니 HTML 폼 영역에 CSRF 토큰을 생성하도록 <code class="highlighter-rouge">{% csrf_token %}</code>을 습관처럼 넣길 권합니다. 빠뜨리면 CSRF 검증을 실패하였다는 오류가 발생합니다.</p>
 
-<p>뷰 템플릿 파일인 <code class="language-plaintext highlighter-rouge">edit.html</code>는 레이아웃 구조를 잡는 역할을 하는 <code class="language-plaintext highlighter-rouge">layout.html</code> 템플릿 파일로 확장하므로(<code class="language-plaintext highlighter-rouge">{% extends 'layout.html' %}</code>) 이 <code class="language-plaintext highlighter-rouge">layout.html</code> 파일도 만들어야 합니다.</p>
+<p>뷰 템플릿 파일인 <code class="highlighter-rouge">edit.html</code>는 레이아웃 구조를 잡는 역할을 하는 <code class="highlighter-rouge">layout.html</code> 템플릿 파일로 확장하므로(<code class="highlighter-rouge">{% extends 'layout.html' %}</code>) 이 <code class="highlighter-rouge">layout.html</code> 파일도 만들어야 합니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% load staticfiles %}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% load staticfiles %}
 
-&lt;!DOCTYPE html&gt;
-&lt;html lang="ko"&gt;
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"ko"</span><span class="nt">&gt;</span>
 
-&lt;head&gt;
-    &lt;title&gt;{% block page_title %}Pystagram{% endblock %}&lt;/title&gt;
-    &lt;meta charset="utf-8"&gt;
-    &lt;script type="text/javascript" src="{% static 'js/jquery-2.1.3.min.js' %}"&gt;&lt;/script&gt;
-&lt;/head&gt;
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>{% block page_title %}Pystagram{% endblock %}<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"{% static 'js/jquery-2.1.3.min.js' %}"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
 
-&lt;body&gt;
+<span class="nt">&lt;body&gt;</span>
 {% block content %}{% endblock %}
-&lt;/body&gt;
+<span class="nt">&lt;/body&gt;</span>
 
-&lt;/html&gt;
+<span class="nt">&lt;/html&gt;</span>
 </code></pre></div></div>
 
 <p>지난 6회 연재 글에서 다룬 정적(static) 파일 내용이 얼핏 보이네요. 이것도 Django Template을 다루는 연재 글에서 자세히 다루겠습니다.</p>
 
-<p>이제 Django의 개발용 내장 웹 서버를 구동하고(<code class="language-plaintext highlighter-rouge">python manage.py runserver</code>) <code class="language-plaintext highlighter-rouge">/photo/upload/</code> URL로 접속하면 사진 게시물을 작성하는 편집 화면이 나옵니다. <code class="language-plaintext highlighter-rouge">filtered_image</code>은 이미지 필터를 적용하여 가공된 이미지 파일을 담는 모델 필드입니다. 다시 말하면 사진 게시물을 편집하는 단계에서 이용자가 접근해서는 안 되는 필드입니다. 그래서 화면에 나타나지 않게 감추었습니다. 앞서 모델폼을 만들 때 <code class="language-plaintext highlighter-rouge">fields</code> 속성에서 누락한 탓입니다.</p>
+<p>이제 Django의 개발용 내장 웹 서버를 구동하고(<code class="highlighter-rouge">python manage.py runserver</code>) <code class="highlighter-rouge">/photo/upload/</code> URL로 접속하면 사진 게시물을 작성하는 편집 화면이 나옵니다. <code class="highlighter-rouge">filtered_image</code>은 이미지 필터를 적용하여 가공된 이미지 파일을 담는 모델 필드입니다. 다시 말하면 사진 게시물을 편집하는 단계에서 이용자가 접근해서는 안 되는 필드입니다. 그래서 화면에 나타나지 않게 감추었습니다. 앞서 모델폼을 만들 때 <code class="highlighter-rouge">fields</code> 속성에서 누락한 탓입니다.</p>
 
-<p><code class="language-plaintext highlighter-rouge">fields</code>는 폼에서 사용할 모델 필드를 지정하는 데 사용하며, 모델 필드 이름을 문자열로 리스트(<code class="language-plaintext highlighter-rouge">list</code>)나 튜플(<code class="language-plaintext highlighter-rouge">tuple</code>) 객체에 나열해 담으면 됩니다. 그런데 폼 필드로 사용하지 않을 모델 필드는 <code class="language-plaintext highlighter-rouge">filtered_image</code> 하나이고, 사용할 모델 필드는 221개쯤 있다고 가정하겠습니다. 고작 하나를 사용하지 않으려고 221개 모델 필드 이름을 나열하면 무척 고통스럽습니다. 이런 경우는 사용하지 않을 모델 필드만 지정해야 편한데, <code class="language-plaintext highlighter-rouge">exclude</code>에 지정하면 됩니다.</p>
+<p><code class="highlighter-rouge">fields</code>는 폼에서 사용할 모델 필드를 지정하는 데 사용하며, 모델 필드 이름을 문자열로 리스트(<code class="highlighter-rouge">list</code>)나 튜플(<code class="highlighter-rouge">tuple</code>) 객체에 나열해 담으면 됩니다. 그런데 폼 필드로 사용하지 않을 모델 필드는 <code class="highlighter-rouge">filtered_image</code> 하나이고, 사용할 모델 필드는 221개쯤 있다고 가정하겠습니다. 고작 하나를 사용하지 않으려고 221개 모델 필드 이름을 나열하면 무척 고통스럽습니다. 이런 경우는 사용하지 않을 모델 필드만 지정해야 편한데, <code class="highlighter-rouge">exclude</code>에 지정하면 됩니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class PhotoForm(forms.ModelForm):
-    class Meta:
-        model = Photo
-        exclude = ('filtered_image', )
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">class</span> <span class="n">PhotoForm</span><span class="p">(</span><span class="n">forms</span><span class="p">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="n">class</span> <span class="n">Meta</span><span class="p">:</span>
+        <span class="k">model</span> <span class="p">=</span> <span class="n">Photo</span>
+        <span class="n">exclude</span> <span class="p">=</span> <span class="p">(</span><span class="s1">'filtered_image'</span><span class="p">,</span> <span class="p">)</span>
 </code></pre></div></div>
 
-<p>이 코드에서 유의할 점은 <code class="language-plaintext highlighter-rouge">exclude</code> 역시 리스트나 튜플 객체를 할당해야 하므로 <code class="language-plaintext highlighter-rouge">'filtered_image'</code> 뒤에 쉼표 하나 더 찍어줘야 합니다<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote">3</a></sup>.</p>
+<p>이 코드에서 유의할 점은 <code class="highlighter-rouge">exclude</code> 역시 리스트나 튜플 객체를 할당해야 하므로 <code class="highlighter-rouge">'filtered_image'</code> 뒤에 쉼표 하나 더 찍어줘야 합니다<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>.</p>
 
-<p><code class="language-plaintext highlighter-rouge">photos</code> 앱 디렉터리에 <code class="language-plaintext highlighter-rouge">templates</code> 디렉터리를 만들고 그곳에 템플릿 파일을 담으면 Django가 알아서 앱 디렉터리에 있는 템플릿 파일을 가져옵니다. 이 동작은 <code class="language-plaintext highlighter-rouge">settings.py</code>에 따로 설정되어 있어서 그렇습니다.</p>
+<p><code class="highlighter-rouge">photos</code> 앱 디렉터리에 <code class="highlighter-rouge">templates</code> 디렉터리를 만들고 그곳에 템플릿 파일을 담으면 Django가 알아서 앱 디렉터리에 있는 템플릿 파일을 가져옵니다. 이 동작은 <code class="highlighter-rouge">settings.py</code>에 따로 설정되어 있어서 그렇습니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TEMPLATES = [
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
@@ -209,13 +209,13 @@ def create(request):
 ]
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">settings.py</code>의 <code class="language-plaintext highlighter-rouge">TEMPLATES</code> 항목을 보면 <code class="language-plaintext highlighter-rouge">'APP_DIRS': True,</code> 코드가 있는데, 이 부분이 바로 Django 앱 별로 템플릿 파일을 다루도록 할 것인지 여부를 지정한 것이며 앱 안에 위치하는 템플릿 디렉터리 이름은 <code class="language-plaintext highlighter-rouge">templates</code>로 고정되어 있습니다. <code class="language-plaintext highlighter-rouge">False</code>로 바꾸면 앱 디렉터리에 있는 템플릿 파일을 다루지 않습니다.</p>
+<p><code class="highlighter-rouge">settings.py</code>의 <code class="highlighter-rouge">TEMPLATES</code> 항목을 보면 <code class="highlighter-rouge">'APP_DIRS': True,</code> 코드가 있는데, 이 부분이 바로 Django 앱 별로 템플릿 파일을 다루도록 할 것인지 여부를 지정한 것이며 앱 안에 위치하는 템플릿 디렉터리 이름은 <code class="highlighter-rouge">templates</code>로 고정되어 있습니다. <code class="highlighter-rouge">False</code>로 바꾸면 앱 디렉터리에 있는 템플릿 파일을 다루지 않습니다.</p>
 
 <h4 id="사진-게시물-게시하기">사진 게시물 게시하기</h4>
 
-<p>우리는 사진 게시물 내용을 작성하는 URL과 사진 게시물을 제출하여 게시하는 URL을 같이 쓰겠습니다. 즉, <code class="language-plaintext highlighter-rouge">/photo/upload/</code>에 HTTP Get 방식으로 접근하면 사진 게시물을 작성하는 화면이 나오고, POST 방식으로 접근하면 게시물을 제출합니다.</p>
+<p>우리는 사진 게시물 내용을 작성하는 URL과 사진 게시물을 제출하여 게시하는 URL을 같이 쓰겠습니다. 즉, <code class="highlighter-rouge">/photo/upload/</code>에 HTTP Get 방식으로 접근하면 사진 게시물을 작성하는 화면이 나오고, POST 방식으로 접근하면 게시물을 제출합니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.shortcuts import redirect
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.shortcuts import redirect
 
 
 def create(request):
@@ -235,16 +235,16 @@ def create(request):
     return render(request, 'edit.html', ctx)
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">request.method</code>가 <code class="language-plaintext highlighter-rouge">GET</code>인 경우는 기존 코드를 그대로 사용하면 됩니다. <code class="language-plaintext highlighter-rouge">POST</code> 방식, 즉, 게시물 내용과 파일을 제출 받는 부분을 추가했습니다.</p>
+<p><code class="highlighter-rouge">request.method</code>가 <code class="highlighter-rouge">GET</code>인 경우는 기존 코드를 그대로 사용하면 됩니다. <code class="highlighter-rouge">POST</code> 방식, 즉, 게시물 내용과 파일을 제출 받는 부분을 추가했습니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PhotoForm(request.POST, request.FILES)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PhotoForm(request.POST, request.FILES)
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">PhotoForm</code> 폼에 첫 번째 인자로 <code class="language-plaintext highlighter-rouge">request.POST</code>를, 두 번째 인자로 <code class="language-plaintext highlighter-rouge">request.FILES</code>를 전달합니다. 첫 번째 인자는 폼에서 다룰 데이터를 뜻하며, 사전형(<code class="language-plaintext highlighter-rouge">dict</code>) 객체나 사전형 객체처럼 동작하는(비슷한 인터페이스를 제공하는) 객체<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote">4</a></sup>여야 합니다. 파일을 제외한 HTML Form에서 <code class="language-plaintext highlighter-rouge">POST</code> 방식으로 전송해온 모든 formdata 데이터가 <code class="language-plaintext highlighter-rouge">request.POST</code>에 있습니다. 파일은 <code class="language-plaintext highlighter-rouge">request.FILES</code>에 있습니다. 그래서, 이 둘을 분리하여 첫 번째 인자, 두 번째 인자로 전달한 것입니다.</p>
+<p><code class="highlighter-rouge">PhotoForm</code> 폼에 첫 번째 인자로 <code class="highlighter-rouge">request.POST</code>를, 두 번째 인자로 <code class="highlighter-rouge">request.FILES</code>를 전달합니다. 첫 번째 인자는 폼에서 다룰 데이터를 뜻하며, 사전형(<code class="highlighter-rouge">dict</code>) 객체나 사전형 객체처럼 동작하는(비슷한 인터페이스를 제공하는) 객체<sup id="fnref:4"><a href="#fn:4" class="footnote">4</a></sup>여야 합니다. 파일을 제외한 HTML Form에서 <code class="highlighter-rouge">POST</code> 방식으로 전송해온 모든 formdata 데이터가 <code class="highlighter-rouge">request.POST</code>에 있습니다. 파일은 <code class="highlighter-rouge">request.FILES</code>에 있습니다. 그래서, 이 둘을 분리하여 첫 번째 인자, 두 번째 인자로 전달한 것입니다.</p>
 
-<p>여기까지는 폼에서 처리할 데이터를 인자로 전달하여 설정한 것일 뿐이므로, <code class="language-plaintext highlighter-rouge">form = PhotoForm()</code>와 다를 바 없습니다. 그렇다고 해서 다음과 같이 코드를 작성해서는 안 됩니다.</p>
+<p>여기까지는 폼에서 처리할 데이터를 인자로 전달하여 설정한 것일 뿐이므로, <code class="highlighter-rouge">form = PhotoForm()</code>와 다를 바 없습니다. 그렇다고 해서 다음과 같이 코드를 작성해서는 안 됩니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    form = PhotoForm()
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    form = PhotoForm()
     if request.method == "POST":
         form.data = request.POST
         form.files = request.FILES
@@ -253,31 +253,31 @@ def create(request):
             obj = form.save()
 </code></pre></div></div>
 
-<p>Django Form은 첫 번째 인자로 넘어온 데이터는 <code class="language-plaintext highlighter-rouge">data</code> 멤버에, 파일은 <code class="language-plaintext highlighter-rouge">files</code> 멤버에 할당하는 걸 이용한 것인데, Form 클래스로 인스턴스 객체를 생성해 할당하는 과정에서(<code class="language-plaintext highlighter-rouge">__init__()</code>) 인자로 전달된 데이터나 파일이 있으면 <code class="language-plaintext highlighter-rouge">is_bound</code>라는 멤버에 <code class="language-plaintext highlighter-rouge">True</code>가 할당되고, 이 <code class="language-plaintext highlighter-rouge">is_bound</code>가 <code class="language-plaintext highlighter-rouge">True</code>여야만 <code class="language-plaintext highlighter-rouge">is_valid()</code>를 비롯한 폼 검사를 수행하기 때문입니다. 물론,</p>
+<p>Django Form은 첫 번째 인자로 넘어온 데이터는 <code class="highlighter-rouge">data</code> 멤버에, 파일은 <code class="highlighter-rouge">files</code> 멤버에 할당하는 걸 이용한 것인데, Form 클래스로 인스턴스 객체를 생성해 할당하는 과정에서(<code class="highlighter-rouge">__init__()</code>) 인자로 전달된 데이터나 파일이 있으면 <code class="highlighter-rouge">is_bound</code>라는 멤버에 <code class="highlighter-rouge">True</code>가 할당되고, 이 <code class="highlighter-rouge">is_bound</code>가 <code class="highlighter-rouge">True</code>여야만 <code class="highlighter-rouge">is_valid()</code>를 비롯한 폼 검사를 수행하기 때문입니다. 물론,</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if request.method == "POST":
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    if request.method == "POST":
         form.is_bound = True
         form.data = request.POST
         form.files = request.FILES
 </code></pre></div></div>
 
-<p>이렇게 <code class="language-plaintext highlighter-rouge">is_bound</code>를 직접 <code class="language-plaintext highlighter-rouge">True</code>로 할당하면 되지만, <code class="language-plaintext highlighter-rouge">form = PhotoForm(request.POST, request.FILES)</code>라고 코드를 짜면 그만인 것을 굳이 저렇게 짤 필요는 없습니다.</p>
+<p>이렇게 <code class="highlighter-rouge">is_bound</code>를 직접 <code class="highlighter-rouge">True</code>로 할당하면 되지만, <code class="highlighter-rouge">form = PhotoForm(request.POST, request.FILES)</code>라고 코드를 짜면 그만인 것을 굳이 저렇게 짤 필요는 없습니다.</p>
 
-<p>폼에 검사할 데이터를 전달하여 초기화하여 인스턴스 객체(<code class="language-plaintext highlighter-rouge">form</code>)에는 전달된 데이터를 검사하는 몇 가지 인스턴스 메서드를 제공합니다. <code class="language-plaintext highlighter-rouge">full_clean()</code>나 <code class="language-plaintext highlighter-rouge">clean()</code> 메서드가 폼 데이터를 검사하는 데 사용하는 메서드인데, 실제로는 <code class="language-plaintext highlighter-rouge">is_valid()</code> 메서드를 사용하면 됩니다. <code class="language-plaintext highlighter-rouge">is_valid()</code> 메서드는 폼에 전달된 데이터를 폼 필드를 기준으로 검사하여 모든 데이터가 유효하면 <code class="language-plaintext highlighter-rouge">True</code>를, 하나라도 유효하지 않은 항목이 있으면 <code class="language-plaintext highlighter-rouge">False</code>를 반환합니다. 동작은 다음과 같습니다.</p>
+<p>폼에 검사할 데이터를 전달하여 초기화하여 인스턴스 객체(<code class="highlighter-rouge">form</code>)에는 전달된 데이터를 검사하는 몇 가지 인스턴스 메서드를 제공합니다. <code class="highlighter-rouge">full_clean()</code>나 <code class="highlighter-rouge">clean()</code> 메서드가 폼 데이터를 검사하는 데 사용하는 메서드인데, 실제로는 <code class="highlighter-rouge">is_valid()</code> 메서드를 사용하면 됩니다. <code class="highlighter-rouge">is_valid()</code> 메서드는 폼에 전달된 데이터를 폼 필드를 기준으로 검사하여 모든 데이터가 유효하면 <code class="highlighter-rouge">True</code>를, 하나라도 유효하지 않은 항목이 있으면 <code class="highlighter-rouge">False</code>를 반환합니다. 동작은 다음과 같습니다.</p>
 
 <ol>
-  <li><code class="language-plaintext highlighter-rouge">is_valid()</code> : 폼 검사와 관련된 오류(error)가 있는 지 검사.</li>
-  <li><code class="language-plaintext highlighter-rouge">full_clean()</code> : <code class="language-plaintext highlighter-rouge">_clean_fields()</code>, <code class="language-plaintext highlighter-rouge">_clean_form()</code>, <code class="language-plaintext highlighter-rouge">_post_clean()</code> 메서드를 차례대로 수행하여 폼 데이터 유효성을 검사.</li>
-  <li>최종 : <code class="language-plaintext highlighter-rouge">is_valid()</code>는 오류(errors)가 없으면 <code class="language-plaintext highlighter-rouge">True</code>를 반환하고, 있으면 데이터가 유효하지 않아 <code class="language-plaintext highlighter-rouge">False</code>를 반환하며, 어떤 항목에 문제가 유효하지 않은 지 여부는 폼 인스턴스 객체의 <code class="language-plaintext highlighter-rouge">errors</code> 멤버(프로퍼티)에 사전형 객체처럼 생긴 <code class="language-plaintext highlighter-rouge">ErrorDict</code>의 인스턴스 객체로 할당.</li>
+  <li><code class="highlighter-rouge">is_valid()</code> : 폼 검사와 관련된 오류(error)가 있는 지 검사.</li>
+  <li><code class="highlighter-rouge">full_clean()</code> : <code class="highlighter-rouge">_clean_fields()</code>, <code class="highlighter-rouge">_clean_form()</code>, <code class="highlighter-rouge">_post_clean()</code> 메서드를 차례대로 수행하여 폼 데이터 유효성을 검사.</li>
+  <li>최종 : <code class="highlighter-rouge">is_valid()</code>는 오류(errors)가 없으면 <code class="highlighter-rouge">True</code>를 반환하고, 있으면 데이터가 유효하지 않아 <code class="highlighter-rouge">False</code>를 반환하며, 어떤 항목에 문제가 유효하지 않은 지 여부는 폼 인스턴스 객체의 <code class="highlighter-rouge">errors</code> 멤버(프로퍼티)에 사전형 객체처럼 생긴 <code class="highlighter-rouge">ErrorDict</code>의 인스턴스 객체로 할당.</li>
 </ol>
 
-<p>데이터가 모두 유효하면 <code class="language-plaintext highlighter-rouge">PhotoForm</code> 폼의 인스턴스 객체인 <code class="language-plaintext highlighter-rouge">form</code>의 <code class="language-plaintext highlighter-rouge">save()</code> 메서드를 실행하고, 이 메서드는 연결된 모델을 이용하여 데이터를 저장합니다. <code class="language-plaintext highlighter-rouge">save()</code> 메서드는 <code class="language-plaintext highlighter-rouge">ModelForm</code> 클래스에 있는 메서드인데, 모델 폼에 연결한 모델을 이용하여 데이터를 저장하고 저장한 모델의 인스턴스 객체를 반환합니다. <code class="language-plaintext highlighter-rouge">PhotoForm</code>에 <code class="language-plaintext highlighter-rouge">Photo</code> 모델을 연결하였으므로 <code class="language-plaintext highlighter-rouge">Photo</code> 모델로 생성한 인스턴스 객체를 반환하는 셈이지요.</p>
+<p>데이터가 모두 유효하면 <code class="highlighter-rouge">PhotoForm</code> 폼의 인스턴스 객체인 <code class="highlighter-rouge">form</code>의 <code class="highlighter-rouge">save()</code> 메서드를 실행하고, 이 메서드는 연결된 모델을 이용하여 데이터를 저장합니다. <code class="highlighter-rouge">save()</code> 메서드는 <code class="highlighter-rouge">ModelForm</code> 클래스에 있는 메서드인데, 모델 폼에 연결한 모델을 이용하여 데이터를 저장하고 저장한 모델의 인스턴스 객체를 반환합니다. <code class="highlighter-rouge">PhotoForm</code>에 <code class="highlighter-rouge">Photo</code> 모델을 연결하였으므로 <code class="highlighter-rouge">Photo</code> 모델로 생성한 인스턴스 객체를 반환하는 셈이지요.</p>
 
-<p><code class="language-plaintext highlighter-rouge">return redirect(obj)</code> 에서 <code class="language-plaintext highlighter-rouge">redirect()</code> 함수는 HTTP Response를 반환하는 Django의 <code class="language-plaintext highlighter-rouge">HttpResponseRedirect</code> 클래스를 이용하여 클라이언트를 지정한 URL로 이동(redirect)시킵니다. <code class="language-plaintext highlighter-rouge">render()</code> 함수처럼 몇 가지 절차를 간편하게 줄여준 함수이며, <code class="language-plaintext highlighter-rouge">django.shortcuts</code> 모듈에 있습니다.</p>
+<p><code class="highlighter-rouge">return redirect(obj)</code> 에서 <code class="highlighter-rouge">redirect()</code> 함수는 HTTP Response를 반환하는 Django의 <code class="highlighter-rouge">HttpResponseRedirect</code> 클래스를 이용하여 클라이언트를 지정한 URL로 이동(redirect)시킵니다. <code class="highlighter-rouge">render()</code> 함수처럼 몇 가지 절차를 간편하게 줄여준 함수이며, <code class="highlighter-rouge">django.shortcuts</code> 모듈에 있습니다.</p>
 
-<p><code class="language-plaintext highlighter-rouge">redirect(obj)</code>에서 눈 여겨 볼 부분은 바로 <code class="language-plaintext highlighter-rouge">obj</code>입니다. <code class="language-plaintext highlighter-rouge">obj</code> 변수엔 <code class="language-plaintext highlighter-rouge">Photo</code> 모델의 인스턴스 객체가 연결되어 있습니다. <code class="language-plaintext highlighter-rouge">redirect</code> 함수는 전달된 객체가 모델의 인스턴스 객체인 경우 그 객체의 <code class="language-plaintext highlighter-rouge">get_absolute_url()</code> 메서드를 호출합니다. 음, 우리는 <code class="language-plaintext highlighter-rouge">Photo</code> 모델에 <code class="language-plaintext highlighter-rouge">get_absolute_url()</code> 인스턴스 메서드를 만든 적이 없습니다. 먼저 만들고 설명하겠습니다. <code class="language-plaintext highlighter-rouge">photo</code> 앱 디렉터리 안에 있는 <code class="language-plaintext highlighter-rouge">models.py</code>에서 <code class="language-plaintext highlighter-rouge">Photo</code> 모델 클래스에 다음 코드를 추가합니다.</p>
+<p><code class="highlighter-rouge">redirect(obj)</code>에서 눈 여겨 볼 부분은 바로 <code class="highlighter-rouge">obj</code>입니다. <code class="highlighter-rouge">obj</code> 변수엔 <code class="highlighter-rouge">Photo</code> 모델의 인스턴스 객체가 연결되어 있습니다. <code class="highlighter-rouge">redirect</code> 함수는 전달된 객체가 모델의 인스턴스 객체인 경우 그 객체의 <code class="highlighter-rouge">get_absolute_url()</code> 메서드를 호출합니다. 음, 우리는 <code class="highlighter-rouge">Photo</code> 모델에 <code class="highlighter-rouge">get_absolute_url()</code> 인스턴스 메서드를 만든 적이 없습니다. 먼저 만들고 설명하겠습니다. <code class="highlighter-rouge">photo</code> 앱 디렉터리 안에 있는 <code class="highlighter-rouge">models.py</code>에서 <code class="highlighter-rouge">Photo</code> 모델 클래스에 다음 코드를 추가합니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.core.urlresolvers import reverse_lazy
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.core.urlresolvers import reverse_lazy
 
 
 class Photo(models.Model):
@@ -288,11 +288,11 @@ class Photo(models.Model):
         return url
 </code></pre></div></div>
 
-<p>Django Model의 <code class="language-plaintext highlighter-rouge">get_absolute_url()</code> 메서드는 모델의 개별 데이터에 접근하는 URL을 문자열로 반환합니다. 우리는 개별 사진을 보는 URL을 <code class="language-plaintext highlighter-rouge">/photos/사진ID/</code> 패턴으로 제공하므로, 2번 사진은 <code class="language-plaintext highlighter-rouge">/photos/2/</code>, 1023번 사진은 <code class="language-plaintext highlighter-rouge">/photos/1023/</code> URL로 접근합니다. 각 사진의 데이터는 <code class="language-plaintext highlighter-rouge">Photo</code> 모델에 존재하며, 사진 데이터란 모델 클래스의 인스턴스 객체이므로 모델 클래스에 인스턴스 메서드로 <code class="language-plaintext highlighter-rouge">get_absolute_url()</code>를 만드는 것입니다.</p>
+<p>Django Model의 <code class="highlighter-rouge">get_absolute_url()</code> 메서드는 모델의 개별 데이터에 접근하는 URL을 문자열로 반환합니다. 우리는 개별 사진을 보는 URL을 <code class="highlighter-rouge">/photos/사진ID/</code> 패턴으로 제공하므로, 2번 사진은 <code class="highlighter-rouge">/photos/2/</code>, 1023번 사진은 <code class="highlighter-rouge">/photos/1023/</code> URL로 접근합니다. 각 사진의 데이터는 <code class="highlighter-rouge">Photo</code> 모델에 존재하며, 사진 데이터란 모델 클래스의 인스턴스 객체이므로 모델 클래스에 인스턴스 메서드로 <code class="highlighter-rouge">get_absolute_url()</code>를 만드는 것입니다.</p>
 
-<p><code class="language-plaintext highlighter-rouge">get_absolute_url</code>라는 이름을 반드시 따를 필요는 없으며 없어도 무방합니다. <code class="language-plaintext highlighter-rouge">permalink()</code>라는 이름으로 메서드를 만들어도 무방합니다. 다만, <code class="language-plaintext highlighter-rouge">get_absolute_url</code>는 Django가 개별 모델 데이터의 URL을 제공하는 메서드라고 전제해 놓은 관례(conventional) 이름이어서 Django가 알아서 처리하는 감춰진 동작<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote">5</a></sup>에 사용됩니다. 이런 관례(convention)를 따르면 일일이 지정하고 설정하지 않아도 되어 코드가 간결해집니다.</p>
+<p><code class="highlighter-rouge">get_absolute_url</code>라는 이름을 반드시 따를 필요는 없으며 없어도 무방합니다. <code class="highlighter-rouge">permalink()</code>라는 이름으로 메서드를 만들어도 무방합니다. 다만, <code class="highlighter-rouge">get_absolute_url</code>는 Django가 개별 모델 데이터의 URL을 제공하는 메서드라고 전제해 놓은 관례(conventional) 이름이어서 Django가 알아서 처리하는 감춰진 동작<sup id="fnref:5"><a href="#fn:5" class="footnote">5</a></sup>에 사용됩니다. 이런 관례(convention)를 따르면 일일이 지정하고 설정하지 않아도 되어 코드가 간결해집니다.</p>
 
-<p><code class="language-plaintext highlighter-rouge">reverse_lazy()</code>는 나중에 좀 더 자세히 다루기로 하고, 이번 편에서는 <code class="language-plaintext highlighter-rouge">urls.py</code>에 <code class="language-plaintext highlighter-rouge">'create'</code> 이름으로 등록한 URL 패턴에 키워드 인자인 <code class="language-plaintext highlighter-rouge">pk</code>의 값으로 <code class="language-plaintext highlighter-rouge">self.pk</code>를 할당하여 URL 문자열을 가져오는 데 사용했다고 이해하고 넘어가겠습니다.</p>
+<p><code class="highlighter-rouge">reverse_lazy()</code>는 나중에 좀 더 자세히 다루기로 하고, 이번 편에서는 <code class="highlighter-rouge">urls.py</code>에 <code class="highlighter-rouge">'create'</code> 이름으로 등록한 URL 패턴에 키워드 인자인 <code class="highlighter-rouge">pk</code>의 값으로 <code class="highlighter-rouge">self.pk</code>를 할당하여 URL 문자열을 가져오는 데 사용했다고 이해하고 넘어가겠습니다.</p>
 
 <p>사진 게시물을 게시하는 기능을 구현했습니다. 실제로 올려보세요. 잘 게시됩니다.</p>
 
@@ -300,12 +300,12 @@ class Photo(models.Model):
 
 <p>혹시 사진으로 이미지 파일을 첨부하지 않거나 이미지 파일이 아닌 파일을 첨부하여 게시물을 첨부해 보셨나요? 강좌 소스 코드대로 잘 따라 오셨다면, 오류 내용이 안내됩니다. 우리는 템플릿 파일 어디에도 폼 오류 안내말을 출력하지 않았는데, 이게 어떻게 된 일일까요? 우리가 템플릿 파일에 폼 관련 내용을 담은 건 고작 한 줄 뿐입니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    {{ form.as_p }}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    {{ form.as_p }}
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">as_p</code>로 폼 내용을 HTML로 출력하려 하면, 폼 항목에 오류가 있는 지, 즉, 폼 인스턴스 객체의 <code class="language-plaintext highlighter-rouge">errors</code> 속성에 내용이 있는 지 확인하고, 있다면 오류 내용을 출력합니다. <code class="language-plaintext highlighter-rouge">{{ form.as_p }}</code>를 풀어쓰면 다음과 같습니다.</p>
+<p><code class="highlighter-rouge">as_p</code>로 폼 내용을 HTML로 출력하려 하면, 폼 항목에 오류가 있는 지, 즉, 폼 인스턴스 객체의 <code class="highlighter-rouge">errors</code> 속성에 내용이 있는 지 확인하고, 있다면 오류 내용을 출력합니다. <code class="highlighter-rouge">{{ form.as_p }}</code>를 풀어쓰면 다음과 같습니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    {% for field in form %}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    {% for field in form %}
     &lt;p&gt;
         {% if field.errors %}
         {{ field.errors }}
@@ -316,9 +316,9 @@ class Photo(models.Model):
     {% endfor %}
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">form</code> 템플릿 변수(<code class="language-plaintext highlighter-rouge">views.py</code>에서는 <code class="language-plaintext highlighter-rouge">form</code> 객체)는 <code class="language-plaintext highlighter-rouge">for</code>문으로 순환 가능합니다. 순환하면 폼에 등록된 폼 필드 순서대로 하나씩 폼 필드 객체를 꺼냅니다. 이 필드 객체를 출력하려 하면 이 필드가 생성하는 HTML 내용을 반환하는데, 이 필드 객체에 오류가 있는 경우, 오류 내용이 필드 객체의 <code class="language-plaintext highlighter-rouge">errors</code>에 할당됩니다. 한 폼 필드에 오류 내용은 한 개 이상인 경우도 생기므로 순서열 객체(<code class="language-plaintext highlighter-rouge">list</code>)에 오류가 하나씩 할당됩니다. <code class="language-plaintext highlighter-rouge">{{ field.errors }}</code> 마저도 더 풀어쓰면 다음과 같습니다.</p>
+<p><code class="highlighter-rouge">form</code> 템플릿 변수(<code class="highlighter-rouge">views.py</code>에서는 <code class="highlighter-rouge">form</code> 객체)는 <code class="highlighter-rouge">for</code>문으로 순환 가능합니다. 순환하면 폼에 등록된 폼 필드 순서대로 하나씩 폼 필드 객체를 꺼냅니다. 이 필드 객체를 출력하려 하면 이 필드가 생성하는 HTML 내용을 반환하는데, 이 필드 객체에 오류가 있는 경우, 오류 내용이 필드 객체의 <code class="highlighter-rouge">errors</code>에 할당됩니다. 한 폼 필드에 오류 내용은 한 개 이상인 경우도 생기므로 순서열 객체(<code class="highlighter-rouge">list</code>)에 오류가 하나씩 할당됩니다. <code class="highlighter-rouge">{{ field.errors }}</code> 마저도 더 풀어쓰면 다음과 같습니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        {% if field.errors %}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        {% if field.errors %}
         &lt;ul&gt;
             {% for error in field.errors %}
             &lt;li&gt;{{error}}&lt;/li&gt;
@@ -327,9 +327,9 @@ class Photo(models.Model):
         {% endif %}
 </code></pre></div></div>
 
-<p>폼 필드를 직접 명시하여 오류를 확인하는 방법도 있습니다. 예를 들어, 이미지 파일 필드인 <code class="language-plaintext highlighter-rouge">image</code>에 오류가 있는 지 확인하는 방법은 다음과 같습니다.</p>
+<p>폼 필드를 직접 명시하여 오류를 확인하는 방법도 있습니다. 예를 들어, 이미지 파일 필드인 <code class="highlighter-rouge">image</code>에 오류가 있는 지 확인하는 방법은 다음과 같습니다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% if form.errors.image %}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% if form.errors.image %}
     {{form.errors.image}}
 {% endif %}
 
@@ -340,7 +340,7 @@ class Photo(models.Model):
 {% endif %}
 </code></pre></div></div>
 
-<p>대개는 Django Form이 자동으로 만들어주는 폼 항목 구성을 그대로 사용하진 않습니다. 각 폼 항목에 CSS나 HTML 속성을 다르게 부여하는데, Django 애플리케이션 개발자가 고치지 않고 Front-end 개발자가 수정하는 경우도 있습니다. 그래서 폼 필드를 구성하는 요소(레이블, 오류, 폼 필드 자체)를 분리해서 위와 같이 다루는 경우가 흔하고, 오히려 <code class="language-plaintext highlighter-rouge">{{ form.as_p }}</code>와 같이 Django에서 만들어내는 HTML 그대로를 사용하는 경우가 드뭅니다.</p>
+<p>대개는 Django Form이 자동으로 만들어주는 폼 항목 구성을 그대로 사용하진 않습니다. 각 폼 항목에 CSS나 HTML 속성을 다르게 부여하는데, Django 애플리케이션 개발자가 고치지 않고 Front-end 개발자가 수정하는 경우도 있습니다. 그래서 폼 필드를 구성하는 요소(레이블, 오류, 폼 필드 자체)를 분리해서 위와 같이 다루는 경우가 흔하고, 오히려 <code class="highlighter-rouge">{{ form.as_p }}</code>와 같이 Django에서 만들어내는 HTML 그대로를 사용하는 경우가 드뭅니다.</p>
 
 <hr />
 
@@ -352,22 +352,22 @@ class Photo(models.Model):
 
 <hr />
 
-<div class="footnotes" role="doc-endnotes">
+<div class="footnotes">
   <ol>
-    <li id="fn:1" role="doc-endnote">
-      <p><a href="https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/">Encoding Web Shells in PNG IDAT chunks</a> 글이나 <a href="https://blog.sucuri.net/2013/07/malware-hidden-inside-jpg-exif-headers.html">Malware Hidden Inside JPG EXIF Headers</a> 글 참조. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    <li id="fn:1">
+      <p><a href="https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/">Encoding Web Shells in PNG IDAT chunks</a> 글이나 <a href="https://blog.sucuri.net/2013/07/malware-hidden-inside-jpg-exif-headers.html">Malware Hidden Inside JPG EXIF Headers</a> 글 참조. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
-    <li id="fn:2" role="doc-endnote">
-      <p><a href="https://dobest.io/how-csrf-token-works/">Django와 Rails에서 CSRF Token의 동작 방식</a>이라는 글을 참조하세요. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    <li id="fn:2">
+      <p><a href="https://dobest.io/how-csrf-token-works/">Django와 Rails에서 CSRF Token의 동작 방식</a>이라는 글을 참조하세요. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
     </li>
-    <li id="fn:3" role="doc-endnote">
-      <p>쉼표를 빼서 <code class="language-plaintext highlighter-rouge">('filtered_image')</code>로 표기하면 그냥 문자열 객체가 됩니다. 리스트 객체를 만드는 데 대괄호를(<code class="language-plaintext highlighter-rouge">[</code>와 <code class="language-plaintext highlighter-rouge">]</code>) 사용하고 튜플 객체를 만드는 데 소괄호(<code class="language-plaintext highlighter-rouge">(</code>와 <code class="language-plaintext highlighter-rouge">)</code>)를 활용해서 헷갈리기 일쑤인데, 튜플을 만드는 데에 필요한 건 괄호가 아니라 쉼표(<code class="language-plaintext highlighter-rouge">,</code>)입니다. 왜냐하면 쉼표로 항목을 구분하여 나열하며, 괄호는 명시적으로 생략 가능하기 때문입니다. 단, 예외로 아무 항목이 없는 빈 튜플을 만드는 경우엔 그냥 소괄호로 짝지으면 됩니다. 자세한 내용은 <a href="https://docs.python.org/3/library/stdtypes.html#tuples">공식 문서의 Tuples</a>를 참조하세요. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    <li id="fn:3">
+      <p>쉼표를 빼서 <code class="highlighter-rouge">('filtered_image')</code>로 표기하면 그냥 문자열 객체가 됩니다. 리스트 객체를 만드는 데 대괄호를(<code class="highlighter-rouge">[</code>와 <code class="highlighter-rouge">]</code>) 사용하고 튜플 객체를 만드는 데 소괄호(<code class="highlighter-rouge">(</code>와 <code class="highlighter-rouge">)</code>)를 활용해서 헷갈리기 일쑤인데, 튜플을 만드는 데에 필요한 건 괄호가 아니라 쉼표(<code class="highlighter-rouge">,</code>)입니다. 왜냐하면 쉼표로 항목을 구분하여 나열하며, 괄호는 명시적으로 생략 가능하기 때문입니다. 단, 예외로 아무 항목이 없는 빈 튜플을 만드는 경우엔 그냥 소괄호로 짝지으면 됩니다. 자세한 내용은 <a href="https://docs.python.org/3/library/stdtypes.html#tuples">공식 문서의 Tuples</a>를 참조하세요. <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
     </li>
-    <li id="fn:4" role="doc-endnote">
-      <p>사전형 객체처럼 생긴 이런 객체를 인스턴스로 만드는 데 사용하는 클래스(<code class="language-plaintext highlighter-rouge">type</code>)도 <code class="language-plaintext highlighter-rouge">dict</code>를 상속받아서 만들어서 <code class="language-plaintext highlighter-rouge">dict</code>형이 제공하는 인터페이스를 포함합니다. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    <li id="fn:4">
+      <p>사전형 객체처럼 생긴 이런 객체를 인스턴스로 만드는 데 사용하는 클래스(<code class="highlighter-rouge">type</code>)도 <code class="highlighter-rouge">dict</code>를 상속받아서 만들어서 <code class="highlighter-rouge">dict</code>형이 제공하는 인터페이스를 포함합니다. <a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
     </li>
-    <li id="fn:5" role="doc-endnote">
-      <p>“magic”이라는 표현을 씁니다. 뭔가 알아서 수행되는데, 이용자(개발자)가 굳이 알 필요가 없는 내부에 감춰진 동작을 뜻하지요. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    <li id="fn:5">
+      <p>“magic”이라는 표현을 씁니다. 뭔가 알아서 수행되는데, 이용자(개발자)가 굳이 알 필요가 없는 내부에 감춰진 동작을 뜻하지요. <a href="#fnref:5" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>

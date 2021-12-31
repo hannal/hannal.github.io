@@ -1,4 +1,4 @@
-I"�<p>프로그래밍 입문자, 또는 새로 프로그래밍이나 도구에 입문하는 사람과 얘기를 나누다 보면 다른 사람, 기왕이면 그 언어나 도구에 익숙한 사람이 사용하는 개발 환경을 무척 궁금해 한다는 걸 느꼈다. 그냥 공식 홈페이지에 있는 걸 내려 받아서 설치하면 되는 거 아닌가? 생각하며 관련 자료를 찾아보니 사람들은 공식 홈페이지에 소개되지 않은 방법으로 개발 환경을 꾸린다는 걸 발견하면 더 혼란이 빠져서 아예 입문 자체를 부담스러워 하는 사람도 많다.</p>
+I"�<p>프로그래밍 입문자, 또는 새로 프로그래밍이나 도구에 입문하는 사람과 얘기를 나누다 보면 다른 사람, 기왕이면 그 언어나 도구에 익숙한 사람이 사용하는 개발 환경을 무척 궁금해 한다는 걸 느꼈다. 그냥 공식 홈페이지에 있는 걸 내려 받아서 설치하면 되는 거 아닌가? 생각하며 관련 자료를 찾아보니 사람들은 공식 홈페이지에 소개되지 않은 방법으로 개발 환경을 꾸린다는 걸 발견하면 더 혼란이 빠져서 아예 입문 자체를 부담스러워 하는 사람도 많다.</p>
 
 <p>그래서 내가 쓰는 개발 환경을 정리해 본다.</p>
 
@@ -20,8 +20,8 @@
   <li>쉘(shell) : bash를 주로 써왔지만, 2015년 11월부터 zsh을 쓰고 있다. <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>을 쓰고 설정은 기본값으로 쓰고 있으며, plugin만 git, virtualenv, virtualenvwrapper를 설정했다.</li>
   <li>터미널은 OS X에 기본 내장된 것을 사용한다.</li>
   <li>맥 패키지는 <a href="http://brew.sh">Homebrew</a>로 관리한다.</li>
-  <li>파일, 디렉터리 구조는 <a href="http://mama.indstate.edu/users/ice/tree/">tree</a>을 쓴다. OS X는 <code class="language-plaintext highlighter-rouge">brew install tree</code>.</li>
-  <li>원격에 있는 파일은 <a href="https://www.gnu.org/software/wget/">wget</a>로 받는다. OS X는 <code class="language-plaintext highlighter-rouge">brew install wget</code>.</li>
+  <li>파일, 디렉터리 구조는 <a href="http://mama.indstate.edu/users/ice/tree/">tree</a>을 쓴다. OS X는 <code class="highlighter-rouge">brew install tree</code>.</li>
+  <li>원격에 있는 파일은 <a href="https://www.gnu.org/software/wget/">wget</a>로 받는다. OS X는 <code class="highlighter-rouge">brew install wget</code>.</li>
 </ul>
 
 <h4 id="글꼴">글꼴</h4>
@@ -33,7 +33,7 @@
 <ul>
   <li><a href="https://git-scm.com/">git</a> : 기본 클라이언트를 터미널에서 쓴다.</li>
   <li><a href="https://www.sourcetreeapp.com/">sourcetree</a> : 커밋이 복잡하게 꼬였을 때 쓰지만, 느려서 가끔 쓴다.</li>
-  <li><a href="https://github.com/karan/joe">joe</a> : <code class="language-plaintext highlighter-rouge">.gitignore</code> 파일을 다룰 때 쓴다.</li>
+  <li><a href="https://github.com/karan/joe">joe</a> : <code class="highlighter-rouge">.gitignore</code> 파일을 다룰 때 쓴다.</li>
 </ul>
 
 <h3 id="python">Python</h3>
