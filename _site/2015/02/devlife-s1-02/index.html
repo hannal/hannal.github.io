@@ -91,7 +91,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2022. All rights reserved.
+      &copy; 2023. All rights reserved.
     </p>
   </div>
 </div>
@@ -115,7 +115,7 @@
   <span class="post-date">22 Feb 2015</span>
   <ol>
   <li><a href="http://blog.hannal.com/2015/02/devlife-s1-01/">개발 생활 - 1</a> : PDF 문서 생성 서버</li>
-  <li><a href="http://blog.hannal.com/2015/02/devlife-s1-02/"><code class="highlighter-rouge">개발 생활 - 2</code></a> : 연산된 데이터 수집 작업자</li>
+  <li><a href="http://blog.hannal.com/2015/02/devlife-s1-02/"><code class="language-plaintext highlighter-rouge">개발 생활 - 2</code></a> : 연산된 데이터 수집 작업자</li>
   <li><a href="http://blog.hannal.com/2015/03/devlife-s1-03/">개발 생활 - 3</a> : 전자우편 알림 서버</li>
   <li><a href="http://blog.hannal.com/2015/03/devlife-s1-04/">개발 생활 - 4</a> : Python과 Django 강의</li>
   <li><a href="http://blog.hannal.com/2015/03/devlife-s1-05/">개발 생활 - 5</a> : 공부 자료</li>
@@ -161,7 +161,7 @@
   </li>
 </ul>
 
-<p><code class="highlighter-rouge">schedule</code>은 Linux나 Unix의 <code class="highlighter-rouge">crontab</code> 역할을 하는 라이브러리이다. <a href="http://www.celeryproject.org/">Celery</a>의 <a href="http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html">Periodic Tasks</a> 기능을 채택할 지 고민하기도 했지만 일정 주기로 작업자를(worker) 호출해 정해진 작업(task)을 수행하는 정도에 쓰기엔 거창하다 생각했다. 직접 구현하기에도 간단한 기능이지만, 많은 사람이 이미 사용하여 검증된 <code class="highlighter-rouge">schedule</code> 라이브러리를 도입했다.</p>
+<p><code class="language-plaintext highlighter-rouge">schedule</code>은 Linux나 Unix의 <code class="language-plaintext highlighter-rouge">crontab</code> 역할을 하는 라이브러리이다. <a href="http://www.celeryproject.org/">Celery</a>의 <a href="http://celery.readthedocs.org/en/latest/userguide/periodic-tasks.html">Periodic Tasks</a> 기능을 채택할 지 고민하기도 했지만 일정 주기로 작업자를(worker) 호출해 정해진 작업(task)을 수행하는 정도에 쓰기엔 거창하다 생각했다. 직접 구현하기에도 간단한 기능이지만, 많은 사람이 이미 사용하여 검증된 <code class="language-plaintext highlighter-rouge">schedule</code> 라이브러리를 도입했다.</p>
 
 <h5 id="개발-과정">개발 과정</h5>
 
@@ -180,7 +180,7 @@
   <li>매장 관리자 : 신규 매장이 등록되면 가동하고, 기존 매장이 변동되면 그 내용을 반영하여 재가동하는 프로세스 관리자.</li>
 </ul>
 
-<p>난 연층 검색을 위한 데이터를 다루는 첫 번째 매장을 만드는 셈인데, 구조도 정해놓은 규칙으로 클래스와 설정 파일 등을 만들어 창고, 본사 직원으로 구성하고, 이 Python 패키지를 매장(<code class="highlighter-rouge">store</code>) 디렉터리에 넣는다. 매장 관리자는 곧 이를 감지하여 메모리에 적재하여 매장을 개장하고 영업을 개시한다. 그래서 코드가 변경되더라도 편의점 프로세서는 중단되지 않고 계속 작업을 처리한다. 즉, 검색봇을 쉽게 추가하고 변경하면서도 무중단 서비스가 가능한 설계를 구상했다.</p>
+<p>난 연층 검색을 위한 데이터를 다루는 첫 번째 매장을 만드는 셈인데, 구조도 정해놓은 규칙으로 클래스와 설정 파일 등을 만들어 창고, 본사 직원으로 구성하고, 이 Python 패키지를 매장(<code class="language-plaintext highlighter-rouge">store</code>) 디렉터리에 넣는다. 매장 관리자는 곧 이를 감지하여 메모리에 적재하여 매장을 개장하고 영업을 개시한다. 그래서 코드가 변경되더라도 편의점 프로세서는 중단되지 않고 계속 작업을 처리한다. 즉, 검색봇을 쉽게 추가하고 변경하면서도 무중단 서비스가 가능한 설계를 구상했다.</p>
 
 <p>이는 반만 구현해냈는데, 병렬 처리를 위한 구조로 만들지 않았기 때문이다. 게다가 신규 매장을 만드는 일 자체가 그 이후 없었기 때문에 결국 필요없는 작업을 하느라 일주일을 써버린 셈이 되었다. 소득이라면 연결과 분리(pluggable) 가능한 모듈을 어떻게 작성하고 구조를 잡아야 하는 지 고민하고 경험하여 다음 프로젝트에 도움이 됐다는 점이다.</p>
 
@@ -200,7 +200,7 @@
   <li>3, 4, 6층, 3, 4, 8층, 3, 4, 9층, 3, 4, 10층, …</li>
 </ul>
 
-<p>연속되지 않은 복수층은 이와 같이 조합 가능한 경우의 수가 무척 많다. 건물에 사무실이 많은 큰 건물인 경우 수 억 가지 조합이 발생했다. 회사에 등록된 전체 건물을 대상으로 계산해보니 수십 억 건이 넘는 조합이 나왔다. 각 조합이 DB의 항목(<code class="highlighter-rouge">row</code>)이므로 “오, 나도 좀 큰 데이터 좀 다루는 건가!?”하는 시덥잖은 생각이 들기도 했다.</p>
+<p>연속되지 않은 복수층은 이와 같이 조합 가능한 경우의 수가 무척 많다. 건물에 사무실이 많은 큰 건물인 경우 수 억 가지 조합이 발생했다. 회사에 등록된 전체 건물을 대상으로 계산해보니 수십 억 건이 넘는 조합이 나왔다. 각 조합이 DB의 항목(<code class="language-plaintext highlighter-rouge">row</code>)이므로 “오, 나도 좀 큰 데이터 좀 다루는 건가!?”하는 시덥잖은 생각이 들기도 했다.</p>
 
 <p>실제로 갓 완공되어 20여 개 층이 임대 가능한 건물이 있었는데, 이 건물의 20개 사무실에 대해 조합 가능한 경우의 수는 263,644,104가지이다. 그리고, 공실이 30개 이상인 건물도 몇 개 있었다. 이런 경우(case)는 양이 너무 많아 시간이 오래 걸렸다. 느려서 Go언어나 C언어로 짜서 시간을 몇 십배 줄여봤지만, 수에는 어쩔 도리가 없었다. 결국, 연속되지 않은 복수층은 사전에 연산하여(pre-operated) 데이터 테이블에 넣는 방법 대신 매 질의(query) 때마다 연산하기로 했다.</p>
 
@@ -208,16 +208,16 @@
 
 <p>그래서 일정 시간마다 정보가 변경된 사무실을 검색하고, 있으면 그 사무실이 속한 건물의 검색 대상인 사무실들을 모두 가져와 연층을 연산하는 방식으로 구현 방법을 바꿨다. 건물에 속한 검색 대상 사무실을 모두 가져오는 이유는, 기존엔 연층 조합인 사무실인데 이 사무실이 계약되어 더이상 공실이 아닌 경우, 이 사무실과 연층으로 연결된 조합을 끊어야 하기 때문이다. 만약, 3, 4, 5층, 4, 5층 조합이 있는데 4층이 빠지면, 이 두 조합은 더이상 유효하지 않다.</p>
 
-<p>조합을 찾는 알고리즘은 Python에 이미 내장되어 있다. <code class="highlighter-rouge">itertools</code> 모듈에 여러 함수가 있는데, 그 중에서 <a href="https://docs.python.org/2/library/itertools.html#itertools.combinations">combinations</a>를 사용하면 건물에 속한 사무실을 조합 가능한 모든 경우를 한 줄로 산출해낸다.</p>
+<p>조합을 찾는 알고리즘은 Python에 이미 내장되어 있다. <code class="language-plaintext highlighter-rouge">itertools</code> 모듈에 여러 함수가 있는데, 그 중에서 <a href="https://docs.python.org/2/library/itertools.html#itertools.combinations">combinations</a>를 사용하면 건물에 속한 사무실을 조합 가능한 모든 경우를 한 줄로 산출해낸다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from itertools import combinations
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from itertools import combinations
 
 _combinated = combinations(('a', 'b', 'c', 'd',), 2)
 </code></pre></div></div>
 
-<p>이 코드를 수행하면 <code class="highlighter-rouge">_combinated</code>엔 <code class="highlighter-rouge">[('a', 'b'), ('a', 'c'), ('a', 'd'), ('b', 'c'), ('b', 'd'), ('c', 'd')]</code>이 이터레이션 객체로 할당된다. 편하긴 했는데, 같은 기능을 하는 코드를 Go언어와 C언어로 짤 때엔 알고리즘을 직접 구현해야 했다. 재밌긴 했지만, 알고리즘 문제(issue)는 어딘가 알고리즘스러운(?) 코드로 짜고 싶은 욕심이 생겨서 스트레스를 받게 된다. 왜냐하면 알고리즘 자체가 모든 걸 해결해주는 은총알이 아니기 때문이다.</p>
+<p>이 코드를 수행하면 <code class="language-plaintext highlighter-rouge">_combinated</code>엔 <code class="language-plaintext highlighter-rouge">[('a', 'b'), ('a', 'c'), ('a', 'd'), ('b', 'c'), ('b', 'd'), ('c', 'd')]</code>이 이터레이션 객체로 할당된다. 편하긴 했는데, 같은 기능을 하는 코드를 Go언어와 C언어로 짤 때엔 알고리즘을 직접 구현해야 했다. 재밌긴 했지만, 알고리즘 문제(issue)는 어딘가 알고리즘스러운(?) 코드로 짜고 싶은 욕심이 생겨서 스트레스를 받게 된다. 왜냐하면 알고리즘 자체가 모든 걸 해결해주는 은총알이 아니기 때문이다.</p>
 
-<p>이 조합(<code class="highlighter-rouge">combinations</code>)은 연속 여부와는 관계없이 조합하는 경우이다. 즉, 연층과 연속하지 않은 복수층 모두를 포함한다. 여기에서 연속층 조합은 따로 연산해야 한다. 그리고, 사무실이 언제나 한 층에 하나만 있진 않아서 다음과 같은 조합도 염두에 둬야 한다.</p>
+<p>이 조합(<code class="language-plaintext highlighter-rouge">combinations</code>)은 연속 여부와는 관계없이 조합하는 경우이다. 즉, 연층과 연속하지 않은 복수층 모두를 포함한다. 여기에서 연속층 조합은 따로 연산해야 한다. 그리고, 사무실이 언제나 한 층에 하나만 있진 않아서 다음과 같은 조합도 염두에 둬야 한다.</p>
 
 <ul>
   <li>3층 전체</li>
@@ -237,7 +237,7 @@ _combinated = combinations(('a', 'b', 'c', 'd',), 2)
   <li>연층 데이터 테이블에서 요청받은 연층 조건에 해당하는 건물을 찾는다.</li>
   <li>이 건물 목록을 대상으로 다른 검색 조건으로 검색한다. (예 : 보증금, 임대료, 24시간 개방 여부 등)</li>
   <li>클라이언트에게 반환할 건물 항목마다 해당 건물의 연층 데이터를 추가한다.</li>
-  <li><code class="highlighter-rouge">JSON</code>으로 반환한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">JSON</code>으로 반환한다.</li>
 </ol>
 
 <p>연층, 즉 사무실 연속 연결 관계를 미리 연산하여 각 조합을 DB 테이블에 넣어두었으니 당연히 1번 과정은 빠르게 처리돼서(평균 0.01 이하) 기존 검색 수행 속도에 별 영향을 주지 않았다. 만족스러웠다.</p>
@@ -261,7 +261,7 @@ _combinated = combinations(('a', 'b', 'c', 'd',), 2)
 
 <p>문제는 여기에 다른 조건이 추가되는 것이다. 이 조건에서 월 고정비가 2,000~3,500만원을 추가하면 연산이 복잡해진다. 실제로는 여기에 그치지 않고 보증금 조건도 추가된다. 조합이 다(many) 대 다(many) 대 다(many)로 연결되는데, 각 요소가 교집합(AND)이 아니라 차집합 연산도 필요하다. 교집합으로만 연산하면 검색 결과가 아주 적어지는데, 최대면적/최소층개수, 최소면적/최대층개수 등 그룹 중 어느 하나라도 조건을 만족하지 않으면 연관된 조건 전체가 성립되지 않기 때문이다. 즉, A건물이 32평씩 여덟 개 층이 있고 200평 두 개는 없으면 이 건물은 검색 대상이 돼야 하는데, 모든 조건을 교집합으로 연산하면 A건물은 검색 대상에서 빠지는 것이다. 그렇다고 이 둘을 합집합(OR)으로 연산해서도 안 된다. 보증금이나 월 고정비와 같은 다른 조건식과 조합할 때 조합 경우의 수가 너무 많아져서 연산하는 데 시간이 오래(몇 배에서 몇 십 배) 걸린다.</p>
 
-<p>이를 의사(pseudo) 코드로 작성했을 땐 비교적 간단하게 답을 찾았다. 문제는 SQL Query로 표현하는 것이었다. 몇 시간을 끙끙댔지만 결국 제대로 동작하는 Query문을 작성하지 못했다. 다행히 동료 개발자가 한 시간도 안 되어 문제를 해결해 주었다. <code class="highlighter-rouge">Union</code>을 사용했는데, 생각보다 빠르게 수행되었다.</p>
+<p>이를 의사(pseudo) 코드로 작성했을 땐 비교적 간단하게 답을 찾았다. 문제는 SQL Query로 표현하는 것이었다. 몇 시간을 끙끙댔지만 결국 제대로 동작하는 Query문을 작성하지 못했다. 다행히 동료 개발자가 한 시간도 안 되어 문제를 해결해 주었다. <code class="language-plaintext highlighter-rouge">Union</code>을 사용했는데, 생각보다 빠르게 수행되었다.</p>
 
 <p>여러 검색 조건이 조합된 복수층 검색을 구현할 때 겪은 어려움 중 하나는 검색 결과가 유효한 것인지를 판단하기 어렵다는 점이었다. SQL Query문을 조금 고치자 검색된 데이터가 달라졌는데, 매번 일일이 제대로 검색된 것인지 데이터를 확인할 수는 없었다. 하지만, 제대로 된 테스트 케이스를 만들지 않아서 “할 수는 없는” 그 일을 실제로 해야만 했다. 면적 조건은 만족하고 보증금 조건도 만족하고 월 고정비도 만족하는 것 같은데, 자세히 살펴보니 월 고정비에서 몇 만원 차이로 조건을 만족시키지 않는 경우가 있다. 이는 암산으로 유효한 결과인지 검증해서는 안 된다는 걸 뜻한다. 그렇다고 하나 하나 계산기를 두드리기엔 사람은 너무 느리다.</p>
 
@@ -286,7 +286,7 @@ _combinated = combinations(('a', 'b', 'c', 'd',), 2)
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="hannal">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-<div class="fb-like" data-href="http://localhost:4000/2015/02/devlife-s1-02/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div class="fb-like" data-href="http://0.0.0.0:4000/2015/02/devlife-s1-02/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 -->
 <!--
 <div class="comments">
@@ -294,7 +294,7 @@ _combinated = combinations(('a', 'b', 'c', 'd',), 2)
   <script type="text/javascript">
   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
   var disqus_shortname = 'hannal';
-  var disqus_url = 'http://localhost:4000/2015/02/devlife-s1-02/';
+  var disqus_url = 'http://0.0.0.0:4000/2015/02/devlife-s1-02/';
 
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
@@ -314,6 +314,15 @@ _combinated = combinations(('a', 'b', 'c', 'd',), 2)
     
       <li>
         <h3>
+          <a href="/2023/08/use-mac-as-docker-remote-host/">
+            맥을 Docker remote host로 사용하기
+            <small>13 Aug 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="/2021/12/closing/">
             2021년을 마치며
             <small>31 Dec 2021</small>
@@ -326,15 +335,6 @@ _combinated = combinations(('a', 'b', 'c', 'd',), 2)
           <a href="/2020/12/closing/">
             2020년을 마치며
             <small>25 Dec 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2020/11/nulls-last-ordering-for-django-filter/">
-            django-filter용 NULLS LAST 정렬 필터.
-            <small>13 Nov 2020</small>
           </a>
         </h3>
       </li>

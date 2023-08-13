@@ -91,7 +91,7 @@
 
   <div class="sidebar-item">
     <p>
-      &copy; 2022. All rights reserved.
+      &copy; 2023. All rights reserved.
     </p>
   </div>
 </div>
@@ -111,6 +111,327 @@
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h2 class="post-title">
+      <a href="/2023/08/use-mac-as-docker-remote-host/">
+        맥을 Docker remote host로 사용하기
+      </a>
+    </h2>
+
+    <span class="post-date">13 Aug 2023</span>
+
+    <h2 id="배경">배경</h2>
+
+<p>작업 PC로 인텔 아이맥 27인치를 사용한다. 디스플레이가 괜찮은데다 램을 128기가로 넉넉하게 구성해서 유용하다. 그런데 CPU 발열이 심한 편이라서 CPU 과부하가 심할 땐 과열로 시스템이 뻗곤 한다. 그래서 작업 PC로 사용할 맥 스튜디오를 샀다. 가격이 부담스러워서 램 용량이 적은 32기가 메모리 모델을 샀는데, 램을 주로 점유하는 것들을 아이맥에서 띄워 서버용으로 사용할 계획이기 때문이다.</p>
+
+<p>램을 많이 사용하는 것 중 하나는 Docker이다. 그래서 아이맥을 Docker remote host용으로, 간단히 말해서 Docker 서버용으로 사용하도록 설정하기로 했다. 그런데 Docker를 서버로 구동할 <code class="language-plaintext highlighter-rouge">dockerd</code>는 Linux에서 동작하며, Mac OS는 지원하지 않기 때문에 <code class="language-plaintext highlighter-rouge">virtualbox</code>를 이용해 Linux를 가상화하여 Guest OS로 구동하여 Docker를 사용한다. 따라서 아이맥에 virtualbox로 Linux를 설치하고, 그 가상화로 구동하는 Linux에 구성한 dockerd를 사용해야 한다. Host OS인 Mac OS와 Guest OS인 Linux 간 네트워크도 연결해주고.</p>
+
+<p>귀찮기도 하고 웬지 무겁고 비효율적일 것 같은데, 이 글에서 사용할 Docker desktop 대체재인 <a href="https://orbstack.dev">OrbStack</a>을 사용하여 쉽게 설정하고 가볍게 동작하는 환경을 구성할 수 있다.</p>
+
+<ul>
+  <li>아이맥 : Ventura 13.4</li>
+  <li>Docker client : OrbStack</li>
+</ul>
+
+<h2 id="docker-설치">Docker 설치</h2>
+
+<ul>
+  <li>Docker remote host인 아이맥에 <a href="https://docs.orbstack.dev/install">OrbStack 설치</a>.</li>
+  <li>원격으로 접근할 client인 맥스튜디오에도 설치.</li>
+</ul>
+
+<h3 id="docker-engine을-daemon으로-구동할-ubuntu-서버-구성">Docker engine을 daemon으로 구동할 Ubuntu 서버 구성</h3>
+
+<ul>
+  <li>아이맥에 OrbStack으로 Linux machine을 만든다.
+    <ul>
+      <li>참고 : <a href="https://docs.orbstack.dev/machines/">Using Linux machines</a></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>orb create <span class="nt">--arch</span> amd64 ubuntu my-ubuntu
+</code></pre></div></div>
+
+<p>아이맥이 인텔맥이라서 아키텍쳐를 <code class="language-plaintext highlighter-rouge">amd64</code>로 지정했다.</p>
+
+<p>Linux machine을 만들고 나면 ssh로 접근 가능하다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>orb <span class="nt">-m</span> my-ubuntu <span class="nt">-u</span> default
+</code></pre></div></div>
+
+<p>기본으로 생성되는 계정 이름이 <code class="language-plaintext highlighter-rouge">default</code>이다. 기본으로 존재하는 <code class="language-plaintext highlighter-rouge">root</code>로 접근해도 된다.</p>
+
+<p>Linux machine을 생성하면 OrbStack이 이 ubuntu에 ssh로 접근할 수 있게 ssh host configuration을 자동으로 만들어줘서 더 적게 타이핑하여 접근할 수 있다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh orb
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">orb</code>가 OrbStack이 만든 ssh host configuration이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ~/.orbstack/ssh/config
+# 이 파일은 ~/.ssh/config 에서 Include 하도록 OrbStack이 설정한다.
+
+Host orb
+  Hostname 127.0.0.1
+  Port 32222
+  # SSH user syntax:
+  #   &lt;container&gt;@orb to connect to &lt;container&gt; as the default user (matching your macOS user)
+  #   &lt;user&gt;@&lt;container&gt;@orb to connect to &lt;container&gt; as &lt;user&gt;
+  # Examples:
+  #   ubuntu@orb: container "ubuntu", user matching your macOS user
+  #   root@fedora@orb: container "fedora", user "root"
+  User default
+
+  # replace or symlink ~/.orbstack/ssh/id_ed25519 file to change the key
+  IdentityFile ~/.orbstack/ssh/id_ed25519
+
+  # only use this key
+  IdentitiesOnly yes
+  ProxyCommand '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper (VM).app/Contents/MacOS/OrbStack Helper (VM)' ssh-proxy-fdpass /Users/hannal
+  ProxyUseFdpass yes
+</code></pre></div></div>
+
+<h3 id="docker-engine-설치">Docker engine 설치</h3>
+
+<ul>
+  <li>Linux machine에 접근하여 docker engine을 설치한다.</li>
+  <li>참고 : <a href="https://docs.docker.com/engine/install/ubuntu/">Install Docker Engine on Ubuntu</a></li>
+</ul>
+
+<h3 id="충돌날만한-불필요한-패키지-제거">충돌날만한 불필요한 패키지 제거</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="k">for </span>pkg <span class="k">in </span>docker.io docker-doc docker-compose podman-docker containerd runc<span class="p">;</span> <span class="k">do </span><span class="nb">sudo </span>apt-get remove <span class="nv">$pkg</span><span class="p">;</span> <span class="k">done</span>
+</code></pre></div></div>
+
+<h3 id="docker-repository-설정">Docker repository 설정</h3>
+
+<p>HTTPS로 repository에서 패키지를 가져와 설치해야 하므로 관련 패키지를 설치한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt update
+<span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>ca-certificates curl gnupg
+</code></pre></div></div>
+
+<p>Docker의 공식 GPG 키를 추가한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo install</span> <span class="nt">-m</span> 0755 <span class="nt">-d</span> /etc/apt/keyrings
+<span class="nv">$ </span>curl <span class="nt">-fsSL</span> https://download.docker.com/linux/ubuntu/gpg | <span class="nb">sudo </span>gpg <span class="nt">--dearmor</span> <span class="nt">-o</span> /etc/apt/keyrings/docker.gpg
+<span class="nv">$ </span><span class="nb">sudo chmod </span>a+r /etc/apt/keyrings/docker.gpg
+</code></pre></div></div>
+
+<p>Docker repository를 등록한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="se">\</span>
+  <span class="s2">"deb [arch="</span><span class="si">$(</span>dpkg <span class="nt">--print-architecture</span><span class="si">)</span><span class="s2">" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu </span><span class="se">\</span><span class="s2">
+  "</span><span class="si">$(</span><span class="nb">.</span> /etc/os-release <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$VERSION_CODENAME</span><span class="s2">"</span><span class="si">)</span><span class="s2">" stable"</span> | <span class="se">\</span>
+  <span class="nb">sudo tee</span> /etc/apt/sources.list.d/docker.list <span class="o">&gt;</span> /dev/null
+
+<span class="c"># repository를 새로 등록했으니 update 해준다.</span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<p>Docker 공식 repository에서 패키지를 가져와 설치한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre></div></div>
+
+<h3 id="docker를-system-서비스로-등록한다">Docker를 system 서비스로 등록한다</h3>
+
+<ul>
+  <li>나는 systemd를 사용하므로 systemd 설정을 했다.</li>
+  <li>참고 : <a href="https://docs.docker.com/config/daemon/remote-access/">Configure remote access for Docker daemon</a></li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>docker.service
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>containerd.service
+</code></pre></div></div>
+
+<h3 id="remote-access되도록-docker-설정">Remote access되도록 docker 설정</h3>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/docker/daemon.json</code>에 설정하거나 systemd에서 docker 서비스 실행에서 인자로 지정하거나. 여기에선 후자 방법으로 했다. daemon 설정이 더 늘어나면 그때 분리하려 한다.</p>
+
+<p>후자 방법은 <code class="language-plaintext highlighter-rouge">/etc/systemd/system/docker.service.d/override.conf</code> 파일을 편집하는 것이다.</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[<span class="n">Service</span>]
+<span class="n">ExecStart</span>=
+<span class="n">ExecStart</span>=/<span class="n">usr</span>/<span class="n">bin</span>/<span class="n">dockerd</span> -<span class="n">H</span> <span class="n">fd</span>:// -<span class="n">H</span> <span class="n">tcp</span>://<span class="m">127</span>.<span class="m">0</span>.<span class="m">0</span>.<span class="m">1</span>:<span class="m">2375</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">-H</code> 옵션은 Docker daemon 소켓이 연결할(사용할) 호스트를 지정한다. <code class="language-plaintext highlighter-rouge">-H fd://</code>는 Unix file descriptor로 호스트 연결을 하는 것이고, <code class="language-plaintext highlighter-rouge">-H tcp://127.0.0.1:2375</code>는 <code class="language-plaintext highlighter-rouge">127.0.0.1:2375</code> TCP IP로 연결하는 것이다. <code class="language-plaintext highlighter-rouge">-H fd://</code>는 기본(default) 옵션이고, TCP로 원격 접근하도록 <code class="language-plaintext highlighter-rouge">-H tcp://...</code> 옵션을 추가한 것이다.</p>
+
+<p>systemd service 스크립트를 수정하지 않고 <code class="language-plaintext highlighter-rouge">override.conf</code>를 수정하는 이유는 자동으로 <code class="language-plaintext highlighter-rouge">override.conf</code>가 포함되기 때문이다. <code class="language-plaintext highlighter-rouge">sudo systemctl status docker.service</code> 명령을 실행해 확인해보자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>systemctl status docker.service
+
+● docker.service - Docker Application Container Engine
+     Loaded: loaded <span class="o">(</span>/lib/systemd/system/docker.service<span class="p">;</span> enabled<span class="p">;</span> preset: enabled<span class="o">)</span>
+    Drop-In: /etc/systemd/system/docker.service.d
+             └─http-proxy.conf, override.conf
+     Active: active <span class="o">(</span>running<span class="o">)</span> since Sun 2023-08-13 17:54:09 KST<span class="p">;</span> 1h 24min ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 12127 <span class="o">(</span>dockerd<span class="o">)</span>
+      Tasks: 20
+     Memory: 24.6M
+        CPU: 973ms
+     CGroup: /system.slice/docker.service
+             └─12127 /usr/bin/dockerd <span class="nt">-H</span> fd:// <span class="nt">-H</span> tcp://127.0.0.1:2375
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Drop-In</code>에 보면 include한 conf 파일 중 하나인 <code class="language-plaintext highlighter-rouge">override.conf</code>가 명시되어 있다.</p>
+
+<p>또는 <code class="language-plaintext highlighter-rouge">sudo systemctl edit docker.service</code> 명령어로 systemd service script를 직접 열어봐도 확인 가능하다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>systemctl edit docker.service
+
+
+<span class="c">### Editing /etc/systemd/system/docker.service.d/override.conf</span>
+<span class="c">### Anything between here and the comment below will become the new contents of the file</span>
+
+<span class="o">[</span>Service]
+<span class="nv">ExecStart</span><span class="o">=</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/bin/dockerd <span class="nt">-H</span> fd:// <span class="nt">-H</span> tcp://127.0.0.1:2375
+
+<span class="c">### Lines below this comment will be discarded</span>
+...
+</code></pre></div></div>
+
+<p>systemd service script를 변경했으니 systemd가 해당 script를 다시 적재하도록 하고, docker를 재실행한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>systemctl reload docker.service
+
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl restart docker.service
+</code></pre></div></div>
+
+<h2 id="mac-os에-tcp-forwarding-설정">Mac OS에 TCP forwarding 설정</h2>
+
+<p>Docker remote host에 Linux machine을 만들어 docker daemon을 띄웠으니 외부에서 이 host에 접근해 docker host에 접근하도록 TCP 포워딩을 한다. Linux machine에 하는 것이 아니라 Linux machine를 guest OS로 구동한 Host OS인 Mac OS에 설정하는 것이다. 내 경우는 아이맥에 하는 것이다.</p>
+
+<h3 id="원격-로그인-설정">원격 로그인 설정</h3>
+
+<p>[System Settings] - [General] - [Sharing]에 들어간다(한국어로 뭐라고 나오는지는 모르겠다). <code class="language-plaintext highlighter-rouge">Remote Login</code>(원격 로그인?)을 활성화한다. ssh daemon을 사용할지를 설정하는 것이다. 느낌표 아이콘을 클릭하면 ssh로 접근을 허용할 계정을 지정하는 화면이 나온다. 난 <code class="language-plaintext highlighter-rouge">Administrators</code>는 빼고 내 개인 계정을 추가했다.</p>
+
+<p>다른 Host에서 ssh로 접근 가능한지 테스트 해본다. 난 맥 스튜디오에서 아이맥으로 접근하는 것이다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh <span class="nt">-i</span> ~/.ssh/id_rsa hannal@ip-address
+</code></pre></div></div>
+
+<p>잘 된다. 타이핑하기 귀찮으니 ssh host 설정을 해준다.</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ~/.ssh/config 파일
+</span>
+<span class="n">Host</span> <span class="n">imac</span>
+  <span class="n">HostName</span> <span class="n">ip</span>주소
+  <span class="n">User</span> <span class="n">hannal</span>
+  <span class="n">IdentityFile</span> ~/.<span class="n">ssh</span>/<span class="n">id_rsa</span>
+  <span class="n">IdentitiesOnly</span> <span class="n">yes</span>
+  <span class="n">PasswordAuthentication</span> <span class="n">no</span>
+</code></pre></div></div>
+
+<p>이제 호스트명인 <code class="language-plaintext highlighter-rouge">imac</code>으로 간편하게 접근된다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh imac
+</code></pre></div></div>
+
+<p>이 ssh host인 <code class="language-plaintext highlighter-rouge">imac</code>은 ssh 호스트가 필요한 곳엔 어디에서든지 사용할 수 있으므로 설정해두면 편리하다.</p>
+
+<h3 id="ssh-daemon에-tcp-forwarding-허용-설정">SSH daemon에 TCP forwarding 허용 설정</h3>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/ssh/sshd_config</code> 파일을 열어 <code class="language-plaintext highlighter-rouge">AllowTcpForwarding</code>과 <code class="language-plaintext highlighter-rouge">GatewayPorts</code> 설정을 추가하거나 주석을 해제한다.</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AllowTcpForwarding</span> <span class="n">yes</span>
+<span class="n">GatewayPorts</span> <span class="n">yes</span>
+</code></pre></div></div>
+
+<p>이런 설정을 하는 이유는 OrbStack은 보안을 이유로 OrbStack이 관리하는 Linux machine에 원격으로 접근하지 못하기 때문이다. OrbStack이 구동한 localhost에서만 접근 가능하다.</p>
+
+<p>ssh daemon 설정을 변경하면 ssh daemon에 반영되도록 재실행해야 한다. 앞서 [Sharing]에 있던 [Remote Login]을 비활성화했다가 다시 활성화하면 된다.</p>
+
+<h2 id="client-설정">Client 설정</h2>
+
+<p>Client, 즉, 램이 32기가 뿐인 맥 스튜디오에 있는 docker가 아이맥에 있는 docker를 서버로 사용하도록 지정하는 건 대개 두 가지 방법 중 하나로 한다.</p>
+
+<h3 id="docker_host-환경-변수-사용">DOCKER_HOST 환경 변수 사용</h3>
+
+<p>환경변수인 <code class="language-plaintext highlighter-rouge">DOCKER_HOST</code>에 docker가 사용할 host를 지정하는 방법이다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">DOCKER_HOST</span><span class="o">=</span>imac
+<span class="nv">$ </span>docker-compose up
+
+<span class="c"># 또는</span>
+
+<span class="nv">$ DOCKER_HOST</span><span class="o">=</span>imac docker-compose up
+</code></pre></div></div>
+
+<p>하지만 환경변수는 실수하기 십상이니 다른 방법을 사용한다.</p>
+
+<h3 id="docker-context-사용">docker context 사용</h3>
+
+<p>docker에서 제공하는 context 기능을 이용하는 것이다. 먼저 Docker remote host인 imac에 대한 context를 만든다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker context create <span class="nt">--docker</span> <span class="nv">host</span><span class="o">=</span>ssh://imac imac-docker
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">imac-docker</code>는 context 이름이다. 잘 만들어졌는지 확인해본다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker context list
+
+NAME            DESCRIPTION   DOCKER ENDPOINT       ...
+default <span class="k">*</span>       Current ...   unix:///var/run/docker.sock
+imac-docker                   ssh://imac
+orbstack        OrbStack      unix:///Users/hannal/.orbstack/ ...
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">default</code>가 기본으로 존재하고, OrbStack을 설치하면 <code class="language-plaintext highlighter-rouge">orbstack</code>도 생긴다. 이들을 포함하여 방금 만든 <code class="language-plaintext highlighter-rouge">imac-docker</code> context가 목록에 나온다.</p>
+
+<p>docker context는 <code class="language-plaintext highlighter-rouge">use</code> 보조 명령어로 사용한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker context use imac-docker
+
+Current context is now <span class="s2">"imac-docker"</span>
+</code></pre></div></div>
+
+<p>이제 docker는 <code class="language-plaintext highlighter-rouge">imac-docker</code> context에 지정된 Host에 연결한다. 확인해보자. <code class="language-plaintext highlighter-rouge">imac-docker</code> context를 지정한 상태에서 docker container를 구동한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker-compose up
+
+<span class="o">[</span>+] Running 4/0
+ ✔ Container redis      Created                     0.0s
+Attaching to redis
+</code></pre></div></div>
+
+<p>아이맥에 있는 docker에 컨테이너가 구동된 것이라면 맥 스튜디오에 있는 docker에는 구동된 컨테이너가 없을테니 그걸 확인한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker context use default
+
+<span class="nv">$ </span>docker ps
+
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+</code></pre></div></div>
+
+<p>아무 컨테이너도 없다. 아이맥에 있는 docker를 확인해본다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh imac
+
+<span class="nv">$ </span>docker ps
+
+CONTAINER ID   IMAGE                ...
+2b806a9e441e   redis:7              ...
+</code></pre></div></div>
+
+<p>잘 떠있다. 이렇게 5K 해상도 디스플레이가 달린 Docker 서버를 마련했다.</p>
+
+<h2 id="뜻밖의-공지">뜻밖의 공지</h2>
+
+<p>그나저나 오랜만에 블로그에 글 올리려고 jekyll을 실행하니 설치에서 시간 낭비했고, 동작도 느리다. hugo로 이전해보려 했는데, 깔끔하게 이전되지도 않는다.</p>
+
+<p>요즘엔 글을 안 쓰기도 하고, 관리하는 것도 은근히 신경 쓰이니 이 참에 개인 블로그를 닫아야겠다.</p>
+
+<p>2003년부터 운영해온 개인 블로그는 2023년 8월 13일자로 닫습니다. 그동안 한날의 개인 블로그에 와주신 분들께 감사 인사 드립니다.</p>
+
+  </div>
+  <hr class="post-parting-line" />
   
   <div class="post">
     <h2 class="post-title">
@@ -203,71 +524,6 @@
 <p>팀을 만들고 있고, 내년엔 더 적극 집중과 관심을 투자할 계획이다.</p>
 
 <p>퇴고하며 거의 분량 반 정도를 쳐냈는데도 여전히 참 말 많다. 내가 말 많다는 걸, 심지어 갈수록 많아지는 걸 느낀다. 말 줄이는 노력도 계획에 넣어본다.</p>
-
-
-  </div>
-  <hr class="post-parting-line" />
-  
-  <div class="post">
-    <h2 class="post-title">
-      <a href="/2020/12/closing/">
-        2020년을 마치며
-      </a>
-    </h2>
-
-    <span class="post-date">25 Dec 2020</span>
-
-    <h3 id="탈진한-상반기">탈진한 상반기</h3>
-<p>상반기는 탈진하도록 몸과 마음을 썼다. 2분기에 들어서는 시점에 탈진 징조를 느꼈고, 6월 중순부터 회복과 충전하는 시간을 가졌다.</p>
-
-<ul>
-  <li>내게 익숙하고 편한 몸무게로 감량</li>
-  <li>치과 치료</li>
-  <li>요통 치료</li>
-</ul>
-
-<p>한창 크로스핏 할 땐 도무지 도달하지 못했던 몸무게인 67~68kg에 건강하지 못한 방식으로 도달하자 자전거 오래 타다 땅을 딛는 것처럼 몸이 불편했다. 그래서 1분기부터 부담 가지 않는 선에서 1일 1식 하며 체중 감량을 하여 약 4~6개월 만에 4~5kg를 빼고 유지하고 있다. 정형외과에서는 좀 더 경과를 보며 치료를 하되 운동을 재개해도 된다고 하여 내년엔 필라테스를 해볼 생각이다.</p>
-
-<p>마음도 어딘가 고장 난 것 같기도 하고 혹시 성인 ADHD인가 싶어 종합 심리 평가를 받아봤다. 종합 심리 평가에서 성인 ADHD 징후라도 언급해주길 기대했지만 그렇진 않아 괜히 했나 생각했는데, 결과 보고서를 보니 해보길 잘했다. 내가 모르던 강점이나 가능성이 나와서 흥미롭기도 했고, 익히 알고 있던 부분을 재확인하기도 했다. 현재 나의 상태(state)를 살펴본다는(inspect) 점에서 가끔 해볼 만 한 것 같다. 참고로 보고서에 나온 내 강점을 단순무식하게 곧이곧대로 받아들인다면,
-나는야 작가 꿈나무.</p>
-
-<h3 id="1일-1식">1일 1식</h3>
-<p>몸무게 감량하려고 2월부터 1일 1식을 시작했다. 처음엔 상당히 힘들었지만 석 달쯤 되자 몸이 적응했다. 원래 아침을 안 먹기 때문에 아침 공복이 괴롭지 않는 편이고, 아주 엄격하게 1일 1식을 지키진 않아 예상보다 빨리 적응한 것 같다.</p>
-
-<ul>
-  <li>일주일에 하루는 먹고 싶은 대로 먹기</li>
-  <li>여행 가면 1일 1식 안 함</li>
-  <li>초기엔 저녁에 샐러드 위주로 먹고 1일 1식은 드문드문 함</li>
-</ul>
-
-<p>1일 1식에 몸이 맞춰지자 하루 시작이 가벼워서 좋다. 1일 2식을 할 땐 몰랐고 1일 1식을 유지할 때에도 몰랐는데, 저녁을 푸짐하게 먹거나 야식을 하면 다음 날 몸이 불쾌하게 무거운 걸 확연히 느꼈다. 조금 더 활력이 있긴 한데 크게 체감할 정도는 아니며 불쾌한 무게감은 더 크다. 하지만 하루 한 끼(점심)에 충분한 열량과 영양소를 섭취하지 못하면 다음 날 힘들긴 해서, 점심을 예전에 먹던 한 끼보다 1.2~1.5배 정도 더 먹고 잘 먹어야 한다.</p>
-
-<p>또 다른 변화는 커피와 술에 더 예민해진 것이다. 체력이 떨어져서 예민해졌다 생각했는데, 아무래도 1일 1식으로 체질이 변해서 그런 것 같다. 이제 커피는 하루에 한 잔으로 엄격하게 제한해야 하며, 맥주 500cc만 마셔도 술에 취해서 불편하다. 더 마시면 다음 날 머리가 아프고 땀에 흠뻑 젖은 내복을 입고 있는 것처럼 내 몸이 불편하다.</p>
-
-<h3 id="계획과-다른-하반기-활동">계획과 다른 하반기 활동</h3>
-<p>하반기 계획은 크게 세 가지 활동을 계획했다.</p>
-
-<ol>
-  <li>몸과 마음 회복/충전</li>
-  <li>목표 두지 않고 부담 없이 아무거나 공부</li>
-  <li>지출을 줄이고 느슨한 관계로 시간 많이 안 쓰는 일 하며 2020년 마무리하기</li>
-</ol>
-
-<p>먹고 살아야 하니 3번을 꼼꼼하게 계획했다. 그래서 <a href="https://innovationacademy.kr/">이노베이션 아카데미</a>에 비상근 개발 멘토로 지원했고, 미뤄둔 집필도 재개했다. 어딘가에 자문하거나 감수하기도 했다. 그런데 코비드19로 이노베이션 아카데미의 비상근 멘토 운영 계획에 차질이 생겨고, 이 활동에서 기대하는 수입은 사실상 사라졌다. 그래서 시간을 들여야 하는 일을 치렀다.</p>
-
-<p>한 프로젝트는 React를 공부하여 React와 React Native로 웹과 앱을 만드는 일이었다. React로 처음 개발하는 데다 Back-end도 포함해서 혼자 구현하다 보니 프로젝트 규모에 비해 시간을 많이 썼지만, 좋은 팀과 협업하여 스트레스 받지 않고 편하게 일했다.</p>
-
-<p>한 프로젝트는 Vue.js로 Front-end 개발하는 일이었다. 분명 시작은 Vue.js 개발이었는데, 어느 시점부터 Front-end이든 Back-end이든 문제를 해결하는 방향으로 일하는 방식이 바뀌었다. 그래서 Ruby on Rails 코드도 보게 됐는데, 내 성향이나 취향에 안 맞는 부분은 여전히 있지만 참 여러모로 예쁘고 우아한 언어와 도구라는 생각을 했다.</p>
-
-<h3 id="모른다고-말하고-틀렸다고-인정하기">모른다고 말하고 틀렸다고 인정하기</h3>
-<p>예전엔 몰랐는데, 아는 게 깊어질수록 그 분야에 모르는 게 있거나 내가 틀린 걸 인정하는 게 그리 부담스럽지 않아서 좋다. 깊이가 얕을수록 내가 모르는 걸 들키기 싫어하고 틀린 걸 어떡해서든 방어하려 했다. 좀 더 알게 될수록 아는 것만 말하는 게 불편하지 않다. 아는 것만 말해도 손해보지 않거나 불리해지지 않는 상황과 입장이 된 면도 있고.</p>
-
-<p>얕고 넓게 아는 걸 좋아하는 성향과 깊게 잘 알려는 태도 사이에서 아직은 흔들리는데, 깊게 파고드는 매력 중 하나를 이제나마 깨달아서 다행이고 지난 세월은 아쉽다.</p>
-
-<h3 id="손그림">손그림</h3>
-<p>꼬맹이가 미술에 관심과 집중력을 보여서 공통 취미나 관심사를 하나 정도 만들고자 손그림을 취미 생활 중 하나로 시작했다. 힘들고 어렵지만 재밌다. 내년엔 총 네 개 주제를 그리는 걸 목표로 삼았다.</p>
-
-<iframe width="420" height="315" src="https://www.youtube.com/embed/2XKOkWCAD5w" frameborder="0" allowfullscreen=""></iframe>
 
 
   </div>

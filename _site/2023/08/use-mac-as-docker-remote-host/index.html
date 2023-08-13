@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <script src="//cdn.optimizely.com/js/3144930209.js"></script>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on iPhones and stuff-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="icon" type="image/png" href="http://blog.hannal.com/favicon.ico" />
+  <link rel="alternate" type="application/rss+xml" title="Kay on the rails RSS Feed" href="http://blog.hannal.com/feed.xml" />
+  <title>
+    
+      맥을 Docker remote host로 사용하기 &middot; Kay on the rails
+    
+  </title>
+  <meta property="og:title" content="맥을 Docker remote host로 사용하기 &middot; Kay on the rails" />
+  <meta property="og:site_name" content="Kay on the rails"/>
+  <meta property="og:url" content="http://blog.hannal.com/2023/08/use-mac-as-docker-remote-host/" />
+  <meta property="fb:app_id" content="308847979152210" />
+  <meta property="og:type" content="article" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <style>
+  .posts h2.post-title {
+    font-size: 1.6em !important;
+  }
+
+  .post-parting-line {
+    border-top: 7px solid #eee !important;
+    border-bottom: 7px solid #fff !important;
+  }
+  </style>
+</head>
+
+
+  <body>
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=308847979152210&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Kay as known as Hannal walks on the rails
+</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    <a class="sidebar-nav-item" href="/category/essay/">한날의 낙서</a>
+    <a class="sidebar-nav-item" href="/category/kay-on-the-team/">팀과 함께하는 한날</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-lectures/">Django 입문자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/start-with-django-webframework/">Django 중급자용 강좌</a>
+    <a class="sidebar-nav-item" href="/category/flaskon-startup-diary/">플라스콘 창업 일지</a>
+    <a class="sidebar-nav-item" href="/category/devlife/">개발 생활</a>
+    <a class="sidebar-nav-item" href="/category/game/">게임 생활</a>
+  </nav>
+
+  <nav class="sidebar-nav" style="margin-top: 1.2em;">
+    <a class="sidebar-nav-item" href="/profile/">소개합니다</a>
+    <a class="sidebar-nav-item" href="/copyright/">저작권</a>
+
+    
+    <span class="sidebar-nav-item">Alpha v</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Kay on the rails</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">맥을 Docker remote host로 사용하기</h1>
+  <span class="post-date">13 Aug 2023</span>
+  <h2 id="배경">배경</h2>
+
+<p>작업 PC로 인텔 아이맥 27인치를 사용한다. 디스플레이가 괜찮은데다 램을 128기가로 넉넉하게 구성해서 유용하다. 그런데 CPU 발열이 심한 편이라서 CPU 과부하가 심할 땐 과열로 시스템이 뻗곤 한다. 그래서 작업 PC로 사용할 맥 스튜디오를 샀다. 가격이 부담스러워서 램 용량이 적은 32기가 메모리 모델을 샀는데, 램을 주로 점유하는 것들을 아이맥에서 띄워 서버용으로 사용할 계획이기 때문이다.</p>
+
+<p>램을 많이 사용하는 것 중 하나는 Docker이다. 그래서 아이맥을 Docker remote host용으로, 간단히 말해서 Docker 서버용으로 사용하도록 설정하기로 했다. 그런데 Docker를 서버로 구동할 <code class="language-plaintext highlighter-rouge">dockerd</code>는 Linux에서 동작하며, Mac OS는 지원하지 않기 때문에 <code class="language-plaintext highlighter-rouge">virtualbox</code>를 이용해 Linux를 가상화하여 Guest OS로 구동하여 Docker를 사용한다. 따라서 아이맥에 virtualbox로 Linux를 설치하고, 그 가상화로 구동하는 Linux에 구성한 dockerd를 사용해야 한다. Host OS인 Mac OS와 Guest OS인 Linux 간 네트워크도 연결해주고.</p>
+
+<p>귀찮기도 하고 웬지 무겁고 비효율적일 것 같은데, 이 글에서 사용할 Docker desktop 대체재인 <a href="https://orbstack.dev">OrbStack</a>을 사용하여 쉽게 설정하고 가볍게 동작하는 환경을 구성할 수 있다.</p>
+
+<ul>
+  <li>아이맥 : Ventura 13.4</li>
+  <li>Docker client : OrbStack</li>
+</ul>
+
+<h2 id="docker-설치">Docker 설치</h2>
+
+<ul>
+  <li>Docker remote host인 아이맥에 <a href="https://docs.orbstack.dev/install">OrbStack 설치</a>.</li>
+  <li>원격으로 접근할 client인 맥스튜디오에도 설치.</li>
+</ul>
+
+<h3 id="docker-engine을-daemon으로-구동할-ubuntu-서버-구성">Docker engine을 daemon으로 구동할 Ubuntu 서버 구성</h3>
+
+<ul>
+  <li>아이맥에 OrbStack으로 Linux machine을 만든다.
+    <ul>
+      <li>참고 : <a href="https://docs.orbstack.dev/machines/">Using Linux machines</a></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>orb create <span class="nt">--arch</span> amd64 ubuntu my-ubuntu
+</code></pre></div></div>
+
+<p>아이맥이 인텔맥이라서 아키텍쳐를 <code class="language-plaintext highlighter-rouge">amd64</code>로 지정했다.</p>
+
+<p>Linux machine을 만들고 나면 ssh로 접근 가능하다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>orb <span class="nt">-m</span> my-ubuntu <span class="nt">-u</span> default
+</code></pre></div></div>
+
+<p>기본으로 생성되는 계정 이름이 <code class="language-plaintext highlighter-rouge">default</code>이다. 기본으로 존재하는 <code class="language-plaintext highlighter-rouge">root</code>로 접근해도 된다.</p>
+
+<p>Linux machine을 생성하면 OrbStack이 이 ubuntu에 ssh로 접근할 수 있게 ssh host configuration을 자동으로 만들어줘서 더 적게 타이핑하여 접근할 수 있다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh orb
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">orb</code>가 OrbStack이 만든 ssh host configuration이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ~/.orbstack/ssh/config
+# 이 파일은 ~/.ssh/config 에서 Include 하도록 OrbStack이 설정한다.
+
+Host orb
+  Hostname 127.0.0.1
+  Port 32222
+  # SSH user syntax:
+  #   &lt;container&gt;@orb to connect to &lt;container&gt; as the default user (matching your macOS user)
+  #   &lt;user&gt;@&lt;container&gt;@orb to connect to &lt;container&gt; as &lt;user&gt;
+  # Examples:
+  #   ubuntu@orb: container "ubuntu", user matching your macOS user
+  #   root@fedora@orb: container "fedora", user "root"
+  User default
+
+  # replace or symlink ~/.orbstack/ssh/id_ed25519 file to change the key
+  IdentityFile ~/.orbstack/ssh/id_ed25519
+
+  # only use this key
+  IdentitiesOnly yes
+  ProxyCommand '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper (VM).app/Contents/MacOS/OrbStack Helper (VM)' ssh-proxy-fdpass /Users/hannal
+  ProxyUseFdpass yes
+</code></pre></div></div>
+
+<h3 id="docker-engine-설치">Docker engine 설치</h3>
+
+<ul>
+  <li>Linux machine에 접근하여 docker engine을 설치한다.</li>
+  <li>참고 : <a href="https://docs.docker.com/engine/install/ubuntu/">Install Docker Engine on Ubuntu</a></li>
+</ul>
+
+<h3 id="충돌날만한-불필요한-패키지-제거">충돌날만한 불필요한 패키지 제거</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="k">for </span>pkg <span class="k">in </span>docker.io docker-doc docker-compose podman-docker containerd runc<span class="p">;</span> <span class="k">do </span><span class="nb">sudo </span>apt-get remove <span class="nv">$pkg</span><span class="p">;</span> <span class="k">done</span>
+</code></pre></div></div>
+
+<h3 id="docker-repository-설정">Docker repository 설정</h3>
+
+<p>HTTPS로 repository에서 패키지를 가져와 설치해야 하므로 관련 패키지를 설치한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt update
+<span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>ca-certificates curl gnupg
+</code></pre></div></div>
+
+<p>Docker의 공식 GPG 키를 추가한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo install</span> <span class="nt">-m</span> 0755 <span class="nt">-d</span> /etc/apt/keyrings
+<span class="nv">$ </span>curl <span class="nt">-fsSL</span> https://download.docker.com/linux/ubuntu/gpg | <span class="nb">sudo </span>gpg <span class="nt">--dearmor</span> <span class="nt">-o</span> /etc/apt/keyrings/docker.gpg
+<span class="nv">$ </span><span class="nb">sudo chmod </span>a+r /etc/apt/keyrings/docker.gpg
+</code></pre></div></div>
+
+<p>Docker repository를 등록한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="se">\</span>
+  <span class="s2">"deb [arch="</span><span class="si">$(</span>dpkg <span class="nt">--print-architecture</span><span class="si">)</span><span class="s2">" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu </span><span class="se">\</span><span class="s2">
+  "</span><span class="si">$(</span><span class="nb">.</span> /etc/os-release <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$VERSION_CODENAME</span><span class="s2">"</span><span class="si">)</span><span class="s2">" stable"</span> | <span class="se">\</span>
+  <span class="nb">sudo tee</span> /etc/apt/sources.list.d/docker.list <span class="o">&gt;</span> /dev/null
+
+<span class="c"># repository를 새로 등록했으니 update 해준다.</span>
+<span class="nv">$ </span><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<p>Docker 공식 repository에서 패키지를 가져와 설치한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre></div></div>
+
+<h3 id="docker를-system-서비스로-등록한다">Docker를 system 서비스로 등록한다</h3>
+
+<ul>
+  <li>나는 systemd를 사용하므로 systemd 설정을 했다.</li>
+  <li>참고 : <a href="https://docs.docker.com/config/daemon/remote-access/">Configure remote access for Docker daemon</a></li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>docker.service
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>containerd.service
+</code></pre></div></div>
+
+<h3 id="remote-access되도록-docker-설정">Remote access되도록 docker 설정</h3>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/docker/daemon.json</code>에 설정하거나 systemd에서 docker 서비스 실행에서 인자로 지정하거나. 여기에선 후자 방법으로 했다. daemon 설정이 더 늘어나면 그때 분리하려 한다.</p>
+
+<p>후자 방법은 <code class="language-plaintext highlighter-rouge">/etc/systemd/system/docker.service.d/override.conf</code> 파일을 편집하는 것이다.</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[<span class="n">Service</span>]
+<span class="n">ExecStart</span>=
+<span class="n">ExecStart</span>=/<span class="n">usr</span>/<span class="n">bin</span>/<span class="n">dockerd</span> -<span class="n">H</span> <span class="n">fd</span>:// -<span class="n">H</span> <span class="n">tcp</span>://<span class="m">127</span>.<span class="m">0</span>.<span class="m">0</span>.<span class="m">1</span>:<span class="m">2375</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">-H</code> 옵션은 Docker daemon 소켓이 연결할(사용할) 호스트를 지정한다. <code class="language-plaintext highlighter-rouge">-H fd://</code>는 Unix file descriptor로 호스트 연결을 하는 것이고, <code class="language-plaintext highlighter-rouge">-H tcp://127.0.0.1:2375</code>는 <code class="language-plaintext highlighter-rouge">127.0.0.1:2375</code> TCP IP로 연결하는 것이다. <code class="language-plaintext highlighter-rouge">-H fd://</code>는 기본(default) 옵션이고, TCP로 원격 접근하도록 <code class="language-plaintext highlighter-rouge">-H tcp://...</code> 옵션을 추가한 것이다.</p>
+
+<p>systemd service 스크립트를 수정하지 않고 <code class="language-plaintext highlighter-rouge">override.conf</code>를 수정하는 이유는 자동으로 <code class="language-plaintext highlighter-rouge">override.conf</code>가 포함되기 때문이다. <code class="language-plaintext highlighter-rouge">sudo systemctl status docker.service</code> 명령을 실행해 확인해보자.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>systemctl status docker.service
+
+● docker.service - Docker Application Container Engine
+     Loaded: loaded <span class="o">(</span>/lib/systemd/system/docker.service<span class="p">;</span> enabled<span class="p">;</span> preset: enabled<span class="o">)</span>
+    Drop-In: /etc/systemd/system/docker.service.d
+             └─http-proxy.conf, override.conf
+     Active: active <span class="o">(</span>running<span class="o">)</span> since Sun 2023-08-13 17:54:09 KST<span class="p">;</span> 1h 24min ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 12127 <span class="o">(</span>dockerd<span class="o">)</span>
+      Tasks: 20
+     Memory: 24.6M
+        CPU: 973ms
+     CGroup: /system.slice/docker.service
+             └─12127 /usr/bin/dockerd <span class="nt">-H</span> fd:// <span class="nt">-H</span> tcp://127.0.0.1:2375
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Drop-In</code>에 보면 include한 conf 파일 중 하나인 <code class="language-plaintext highlighter-rouge">override.conf</code>가 명시되어 있다.</p>
+
+<p>또는 <code class="language-plaintext highlighter-rouge">sudo systemctl edit docker.service</code> 명령어로 systemd service script를 직접 열어봐도 확인 가능하다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>systemctl edit docker.service
+
+
+<span class="c">### Editing /etc/systemd/system/docker.service.d/override.conf</span>
+<span class="c">### Anything between here and the comment below will become the new contents of the file</span>
+
+<span class="o">[</span>Service]
+<span class="nv">ExecStart</span><span class="o">=</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/bin/dockerd <span class="nt">-H</span> fd:// <span class="nt">-H</span> tcp://127.0.0.1:2375
+
+<span class="c">### Lines below this comment will be discarded</span>
+...
+</code></pre></div></div>
+
+<p>systemd service script를 변경했으니 systemd가 해당 script를 다시 적재하도록 하고, docker를 재실행한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>systemctl reload docker.service
+
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl restart docker.service
+</code></pre></div></div>
+
+<h2 id="mac-os에-tcp-forwarding-설정">Mac OS에 TCP forwarding 설정</h2>
+
+<p>Docker remote host에 Linux machine을 만들어 docker daemon을 띄웠으니 외부에서 이 host에 접근해 docker host에 접근하도록 TCP 포워딩을 한다. Linux machine에 하는 것이 아니라 Linux machine를 guest OS로 구동한 Host OS인 Mac OS에 설정하는 것이다. 내 경우는 아이맥에 하는 것이다.</p>
+
+<h3 id="원격-로그인-설정">원격 로그인 설정</h3>
+
+<p>[System Settings] - [General] - [Sharing]에 들어간다(한국어로 뭐라고 나오는지는 모르겠다). <code class="language-plaintext highlighter-rouge">Remote Login</code>(원격 로그인?)을 활성화한다. ssh daemon을 사용할지를 설정하는 것이다. 느낌표 아이콘을 클릭하면 ssh로 접근을 허용할 계정을 지정하는 화면이 나온다. 난 <code class="language-plaintext highlighter-rouge">Administrators</code>는 빼고 내 개인 계정을 추가했다.</p>
+
+<p>다른 Host에서 ssh로 접근 가능한지 테스트 해본다. 난 맥 스튜디오에서 아이맥으로 접근하는 것이다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh <span class="nt">-i</span> ~/.ssh/id_rsa hannal@ip-address
+</code></pre></div></div>
+
+<p>잘 된다. 타이핑하기 귀찮으니 ssh host 설정을 해준다.</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ~/.ssh/config 파일
+</span>
+<span class="n">Host</span> <span class="n">imac</span>
+  <span class="n">HostName</span> <span class="n">ip</span>주소
+  <span class="n">User</span> <span class="n">hannal</span>
+  <span class="n">IdentityFile</span> ~/.<span class="n">ssh</span>/<span class="n">id_rsa</span>
+  <span class="n">IdentitiesOnly</span> <span class="n">yes</span>
+  <span class="n">PasswordAuthentication</span> <span class="n">no</span>
+</code></pre></div></div>
+
+<p>이제 호스트명인 <code class="language-plaintext highlighter-rouge">imac</code>으로 간편하게 접근된다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh imac
+</code></pre></div></div>
+
+<p>이 ssh host인 <code class="language-plaintext highlighter-rouge">imac</code>은 ssh 호스트가 필요한 곳엔 어디에서든지 사용할 수 있으므로 설정해두면 편리하다.</p>
+
+<h3 id="ssh-daemon에-tcp-forwarding-허용-설정">SSH daemon에 TCP forwarding 허용 설정</h3>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/ssh/sshd_config</code> 파일을 열어 <code class="language-plaintext highlighter-rouge">AllowTcpForwarding</code>과 <code class="language-plaintext highlighter-rouge">GatewayPorts</code> 설정을 추가하거나 주석을 해제한다.</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AllowTcpForwarding</span> <span class="n">yes</span>
+<span class="n">GatewayPorts</span> <span class="n">yes</span>
+</code></pre></div></div>
+
+<p>이런 설정을 하는 이유는 OrbStack은 보안을 이유로 OrbStack이 관리하는 Linux machine에 원격으로 접근하지 못하기 때문이다. OrbStack이 구동한 localhost에서만 접근 가능하다.</p>
+
+<p>ssh daemon 설정을 변경하면 ssh daemon에 반영되도록 재실행해야 한다. 앞서 [Sharing]에 있던 [Remote Login]을 비활성화했다가 다시 활성화하면 된다.</p>
+
+<h2 id="client-설정">Client 설정</h2>
+
+<p>Client, 즉, 램이 32기가 뿐인 맥 스튜디오에 있는 docker가 아이맥에 있는 docker를 서버로 사용하도록 지정하는 건 대개 두 가지 방법 중 하나로 한다.</p>
+
+<h3 id="docker_host-환경-변수-사용">DOCKER_HOST 환경 변수 사용</h3>
+
+<p>환경변수인 <code class="language-plaintext highlighter-rouge">DOCKER_HOST</code>에 docker가 사용할 host를 지정하는 방법이다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">DOCKER_HOST</span><span class="o">=</span>imac
+<span class="nv">$ </span>docker-compose up
+
+<span class="c"># 또는</span>
+
+<span class="nv">$ DOCKER_HOST</span><span class="o">=</span>imac docker-compose up
+</code></pre></div></div>
+
+<p>하지만 환경변수는 실수하기 십상이니 다른 방법을 사용한다.</p>
+
+<h3 id="docker-context-사용">docker context 사용</h3>
+
+<p>docker에서 제공하는 context 기능을 이용하는 것이다. 먼저 Docker remote host인 imac에 대한 context를 만든다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker context create <span class="nt">--docker</span> <span class="nv">host</span><span class="o">=</span>ssh://imac imac-docker
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">imac-docker</code>는 context 이름이다. 잘 만들어졌는지 확인해본다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker context list
+
+NAME            DESCRIPTION   DOCKER ENDPOINT       ...
+default <span class="k">*</span>       Current ...   unix:///var/run/docker.sock
+imac-docker                   ssh://imac
+orbstack        OrbStack      unix:///Users/hannal/.orbstack/ ...
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">default</code>가 기본으로 존재하고, OrbStack을 설치하면 <code class="language-plaintext highlighter-rouge">orbstack</code>도 생긴다. 이들을 포함하여 방금 만든 <code class="language-plaintext highlighter-rouge">imac-docker</code> context가 목록에 나온다.</p>
+
+<p>docker context는 <code class="language-plaintext highlighter-rouge">use</code> 보조 명령어로 사용한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker context use imac-docker
+
+Current context is now <span class="s2">"imac-docker"</span>
+</code></pre></div></div>
+
+<p>이제 docker는 <code class="language-plaintext highlighter-rouge">imac-docker</code> context에 지정된 Host에 연결한다. 확인해보자. <code class="language-plaintext highlighter-rouge">imac-docker</code> context를 지정한 상태에서 docker container를 구동한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker-compose up
+
+<span class="o">[</span>+] Running 4/0
+ ✔ Container redis      Created                     0.0s
+Attaching to redis
+</code></pre></div></div>
+
+<p>아이맥에 있는 docker에 컨테이너가 구동된 것이라면 맥 스튜디오에 있는 docker에는 구동된 컨테이너가 없을테니 그걸 확인한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker context use default
+
+<span class="nv">$ </span>docker ps
+
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+</code></pre></div></div>
+
+<p>아무 컨테이너도 없다. 아이맥에 있는 docker를 확인해본다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh imac
+
+<span class="nv">$ </span>docker ps
+
+CONTAINER ID   IMAGE                ...
+2b806a9e441e   redis:7              ...
+</code></pre></div></div>
+
+<p>잘 떠있다. 이렇게 5K 해상도 디스플레이가 달린 Docker 서버를 마련했다.</p>
+
+<h2 id="뜻밖의-공지">뜻밖의 공지</h2>
+
+<p>그나저나 오랜만에 블로그에 글 올리려고 jekyll을 실행하니 설치에서 시간 낭비했고, 동작도 느리다. hugo로 이전해보려 했는데, 깔끔하게 이전되지도 않는다.</p>
+
+<p>요즘엔 글을 안 쓰기도 하고, 관리하는 것도 은근히 신경 쓰이니 이 참에 개인 블로그를 닫아야겠다.</p>
+
+<p>2003년부터 운영해온 개인 블로그는 2023년 8월 13일자로 닫습니다. 그동안 한날의 개인 블로그에 와주신 분들께 감사 인사 드립니다.</p>
+
+</div>
+
+<!--
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="hannal">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-like" data-href="http://0.0.0.0:4000/2023/08/use-mac-as-docker-remote-host/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+-->
+<!--
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'hannal';
+  var disqus_url = 'http://0.0.0.0:4000/2023/08/use-mac-as-docker-remote-host/';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+-->
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2021/12/closing/">
+            2021년을 마치며
+            <small>31 Dec 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/12/closing/">
+            2020년을 마치며
+            <small>25 Dec 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/11/nulls-last-ordering-for-django-filter/">
+            django-filter용 NULLS LAST 정렬 필터.
+            <small>13 Nov 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-33535239-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KS9HDB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KS9HDB');</script>
+<!-- End Google Tag Manager -->
+ <!--[if lt IE 9]>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--<![endif]-->
+    </body>
+</html>
