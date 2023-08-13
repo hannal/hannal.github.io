@@ -11,7 +11,7 @@ author:
 author_login: Kay
 author_email: kay@hannal.net
 date: "2023-08-13 21:00:00"
-categories: [essay]
+categories: [devlife]
 tags:
   - docker
   - mac
