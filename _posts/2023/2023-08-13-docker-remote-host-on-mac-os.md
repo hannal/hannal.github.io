@@ -149,7 +149,13 @@ $ sudo systemctl enable containerd.service
 
 `/etc/docker/daemon.json`에 설정하거나 systemd에서 docker 서비스 실행에서 인자로 지정하거나. 여기에선 후자 방법으로 했다. daemon 설정이 더 늘어나면 그때 분리하려 한다.
 
-후자 방법은 `/etc/systemd/system/docker.service.d/override.conf` 파일을 편집하는 것이다.
+후자 방법은 `/etc/systemd/system/docker.service.d/override.conf` 파일을 편집하는 것이다. 이런 [단위 구조는 `edit` 명령을 사용](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units#editing-unit-files)하면 구성된다.
+
+```bash
+$ sudo systemctl edit docker.service
+```
+
+이제 `/etc/systemd/system/docker.service.d` 디렉터리가 생기고 그 안에 `override.conf` 파일이 만들어지는데, 그곳에 `dockerd` 실행 유닛을 작성한다.
 
 ```conf
 [Service]
@@ -180,23 +186,6 @@ TriggeredBy: ● docker.socket
 ```
 
 `Drop-In`에 보면 include한 conf 파일 중 하나인 `override.conf`가 명시되어 있다.
-
-또는 `sudo systemctl edit docker.service` 명령어로 systemd service script를 직접 열어봐도 확인 가능하다.
-
-```bash
-$ sudo systemctl edit docker.service
-
-
-### Editing /etc/systemd/system/docker.service.d/override.conf
-### Anything between here and the comment below will become the new contents of the file
-
-[Service]
-ExecStart=
-ExecStart=/usr/bin/dockerd -H fd:// -H tcp://127.0.0.1:2375
-
-### Lines below this comment will be discarded
-...
-```
 
 systemd service script를 변경했으니 systemd가 해당 script를 다시 적재하도록 하고, docker를 재실행한다.
 
